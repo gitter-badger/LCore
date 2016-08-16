@@ -1,5 +1,4 @@
 using System;
-using FluentAssertions;
 using LCore.Extensions;
 using LCore.LUnit;
 using LCore.LUnit.Assert;
@@ -19,31 +18,31 @@ namespace LUnit_Tests.LCore.LUnit.Assert
 
         private readonly Action<object> _TestFail2 = o =>
         {
-            o.Should().Be("abc");
+            o.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Action<object, object> _TestFail3 = (o1, o2) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Action<object, object, object> _TestFail4 = (o1, o2, o3) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Action<object, object, object, object> _TestFail5 = (o1, o2, o3, o4) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
-            o4.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
+            o4.ShouldBe("abc");
             throw new ArgumentException();
         };
 
@@ -51,87 +50,87 @@ namespace LUnit_Tests.LCore.LUnit.Assert
 
         private readonly Func<object, string> _TestFailFunc2 = o =>
         {
-            o.Should().Be("abc");
+            o.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Func<object, object, string> _TestFailFunc3 = (o1, o2) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Func<object, object, object, string> _TestFailFunc4 = (o1, o2, o3) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Func<object, object, object, object, string> _TestFailFunc5 = (o1, o2, o3, o4) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
-            o4.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
+            o4.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Action _Test = () => { };
-        private readonly Action<object> _Test2 = o => { o.Should().Be("abc"); };
+        private readonly Action<object> _Test2 = o => { o.ShouldBe("abc"); };
 
         private readonly Action<object, object> _Test3 = (o1, o2) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
         };
 
         private readonly Action<object, object, object> _Test4 = (o1, o2, o3) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
         };
 
         private readonly Action<object, object, object, object> _Test5 = (o1, o2, o3, o4) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
-            o4.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
+            o4.ShouldBe("abc");
         };
 
         private readonly Func<string> _TestFunc = () => "abc";
 
         private readonly Func<object, string> _TestFunc2 = o =>
         {
-            o.Should().Be("abc");
+            o.ShouldBe("abc");
             return "abc";
         };
 
         private readonly Func<object, object, string> _TestFunc3 = (o1, o2) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
             return "abc";
         };
 
         private readonly Func<object, object, object, string> _TestFunc4 = (o1, o2, o3) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
             return "abc";
         };
 
         private readonly Func<object, object, object, object, string> _TestFunc5 = (o1, o2, o3, o4) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
-            o4.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
+            o4.ShouldBe("abc");
             return "abc";
         };
 

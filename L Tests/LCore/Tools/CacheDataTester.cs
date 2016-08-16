@@ -40,20 +40,20 @@ namespace L_Tests.LCore.Tools
 
             /////////////////////////////////////////////////
 
-            Test("a").Should().Be("a6");
-            Test("a").Should().Be("a6");
-            Test("a").Should().Be("a6");
-            Test("a").Should().Be("a6");
+            Test("a").ShouldBe("a6");
+            Test("a").ShouldBe("a6");
+            Test("a").ShouldBe("a6");
+            Test("a").ShouldBe("a6");
 
             Executed = false;
-            Test("b").Should().Be("b6");
+            Test("b").ShouldBe("b6");
 
             long Total = 0;
             var PercentagesSaved = new List<double>();
 
             Dictionary<string, CacheData> Cache = L.Logic.GetCacheData("testcache");
 
-            Cache.Values.Count.Should().Be(expected: 2);
+            Cache.Values.Count.ShouldBe(Compare: 2);
 
             foreach (var CacheValue in Cache.Values.List())
                 {

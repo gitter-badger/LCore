@@ -34,9 +34,9 @@ namespace L_Tests.LCore.Extensions
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt))]
     public partial class EnumerableExtTester : XUnitOutputTester, IDisposable
         {
-        public EnumerableExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        public EnumerableExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}
 
-        public void Dispose() { }
+        public void Dispose() {}
 
 
         [Fact]
@@ -55,28 +55,28 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.All) + "(IEnumerable`1<T>, Func`3<Int32, T, Boolean>) => Boolean")]
-        public void Test_All_0()
+        public void All_0()
             {
-            int[] Test = { 1, 5, 7, 3, 4, 7, 4, 7, 10 };
+            int[] Test = {1, 5, 7, 3, 4, 7, 4, 7, 10};
 
-            ((IEnumerable)Test).All((Func<object, bool>)(o => (int)o < 15)).ShouldBeTrue();
-            ((IEnumerable)Test).All((Func<object, bool>)(o => (int)o < 10)).ShouldBeFalse();
+            ((IEnumerable) Test).All((Func<object, bool>) (o => (int) o < 15)).ShouldBeTrue();
+            ((IEnumerable) Test).All((Func<object, bool>) (o => (int) o < 10)).ShouldBeFalse();
 
             int Count = 0;
 
-            ((IEnumerable)Test).All((Func<int, object, bool>)((i, o) =>
-              {
-                  i.Should().Be(Count);
-                  Count++;
-                  return (int)o < 15;
-              })).ShouldBeTrue();
+            ((IEnumerable) Test).All((Func<int, object, bool>) ((i, o) =>
+                {
+                i.ShouldBe(Count);
+                Count++;
+                return (int) o < 15;
+                })).ShouldBeTrue();
             Count = 0;
-            ((IEnumerable)Test).All((Func<int, object, bool>)((i, o) =>
-              {
-                  i.Should().Be(Count);
-                  Count++;
-                  return (int)o < 10;
-              })).ShouldBeFalse();
+            ((IEnumerable) Test).All((Func<int, object, bool>) ((i, o) =>
+                {
+                i.ShouldBe(Count);
+                Count++;
+                return (int) o < 10;
+                })).ShouldBeFalse();
 
             Test.All((i1, i2) => i2 < 11).ShouldBeTrue();
             Test.All((i1, i2) => i2 < 10).ShouldBeFalse();
@@ -84,14 +84,14 @@ namespace L_Tests.LCore.Extensions
             Test.All((i, i2) => i2 < 15).ShouldBeTrue();
             Test.All((i, i2) => i2 < 10).ShouldBeFalse();
 
-            ((IEnumerable)Test).All<int>((i, o) => o < 15).ShouldBeTrue();
-            ((IEnumerable)Test).All<int>((i, o) => o < 10).ShouldBeFalse();
+            ((IEnumerable) Test).All<int>((i, o) => o < 15).ShouldBeTrue();
+            ((IEnumerable) Test).All<int>((i, o) => o < 10).ShouldBeFalse();
 
-            ((IEnumerable<int>)Test).All<int>((i, o) => o < 15).ShouldBeTrue();
-            ((IEnumerable<int>)Test).All<int>((i, o) => o < 10).ShouldBeFalse();
+            ((IEnumerable<int>) Test).All<int>((i, o) => o < 15).ShouldBeTrue();
+            ((IEnumerable<int>) Test).All<int>((i, o) => o < 10).ShouldBeFalse();
 
-            ((IEnumerable<int>)Test).All<int>(o => o < 15).ShouldBeTrue();
-            ((IEnumerable<int>)Test).All<int>(o => o < 10).ShouldBeFalse();
+            ((IEnumerable<int>) Test).All<int>(o => o < 15).ShouldBeTrue();
+            ((IEnumerable<int>) Test).All<int>(o => o < 10).ShouldBeFalse();
             }
 
 
@@ -99,10 +99,10 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Append) + "(T[], T[]) => T[]")]
-        public void Test_Append()
+        public void Append()
             {
-            int[] Test1 = { 1, 5, 9, 5, 3 };
-            int[] Test2 = { 55, 55, 55, 55 };
+            int[] Test1 = {1, 5, 9, 5, 3};
+            int[] Test2 = {55, 55, 55, 55};
 
 
             Test1.Append(Test2).Should().Equal(1, 5, 9, 5, 3, 55, 55, 55, 55);
@@ -123,23 +123,23 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Array) + "(IEnumerable`1<T>) => U[]")]
-        public void Test_Array()
+        public void Array()
             {
             // ReSharper disable ArgumentsStyleLiteral
-            List<int> Test1 = new List<int> { 1, 5, 9, 5, 3 };
-            List<object> Test2 = new List<object> { 1, 5, 9, 5, 3, "s" };
+            List<int> Test1 = new List<int> {1, 5, 9, 5, 3};
+            List<object> Test2 = new List<object> {1, 5, 9, 5, 3, "s"};
             // ReSharper restore ArgumentsStyleLiteral
 
-            ((IEnumerable)Test1).Array().Should().Equal(1, 5, 9, 5, 3);
-            ((IEnumerable)Test2).Array().Should().Equal(1, 5, 9, 5, 3, "s");
+            ((IEnumerable) Test1).Array().Should().Equal(1, 5, 9, 5, 3);
+            ((IEnumerable) Test2).Array().Should().Equal(1, 5, 9, 5, 3, "s");
 
-            ((IEnumerable<int>)Test1).Array().Should().Equal(1, 5, 9, 5, 3);
-            ((IEnumerable<object>)Test2).Array().Should().Equal(1, 5, 9, 5, 3, "s");
+            ((IEnumerable<int>) Test1).Array().Should().Equal(1, 5, 9, 5, 3);
+            ((IEnumerable<object>) Test2).Array().Should().Equal(1, 5, 9, 5, 3, "s");
 
-            ((IEnumerable)Test1).Array<int>().Should().Equal(1, 5, 9, 5, 3);
-            ((IEnumerable)Test2).Array<int>().Should().Equal(1, 5, 9, 5, 3);
+            ((IEnumerable) Test1).Array<int>().Should().Equal(1, 5, 9, 5, 3);
+            ((IEnumerable) Test2).Array<int>().Should().Equal(1, 5, 9, 5, 3);
 
-            ((IEnumerable<object>)Test2).Array<object, IComparable>().Should().Equal(1, 5, 9, 5, 3, "s");
+            ((IEnumerable<object>) Test2).Array<object, IComparable>().Should().Equal(1, 5, 9, 5, 3, "s");
             }
 
 
@@ -152,7 +152,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Collect) + "(Func`2<Int32, T>, Int32) => List`1<T>")]
-        public void Test_CollectFunc()
+        public void CollectFunc()
             {
             int Counter = 0;
             Func<int> Func = () => ++Counter;
@@ -167,8 +167,8 @@ namespace L_Tests.LCore.Extensions
 
             Func<int, int> Func2 = i =>
                 {
-                    Counter += i;
-                    return Counter;
+                Counter += i;
+                return Counter;
                 };
 
             Func2.Collect(Count: 0).Should().Equal();
@@ -191,20 +191,20 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.CollectStr) + "(U, Func`3<Int32, T, String>) => String")]
-        public void Test_CollectStr()
+        public void CollectStr()
             {
-            Func<char, char> Modifier = Char => (char)(Char + 1);
+            Func<char, char> Modifier = Char => (char) (Char + 1);
             Func<int, int, string> Modifier2 = (i, o) => $"{o}-";
 
 
-            "abc".CollectStr(Modifier).Should().Be("bcd");
+            "abc".CollectStr(Modifier).ShouldBe("bcd");
 
 
-            new[] { 5, 1, 77, 2, 7, 3 }.CollectStr(Modifier2).Should().Be("5-1-77-2-7-3-");
-            new[] { 5, 1, 77, 2, 7, 3 }.CollectStr(Func: null).Should().Be("5177273");
+            new[] {5, 1, 77, 2, 7, 3}.CollectStr(Modifier2).ShouldBe("5-1-77-2-7-3-");
+            new[] {5, 1, 77, 2, 7, 3}.CollectStr(Func: null).ShouldBe("5177273");
 
-            new[] { 5, 1, 77, 2, 7, 3 }.List().CollectStr(Modifier2).Should().Be("5-1-77-2-7-3-");
-            new[] { 5, 1, 77, 2, 7, 3 }.List().CollectStr(Func: null).Should().Be("5177273");
+            new[] {5, 1, 77, 2, 7, 3}.List().CollectStr(Modifier2).ShouldBe("5-1-77-2-7-3-");
+            new[] {5, 1, 77, 2, 7, 3}.List().CollectStr(Func: null).ShouldBe("5177273");
             }
 
         [Fact]
@@ -220,15 +220,15 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Combine) + "(IEnumerable`1<T>, Char) => String")]
-        public void Test_CombineString()
+        public void CombineString()
             {
-            IConvertible[] List = { 123, "abc", 5.5f, null, 'a' };
+            IConvertible[] List = {123, "abc", 5.5f, null, 'a'};
 
-            List.Combine("--").Should().Be("123--abc--5.5--a");
-            List.Combine(SeparateChar: ',').Should().Be("123,abc,5.5,a");
+            List.Combine("--").ShouldBe("123--abc--5.5--a");
+            List.Combine(SeparateChar: ',').ShouldBe("123,abc,5.5,a");
 
-            List.Combine(SeparateStr: null).Should().Be("123abc5.5a");
-            List.Combine("").Should().Be("123abc5.5a");
+            List.Combine(SeparateStr: null).ShouldBe("123abc5.5a");
+            List.Combine("").ShouldBe("123abc5.5a");
             }
 
         [Fact]
@@ -256,29 +256,29 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Convert) + "(IEnumerable`1<T>, Func`3<Int32, T, U>) => List`1<U>")]
-        public void Test_Convert()
+        public void Convert()
             {
-            object[] List = { 123, "abc", 5.5f, null, 'a' };
+            object[] List = {123, "abc", 5.5f, null, 'a'};
 
             Func<object, object> Converter = o => o?.ToString();
 
-            ((IEnumerable)List).Convert(Converter).Should().Equal("123", "abc", "5.5", "a");
+            ((IEnumerable) List).Convert(Converter).Should().Equal("123", "abc", "5.5", "a");
 
-            ((IEnumerable)List).Convert((Func<object, object>)null).Should().Equal(123, "abc", 5.5f, 'a');
+            ((IEnumerable) List).Convert((Func<object, object>) null).Should().Equal(123, "abc", 5.5f, 'a');
 
             Func<object, string> Converter2 = o => o?.ToString();
 
-            ((IEnumerable<object>)List).Convert(Converter2).Should().Equal("123", "abc", "5.5", "a");
+            ((IEnumerable<object>) List).Convert(Converter2).Should().Equal("123", "abc", "5.5", "a");
 
-            ((IEnumerable<object>)List).Convert((Func<object, string>)null).Should().Equal("abc");
+            ((IEnumerable<object>) List).Convert((Func<object, string>) null).Should().Equal("abc");
 
-            ((object[])List).Convert(Converter2).Should().Equal("123", "abc", "5.5", null, "a");
+            ((object[]) List).Convert(Converter2).Should().Equal("123", "abc", "5.5", null, "a");
 
-            ((object[])List).Convert((Func<object, string>)null).Should().Equal(null, "abc", null, null, null);
+            ((object[]) List).Convert((Func<object, string>) null).Should().Equal(null, "abc", null, null, null);
 
             List.List().Convert(Converter2).Should().Equal("123", "abc", "5.5", "a");
 
-            List.List().Convert((Func<object, string>)null).Should().Equal("abc");
+            List.List().Convert((Func<object, string>) null).Should().Equal("abc");
             }
 
         [Fact]
@@ -297,35 +297,35 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.ConvertAll) + "(List`1<T>, Func`2<T, IEnumerable`1<U>>) => List`1<U>")]
-        public void Test_ConvertAll()
+        public void ConvertAll()
             {
-            object[] List = { 123, "abc", 5.5f, null, 'a' };
+            object[] List = {123, "abc", 5.5f, null, 'a'};
 
-            Func<object, string[]> Converter = o => new[] { o?.ToString(), o?.ToString() };
+            Func<object, string[]> Converter = o => new[] {o?.ToString(), o?.ToString()};
 
-            ((IEnumerable)List).ConvertAll(Converter).Should().Equal(
-                new List<string> { "123", "123", "abc", "abc", "5.5", "5.5", "a", "a" });
+            ((IEnumerable) List).ConvertAll(Converter).Should().Equal(
+                new List<string> {"123", "123", "abc", "abc", "5.5", "5.5", "a", "a"});
 
-            ((IEnumerable<object>)List).ConvertAll<object, string>(Converter).Should().Equal(
-                new List<string> { "123", "123", "abc", "abc", "5.5", "5.5", "a", "a" });
+            ((IEnumerable<object>) List).ConvertAll<object, string>(Converter).Should().Equal(
+                new List<string> {"123", "123", "abc", "abc", "5.5", "5.5", "a", "a"});
             }
 
         [Fact]
-        public void Test_ConvertAll_1()
+        public void ConvertAll_1()
             {
-            object[] List = { 123, "abc", 5.5f, null, 'a' };
+            object[] List = {123, "abc", 5.5f, null, 'a'};
 
-            Func<object, IEnumerable<object>> Converter = o => new object[] { o?.ToString(), o?.ToString() };
+            Func<object, IEnumerable<object>> Converter = o => new object[] {o?.ToString(), o?.ToString()};
 
-            ((IEnumerable)List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
+            ((IEnumerable) List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
 
-            ((IEnumerable)null).ConvertAll(Converter).Should().Equal();
-
-
-            ((IEnumerable<object>)List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
+            ((IEnumerable) null).ConvertAll(Converter).Should().Equal();
 
 
-            ((object[])List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
+            ((IEnumerable<object>) List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
+
+
+            ((object[]) List).ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
 
 
             List.List().ConvertAll(Converter).Should().Equal("123", "123", "abc", "abc", "5.5", "5.5", "a", "a");
@@ -342,30 +342,30 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Count) + "(IEnumerable`1<T>, Func`2<T, Boolean>) => UInt32")]
-        public void Test_Count_T()
+        public void Count_T()
             {
-            "55555".Count().Should().Be(expected: 5);
+            "55555".Count().ShouldBe(Compare: 5u);
 
-            new object[] { 1, 2, 3, 4, 5 }.Count().Should().Be(expected: 5);
+            new object[] {1, 2, 3, 4, 5}.Count().ShouldBe(Compare: 5u);
 
             // ReSharper disable ArgumentsStyleLiteral
-            new List<object> { 1, 2, 3, 4, 5 }.Count().Should().Be(expected: 5);
+            new List<object> {1, 2, 3, 4, 5}.Count().ShouldBe(Compare: 5u);
             // ReSharper restore ArgumentsStyleLiteral
 
             var Bad = new BadCollection(SyncRoot: null, IsSynchronized: false);
 
-            Bad.Count().Should().Be(expected: 0);
+            Bad.Count().ShouldBe(Compare: 0u);
             }
 
         [Fact]
-        public void Test_Count_Object()
+        public void Count_Object()
             {
-            string[] Test = { "a", "a", "a", "a", "b" };
+            string[] Test = {"a", "a", "a", "a", "b"};
 
-            Test.Count((string)null).Should().Be(expected: 0);
-            Test.Count("a").Should().Be(expected: 4);
-            Test.Count("b").Should().Be(expected: 1);
-            Test.Count("c").Should().Be(expected: 0);
+            Test.Count((string) null).ShouldBe(Compare: 0u);
+            Test.Count("a").ShouldBe(Compare: 4u);
+            Test.Count("b").ShouldBe(Compare: 1u);
+            Test.Count("c").ShouldBe(Compare: 0u);
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -377,53 +377,53 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Cycle) + "(IEnumerable`1<T>, Func`2<T, Boolean>)")]
-        public void Test_Cycle()
+        public void Cycle()
             {
-            string[] Test = { "a", "a", "a", "a", null, "a" };
+            string[] Test = {"a", "a", "a", "a", null, "a"};
 
             int Count = 0;
 
             // Test IEnumerable
-            ((IEnumerable)Test).Cycle(Str =>
-               {
-                   Count++;
-                   return Str != null;
-               });
+            ((IEnumerable) Test).Cycle(Str =>
+                {
+                Count++;
+                return Str != null;
+                });
 
-            Count.Should().Be(expected: 5);
+            Count.ShouldBe(Compare: 5);
 
             // Test IEnumerable<T>
             Count = 0;
 
             Test.Cycle(Str =>
                 {
-                    Count++;
-                    return Str != null;
+                Count++;
+                return Str != null;
                 });
 
-            Count.Should().Be(expected: 5);
+            Count.ShouldBe(Compare: 5);
 
             // Test multiple cycles
             Count = 0;
 
-            ((IEnumerable)Test).Cycle(Str =>
-               {
-                   Count++;
-                   return Count < 7 || Str != null;
-               });
+            ((IEnumerable) Test).Cycle(Str =>
+                {
+                Count++;
+                return Count < 7 || Str != null;
+                });
 
-            Count.Should().Be(expected: 11);
+            Count.ShouldBe(Compare: 11);
 
             // Test multiple cycles
             Count = 0;
 
             Test.Cycle(Str =>
                 {
-                    Count++;
-                    return Count < 7 || Str != null;
+                Count++;
+                return Count < 7 || Str != null;
                 });
 
-            Count.Should().Be(expected: 11);
+            Count.ShouldBe(Compare: 11);
 
             // Exceptions are not hidden.
             L.A(() => Test.Cycle(Str => { throw new Exception(); })).ShouldFail();
@@ -450,26 +450,26 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Each) + "(Action`1<T>, IEnumerable`1<T>)")]
-        public void Test_EachObject()
+        public void EachObject()
             {
-            string[] Test = { "a", "b", "c" };
+            string[] Test = {"a", "b", "c"};
             string Result = "";
 
             L.A<string>(Str => { Result += Str; }).Each(Test);
 
-            Result.Should().Be("abc");
+            Result.ShouldBe("abc");
 
-            ((Action<string>)null).Each(Test);
+            ((Action<string>) null).Each(Test);
 
             Action<string> Action = Str => { Result += Str; };
 
             L.A<string>(Action).Each(Obj: null);
 
-            Result.Should().Be("abc");
+            Result.ShouldBe("abc");
 
             L.A<string>(Action).Each(Test);
 
-            Result.Should().Be("abcabc");
+            Result.ShouldBe("abcabc");
 
             // Exceptions are not hidden.
             L.A(() =>
@@ -481,24 +481,24 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Equivalent) + "(IEnumerable, IEnumerable) => Boolean")]
-        public void Test_Equivalent()
+        public void Equivalent()
             {
-            int[] Test1 = { 5, 8, 3, 7, 84, 356, 1 };
+            int[] Test1 = {5, 8, 3, 7, 84, 356, 1};
             int[] Test2 = Test1.Array();
-            int[] Test3 = { 5, 8, 3, 7, 84, 356, 2 };
+            int[] Test3 = {5, 8, 3, 7, 84, 356, 2};
 
             Test1.Equivalent(Test2).ShouldBeTrue();
             Test1.Equivalent(Test3).ShouldBeFalse();
 
-            ((int[])null).Equivalent(Test2).ShouldBeFalse();
-            Test1.Equivalent((int[])null).ShouldBeFalse();
-            ((int[])null).Equivalent((int[])null).ShouldBeTrue();
+            ((int[]) null).Equivalent(Test2).ShouldBeFalse();
+            Test1.Equivalent((int[]) null).ShouldBeFalse();
+            ((int[]) null).Equivalent((int[]) null).ShouldBeTrue();
 
 
             "abc".Equivalent("abc").ShouldBeTrue();
             "abc".Equivalent("abcd").ShouldBeFalse();
-            ((string)null).Equivalent("abcd").ShouldBeFalse();
-            "abc".Equivalent((string)null).ShouldBeFalse();
+            ((string) null).Equivalent("abcd").ShouldBeFalse();
+            "abc".Equivalent((string) null).ShouldBeFalse();
             }
 
         [Fact]
@@ -508,13 +508,13 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Fill) + "(T[], Func`2<T, T>) => T[]")]
-        public void Test_Fill()
+        public void Fill()
             {
             int[] Test = new int[5];
 
             Test.Fill(Obj: 1).Should().Equal(1, 1, 1, 1, 1);
 
-            ((int[])null).Fill(Obj: 1).Should().Equal();
+            ((int[]) null).Fill(Obj: 1).Should().Equal();
 
             new object[5].Fill(Filler: null)
                 .Should().Equal();
@@ -524,16 +524,16 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Fill) + "(List`1<T>, T) => List`1<T>")]
-        public void Test_Fill_List()
+        public void Fill_List()
             {
             int[] Test = new int[5];
 
             Test.List().Fill(Obj: 1).Should().Equal(1, 1, 1, 1, 1);
 
-            ((List<int>)null).Fill(Obj: 1).Should().Equal();
+            ((List<int>) null).Fill(Obj: 1).Should().Equal();
 
             // ReSharper disable ArgumentsStyleLiteral
-            new List<object> { 1, 2, 3, 4, 5 }.Fill(Obj: null)
+            new List<object> {1, 2, 3, 4, 5}.Fill(Obj: null)
                 .Should().Equal();
             // ReSharper restore ArgumentsStyleLiteral
             }
@@ -548,18 +548,18 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Filter) + "(List`1<T>, Boolean) => List`1<U>")]
-        public void Test_Filter()
+        public void Filter()
             {
-            object[] Test = { 0, 5, "abc", "123", 'a', 'b', null };
+            object[] Test = {0, 5, "abc", "123", 'a', 'b', null};
 
 
-            ((IEnumerable)Test).Filter<int>()
+            ((IEnumerable) Test).Filter<int>()
                 .Should().Equal(0, 5);
-            ((IEnumerable)Test).Filter<string>()
+            ((IEnumerable) Test).Filter<string>()
                 .Should().Equal("abc", "123");
-            ((IEnumerable)Test).Filter<object>()
+            ((IEnumerable) Test).Filter<object>()
                 .Should().Equal(0, 5, "abc", "123", 'a', 'b');
-            ((IEnumerable)Test).Filter<char>()
+            ((IEnumerable) Test).Filter<char>()
                 .Should().Equal('a', 'b');
 
 
@@ -596,36 +596,36 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.First) + "(T[], UInt32, Func`2<T, Boolean>) => T[]")]
-        public void Test_First()
+        public void First()
             {
-            int[] Test = { 5, 21436, 7, 2, 2, 253 };
+            int[] Test = {5, 21436, 7, 2, 2, 253};
 
-            Test.First().Should().Be(expected: 5);
-            Test.First(Condition: null).Should().Be(expected: 5);
-            Test.First(i => false).Should().Be(default(int));
-            Test.First(i => true).Should().Be(expected: 5);
-            Test.First(i => i > 100).Should().Be(expected: 21436);
-            Test.First(i => i > 100 && i < 1000).Should().Be(expected: 253);
-            Test.First(i => i > 1000).Should().Be(expected: 21436);
+            Test.First().ShouldBe(Compare: 5);
+            Test.First(Condition: null).ShouldBe(Compare: 5);
+            Test.First(i => false).ShouldBe(default(int));
+            Test.First(i => true).ShouldBe(Compare: 5);
+            Test.First(i => i > 100).ShouldBe(Compare: 21436);
+            Test.First(i => i > 100 && i < 1000).ShouldBe(Compare: 253);
+            Test.First(i => i > 1000).ShouldBe(Compare: 21436);
 
-            Test.List().First().Should().Be(expected: 5);
-            Test.List().First(Condition: null).Should().Be(expected: 5);
-            Test.List().First(i => false).Should().Be(default(int));
-            Test.List().First(i => true).Should().Be(expected: 5);
-            Test.List().First(i => i > 100).Should().Be(expected: 21436);
-            Test.List().First(i => i > 100 && i < 1000).Should().Be(expected: 253);
-            Test.List().First(i => i > 1000).Should().Be(expected: 21436);
+            Test.List().First().ShouldBe(Compare: 5);
+            Test.List().First(Condition: null).ShouldBe(Compare: 5);
+            Test.List().First(i => false).ShouldBe(default(int));
+            Test.List().First(i => true).ShouldBe(Compare: 5);
+            Test.List().First(i => i > 100).ShouldBe(Compare: 21436);
+            Test.List().First(i => i > 100 && i < 1000).ShouldBe(Compare: 253);
+            Test.List().First(i => i > 1000).ShouldBe(Compare: 21436);
 
-            ((IEnumerable)Test).First<int>().Should().Be(expected: 5);
-            ((IEnumerable)Test).First<int?>().Should().Be(expected: 5);
-            ((IEnumerable)Test).First<int>(Condition: null).Should().Be(expected: 5);
-            ((IEnumerable)Test).First<int>(i => false).Should().Be(default(int));
-            ((IEnumerable)Test).First<int?>((Func<int?, bool>)null).Should().Be(expected: 5);
-            ((IEnumerable)Test).First<int?>(i => false).Should().Be((int?)null);
-            ((IEnumerable)Test).First<int>(i => true).Should().Be(expected: 5);
-            ((IEnumerable)Test).First<int>(i => i > 100).Should().Be(expected: 21436);
-            ((IEnumerable)Test).First<int>(i => i > 100 && i < 1000).Should().Be(expected: 253);
-            ((IEnumerable)Test).First<int>(i => i > 1000).Should().Be(expected: 21436);
+            ((IEnumerable) Test).First<int>().ShouldBe(Compare: 5);
+            ((IEnumerable) Test).First<int?>().ShouldBe(Compare: 5);
+            ((IEnumerable) Test).First<int>(Condition: null).ShouldBe(Compare: 5);
+            ((IEnumerable) Test).First<int>(i => false).ShouldBe(default(int));
+            ((IEnumerable) Test).First<int?>((Func<int?, bool>) null).ShouldBe(Compare: 5);
+            ((IEnumerable) Test).First<int?>(i => false).ShouldBe((int?) null);
+            ((IEnumerable) Test).First<int>(i => true).ShouldBe(Compare: 5);
+            ((IEnumerable) Test).First<int>(i => i > 100).ShouldBe(Compare: 21436);
+            ((IEnumerable) Test).First<int>(i => i > 100 && i < 1000).ShouldBe(Compare: 253);
+            ((IEnumerable) Test).First<int>(i => i > 1000).ShouldBe(Compare: 21436);
             }
 
         [Fact]
@@ -644,9 +644,9 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.First) + "(IEnumerable, UInt32, Func`2<T, Boolean>) => List`1<T>")]
-        public void Test_FirstMulti()
+        public void FirstMulti()
             {
-            int[] Test = { 5, 21436, 7, 2, 2, 253 };
+            int[] Test = {5, 21436, 7, 2, 2, 253};
 
             Func<int, bool> True = i => true;
             Func<int, bool> False = i => false;
@@ -689,43 +689,43 @@ namespace L_Tests.LCore.Extensions
             Test.List().First(Count: 2u, Condition: i => i > 100 && i < 1000).Should().Equal(253);
             Test.List().First(Count: 2u, Condition: i => i > 1000).Should().Equal(21436);
 
-            ((IEnumerable)Test).First<int>(Count: 2, Condition: null).Should().Equal(5, 21436);
-            ((IEnumerable)Test).First<int>(-5, True).Should().Equal();
-            ((IEnumerable)Test).First<int>(Count: 0, Condition: True).Should().Equal();
-            ((IEnumerable)Test).First<int>(Count: 2, Condition: False).Should().Equal();
-            ((IEnumerable)Test).First<int>(Count: 2, Condition: True).Should().Equal(5, 21436);
-            ((IEnumerable)Test).First<int>(Count: 5, Condition: i => i > 2).Should().Equal(5, 21436, 7, 253);
-            ((IEnumerable)Test).First<int>(Count: 2, Condition: i => i > 100).Should().Equal(21436, 253);
-            ((IEnumerable)Test).First<int>(Count: 2, Condition: i => i > 100 && i < 1000).Should().Equal(253);
-            ((IEnumerable)Test).First<int>(Count: 2, Condition: i => i > 1000).Should().Equal(21436);
+            ((IEnumerable) Test).First<int>(Count: 2, Condition: null).Should().Equal(5, 21436);
+            ((IEnumerable) Test).First<int>(-5, True).Should().Equal();
+            ((IEnumerable) Test).First<int>(Count: 0, Condition: True).Should().Equal();
+            ((IEnumerable) Test).First<int>(Count: 2, Condition: False).Should().Equal();
+            ((IEnumerable) Test).First<int>(Count: 2, Condition: True).Should().Equal(5, 21436);
+            ((IEnumerable) Test).First<int>(Count: 5, Condition: i => i > 2).Should().Equal(5, 21436, 7, 253);
+            ((IEnumerable) Test).First<int>(Count: 2, Condition: i => i > 100).Should().Equal(21436, 253);
+            ((IEnumerable) Test).First<int>(Count: 2, Condition: i => i > 100 && i < 1000).Should().Equal(253);
+            ((IEnumerable) Test).First<int>(Count: 2, Condition: i => i > 1000).Should().Equal(21436);
 
-            ((IEnumerable)Test).First<int>(Count: 2u, Condition: null).Should().Equal(5, 21436);
-            ((IEnumerable)Test).First<int>(Count: 0u, Condition: True).Should().Equal();
-            ((IEnumerable)Test).First<int>(Count: 2u, Condition: False).Should().Equal();
-            ((IEnumerable)Test).First<int>(Count: 2u, Condition: True).Should().Equal(5, 21436);
-            ((IEnumerable)Test).First<int>(Count: 5u, Condition: i => i > 2).Should().Equal(5, 21436, 7, 253);
-            ((IEnumerable)Test).First<int>(Count: 2u, Condition: i => i > 100).Should().Equal(21436, 253);
-            ((IEnumerable)Test).First<int>(Count: 2u, Condition: i => i > 100 && i < 1000).Should().Equal(253);
-            ((IEnumerable)Test).First<int>(Count: 2u, Condition: i => i > 1000).Should().Equal(21436);
+            ((IEnumerable) Test).First<int>(Count: 2u, Condition: null).Should().Equal(5, 21436);
+            ((IEnumerable) Test).First<int>(Count: 0u, Condition: True).Should().Equal();
+            ((IEnumerable) Test).First<int>(Count: 2u, Condition: False).Should().Equal();
+            ((IEnumerable) Test).First<int>(Count: 2u, Condition: True).Should().Equal(5, 21436);
+            ((IEnumerable) Test).First<int>(Count: 5u, Condition: i => i > 2).Should().Equal(5, 21436, 7, 253);
+            ((IEnumerable) Test).First<int>(Count: 2u, Condition: i => i > 100).Should().Equal(21436, 253);
+            ((IEnumerable) Test).First<int>(Count: 2u, Condition: i => i > 100 && i < 1000).Should().Equal(253);
+            ((IEnumerable) Test).First<int>(Count: 2u, Condition: i => i > 1000).Should().Equal(21436);
             }
 
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.First) + "(IEnumerable, T) => T")]
-        public void Test_FirstMatch()
+        public void FirstMatch()
             {
-            int[] Test = { 5, 21436, 7, 2, 2, 253 };
+            int[] Test = {5, 21436, 7, 2, 2, 253};
 
-            ((IEnumerable)Test).First(Object: 5).Should().Be(expected: 5);
-            ((IEnumerable)Test).First(Object: 10).Should().Be(default(int));
+            ((IEnumerable) Test).First(Object: 5).ShouldBe(Compare: 5);
+            ((IEnumerable) Test).First(Object: 10).ShouldBe(default(int));
             }
 
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Flatten) + "(IEnumerable) => List`1<T>")]
-        public void Test_Flatten()
+        public void Flatten()
             {
             object[] Test =
                 {
@@ -742,7 +742,7 @@ namespace L_Tests.LCore.Extensions
                 };
 
             // ReSharper disable ArgumentsStyleLiteral
-            Test.Flatten<object>().ToS().Should().Be(new List<object> { "a", 1, 5, 7, 3, 5, 7, 0, 3, 5, 7, 3 }.ToS());
+            Test.Flatten<object>().ToS().ShouldBe(new List<object> {"a", 1, 5, 7, 3, 5, 7, 0, 3, 5, 7, 3}.ToS());
             // ReSharper restore ArgumentsStyleLiteral
             Test.Flatten<string>().Should().Equal("a");
             Test.Flatten<int>().Should().Equal(1, 5, 7, 3, 5, 7, 0, 3, 5, 7, 3);
@@ -761,60 +761,60 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.GetAt) + "(IEnumerable`1<T>, UInt32) => T")]
-        public void Test_GetAt()
+        public void GetAt()
             {
-            int[] Test = { 5, 32, 46, 43, 13, 26531, 15315 };
+            int[] Test = {5, 32, 46, 43, 13, 26531, 15315};
 
 
-            Test.GetAt(-1).Should().Be(expected: 0);
-            Test.GetAt(Index: 0).Should().Be(expected: 5);
-            Test.GetAt(Index: 1).Should().Be(expected: 32);
-            Test.GetAt(Index: 100).Should().Be(expected: 0);
+            Test.GetAt(-1).ShouldBe(Compare: 0);
+            Test.GetAt(Index: 0).ShouldBe(Compare: 5);
+            Test.GetAt(Index: 1).ShouldBe(Compare: 32);
+            Test.GetAt(Index: 100).ShouldBe(Compare: 0);
 
-            Test.GetAt(Index: 0u).Should().Be(expected: 5);
-            Test.GetAt(Index: 1u).Should().Be(expected: 32);
-            Test.GetAt(Index: 100u).Should().Be(expected: 0);
+            Test.GetAt(Index: 0u).ShouldBe(Compare: 5);
+            Test.GetAt(Index: 1u).ShouldBe(Compare: 32);
+            Test.GetAt(Index: 100u).ShouldBe(Compare: 0);
 
-            ((IEnumerable)Test).GetAt(-1).Should().Be(expected: null);
-            ((IEnumerable)Test).GetAt(Index: 0).Should().Be(expected: 5);
-            ((IEnumerable)Test).GetAt(Index: 1).Should().Be(expected: 32);
-            ((IEnumerable)Test).GetAt(Index: 100).Should().Be(expected: null);
+            ((IEnumerable) Test).GetAt(-1).ShouldBe(Compare: null);
+            ((IEnumerable) Test).GetAt(Index: 0).ShouldBe(Compare: 5);
+            ((IEnumerable) Test).GetAt(Index: 1).ShouldBe(Compare: 32);
+            ((IEnumerable) Test).GetAt(Index: 100).ShouldBe(Compare: null);
 
-            ((IEnumerable)Test).GetAt(Index: 0u).Should().Be(expected: 5);
-            ((IEnumerable)Test).GetAt(Index: 1u).Should().Be(expected: 32);
-            ((IEnumerable)Test).GetAt(Index: 100u).Should().Be(expected: null);
+            ((IEnumerable) Test).GetAt(Index: 0u).ShouldBe(Compare: 5);
+            ((IEnumerable) Test).GetAt(Index: 1u).ShouldBe(Compare: 32);
+            ((IEnumerable) Test).GetAt(Index: 100u).ShouldBe(Compare: null);
 
-            ((Array)Test).GetAt(-1).Should().Be(expected: null);
-            ((Array)Test).GetAt(Index: 0).Should().Be(expected: 5);
-            ((Array)Test).GetAt(Index: 1).Should().Be(expected: 32);
-            ((Array)Test).GetAt(Index: 100).Should().Be(expected: null);
+            ((Array) Test).GetAt(-1).ShouldBe(Compare: null);
+            ((Array) Test).GetAt(Index: 0).ShouldBe(Compare: 5);
+            ((Array) Test).GetAt(Index: 1).ShouldBe(Compare: 32);
+            ((Array) Test).GetAt(Index: 100).ShouldBe(Compare: null);
 
-            ((Array)Test).GetAt(Index: 0u).Should().Be(expected: 5);
-            ((Array)Test).GetAt(Index: 1u).Should().Be(expected: 32);
-            ((Array)Test).GetAt(Index: 100u).Should().Be(expected: null);
+            ((Array) Test).GetAt(Index: 0u).ShouldBe(Compare: 5);
+            ((Array) Test).GetAt(Index: 1u).ShouldBe(Compare: 32);
+            ((Array) Test).GetAt(Index: 100u).ShouldBe(Compare: null);
 
-            "".GetAt(Index: 0).Should().Be(default(char));
-            "12345".GetAt(-1).Should().Be(default(char));
-            "12345".GetAt(Index: 0).Should().Be(expected: '1');
-            "12345".GetAt(Index: 1).Should().Be(expected: '2');
-            "12345".GetAt(Index: 5).Should().Be(default(char));
-            ((IEnumerable)"12345").GetAt(Index: 1).Should().Be(expected: '2');
-            ((string)null).GetAt(Index: 0).Should().Be(default(char));
+            "".GetAt(Index: 0).ShouldBe(default(char));
+            "12345".GetAt(-1).ShouldBe(default(char));
+            "12345".GetAt(Index: 0).ShouldBe(Compare: '1');
+            "12345".GetAt(Index: 1).ShouldBe(Compare: '2');
+            "12345".GetAt(Index: 5).ShouldBe(default(char));
+            ((IEnumerable) "12345").GetAt(Index: 1).ShouldBe(Compare: '2');
+            ((string) null).GetAt(Index: 0).ShouldBe(default(char));
 
-            "".GetAt(Index: 0u).Should().Be(default(char));
-            "12345".GetAt(Index: 0u).Should().Be(expected: '1');
-            "12345".GetAt(Index: 1u).Should().Be(expected: '2');
-            "12345".GetAt(Index: 5u).Should().Be(default(char));
-            ((IEnumerable)"12345").GetAt(Index: 1u).Should().Be(expected: '2');
-            ((string)null).GetAt(Index: 0u).Should().Be(default(char));
+            "".GetAt(Index: 0u).ShouldBe(default(char));
+            "12345".GetAt(Index: 0u).ShouldBe(Compare: '1');
+            "12345".GetAt(Index: 1u).ShouldBe(Compare: '2');
+            "12345".GetAt(Index: 5u).ShouldBe(default(char));
+            ((IEnumerable) "12345").GetAt(Index: 1u).ShouldBe(Compare: '2');
+            ((string) null).GetAt(Index: 0u).ShouldBe(default(char));
 
             // Custom iterators work if they use ints ONLY
-            new BadCollection().GetAt(Index: 0).Should().Be("0");
-            new BadCollection().GetAt(Index: 1).Should().Be("1");
+            new BadCollection().GetAt(Index: 0).ShouldBe("0");
+            new BadCollection().GetAt(Index: 1).ShouldBe("1");
 
             // Non-indexers return null / default
-            ((IEnumerable)new NotAnIndexer()).GetAt(Index: 0).Should().BeNull();
-            ((IEnumerable<int>)new NotAnIndexer()).GetAt(Index: 0).Should().Be(default(int));
+            ((IEnumerable) new NotAnIndexer()).GetAt(Index: 0).Should().BeNull();
+            ((IEnumerable<int>) new NotAnIndexer()).GetAt(Index: 0).ShouldBe(default(int));
             }
 
         [Fact]
@@ -827,25 +827,25 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.GetAtIndices) + "(IEnumerable`1<T>, Int32[]) => List`1<T>")]
-        public void Test_GetAtIndices()
+        public void GetAtIndices()
             {
-            int[] Test = { 5, 32, 46, 43, 13, 26531, 15315, 4364643, 445, 44, 553, 663, 223 };
+            int[] Test = {5, 32, 46, 43, 13, 26531, 15315, 4364643, 445, 44, 553, 663, 223};
 
-            new int[] { }.GetAtIndices().Should().Equal();
-            new int[] { }.GetAtIndices(5, 7, 9).Should().Equal();
+            new int[] {}.GetAtIndices().Should().Equal();
+            new int[] {}.GetAtIndices(5, 7, 9).Should().Equal();
 
             Test.GetAtIndices().Should().Equal();
 
             Test.GetAtIndices(5, 7, 9).Should().Equal(26531, 4364643, 44);
             Test.GetAtIndices(5, 7, 9, -1, int.MinValue, int.MaxValue).Should().Equal(26531, 4364643, 44);
 
-            ((IEnumerable)Test).GetAtIndices<int>(5, 7, 9).Should().Equal(26531, 4364643, 44);
-            ((IEnumerable)Test).GetAtIndices<object>(5, 7, 9).Should().Equal(26531, 4364643, 44);
-            ((IEnumerable)Test).GetAtIndices<string>(5, 7, 9).Should().Equal();
+            ((IEnumerable) Test).GetAtIndices<int>(5, 7, 9).Should().Equal(26531, 4364643, 44);
+            ((IEnumerable) Test).GetAtIndices<object>(5, 7, 9).Should().Equal(26531, 4364643, 44);
+            ((IEnumerable) Test).GetAtIndices<string>(5, 7, 9).Should().Equal();
 
-            ((IEnumerable<int>)Test).GetAtIndices<int>(5, 7, 9).Should().Equal(26531, 4364643, 44);
-            ((IEnumerable<int>)Test).GetAtIndices<object>(5, 7, 9).Should().Equal(26531, 4364643, 44);
-            ((IEnumerable<int>)Test).GetAtIndices<string>(5, 7, 9).Should().Equal();
+            ((IEnumerable<int>) Test).GetAtIndices<int>(5, 7, 9).Should().Equal(26531, 4364643, 44);
+            ((IEnumerable<int>) Test).GetAtIndices<object>(5, 7, 9).Should().Equal(26531, 4364643, 44);
+            ((IEnumerable<int>) Test).GetAtIndices<string>(5, 7, 9).Should().Equal();
             }
 
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -858,7 +858,7 @@ namespace L_Tests.LCore.Extensions
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Group) +
             "(IEnumerable`1<TValue>, Func`2<TValue, TKey>) => Dictionary`2<TKey, List`1<TValue>>")]
-        public void Test_Group()
+        public void Group()
             {
             int[] Test =
                 {
@@ -871,7 +871,7 @@ namespace L_Tests.LCore.Extensions
             Result.Keys.List().Should().Equal(
                 "5", "3", "4", "1", "2", "7", "9", "8", "6"
                 );
-            Result.Values.List().ToS().Should().Be(new List<List<int>>
+            Result.Values.List().ToS().ShouldBe(new List<List<int>>
                 {
                 // ReSharper disable ArgumentsStyleLiteral
                 new List<int> {5, 589, 553},
@@ -886,7 +886,7 @@ namespace L_Tests.LCore.Extensions
                 // ReSharper restore ArgumentsStyleLiteral
                 }.ToS());
 
-            Result = Test.Group((Func<int, string>)null);
+            Result = Test.Group((Func<int, string>) null);
 
             Result.Keys.List().Should().Equal();
             Result.Values.List().ShouldBeEquivalentTo(new List<int>());
@@ -896,7 +896,7 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        public void Test_Group_IGroup()
+        public void Group_IGroup()
             {
             TestGroup[] Test2 =
                 {
@@ -922,9 +922,9 @@ namespace L_Tests.LCore.Extensions
 
             Result2.Keys.Should().Equal("a", "ccc", "b");
 
-            Result2["a"].Count.Should().Be(expected: 6);
-            Result2["b"].Count.Should().Be(expected: 3);
-            Result2["ccc"].Count.Should().Be(expected: 7);
+            Result2["a"].Count.ShouldBe(Compare: 6);
+            Result2["b"].Count.ShouldBe(Compare: 3);
+            Result2["ccc"].Count.ShouldBe(Compare: 7);
 
             Result2["a"].Should().BeOfType<List<TestGroup>>();
             Result2["b"].Should().BeOfType<List<TestGroup>>();
@@ -939,7 +939,7 @@ namespace L_Tests.LCore.Extensions
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.GroupTwice) +
             "(IEnumerable`1<T>, Func`2<T, U>, Func`2<T, V>) => Dictionary`2<U, Dictionary`2<V, List`1<T>>>")]
-        public void Test_GroupTwice()
+        public void GroupTwice()
             {
             int[] Test =
                 {
@@ -959,8 +959,8 @@ namespace L_Tests.LCore.Extensions
             Result["Small Numbers"].Keys.List().Should().Equal("5", "3", "4", "1", "7", "9", "2", "8", "6");
             Result["Large Numbers"].Keys.List().Should().Equal("2", "1", "8", "9", "4");
 
-            Result["Small Numbers"].Values.Flatten<int>().Count.Should().Be(expected: 20);
-            Result["Large Numbers"].Values.Flatten<int>().Count.Should().Be(expected: 6);
+            Result["Small Numbers"].Values.Flatten<int>().Count.ShouldBe(Compare: 20);
+            Result["Large Numbers"].Values.Flatten<int>().Count.ShouldBe(Compare: 6);
 
             L.A(() => Test.GroupTwice<int, int, int>(i => i, i => { throw new Exception(); })).ShouldFail();
             L.A(() => Test.GroupTwice<int, int, int>(i => { throw new Exception(); }, Grouper2: null)).ShouldFail();
@@ -982,7 +982,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Has) + "(IEnumerable`1<T>, Func`2<T, Boolean>) => Boolean")]
-        public void Test_Has()
+        public void Has()
             {
             object[] Test =
                 {
@@ -992,7 +992,7 @@ namespace L_Tests.LCore.Extensions
             Test.Has("a").ShouldBeTrue();
             Test.Has(Obj: 1).ShouldBeTrue();
             Test.Has(Obj: 1f).ShouldBeFalse();
-            Test.Has((object)null).ShouldBeTrue();
+            Test.Has((object) null).ShouldBeTrue();
             }
 
         [Fact]
@@ -1008,53 +1008,53 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.HasAny) + "(IEnumerable`1<T>, T[]) => Boolean")]
-        public void Test_HasAny()
+        public void HasAny()
             {
             object[] Test =
                 {
                 "a", 1, 2, 3, 4, 5, null
                 };
 
-            Test.HasAny(new List<object> { "a" }).ShouldBeTrue();
+            Test.HasAny(new List<object> {"a"}).ShouldBeTrue();
             // ReSharper disable ArgumentsStyleLiteral
-            Test.HasAny(new List<object> { 1 }).ShouldBeTrue();
-            Test.HasAny(new List<object> { 1f }).ShouldBeFalse();
-            Test.HasAny(new List<object> { 1f, 2d, 3.0m }).ShouldBeFalse();
-            Test.HasAny(new List<object> { 1f, 2d, 3.0m, 5 }).ShouldBeTrue();
+            Test.HasAny(new List<object> {1}).ShouldBeTrue();
+            Test.HasAny(new List<object> {1f}).ShouldBeFalse();
+            Test.HasAny(new List<object> {1f, 2d, 3.0m}).ShouldBeFalse();
+            Test.HasAny(new List<object> {1f, 2d, 3.0m, 5}).ShouldBeTrue();
             // ReSharper restore ArgumentsStyleLiteral
-            Test.HasAny(new List<object> { (object)null }).ShouldBeTrue();
+            Test.HasAny(new List<object> {(object) null}).ShouldBeTrue();
 
-            ((IEnumerable)Test).HasAny(new List<object> { "a" }).ShouldBeTrue();
+            ((IEnumerable) Test).HasAny(new List<object> {"a"}).ShouldBeTrue();
             // ReSharper disable ArgumentsStyleLiteral
-            ((IEnumerable)Test).HasAny(new List<object> { 1 }).ShouldBeTrue();
-            ((IEnumerable)Test).HasAny(new List<object> { 1f }).ShouldBeFalse();
-            ((IEnumerable)Test).HasAny(new List<object> { 1f, 2d, 3.0m }).ShouldBeFalse();
-            ((IEnumerable)Test).HasAny(new List<object> { 1f, 2d, 3.0m, 5 }).ShouldBeTrue();
+            ((IEnumerable) Test).HasAny(new List<object> {1}).ShouldBeTrue();
+            ((IEnumerable) Test).HasAny(new List<object> {1f}).ShouldBeFalse();
+            ((IEnumerable) Test).HasAny(new List<object> {1f, 2d, 3.0m}).ShouldBeFalse();
+            ((IEnumerable) Test).HasAny(new List<object> {1f, 2d, 3.0m, 5}).ShouldBeTrue();
             // ReSharper restore ArgumentsStyleLiteral
-            ((IEnumerable)Test).HasAny(new List<object> { (object)null }).ShouldBeTrue();
+            ((IEnumerable) Test).HasAny(new List<object> {(object) null}).ShouldBeTrue();
 
             Test.HasAny("b", "a").ShouldBeTrue();
             Test.HasAny(1).ShouldBeTrue();
             Test.HasAny(1f).ShouldBeFalse();
             Test.HasAny(1f, 2d, 3.0m).ShouldBeFalse();
             Test.HasAny(1f, 2d, 3.0m, 5).ShouldBeTrue();
-            Test.HasAny((object)null).ShouldBeTrue();
+            Test.HasAny((object) null).ShouldBeTrue();
 
-            ((IEnumerable)Test).HasAny("b", "a").ShouldBeTrue();
-            ((IEnumerable)Test).HasAny(1).ShouldBeTrue();
-            ((IEnumerable)Test).HasAny(1f).ShouldBeFalse();
-            ((IEnumerable)Test).HasAny(1f, 2d, 3.0m).ShouldBeFalse();
-            ((IEnumerable)Test).HasAny(1f, 2d, 3.0m, 5).ShouldBeTrue();
-            ((IEnumerable)Test).HasAny((object)null).ShouldBeTrue();
+            ((IEnumerable) Test).HasAny("b", "a").ShouldBeTrue();
+            ((IEnumerable) Test).HasAny(1).ShouldBeTrue();
+            ((IEnumerable) Test).HasAny(1f).ShouldBeFalse();
+            ((IEnumerable) Test).HasAny(1f, 2d, 3.0m).ShouldBeFalse();
+            ((IEnumerable) Test).HasAny(1f, 2d, 3.0m, 5).ShouldBeTrue();
+            ((IEnumerable) Test).HasAny((object) null).ShouldBeTrue();
 
-            ((IEnumerable)null).HasAny(5).ShouldBeFalse();
-            ((IEnumerable<int>)null).HasAny(5).ShouldBeFalse();
+            ((IEnumerable) null).HasAny(5).ShouldBeFalse();
+            ((IEnumerable<int>) null).HasAny(5).ShouldBeFalse();
             }
 
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         [Fact]
-        public void Test_Has_Func()
+        public void Has_Func()
             {
             object[] Test =
                 {
@@ -1062,18 +1062,18 @@ namespace L_Tests.LCore.Extensions
                 };
 
 
-            Test.Has(o => o is int && (int)o == 1).ShouldBeTrue();
-            Test.Has(o => o is string && (string)o == "a").ShouldBeTrue();
-            Test.Has(o => o is string && (string)o == "b").ShouldBeFalse();
+            Test.Has(o => o is int && (int) o == 1).ShouldBeTrue();
+            Test.Has(o => o is string && (string) o == "a").ShouldBeTrue();
+            Test.Has(o => o is string && (string) o == "b").ShouldBeFalse();
 
-            ((IEnumerable)Test).Has<object>(o => o is int && (int)o == 1).ShouldBeTrue();
-            ((IEnumerable)Test).Has<object>(o => o is string && (string)o == "a").ShouldBeTrue();
-            ((IEnumerable)Test).Has<object>(o => o is string && (string)o == "b").ShouldBeFalse();
+            ((IEnumerable) Test).Has<object>(o => o is int && (int) o == 1).ShouldBeTrue();
+            ((IEnumerable) Test).Has<object>(o => o is string && (string) o == "a").ShouldBeTrue();
+            ((IEnumerable) Test).Has<object>(o => o is string && (string) o == "b").ShouldBeFalse();
 
-            Test.Has((Func<object, bool>)null).ShouldBeFalse();
-            ((IEnumerable)Test).Has((Func<object, bool>)null).ShouldBeFalse();
-            ((IEnumerable)null).Has((Func<object, bool>)null).ShouldBeFalse();
-            ((IEnumerable<int>)null).Has((Func<object, bool>)null).ShouldBeFalse();
+            Test.Has((Func<object, bool>) null).ShouldBeFalse();
+            ((IEnumerable) Test).Has((Func<object, bool>) null).ShouldBeFalse();
+            ((IEnumerable) null).Has((Func<object, bool>) null).ShouldBeFalse();
+            ((IEnumerable<int>) null).Has((Func<object, bool>) null).ShouldBeFalse();
 
 
             L.A(() => Test.Has<string>(s => { throw new Exception(); })).ShouldFail();
@@ -1086,7 +1086,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.HasIndex) + "(IEnumerable, UInt32) => Boolean")]
-        public void Test_HasIndex()
+        public void HasIndex()
             {
             object[] Test =
                 {
@@ -1105,8 +1105,8 @@ namespace L_Tests.LCore.Extensions
             Test.HasIndex(Index: 6u).ShouldBeTrue();
             Test.HasIndex(Index: 7u).ShouldBeFalse();
 
-            ((int[])null).HasIndex(Index: 0).ShouldBeFalse();
-            ((IEnumerable)null).HasIndex(Index: 0).ShouldBeFalse();
+            ((int[]) null).HasIndex(Index: 0).ShouldBeFalse();
+            ((IEnumerable) null).HasIndex(Index: 0).ShouldBeFalse();
             }
 
 
@@ -1119,7 +1119,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Index) + "(IEnumerable`1<T>, Func`2<T, U>) => Dictionary`2<U, T>")]
-        public void Test_Index()
+        public void Index()
             {
             object[] Test =
                 {
@@ -1133,7 +1133,7 @@ namespace L_Tests.LCore.Extensions
                 .Equal("5", "32", "46", "3", "55", "45", "1", "23", "2", "77", "9", "75", "4", "12", "65", "89", "8", "74", "21", "54", "78",
                     "56", "66", "88");
 
-            Result.Values.TotalCount().Should().Be(expected: 24);
+            Result.Values.TotalCount().ShouldBe(Compare: 24);
 
             Dictionary<string, object> Result2 = Test.Index(i => i?.ToString().Sub(Start: 0, Length: 2));
 
@@ -1141,7 +1141,7 @@ namespace L_Tests.LCore.Extensions
                 .Equal("5", "32", "46", "3", "55", "45", "1", "23", "2", "77", "9", "75", "4", "12", "65", "89", "8", "74", "21", "54", "78",
                     "56", "66", "88");
 
-            Result.Values.TotalCount().Should().Be(expected: 24);
+            Result.Values.TotalCount().ShouldBe(Compare: 24);
 
 
             L.A(() => Test.Index<int>(i => { throw new Exception(); })).ShouldFail();
@@ -1154,7 +1154,7 @@ namespace L_Tests.LCore.Extensions
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.IndexTwice) +
             "(IEnumerable`1<T>, Func`2<T, U>, Func`2<T, V>) => Dictionary`2<U, Dictionary`2<V, T>>")]
-        public void Test_IndexTwice()
+        public void IndexTwice()
             {
             int[] Test =
                 {
@@ -1170,9 +1170,9 @@ namespace L_Tests.LCore.Extensions
                 .Equal("5", "32", "46", "3", "55", "45", "1", "23", "2", "77", "9", "75", "4", "12", "65", "89", "8", "74", "21", "54", "78",
                     "56", "66", "88");
 
-            Result.Values.TotalCount().Should().Be(expected: 27);
+            Result.Values.TotalCount().ShouldBe(Compare: 27);
 
-            Result = ((IEnumerable<int>)Test).IndexTwice<int, string, string>(
+            Result = ((IEnumerable<int>) Test).IndexTwice<int, string, string>(
                 i => i.ToString().Sub(Start: 0, Length: 2),
                 i => i.ToString().Sub(Start: 2, Length: 2));
 
@@ -1180,7 +1180,7 @@ namespace L_Tests.LCore.Extensions
                 .Equal("5", "32", "46", "3", "55", "45", "1", "23", "2", "77", "9", "75", "4", "12", "65", "89", "8", "74", "21", "54", "78",
                     "56", "66", "88");
 
-            Result.Values.TotalCount().Should().Be(expected: 27);
+            Result.Values.TotalCount().ShouldBe(Compare: 27);
 
             L.A(() => Test.Index<int>(i => { throw new Exception(); })).ShouldFail();
             }
@@ -1194,7 +1194,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.IndexOf) + "(IEnumerable`1<T>, Func`2<T, Boolean>) => Nullable`1<Int32>")]
-        public void Test_IndexOf()
+        public void IndexOf()
             {
             int[] Test =
                 {
@@ -1202,13 +1202,13 @@ namespace L_Tests.LCore.Extensions
                 12, 54, 78, 9, 8, 56, 66, 5, 4, 88
                 };
 
-            Test.IndexOf(i => i == 23).Should().Be(expected: 7);
-            Test.IndexOf(i => i == 88).Should().Be(expected: 34);
-            Test.IndexOf(i => i == 88888).Should().Be(expected: null);
+            Test.IndexOf(i => i == 23).ShouldBe(Compare: 7);
+            Test.IndexOf(i => i == 88).ShouldBe(Compare: 34);
+            Test.IndexOf(i => i == 88888).ShouldBe(Compare: null);
 
-            ((IEnumerable)Test).IndexOf<int>(i => i == 23).Should().Be(expected: 7);
-            ((IEnumerable)Test).IndexOf<int>(i => i == 88).Should().Be(expected: 34);
-            ((IEnumerable)Test).IndexOf<int>(i => i == 88888).Should().Be(expected: null);
+            ((IEnumerable) Test).IndexOf<int>(i => i == 23).ShouldBe(Compare: 7);
+            ((IEnumerable) Test).IndexOf<int>(i => i == 88).ShouldBe(Compare: 34);
+            ((IEnumerable) Test).IndexOf<int>(i => i == 88888).ShouldBe(Compare: null);
 
 
             L.A(() => Test.IndexOf<int>(i => { throw new Exception(); })).ShouldFail();
@@ -1219,17 +1219,17 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.IsEmpty) + "(IEnumerable) => Boolean")]
-        public void Test_IsEmpty()
+        public void IsEmpty()
             {
-            ((IEnumerable)"").IsEmpty().ShouldBeTrue();
-            ((IEnumerable)"a").IsEmpty().ShouldBeFalse();
-            ((IEnumerable)"   a   ").IsEmpty().ShouldBeFalse();
-            ((IEnumerable)"       ").IsEmpty().ShouldBeFalse();
-            new int[] { }.IsEmpty().ShouldBeTrue();
-            new int[] { 5 }.IsEmpty().ShouldBeFalse();
+            ((IEnumerable) "").IsEmpty().ShouldBeTrue();
+            ((IEnumerable) "a").IsEmpty().ShouldBeFalse();
+            ((IEnumerable) "   a   ").IsEmpty().ShouldBeFalse();
+            ((IEnumerable) "       ").IsEmpty().ShouldBeFalse();
+            new int[] {}.IsEmpty().ShouldBeTrue();
+            new int[] {5}.IsEmpty().ShouldBeFalse();
 
-            ((string)null).IsEmpty().ShouldBeTrue();
-            ((int[])null).IsEmpty().ShouldBeTrue();
+            ((string) null).IsEmpty().ShouldBeTrue();
+            ((int[]) null).IsEmpty().ShouldBeTrue();
             }
 
         [Fact]
@@ -1263,42 +1263,42 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Last) + "(IEnumerable, T) => T")]
-        public void Test_Last()
+        public void Last()
             {
-            int[] Test = { 5, 21436, 7, 2, 2, 253 };
+            int[] Test = {5, 21436, 7, 2, 2, 253};
 
-            Test.Last().Should().Be(expected: 253);
-            Test.Last(Condition: null).Should().Be(expected: 253);
-            Test.Last(i => false).Should().Be(default(int));
-            Test.Last(i => true).Should().Be(expected: 253);
-            Test.Last(i => i > 100).Should().Be(expected: 253);
-            Test.Last(i => i > 100 && i < 1000).Should().Be(expected: 253);
-            Test.Last(i => i > 1000).Should().Be(expected: 21436);
+            Test.Last().ShouldBe(Compare: 253);
+            Test.Last(Condition: null).ShouldBe(Compare: 253);
+            Test.Last(i => false).ShouldBe(default(int));
+            Test.Last(i => true).ShouldBe(Compare: 253);
+            Test.Last(i => i > 100).ShouldBe(Compare: 253);
+            Test.Last(i => i > 100 && i < 1000).ShouldBe(Compare: 253);
+            Test.Last(i => i > 1000).ShouldBe(Compare: 21436);
 
-            Test.List().Last().Should().Be(expected: 253);
-            Test.List().Last(Condition: null).Should().Be(expected: 253);
-            Test.List().Last(i => false).Should().Be(default(int));
-            Test.List().Last(i => true).Should().Be(expected: 253);
-            Test.List().Last(i => i > 100).Should().Be(expected: 253);
-            Test.List().Last(i => i > 100 && i < 1000).Should().Be(expected: 253);
-            Test.List().Last(i => i > 1000).Should().Be(expected: 21436);
+            Test.List().Last().ShouldBe(Compare: 253);
+            Test.List().Last(Condition: null).ShouldBe(Compare: 253);
+            Test.List().Last(i => false).ShouldBe(default(int));
+            Test.List().Last(i => true).ShouldBe(Compare: 253);
+            Test.List().Last(i => i > 100).ShouldBe(Compare: 253);
+            Test.List().Last(i => i > 100 && i < 1000).ShouldBe(Compare: 253);
+            Test.List().Last(i => i > 1000).ShouldBe(Compare: 21436);
 
-            ((IEnumerable)Test).Last<int>().Should().Be(expected: 253);
-            ((IEnumerable)Test).Last<int?>().Should().Be(expected: 253);
-            ((IEnumerable)Test).Last<int>(Condition: null).Should().Be(expected: 253);
-            ((IEnumerable)Test).Last<int>(i => false).Should().Be(default(int));
-            ((IEnumerable)Test).Last<int?>((Func<int?, bool>)null).Should().Be(expected: 253);
-            ((IEnumerable)Test).Last<int?>(i => false).Should().Be((int?)null);
-            ((IEnumerable)Test).Last<int>(i => true).Should().Be(expected: 253);
-            ((IEnumerable)Test).Last<int>(i => i > 100).Should().Be(expected: 253);
-            ((IEnumerable)Test).Last<int>(i => i > 100 && i < 1000).Should().Be(expected: 253);
-            ((IEnumerable)Test).Last<int>(i => i > 1000).Should().Be(expected: 21436);
+            ((IEnumerable) Test).Last<int>().ShouldBe(Compare: 253);
+            ((IEnumerable) Test).Last<int?>().ShouldBe(Compare: 253);
+            ((IEnumerable) Test).Last<int>(Condition: null).ShouldBe(Compare: 253);
+            ((IEnumerable) Test).Last<int>(i => false).ShouldBe(default(int));
+            ((IEnumerable) Test).Last<int?>((Func<int?, bool>) null).ShouldBe(Compare: 253);
+            ((IEnumerable) Test).Last<int?>(i => false).ShouldBe((int?) null);
+            ((IEnumerable) Test).Last<int>(i => true).ShouldBe(Compare: 253);
+            ((IEnumerable) Test).Last<int>(i => i > 100).ShouldBe(Compare: 253);
+            ((IEnumerable) Test).Last<int>(i => i > 100 && i < 1000).ShouldBe(Compare: 253);
+            ((IEnumerable) Test).Last<int>(i => i > 1000).ShouldBe(Compare: 21436);
             }
 
         [Fact]
-        public void Test_LastMulti()
+        public void LastMulti()
             {
-            int[] Test = { 5, 21436, 7, 2, 2, 253 };
+            int[] Test = {5, 21436, 7, 2, 2, 253};
 
             Func<int, bool> True = i => true;
             Func<int, bool> False = i => false;
@@ -1341,33 +1341,33 @@ namespace L_Tests.LCore.Extensions
             Test.List().Last(Count: 2u, Condition: i => i > 100 && i < 1000).Should().Equal(253);
             Test.List().Last(Count: 2u, Condition: i => i > 1000).Should().Equal(21436);
 
-            ((IEnumerable)Test).Last<int>(Count: 2, Condition: null).Should().Equal(2, 253);
-            ((IEnumerable)Test).Last<int>(-5, True).Should().Equal();
-            ((IEnumerable)Test).Last<int>(Count: 0, Condition: True).Should().Equal();
-            ((IEnumerable)Test).Last<int>(Count: 2, Condition: False).Should().Equal();
-            ((IEnumerable)Test).Last<int>(Count: 2, Condition: True).Should().Equal(2, 253);
-            ((IEnumerable)Test).Last<int>(Count: 5, Condition: i => i > 2).Should().Equal(5, 21436, 7, 253);
-            ((IEnumerable)Test).Last<int>(Count: 2, Condition: i => i > 100).Should().Equal(21436, 253);
-            ((IEnumerable)Test).Last<int>(Count: 2, Condition: i => i > 100 && i < 1000).Should().Equal(253);
-            ((IEnumerable)Test).Last<int>(Count: 2, Condition: i => i > 1000).Should().Equal(21436);
+            ((IEnumerable) Test).Last<int>(Count: 2, Condition: null).Should().Equal(2, 253);
+            ((IEnumerable) Test).Last<int>(-5, True).Should().Equal();
+            ((IEnumerable) Test).Last<int>(Count: 0, Condition: True).Should().Equal();
+            ((IEnumerable) Test).Last<int>(Count: 2, Condition: False).Should().Equal();
+            ((IEnumerable) Test).Last<int>(Count: 2, Condition: True).Should().Equal(2, 253);
+            ((IEnumerable) Test).Last<int>(Count: 5, Condition: i => i > 2).Should().Equal(5, 21436, 7, 253);
+            ((IEnumerable) Test).Last<int>(Count: 2, Condition: i => i > 100).Should().Equal(21436, 253);
+            ((IEnumerable) Test).Last<int>(Count: 2, Condition: i => i > 100 && i < 1000).Should().Equal(253);
+            ((IEnumerable) Test).Last<int>(Count: 2, Condition: i => i > 1000).Should().Equal(21436);
 
-            ((IEnumerable)Test).Last<int>(Count: 2u, Condition: null).Should().Equal(2, 253);
-            ((IEnumerable)Test).Last<int>(Count: 0u, Condition: True).Should().Equal();
-            ((IEnumerable)Test).Last<int>(Count: 2u, Condition: False).Should().Equal();
-            ((IEnumerable)Test).Last<int>(Count: 2u, Condition: True).Should().Equal(2, 253);
-            ((IEnumerable)Test).Last<int>(Count: 5u, Condition: i => i > 2).Should().Equal(5, 21436, 7, 253);
-            ((IEnumerable)Test).Last<int>(Count: 2u, Condition: i => i > 100).Should().Equal(21436, 253);
-            ((IEnumerable)Test).Last<int>(Count: 2u, Condition: i => i > 100 && i < 1000).Should().Equal(253);
-            ((IEnumerable)Test).Last<int>(Count: 2u, Condition: i => i > 1000).Should().Equal(21436);
+            ((IEnumerable) Test).Last<int>(Count: 2u, Condition: null).Should().Equal(2, 253);
+            ((IEnumerable) Test).Last<int>(Count: 0u, Condition: True).Should().Equal();
+            ((IEnumerable) Test).Last<int>(Count: 2u, Condition: False).Should().Equal();
+            ((IEnumerable) Test).Last<int>(Count: 2u, Condition: True).Should().Equal(2, 253);
+            ((IEnumerable) Test).Last<int>(Count: 5u, Condition: i => i > 2).Should().Equal(5, 21436, 7, 253);
+            ((IEnumerable) Test).Last<int>(Count: 2u, Condition: i => i > 100).Should().Equal(21436, 253);
+            ((IEnumerable) Test).Last<int>(Count: 2u, Condition: i => i > 100 && i < 1000).Should().Equal(253);
+            ((IEnumerable) Test).Last<int>(Count: 2u, Condition: i => i > 1000).Should().Equal(21436);
             }
 
         [Fact]
-        public void Test_LastMatch()
+        public void LastMatch()
             {
-            int[] Test = { 5, 21436, 7, 2, 2, 253 };
+            int[] Test = {5, 21436, 7, 2, 2, 253};
 
-            ((IEnumerable)Test).Last(Object: 5).Should().Be(expected: 5);
-            ((IEnumerable)Test).Last(Object: 10).Should().Be(default(int));
+            ((IEnumerable) Test).Last(Object: 5).ShouldBe(Compare: 5);
+            ((IEnumerable) Test).Last(Object: 10).ShouldBe(default(int));
             }
 
         [Fact]
@@ -1383,20 +1383,20 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.List) + "(IEnumerable`1<T>, Boolean) => List`1<U>")]
-        public void Test_List()
+        public void List()
             {
-            int[] Test = { 5, 6, 2, 2 };
-            object[] Test2 = { 5, 6, 2, 2, null, "a" };
+            int[] Test = {5, 6, 2, 2};
+            object[] Test2 = {5, 6, 2, 2, null, "a"};
 
             Test.List().Should().Equal(5, 6, 2, 2);
             Test2.List().Should().Equal(5, 6, 2, 2, "a");
             Test2.List(IncludeNulls: true).Should().Equal(5, 6, 2, 2, null, "a");
             Test2.List(IncludeNulls: false).Should().Equal(5, 6, 2, 2, "a");
 
-            ((IEnumerable)Test).List().Should().Equal(5, 6, 2, 2);
-            ((IEnumerable)Test2).List().Should().Equal(5, 6, 2, 2, "a");
-            ((IEnumerable)Test2).List(IncludeNulls: true).Should().Equal(5, 6, 2, 2, null, "a");
-            ((IEnumerable)Test2).List(IncludeNulls: false).Should().Equal(5, 6, 2, 2, "a");
+            ((IEnumerable) Test).List().Should().Equal(5, 6, 2, 2);
+            ((IEnumerable) Test2).List().Should().Equal(5, 6, 2, 2, "a");
+            ((IEnumerable) Test2).List(IncludeNulls: true).Should().Equal(5, 6, 2, 2, null, "a");
+            ((IEnumerable) Test2).List(IncludeNulls: false).Should().Equal(5, 6, 2, 2, "a");
 
             Test2.List<int>().Should().Equal(5, 6, 2, 2);
             Test2.List<string>().Should().Equal("a");
@@ -1411,9 +1411,9 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Move) + "(T[], Int32, Int32)")]
-        public void Test_Move_Array()
+        public void Move_Array()
             {
-            int[] Test = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            int[] Test = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
 
             Test.Move(Index1: 0, Index2: 1);
@@ -1447,9 +1447,9 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Move) + "(IList, Int32, Int32)")]
-        public void Test_Move_List()
+        public void Move_List()
             {
-            List<int> Test = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }.List();
+            List<int> Test = new[] {1, 2, 3, 4, 5, 6, 7, 8, 9}.List();
 
             Test.Move(Index1: 0, Index2: 1);
             Test.Should().Equal(2, 1, 3, 4, 5, 6, 7, 8, 9);
@@ -1482,7 +1482,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Named) + "(IEnumerable`1<T>, String) => IEnumerable`1<T>")]
-        public void Test_Named()
+        public void Named()
             {
             TestGroup[] Test =
                 {
@@ -1498,29 +1498,29 @@ namespace L_Tests.LCore.Extensions
                 };
 
 
-            Test.Named("a").Length.Should().Be(expected: 6);
-            Test.Named("A").Length.Should().Be(expected: 0);
-            Test.Named("b").Length.Should().Be(expected: 3);
-            Test.Named("").Length.Should().Be(expected: 0);
-            Test.Named(Name: null).Length.Should().Be(expected: 0);
+            Test.Named("a").Length.ShouldBe(Compare: 6);
+            Test.Named("A").Length.ShouldBe(Compare: 0);
+            Test.Named("b").Length.ShouldBe(Compare: 3);
+            Test.Named("").Length.ShouldBe(Compare: 0);
+            Test.Named(Name: null).Length.ShouldBe(Compare: 0);
 
             List<TestGroup> Test2 = Test.List();
 
-            Test2.Named("a").Count().Should().Be(expected: 6);
-            Test2.Named("A").Count().Should().Be(expected: 0);
-            Test2.Named("b").Count().Should().Be(expected: 3);
-            Test2.Named("").Count().Should().Be(expected: 0);
-            Test2.Named(Name: null).Count().Should().Be(expected: 0);
+            Test2.Named("a").Count().ShouldBe(Compare: 6u);
+            Test2.Named("A").Count().ShouldBe(Compare: 0u);
+            Test2.Named("b").Count().ShouldBe(Compare: 3u);
+            Test2.Named("").Count().ShouldBe(Compare: 0u);
+            Test2.Named(Name: null).Count().ShouldBe(Compare: 0u);
 
-            ((IEnumerable)Test2).Named("a").Count.Should().Be(expected: 6);
-            ((IEnumerable)Test2).Named("A").Count.Should().Be(expected: 0);
-            ((IEnumerable)Test2).Named("b").Count.Should().Be(expected: 3);
-            ((IEnumerable)Test2).Named("").Count.Should().Be(expected: 0);
-            ((IEnumerable)Test2).Named(Name: null).Count.Should().Be(expected: 0);
+            ((IEnumerable) Test2).Named("a").Count.ShouldBe(Compare: 6);
+            ((IEnumerable) Test2).Named("A").Count.ShouldBe(Compare: 0);
+            ((IEnumerable) Test2).Named("b").Count.ShouldBe(Compare: 3);
+            ((IEnumerable) Test2).Named("").Count.ShouldBe(Compare: 0);
+            ((IEnumerable) Test2).Named(Name: null).Count.ShouldBe(Compare: 0);
 
-            ((INamed[])null).Named("A").Count().Should().Be(expected: 0);
-            ((IEnumerable<INamed>)null).Named("A").Count().Should().Be(expected: 0);
-            ((IEnumerable<INamed>)null).Named("A").Count().Should().Be(expected: 0);
+            ((INamed[]) null).Named("A").Count().ShouldBe(Compare: 0u);
+            ((IEnumerable<INamed>) null).Named("A").Count().ShouldBe(Compare: 0u);
+            ((IEnumerable<INamed>) null).Named("A").Count().ShouldBe(Compare: 0u);
             }
 
         [Fact]
@@ -1533,25 +1533,25 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Named) + "(T[], String, Func`2<T, String>) => T[]")]
-        public void Test_Named_Func()
+        public void Named_Func()
             {
-            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
+            int[] Test = {48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446};
 
             Func<int, string> Namer = new Func<int, string>(i => i.ToString().Sub(Start: 0, Length: 1));
             Func<object, string> Namer2 = new Func<object, string>(i => i.ToString().Sub(Start: 0, Length: 1));
 
             Test.Named("a", Namer).Should().BeEmpty();
-            Test.Named("1", Namer).Length.Should().Be(expected: 2);
-            Test.Named("8", Namer).Length.Should().Be(expected: 1);
+            Test.Named("1", Namer).Length.ShouldBe(Compare: 2);
+            Test.Named("8", Namer).Length.ShouldBe(Compare: 1);
 
             List<int> Test2 = Test.List();
             Test2.Named("a", Namer).Should().BeEmpty();
-            Test2.Named("1", Namer).Count.Should().Be(expected: 2);
-            Test2.Named("8", Namer).Count.Should().Be(expected: 1);
+            Test2.Named("1", Namer).Count.ShouldBe(Compare: 2);
+            Test2.Named("8", Namer).Count.ShouldBe(Compare: 1);
 
-            ((IEnumerable)Test2).Named("a", Namer2).Should().BeEmpty();
-            ((IEnumerable)Test2).Named("1", Namer2).Count().Should().Be(expected: 2);
-            ((IEnumerable)Test2).Named("8", Namer2).Count().Should().Be(expected: 1);
+            ((IEnumerable) Test2).Named("a", Namer2).Should().BeEmpty();
+            ((IEnumerable) Test2).Named("1", Namer2).Count().ShouldBe(Compare: 2u);
+            ((IEnumerable) Test2).Named("8", Namer2).Count().ShouldBe(Compare: 1u);
             }
 
         [Fact]
@@ -1570,10 +1570,10 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Random) + "(IEnumerable`1<T>) => T")]
-        public void Test_Random()
+        public void Random()
             {
-            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
-            uint[] Test2 = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
+            int[] Test = {48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446};
+            uint[] Test2 = {48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446};
 
             for (int i = 0; i < 300; i++)
                 {
@@ -1591,35 +1591,35 @@ namespace L_Tests.LCore.Extensions
                 {
                 int[] Results = Test.Random(Count: 5);
 
-                Results.Length.Should().Be(expected: 5);
+                Results.Length.ShouldBe(Compare: 5);
                 Results.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 int[] Results2 = Test.Random(Count: 50, AllowDuplicates: false);
 
-                Results2.Length.Should().Be(Test.Length);
+                Results2.Length.ShouldBe(Test.Length);
                 Results2.All(Item => Test.Has(Item)).ShouldBeTrue();
 
                 int[] Results3 = Test.Random(Count: 50, AllowDuplicates: true);
 
-                Results3.Length.Should().Be(expected: 50);
+                Results3.Length.ShouldBe(Compare: 50);
                 Results3.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 int[] Results4 = Test.Random(Count: 5u);
 
-                Results4.Length.Should().Be(expected: 5);
+                Results4.Length.ShouldBe(Compare: 5);
                 Results4.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 int[] Results5 = Test.Random(Count: 50u, AllowDuplicates: false);
 
-                Results5.Length.Should().Be(Test.Length);
+                Results5.Length.ShouldBe(Test.Length);
                 Results5.All(Item => Test.Has(Item)).ShouldBeTrue();
 
                 int[] Results6 = Test.Random(Count: 50u, AllowDuplicates: true);
 
-                Results6.Length.Should().Be(expected: 50);
+                Results6.Length.ShouldBe(Compare: 50);
                 Results6.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
@@ -1627,35 +1627,35 @@ namespace L_Tests.LCore.Extensions
 
                 List<int> Result7 = Test3.Random(Count: 5);
 
-                Result7.Count.Should().Be(expected: 5);
+                Result7.Count.ShouldBe(Compare: 5);
                 Result7.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 List<int> Results8 = Test3.Random(Count: 50, AllowDuplicates: false);
 
-                Results8.Count.Should().Be(Test.Length);
+                Results8.Count.ShouldBe(Test.Length);
                 Results8.All(Item => Test.Has(Item)).ShouldBeTrue();
 
                 List<int> Results9 = Test3.Random(Count: 50, AllowDuplicates: true);
 
-                Results9.Count.Should().Be(expected: 50);
+                Results9.Count.ShouldBe(Compare: 50);
                 Results9.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 List<int> Results10 = Test3.Random(Count: 5u);
 
-                Results10.Count.Should().Be(expected: 5);
+                Results10.Count.ShouldBe(Compare: 5);
                 Results10.All(Item => Test.Has(Item)).ShouldBeTrue();
 
 
                 List<int> Results11 = Test3.Random(Count: 50u, AllowDuplicates: false);
 
-                Results11.Count.Should().Be(Test.Length);
+                Results11.Count.ShouldBe(Test.Length);
                 Results11.All(Item => Test.Has(Item)).ShouldBeTrue();
 
                 List<int> Results12 = Test3.Random(Count: 50u, AllowDuplicates: true);
 
-                Results12.Count.Should().Be(expected: 50);
+                Results12.Count.ShouldBe(Compare: 50);
                 Results12.All(Item => Test.Has(Item)).ShouldBeTrue();
                 }
 
@@ -1672,9 +1672,9 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Remove) + "(IEnumerable`1<T>, Func`3<Int32, T, Boolean>) => List`1<T>")]
-        public void Test_Remove()
+        public void Remove()
             {
-            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
+            int[] Test = {48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446};
 
             Test.Remove(6, 5).Should().Equal(48498, 45, 542, 321, 2, 1, 13, 698, 9, 88, 7, 44, 223, 3, 446);
             Test.Remove(0, 1).Should().Equal(48498, 45, 6, 542, 321, 2, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
@@ -1686,7 +1686,7 @@ namespace L_Tests.LCore.Extensions
             Test.List()
                 .Remove(0, 1)
                 // ReSharper disable ArgumentsStyleLiteral
-                .ShouldBeEquivalentTo(new List<int> { 48498, 45, 6, 542, 321, 2, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 });
+                .ShouldBeEquivalentTo(new List<int> {48498, 45, 6, 542, 321, 2, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446});
             // ReSharper restore ArgumentsStyleLiteral
             Test.List().Remove().Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446);
             Test.List().Remove(i => i < 1000).Should().Equal(48498);
@@ -1700,9 +1700,9 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.RemoveAt) + "(T[], Int32[]) => T[]")]
-        public void Test_RemoveAt()
+        public void RemoveAt()
             {
-            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
+            int[] Test = {48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446};
 
 
             Test.RemoveAt().Should()
@@ -1737,9 +1737,9 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.RemoveDuplicate) + "(IEnumerable, Func`2<T, U>) => List`1<T>")]
-        public void Test_RemoveDuplicate()
+        public void RemoveDuplicate()
             {
-            int[] Test = { 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446 };
+            int[] Test = {48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446};
 
             Func<int, string> Func = i => i.ToString().Sub(Start: 0, Length: 2);
             Func<int, string> Func2 = i => i.ToString().Sub(Start: 0, Length: 1);
@@ -1774,15 +1774,15 @@ namespace L_Tests.LCore.Extensions
 
             //////////////////////////////////
 
-            ((IEnumerable)TestList).RemoveDuplicate(Func)
+            ((IEnumerable) TestList).RemoveDuplicate(Func)
                 .Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3);
-            ((IEnumerable)TestList).RemoveDuplicate(Func2)
+            ((IEnumerable) TestList).RemoveDuplicate(Func2)
                 .Should().Equal(48498, 6, 542, 321, 2, 1, 9, 88, 7);
 
-            ((IEnumerable)TestList).RemoveDuplicate(Func)
+            ((IEnumerable) TestList).RemoveDuplicate(Func)
                 .Should().Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3);
 
-            ((IEnumerable)TestList.Convert(i => i.ToString())).RemoveDuplicate<string, string>(s => s.Sub(Start: 0, Length: 1))
+            ((IEnumerable) TestList.Convert(i => i.ToString())).RemoveDuplicate<string, string>(s => s.Sub(Start: 0, Length: 1))
                 .Should().Equal("48498", "6", "542", "321", "2", "1", "9", "88", "7");
             }
 
@@ -1796,7 +1796,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.RemoveDuplicates) + "(IEnumerable`1<T>) => List`1<T>")]
-        public void Test_RemoveDuplicates()
+        public void RemoveDuplicates()
             {
             int[] Test =
                 {
@@ -1818,14 +1818,14 @@ namespace L_Tests.LCore.Extensions
 
             new List<int>().RemoveDuplicates().Should().Equal();
 
-            ((IEnumerable)Test).RemoveDuplicates<int>()
+            ((IEnumerable) Test).RemoveDuplicates<int>()
                 .Should()
                 .Equal(48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 44, 223, 3, 446, 4);
-            ((IEnumerable)Test.Convert(i => i.ToString())).RemoveDuplicates<string>()
+            ((IEnumerable) Test.Convert(i => i.ToString())).RemoveDuplicates<string>()
                 .Should()
                 .Equal("48498", "45", "6", "542", "321", "2", "1", "13", "5", "698", "9", "88", "7", "44", "223", "3", "446", "4");
 
-            ((IEnumerable)(object)new List<int>()).RemoveDuplicates<int>().Should().Equal();
+            ((IEnumerable) (object) new List<int>()).RemoveDuplicates<int>().Should().Equal();
             }
 
         [Fact]
@@ -1838,7 +1838,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Mirror) + "(IEnumerable) => List`1<T>")]
-        public void Test_Mirror()
+        public void Mirror()
             {
             int[] Test =
                 {
@@ -1858,11 +1858,11 @@ namespace L_Tests.LCore.Extensions
 
             Test.Mirror().Should().Equal(Mirrored);
             Test.List().Mirror().Should().Equal(Mirrored);
-            ((IEnumerable)Test).Mirror<int>().Should().Equal(Mirrored);
+            ((IEnumerable) Test).Mirror<int>().Should().Equal(Mirrored);
 
             Test.Mirror().Mirror().Should().Equal(Test);
             Test.List().Mirror().Mirror().Should().Equal(Test);
-            ((IEnumerable)Test).Mirror<int>().Mirror().Should().Equal(Test);
+            ((IEnumerable) Test).Mirror<int>().Mirror().Should().Equal(Test);
             }
 
         [Fact]
@@ -1887,7 +1887,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Select) + "(IEnumerable`1<T>, Func`3<Int32, T, Boolean>) => List`1<T>")]
-        public void Test_Select()
+        public void Select()
             {
             int[] Test =
                 {
@@ -1915,8 +1915,8 @@ namespace L_Tests.LCore.Extensions
             Test.Select((Index, Item) => Item > 50).Should().Equal(48498, 542, 321, 698, 88, 223, 446, 48498, 542, 321, 698, 88, 223, 446);
             Test.Select((Index, Item) =>
                 {
-                    IndexTest.Add(Index);
-                    return Item < 10;
+                IndexTest.Add(Index);
+                return Item < 10;
                 }).Should().Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
 
             IndexTest.Should()
@@ -1948,8 +1948,8 @@ namespace L_Tests.LCore.Extensions
                 .Equal(48498, 542, 321, 698, 88, 223, 446, 48498, 542, 321, 698, 88, 223, 446);
             Test.List().Select<int>((Index, Item) =>
                 {
-                    IndexTest.Add(Index);
-                    return Item < 10;
+                IndexTest.Add(Index);
+                return Item < 10;
                 }).Should().Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
 
             IndexTest.Should()
@@ -1959,29 +1959,29 @@ namespace L_Tests.LCore.Extensions
             //////////////////////
             IndexTest = new List<int>();
 
-            ((IEnumerable)Test.List()).Select<int>(i => i < 50)
+            ((IEnumerable) Test.List()).Select<int>(i => i < 50)
                 .Should()
                 .Equal(45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1,
                     2, 3, 4);
-            ((IEnumerable)Test.List()).Select<int>(i => i > 50)
+            ((IEnumerable) Test.List()).Select<int>(i => i > 50)
                 .Should()
                 .Equal(48498, 542, 321, 698, 88, 223, 446, 48498, 542, 321, 698, 88, 223, 446);
-            ((IEnumerable)Test.List()).Select<int>(i => i < 10)
+            ((IEnumerable) Test.List()).Select<int>(i => i < 10)
                 .Should()
                 .Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
 
-            ((IEnumerable)Test.List()).Select<int>((Index, Item) => Item < 50)
+            ((IEnumerable) Test.List()).Select<int>((Index, Item) => Item < 50)
                 .Should()
                 .Equal(45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 45, 6, 2, 1, 13, 5, 9, 7, 5, 44, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1,
                     2, 3, 4);
-            ((IEnumerable)Test.List()).Select<int>((Index, Item) => Item > 50)
+            ((IEnumerable) Test.List()).Select<int>((Index, Item) => Item > 50)
                 .Should()
                 .Equal(48498, 542, 321, 698, 88, 223, 446, 48498, 542, 321, 698, 88, 223, 446);
-            ((IEnumerable)Test.List()).Select<int>((Index, Item) =>
-               {
-                   IndexTest.Add(Index);
-                   return Item < 10;
-               }).Should().Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
+            ((IEnumerable) Test.List()).Select<int>((Index, Item) =>
+                {
+                IndexTest.Add(Index);
+                return Item < 10;
+                }).Should().Equal(6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 6, 2, 1, 5, 9, 7, 5, 6, 5, 3, 5, 6, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
 
             IndexTest.Should()
                 .Equal(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
@@ -2001,7 +2001,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.SetAt) + "(IEnumerable`1<T>, UInt32, T)")]
-        public void Test_SetAt()
+        public void SetAt()
             {
             int[] Test =
                 {
@@ -2048,17 +2048,17 @@ namespace L_Tests.LCore.Extensions
 
             //////////////////////////////////////////////
 
-            ((IEnumerable)Test3).SetAt(Index: 0, Value: 0);
-            ((IEnumerable)Test3).SetAt(Index: 1, Value: 5);
+            ((IEnumerable) Test3).SetAt(Index: 0, Value: 0);
+            ((IEnumerable) Test3).SetAt(Index: 1, Value: 5);
 
             Test3.Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
 
-            ((IEnumerable)Test3).SetAt(-1, Value: 5);
-            ((IEnumerable)Test3).SetAt(Index: 1000, Value: 5);
+            ((IEnumerable) Test3).SetAt(-1, Value: 5);
+            ((IEnumerable) Test3).SetAt(Index: 1000, Value: 5);
 
-            ((IEnumerable)Test3).Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
+            ((IEnumerable) Test3).Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
             }
@@ -2073,7 +2073,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Shuffle) + "(IEnumerable) => List`1<T>")]
-        public void Test_Shuffle()
+        public void Shuffle()
             {
             int[] Test =
                 {
@@ -2133,46 +2133,46 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Sort) + "(IList`1<T>, Func`2<T, IComparable>)")]
-        public void Test_Sort()
+        public void Sort()
             {
             for (int i = 0; i < 50; i++)
                 {
-                int[] Random = new int[50].Fill(j => (int)L.Obj.NewRandom<int>());
+                int[] Random = new int[50].Fill(j => (int) L.Obj.NewRandom<int>());
 
                 Random.Sort();
                 Random.Should().BeInAscendingOrder();
 
-                string[] Random2 = new string[50].Fill(j => (string)typeof(string).NewRandom());
+                string[] Random2 = new string[50].Fill(j => (string) typeof(string).NewRandom());
 
                 Random2.Sort();
                 Random2.Should().BeInAscendingOrder();
 
-                char[] Random3 = new char[50].Fill(j => (char)L.Obj.NewRandom<char>());
+                char[] Random3 = new char[50].Fill(j => (char) L.Obj.NewRandom<char>());
 
                 Random3.Sort();
                 Random3.Should().BeInAscendingOrder();
 
-                string[] Random4 = new string[50].Fill(j => (string)typeof(string).NewRandom());
+                string[] Random4 = new string[50].Fill(j => (string) typeof(string).NewRandom());
 
                 Random4.Sort(s => s.ToString());
                 Random4.Should().BeInAscendingOrder();
 
-                string[] Random5 = new string[50].Fill(j => (string)typeof(string).NewRandom());
+                string[] Random5 = new string[50].Fill(j => (string) typeof(string).NewRandom());
 
                 // ReSharper disable once StringCompareToIsCultureSpecific
                 Random5.Sort((o1, o2) => o1.CompareTo(o2));
                 Random5.Should().BeInAscendingOrder();
 
-                string[] Random6 = new string[50].Fill(j => (string)typeof(string).NewRandom());
+                string[] Random6 = new string[50].Fill(j => (string) typeof(string).NewRandom());
 
                 // ReSharper disable once StringCompareToIsCultureSpecific
-                Random6.Sort((Func<string, IComparable>)null);
+                Random6.Sort((Func<string, IComparable>) null);
                 Random6.Should().BeInAscendingOrder();
 
-                string[] Random7 = new string[50].Fill(j => (string)typeof(string).NewRandom());
+                string[] Random7 = new string[50].Fill(j => (string) typeof(string).NewRandom());
 
                 // ReSharper disable once StringCompareToIsCultureSpecific
-                Random7.Sort((Func<string, string, int>)null);
+                Random7.Sort((Func<string, string, int>) null);
                 Random7.Should().BeInAscendingOrder();
                 }
             }
@@ -2184,9 +2184,9 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Swap) + "(IList, Int32, Int32)")]
-        public void Test_Swap()
+        public void Swap()
             {
-            int[] Test = { 48498, 45, 6, 542, 321, 2, 1 };
+            int[] Test = {48498, 45, 6, 542, 321, 2, 1};
 
 
             List<int> Test2 = Test.List();
@@ -2218,7 +2218,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.TotalCount) + "(IEnumerable) => Int32")]
-        public void Test_TotalCount()
+        public void TotalCount()
             {
             var Test = new object[]
                 {
@@ -2237,7 +2237,7 @@ namespace L_Tests.LCore.Extensions
                 };
 
 
-            Test.TotalCount().Should().Be(expected: 16);
+            Test.TotalCount().ShouldBe(Compare: 16);
             }
 
         [Fact]
@@ -2253,11 +2253,11 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Add) + "(List`1<T>, IEnumerable`1<T>)")]
-        public void Test_Add()
+        public void Add()
             {
-            int[] Test = { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736 };
+            int[] Test = {1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736};
 
-            int[] Test2 = { 52317854, 87, 53, 23843254, 1, 45394, 73643854, 948746, 5 };
+            int[] Test2 = {52317854, 87, 53, 23843254, 1, 45394, 73643854, 948746, 5};
 
 
             Test.Add(5)
@@ -2271,10 +2271,10 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        public void Test_Add_List()
+        public void Add_List()
             {
             // ReSharper disable ArgumentsStyleLiteral
-            List<int> Test = new List<int> { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 5 };
+            List<int> Test = new List<int> {1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736, 5};
             // ReSharper restore ArgumentsStyleLiteral
 
 
@@ -2291,9 +2291,9 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.AddTo) + "(IEnumerable`1<T>, ICollection)")]
-        public void Test_AddTo()
+        public void AddTo()
             {
-            int[] Test = { 1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736 };
+            int[] Test = {1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736};
 
             Collection<int> Collection = new Collection<int>();
 
@@ -2317,37 +2317,37 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        public void Test_GetAt_SetAt_CustomIndexer()
+        public void GetAt_SetAt_CustomIndexer()
             {
             var Test = new CustomIndexer();
 
-            Test.Str.Should().Be("it's just a test");
+            Test.Str.ShouldBe("it's just a test");
 
-            Test.Count().Should().Be(expected: 16);
+            Test.Count().ShouldBe(Compare: 16u);
             Test.HasIndex(Index: 3).ShouldBeTrue();
-            Test.GetAt(Index: 0).Should().Be(expected: 'i');
-            Test.GetAt(Index: 1).Should().Be(expected: 't');
-            Test.GetAt(Index: 2).Should().Be(expected: '\'');
-            Test.GetAt(Index: 3).Should().Be(expected: 's');
+            Test.GetAt(Index: 0).ShouldBe(Compare: 'i');
+            Test.GetAt(Index: 1).ShouldBe(Compare: 't');
+            Test.GetAt(Index: 2).ShouldBe(Compare: '\'');
+            Test.GetAt(Index: 3).ShouldBe(Compare: 's');
             Test.SetAt(Index: 3, Value: 'd');
-            Test.GetAt(Index: 3).Should().Be(expected: 'd');
+            Test.GetAt(Index: 3).ShouldBe(Compare: 'd');
 
-            Test.Str.Should().Be("it'd just a test");
+            Test.Str.ShouldBe("it'd just a test");
 
-            ((IEnumerable)Test).SetAt(Index: 4, Value: '-');
-            ((IEnumerable)Test).GetAt(Index: 4).Should().Be(expected: '-');
-            Test.Str.Should().Be("it'd-just a test");
+            ((IEnumerable) Test).SetAt(Index: 4, Value: '-');
+            ((IEnumerable) Test).GetAt(Index: 4).ShouldBe(Compare: '-');
+            Test.Str.ShouldBe("it'd-just a test");
 
             var Test2 = new CustomIndexerU();
 
-            Test2.Str.Should().Be("it's just a test");
+            Test2.Str.ShouldBe("it's just a test");
             Test2.SetAt(Index: 12u, Value: 'v');
-            Test2.GetAt(Index: 12u).Should().Be(expected: 'v');
-            Test2.Str.Should().Be("it's just a vest");
+            Test2.GetAt(Index: 12u).ShouldBe(Compare: 'v');
+            Test2.Str.ShouldBe("it's just a vest");
 
-            ((IEnumerable)Test2).SetAt(Index: 14u, Value: 'n');
-            ((IEnumerable)Test2).GetAt(Index: 14u).Should().Be(expected: 'n');
-            Test2.Str.Should().Be("it's just a vent");
+            ((IEnumerable) Test2).SetAt(Index: 14u, Value: 'n');
+            ((IEnumerable) Test2).GetAt(Index: 14u).ShouldBe(Compare: 'n');
+            Test2.Str.ShouldBe("it's just a vent");
             }
 
         #region Internal
@@ -2376,7 +2376,7 @@ namespace L_Tests.LCore.Extensions
                 }
 
             // ReSharper disable once NotNullMemberIsNotInitialized
-            public AmbiguousMatchCollection() { }
+            public AmbiguousMatchCollection() {}
 
             public AmbiguousMatchCollection(object SyncRoot, bool IsSynchronized)
                 {
@@ -2389,7 +2389,7 @@ namespace L_Tests.LCore.Extensions
                 return null;
                 }
 
-            public void CopyTo(Array Array, int Index) { }
+            public void CopyTo(Array Array, int Index) {}
 
             /// <exception cref="Exception" accessor="get"></exception>
             public int Count
@@ -2400,15 +2400,15 @@ namespace L_Tests.LCore.Extensions
             public object SyncRoot { get; }
             public bool IsSynchronized { get; }
 
-            public void Add(string Str) { }
+            public void Add(string Str) {}
 
-            public void Add(string Obj, bool Test = false) { }
+            public void Add(string Obj, bool Test = false) {}
 
-            public void Add<T>(string Obj) { }
-            public void Add<T>(string Obj, bool Test = false) { }
+            public void Add<T>(string Obj) {}
+            public void Add<T>(string Obj, bool Test = false) {}
 
-            public void Add(object Obj) { }
-            public void Add<T>(object Obj) { }
+            public void Add(object Obj) {}
+            public void Add<T>(object Obj) {}
             }
 
         [ExcludeFromCodeCoverage]
@@ -2422,7 +2422,7 @@ namespace L_Tests.LCore.Extensions
                 }
 
             // ReSharper disable once NotNullMemberIsNotInitialized
-            public BadCollection() { }
+            public BadCollection() {}
 
             public BadCollection(object SyncRoot, bool IsSynchronized)
                 {
@@ -2435,7 +2435,7 @@ namespace L_Tests.LCore.Extensions
                 return null;
                 }
 
-            public void CopyTo(Array Array, int Index) { }
+            public void CopyTo(Array Array, int Index) {}
 
             /// <exception cref="Exception" accessor="get"></exception>
             public int Count
@@ -2462,7 +2462,7 @@ namespace L_Tests.LCore.Extensions
 
             public IEnumerator<char> GetEnumerator()
                 {
-                return (IEnumerator<char>)this.Chars.GetEnumerator();
+                return (IEnumerator<char>) this.Chars.GetEnumerator();
                 }
 
             IEnumerator IEnumerable.GetEnumerator()
@@ -2479,14 +2479,14 @@ namespace L_Tests.LCore.Extensions
 
             public char this[uint Index]
                 {
-                get { return this.Str[(int)Index]; }
+                get { return this.Str[(int) Index]; }
                 // ReSharper disable once ValueParameterNotUsed
                 set { this.Chars.SetAt(Index, value); }
                 }
 
             public IEnumerator<char> GetEnumerator()
                 {
-                return (IEnumerator<char>)this.Chars.GetEnumerator();
+                return (IEnumerator<char>) this.Chars.GetEnumerator();
                 }
 
             IEnumerator IEnumerable.GetEnumerator()
@@ -2498,7 +2498,7 @@ namespace L_Tests.LCore.Extensions
         [ExcludeFromCodeCoverage]
         internal class NotAnIndexer : IEnumerable<int>
             {
-            private readonly int[] _Test = { 5, 6, 7 };
+            private readonly int[] _Test = {5, 6, 7};
 
             IEnumerator<int> IEnumerable<int>.GetEnumerator()
                 {

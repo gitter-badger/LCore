@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.LUnit;
 using LCore.LUnit.Fluent;
@@ -70,8 +69,8 @@ namespace L_Tests.LCore.Tools
         [Trait(Traits.TargetMember, "LCore.Tools.Set`2.GetHashCode() => Int32")]
         public new void GetHashCode()
             {
-            this._Test.GetHashCode().Should().Be(expected: 372027467);
-            this._Test2.GetHashCode().Should().Be(expected: 372027467);
+            this._Test.GetHashCode().ShouldBe(Compare: 372027467);
+            this._Test2.GetHashCode().ShouldBe(Compare: 372027467);
             }
 
         [Fact]
@@ -98,20 +97,20 @@ namespace L_Tests.LCore.Tools
             {
             var Test = new Set<int, string>(Obj1: 5, Obj2: "4");
 
-            Test.Obj1.Should().Be(expected: 5);
-            Test.Obj2.Should().Be("4");
+            Test.Obj1.ShouldBe(Compare: 5);
+            Test.Obj2.ShouldBe("4");
 
-            this._Test3.Obj1.Should().Be(expected: null);
-            this._Test3.Obj2.Should().Be(expected: null);
+            this._Test3.Obj1.ShouldBe(Compare: null);
+            this._Test3.Obj2.ShouldBe(Compare: null);
             }
 
         [Fact]
         [Trait(Traits.TargetMember, "LCore.Tools.Set`2.ToString() => String")]
         public new void ToString()
             {
-            this._Test.ToString().Should().Be("[5,4]");
-            this._Test2.ToString().Should().Be("[5,4]");
-            this._Test3.ToString().Should().Be("[,]");
+            this._Test.ToString().ShouldBe("[5,4]");
+            this._Test2.ToString().ShouldBe("[5,4]");
+            this._Test3.ToString().ShouldBe("[,]");
             }
         }
     }

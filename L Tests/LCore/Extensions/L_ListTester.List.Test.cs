@@ -17,9 +17,9 @@ namespace L_Tests.LCore.Extensions
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L))]
     public partial class L_ListTester : XUnitOutputTester, IDisposable
         {
-        public L_ListTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        public L_ListTester([NotNull] ITestOutputHelper Output) : base(Output) {}
 
-        public void Dispose() { }
+        public void Dispose() {}
 
         [Fact]
         [Trait(Traits.TargetMember,
@@ -29,7 +29,7 @@ namespace L_Tests.LCore.Extensions
             {
             L.List.NewList<List<int>, int>().Should().Equal();
             L.List.NewList<List<string>, string>().Should().Equal();
-            L.List.NewList<string, char>().Should().Be("");
+            L.List.NewList<string, char>().ShouldBe("");
 
 
             L.A(() => L.List.NewList<IEnumerable<char>, char>()).ShouldFail();
@@ -63,8 +63,6 @@ namespace L_Tests.LCore.Extensions
             nameof(L.List.ToList) + "(T[]) => Func`1<List`1<T>>")]
         public void ToList_T_Func_1_List_1_T()
             {
-
-
             L.List.ToList(1, 2, 3)()
                 .Should()
                 .BeOfType<List<int>>()
@@ -81,6 +79,5 @@ namespace L_Tests.LCore.Extensions
                 .Be(
                     "List`1<String> { a, b, c }");
             }
-
         }
     }

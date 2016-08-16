@@ -12,6 +12,8 @@ using JetBrains.Annotations;
 using LCore.LUnit.Assert;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+// ReSharper disable UnusedMethodReturnValue.Global
+
 // ReSharper disable UnusedMember.Global
 
 namespace LCore.LUnit.Fluent
@@ -569,24 +571,6 @@ namespace LCore.LUnit.Fluent
         /// <returns></returns>
         public static AndConstraint<ObjectAssertions> ShouldBe<T>([CanBeNull] this T Value, [CanBeNull] T Compare, [CanBeNull] string Because = "",
             [CanBeNull] params object[] BecauseArgs)
-            where T : class
-            {
-            return Value.Should().Be(Compare, Because, BecauseArgs);
-            }
-
-        /// <summary>
-        /// Asserts that the value is null.
-        /// </summary>
-        /// <param name="Value"></param>
-        /// <param name="Compare"></param>
-        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
-        ///     explaining why the assertion is needed. If the phrase does not start with the
-        ///     word because, it is prepended automatically.</param>
-        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
-        /// <returns></returns>
-        public static AndConstraint<ObjectAssertions> ShouldBe<T>([CanBeNull] this T? Value, [CanBeNull] T? Compare, [CanBeNull] string Because = "",
-            [CanBeNull] params object[] BecauseArgs)
-            where T : struct
             {
             return Value.Should().Be(Compare, Because, BecauseArgs);
             }

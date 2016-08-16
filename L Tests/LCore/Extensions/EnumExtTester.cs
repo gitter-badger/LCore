@@ -3,6 +3,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using LCore.Naming;
 using Xunit;
 using Xunit.Abstractions;
@@ -23,24 +24,24 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.ParseEnum) + "(String, Type) => Enum")]
         public void ParseEnum_String_Type_Enum()
             {
-            ((string) null).ParseEnum(typeof(TestEnum)).Should().Be(expected: null);
+            ((string) null).ParseEnum(typeof(TestEnum)).ShouldBe(Compare: null);
 
             "".ParseEnum(typeof(TestEnum)).Should().BeNull();
             "Test1".ParseEnum(Type: null).Should().BeNull();
             "FriendlyName".ParseEnum(typeof(TestEnum)).Should().BeNull();
 
-            "Test1".ParseEnum(typeof(TestEnum)).Should().Be(TestEnum.Test1);
-            "CamelCaseEnumsAreGreat".ParseEnum(typeof(TestEnum)).Should().Be(TestEnum.CamelCaseEnumsAreGreat);
+            "Test1".ParseEnum(typeof(TestEnum)).ShouldBe(TestEnum.Test1);
+            "CamelCaseEnumsAreGreat".ParseEnum(typeof(TestEnum)).ShouldBe(TestEnum.CamelCaseEnumsAreGreat);
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.ParseEnum_FriendlyName) + "(String, Type) => Enum")]
         public void ParseEnum_FriendlyName()
             {
-            ((string) null).ParseEnum_FriendlyName(typeof(TestEnum)).Should().Be(expected: null);
-            "".ParseEnum_FriendlyName(typeof(TestEnum)).Should().Be(expected: null);
+            ((string) null).ParseEnum_FriendlyName(typeof(TestEnum)).ShouldBe(Compare: null);
+            "".ParseEnum_FriendlyName(typeof(TestEnum)).ShouldBe(Compare: null);
 
-            "FriendlyName".ParseEnum_FriendlyName(typeof(TestEnum)).Should().Be(TestEnum.Test1);
+            "FriendlyName".ParseEnum_FriendlyName(typeof(TestEnum)).ShouldBe(TestEnum.Test1);
             "Camel Case Enums Are Great".ParseEnum_FriendlyName(typeof(TestEnum))
                 .Should()
                 .Be(TestEnum.CamelCaseEnumsAreGreat);
@@ -50,11 +51,11 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.GetFriendlyName) + "(Enum) => String")]
         public void GetFriendlyName()
             {
-            TestEnum.Test2.GetFriendlyName().Should().Be("Test 2");
-            TestEnum.Test1.GetFriendlyName().Should().Be("FriendlyName");
-            TestEnum.CamelCaseEnumsAreGreat.GetFriendlyName().Should().Be("Camel Case Enums Are Great");
+            TestEnum.Test2.GetFriendlyName().ShouldBe("Test 2");
+            TestEnum.Test1.GetFriendlyName().ShouldBe("FriendlyName");
+            TestEnum.CamelCaseEnumsAreGreat.GetFriendlyName().ShouldBe("Camel Case Enums Are Great");
 
-            ((Enum) null).GetFriendlyName().Should().Be("");
+            ((Enum) null).GetFriendlyName().ShouldBe("");
             }
 
 

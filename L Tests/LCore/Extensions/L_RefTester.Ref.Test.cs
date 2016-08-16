@@ -38,7 +38,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." +
             nameof(L.Ref.GetNamespaceTypes) + "(Assembly, String, Type[]) => Type[]")]
-        public void Test_GetNamespaceTypes()
+        public void GetNamespaceTypes()
             {
             L.Ref.GetNamespaceTypes("LCore.Tests").ShouldBeEquivalentTo(new List<Type>
                 {
@@ -77,7 +77,8 @@ namespace L_Tests.LCore.Extensions
 
             L.Ref.FindType($"{nameof(System)}.{nameof(String)}").ShouldBe(typeof(string));
 
-            L.Ref.FindType($"{typeof(L).Namespace}.{nameof(L)}.{nameof(L.Ref)}").Should().Be(typeof(L.Ref));
+            L.Ref.FindType($"{nameof(L)}.{nameof(L.Ref)}").ShouldBe(typeof(L.Ref));
+            L.Ref.FindType($"{typeof(L).Namespace}.{nameof(L)}.{nameof(L.Ref)}").ShouldBe(typeof(L.Ref));
 
             L.Ref.FindType($"{typeof(L).Namespace}.{nameof(L)}.{nameof(L.Ref)}", typeof(LCoreAssemblyTester).GetAssembly()).ShouldBeNull();
             L.Ref.FindType($"{typeof(L).Namespace}.{nameof(L)}.{nameof(L.Ref)}", typeof(L).GetAssembly()).ShouldBe(typeof(L.Ref));
@@ -88,14 +89,14 @@ namespace L_Tests.LCore.Extensions
 
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.FindMember) + "(String, Assembly[]) => MemberInfo[]")]
-        public void FindMember()
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.FindMembers) + "(String, Assembly[]) => MemberInfo[]")]
+        public void FindMembers()
             {
-            var Member = L.Ref.FindMember($"{nameof(L)}.{nameof(L.Ref)}.{nameof(L.Ref.FindMember)}").First();
+            var Member = L.Ref.FindMembers($"{nameof(L)}.{nameof(L.Ref)}.{nameof(L.Ref.FindMembers)}").First();
 
             Member.ShouldNotBeNull();
 
-            var Members = (MemberInfo[]) ((MethodInfo) Member)?.Invoke(obj: null, parameters: new object[] {$"{typeof(L).Namespace}.{nameof(L)}.{nameof(L.Ref)}.{nameof(L.Ref.FindMember)}"});
+            var Members = (MemberInfo[]) ((MethodInfo) Member)?.Invoke(obj: null, parameters: new object[] {$"{typeof(L).Namespace}.{nameof(L)}.{nameof(L.Ref)}.{nameof(L.Ref.FindMembers)}", null});
 
             Members.First().ShouldBe(Member);
             }

@@ -4,6 +4,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -14,16 +15,16 @@ namespace L_Tests.LCore.Extensions
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt))]
     public partial class DictionaryExtTester : XUnitOutputTester, IDisposable
         {
-        public DictionaryExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        public DictionaryExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}
 
-        public void Dispose() { }
+        public void Dispose() {}
 
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt) + "." +
             nameof(DictionaryExt.Merge) +
             "(IDictionary`2<TKey, TValue>, IDictionary`2<TKey, TValue>, Func`2<KeyValuePair`2<TKey, TValue>, KeyValuePair`2<TKey, TValue>>)")]
-        public void Test_Merge()
+        public void Merge()
             {
             var Test = new Dictionary<string, string>
                 {
@@ -41,11 +42,11 @@ namespace L_Tests.LCore.Extensions
 
             Test.Merge(Test2);
 
-            Test.Keys.Count.Should().Be(expected: 6);
+            Test.Keys.Count.ShouldBe(Compare: 6);
 
             Test.Merge(Test2);
 
-            Test.Keys.Count.Should().Be(expected: 6);
+            Test.Keys.Count.ShouldBe(Compare: 6);
 
             var Test3 = new Dictionary<string, string>
                 {
@@ -56,22 +57,22 @@ namespace L_Tests.LCore.Extensions
 
             Test.Merge(Test3);
 
-            Test.Keys.Count.Should().Be(expected: 9);
+            Test.Keys.Count.ShouldBe(Compare: 9);
 
-            Test.Keys.List().Should().Equal(new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i" });
+            Test.Keys.List().Should().Equal(new List<string> {"a", "b", "c", "d", "e", "f", "g", "h", "i"});
 
             Test.Merge(Test3, Value => new KeyValuePair<string, string>($"{Value.Key}a", $"{Value.Value}b"));
 
-            Test.Keys.Count.Should().Be(expected: 12);
+            Test.Keys.Count.ShouldBe(Compare: 12);
 
-            Test.Keys.List().Should().Equal(new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i", "ga", "ha", "ia" });
+            Test.Keys.List().Should().Equal(new List<string> {"a", "b", "c", "d", "e", "f", "g", "h", "i", "ga", "ha", "ia"});
             }
 
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt) + "." +
             nameof(DictionaryExt.AddRange) + "(IDictionary`2<TKey, TValue>, IDictionary`2<TKey, TValue>)")]
-        public void Test_AddRange()
+        public void AddRange()
             {
             var Test = new Dictionary<string, string>
                 {
@@ -94,27 +95,27 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt) + "." +
             nameof(DictionaryExt.SafeAdd) + "(IDictionary`2<TKey, TValue>, TKey, TValue)")]
-        public void Test_SafeAdd()
+        public void SafeAdd()
             {
-            ((Dictionary<string, string>)null).SafeAdd("a", "b");
+            ((Dictionary<string, string>) null).SafeAdd("a", "b");
 
             var Test = new Dictionary<string, string>();
 
             Test.SafeAdd("a", "b");
             Test.SafeAdd("a", "c");
 
-            Test.Keys.Count.Should().Be(expected: 1);
-            Test["a"].Should().Be("b");
+            Test.Keys.Count.ShouldBe(Compare: 1);
+            Test["a"].ShouldBe("b");
 
             Test.SafeAdd(Key: null, Val: null);
-            Test.Keys.Count.Should().Be(expected: 1);
+            Test.Keys.Count.ShouldBe(Compare: 1);
             Test.SafeAdd(Key: null, Val: "");
-            Test.Keys.Count.Should().Be(expected: 1);
+            Test.Keys.Count.ShouldBe(Compare: 1);
             Test.SafeAdd("", Val: null);
-            Test.Keys.Count.Should().Be(expected: 2);
+            Test.Keys.Count.ShouldBe(Compare: 2);
             Test.SafeAdd("", "");
-            Test.Keys.Count.Should().Be(expected: 2);
-            Test[""].Should().Be(expected: null);
+            Test.Keys.Count.ShouldBe(Compare: 2);
+            Test[""].ShouldBe(Compare: null);
             }
 
 
@@ -122,25 +123,25 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt) + "." +
             nameof(DictionaryExt.SafeGet) + "(IDictionary`2<TKey, TValue>, TKey) => TValue")]
-        public void Test_SafeSet()
+        public void SafeSet()
             {
-            ((Dictionary<string, string>)null).SafeSet("a", "b");
+            ((Dictionary<string, string>) null).SafeSet("a", "b");
 
             var Test = new Dictionary<string, string>();
 
             Test.SafeSet("a", "b");
             Test.SafeSet("a", "c");
 
-            Test.Keys.Count.Should().Be(expected: 1);
-            Test["a"].Should().Be("c");
+            Test.Keys.Count.ShouldBe(Compare: 1);
+            Test["a"].ShouldBe("c");
 
             Test.SafeSet(Key: null, Val: null);
             Test.SafeSet(Key: null, Val: "");
             Test.SafeSet(Key: null, Val: "c");
 
             Test.SafeSet("", "c");
-            Test.Keys.Count.Should().Be(expected: 2);
-            Test[""].Should().Be("c");
+            Test.Keys.Count.ShouldBe(Compare: 2);
+            Test[""].ShouldBe("c");
             }
 
 
@@ -148,15 +149,15 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt) + "." +
             nameof(DictionaryExt.SafeSet) + "(IDictionary`2<TKey, TValue>, TKey, TValue)")]
-        public void Test_SafeGet()
+        public void SafeGet()
             {
-            ((Dictionary<string, string>)null).SafeGet("a").Should().BeNull();
+            ((Dictionary<string, string>) null).SafeGet("a").Should().BeNull();
 
             var Test = new Dictionary<string, string>();
             Test.SafeSet("a", "b");
 
-            Test.SafeGet("a").Should().Be("b");
-            Test.SafeGet("b").Should().Be(expected: null);
+            Test.SafeGet("a").ShouldBe("b");
+            Test.SafeGet("b").ShouldBe(Compare: null);
             }
 
 
@@ -164,9 +165,9 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt) + "." +
             nameof(DictionaryExt.GetAllValues) + "(Dictionary`2<TKey, TValueList>) => List`1<TValue>")]
-        public void Test_GetAllValues()
+        public void GetAllValues()
             {
-            ((Dictionary<string, int[]>)null).GetAllValues<string, int, int[]>()
+            ((Dictionary<string, int[]>) null).GetAllValues<string, int, int[]>()
                 .Should().Equal(new List<int>());
 
             var Test = new Dictionary<string, int[]>
@@ -178,7 +179,7 @@ namespace L_Tests.LCore.Extensions
 
             Test.GetAllValues<string, int, int[]>()
                 // ReSharper disable ArgumentsStyleLiteral
-                .Should().Equal(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+                .Should().Equal(new List<int> {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1, 2, 3, 4, 5, 6, 7, 8, 9});
             // ReSharper restore ArgumentsStyleLiteral
             }
         }

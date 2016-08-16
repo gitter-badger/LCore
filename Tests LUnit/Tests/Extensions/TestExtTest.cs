@@ -1,8 +1,10 @@
 ﻿using LCore.Extensions;
+using LCore.LUnit.Fluent;
 using System;
-using FluentAssertions;
 using Xunit;
 using static LCore.LUnit.LUnit.Categories;
+
+// ReSharper disable UnusedMethodReturnValue.Global
 
 // ReSharper disable RedundantCast
 
@@ -15,86 +17,86 @@ namespace LCore.LUnit.Tests.Extensions
     public class TestExtTest
         {
         [Fact]
-        public void Test_BoundAttribute()
+        public void BoundAttribute()
             {
             var Attr = new TestBoundAttribute(Minimum: 1, Maximum: 2);
 
-            Attr.Minimum.Should().Be(expected: 1);
-            Attr.Maximum.Should().Be(expected: 2);
-            Attr.ValueType.Should().Be(typeof(int));
+            Attr.Minimum.ShouldBe(Compare: 1);
+            Attr.Maximum.ShouldBe(Compare: 2);
+            Attr.ValueType.ShouldBe(typeof(int));
 
             //////
 
             Attr = new TestBoundAttribute(Minimum: 1u, Maximum: 2u);
 
-            Attr.Minimum.Should().Be(expected: 1u);
-            Attr.Maximum.Should().Be(expected: 2u);
-            Attr.ValueType.Should().Be(typeof(uint));
+            Attr.Minimum.ShouldBe(Compare: 1u);
+            Attr.Maximum.ShouldBe(Compare: 2u);
+            Attr.ValueType.ShouldBe(typeof(uint));
 
             //////
 
-            Attr = new TestBoundAttribute((short)1, (short)2);
+            Attr = new TestBoundAttribute((short) 1, (short) 2);
 
-            Attr.Minimum.Should().Be((short)1);
-            Attr.Maximum.Should().Be((short)2);
-            Attr.ValueType.Should().Be(typeof(short));
+            Attr.Minimum.ShouldBe((short) 1);
+            Attr.Maximum.ShouldBe((short) 2);
+            Attr.ValueType.ShouldBe(typeof(short));
             //////
 
-            Attr = new TestBoundAttribute((ushort)1, (ushort)2);
+            Attr = new TestBoundAttribute((ushort) 1, (ushort) 2);
 
-            Attr.Minimum.Should().Be((ushort)1);
-            Attr.Maximum.Should().Be((ushort)2);
-            Attr.ValueType.Should().Be(typeof(ushort));
+            Attr.Minimum.ShouldBe((ushort) 1);
+            Attr.Maximum.ShouldBe((ushort) 2);
+            Attr.ValueType.ShouldBe(typeof(ushort));
 
-
-            //////
-
-            Attr = new TestBoundAttribute((byte)1, (byte)2);
-
-            Attr.Minimum.Should().Be((byte)1);
-            Attr.Maximum.Should().Be((byte)2);
-            Attr.ValueType.Should().Be(typeof(byte));
 
             //////
 
-            Attr = new TestBoundAttribute((sbyte)1, (sbyte)2);
+            Attr = new TestBoundAttribute((byte) 1, (byte) 2);
 
-            Attr.Minimum.Should().Be((sbyte)1);
-            Attr.Maximum.Should().Be((sbyte)2);
-            Attr.ValueType.Should().Be(typeof(sbyte));
-
-            //////
-
-            Attr = new TestBoundAttribute((decimal)1, (decimal)2);
-
-            Attr.Minimum.Should().Be((decimal)1);
-            Attr.Maximum.Should().Be((decimal)2);
-            Attr.ValueType.Should().Be(typeof(decimal));
+            Attr.Minimum.ShouldBe((byte) 1);
+            Attr.Maximum.ShouldBe((byte) 2);
+            Attr.ValueType.ShouldBe(typeof(byte));
 
             //////
 
-            Attr = new TestBoundAttribute((double)1, (double)2);
+            Attr = new TestBoundAttribute((sbyte) 1, (sbyte) 2);
 
-            Attr.Minimum.Should().Be((double)1);
-            Attr.Maximum.Should().Be((double)2);
-            Attr.ValueType.Should().Be(typeof(double));
+            Attr.Minimum.ShouldBe((sbyte) 1);
+            Attr.Maximum.ShouldBe((sbyte) 2);
+            Attr.ValueType.ShouldBe(typeof(sbyte));
 
             //////
 
-            Attr = new TestBoundAttribute((float)1, (float)2);
+            Attr = new TestBoundAttribute((decimal) 1, (decimal) 2);
 
-            Attr.Minimum.Should().Be((float)1);
-            Attr.Maximum.Should().Be((float)2);
-            Attr.ValueType.Should().Be(typeof(float));
+            Attr.Minimum.ShouldBe((decimal) 1);
+            Attr.Maximum.ShouldBe((decimal) 2);
+            Attr.ValueType.ShouldBe(typeof(decimal));
+
+            //////
+
+            Attr = new TestBoundAttribute((double) 1, (double) 2);
+
+            Attr.Minimum.ShouldBe((double) 1);
+            Attr.Maximum.ShouldBe((double) 2);
+            Attr.ValueType.ShouldBe(typeof(double));
+
+            //////
+
+            Attr = new TestBoundAttribute((float) 1, (float) 2);
+
+            Attr.Minimum.ShouldBe((float) 1);
+            Attr.Maximum.ShouldBe((float) 2);
+            Attr.ValueType.ShouldBe(typeof(float));
 
 
             //////
 
             /* Attr = new TestBoundAttribute((object)1, (object)2);
 
-             Attr.Minimum.Should().Be((object)1);
-             Attr.Maximum.Should().Be((object)2);
-             Attr.ValueType.Should().Be(typeof(int));*/
+             Attr.Minimum.ShouldBe((object)1);
+             Attr.Maximum.ShouldBe((object)2);
+             Attr.ValueType.ShouldBe(typeof(int));*/
             }
 
         #region Helpers

@@ -2,6 +2,7 @@ using System;
 using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using LCore.Numbers;
 using Xunit;
 using Xunit.Abstractions;
@@ -45,17 +46,17 @@ namespace L_Tests.LCore.Numbers
             LongNumber TempNumber = Dec;
             Dec = TempNumber;
 
-            $"{TempNumber}".Should().Be("5000000");
+            $"{TempNumber}".ShouldBe("5000000");
 
-            TempNumber.GetHashCode().Should().Be(Dec.GetHashCode());
-            TempNumber.NumberType.Should().Be(typeof(long));
+            TempNumber.GetHashCode().ShouldBe(Dec.GetHashCode());
+            TempNumber.NumberType.ShouldBe(typeof(long));
 
-            TempNumber.New().Should().Be(TempNumber.DefaultValue);
+            TempNumber.New().ShouldBe(TempNumber.DefaultValue);
 
             INumber Temp2 = TempNumber.New(Dec);
-            Temp2.GetValue().Should().Be(Dec);
+            Temp2.GetValue().ShouldBe(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((LongNumber)1);
+            TempNumber.GetValuePrecision().ShouldBe((LongNumber)1);
 
             TempNumber.Add((LongNumber)5).Should().BeOfType<IntNumber>().And.Be((IntNumber)(int)5000005);
             TempNumber.Subtract((LongNumber)5).Should().BeOfType<IntNumber>().And.Be((IntNumber)(int)4999995);

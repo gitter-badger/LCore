@@ -32,7 +32,7 @@ namespace L_Tests.LCore.Tools
         public void TestAll()
             {
             // ReSharper disable StringLiteralTypo
-            DateTimeConverter.Rfc3339DateTimeFormat.Should().Be("yyyy-MM-dd'T'HH:mm:ss.fffK");
+            DateTimeConverter.Rfc3339DateTimeFormat.ShouldBe("yyyy-MM-dd'T'HH:mm:ss.fffK");
             // ReSharper disable once RedundantExplicitParamsArrayCreation
             DateTimeConverter.Rfc3339DateTimePatterns.Should().Equal(new[]
                 {

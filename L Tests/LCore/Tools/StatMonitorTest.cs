@@ -1,5 +1,4 @@
 ﻿using System;
-using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
@@ -37,7 +36,7 @@ namespace L_Tests.LCore.Tools
 
             var Test = new StatMonitor(WalkingAverageSize: 10);
 
-            Test.GetCurrentAverageStat().Should().Be(double.NaN);
+            Test.GetCurrentAverageStat().ShouldBe(double.NaN);
 
             Test.AddStat(Stat: 1);
             Test.AddStat(Stat: 2);
@@ -50,7 +49,7 @@ namespace L_Tests.LCore.Tools
             Test.AddStat(Stat: 9);
             Test.AddStat(Stat: 10);
 
-            Test.GetCurrentAverageStat().Should().Be(expected: 5.5);
+            Test.GetCurrentAverageStat().ShouldBe(Compare: 5.5);
 
             Test.AddStat(Stat: 11);
             Test.AddStat(Stat: 12);
@@ -63,10 +62,10 @@ namespace L_Tests.LCore.Tools
             Test.AddStat(Stat: 19);
             Test.AddStat(Stat: 20);
 
-            Test.GetCurrentAverageStat().Should().Be(expected: 15.5);
+            Test.GetCurrentAverageStat().ShouldBe(Compare: 15.5);
 
             Test.Clear();
-            Test.GetCurrentAverageStat().Should().Be(double.NaN);
+            Test.GetCurrentAverageStat().ShouldBe(double.NaN);
             }
         }
     }

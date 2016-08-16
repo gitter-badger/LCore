@@ -1352,6 +1352,7 @@ namespace LCore.Extensions
                 if (Out != null)
                     return Out;
 
+                // will work for root types
                 foreach (var Assembly in Assemblies)
                     {
                     Out = Assembly.GetType(TypeName);
@@ -1360,7 +1361,10 @@ namespace LCore.Extensions
                         return Out;
                     }
 
-                return null;
+                // for nested types
+                return Assemblies.Convert(Assembly => Assembly.GetExportedTypes()).Flatten<Type>()
+                    .First(Type => TypeName == Type.GetNestedNames() ||
+                                   TypeName == Type.FullyQualifiedName());
                 }
 
             #endregion
@@ -1371,11 +1375,10 @@ namespace LCore.Extensions
             /// Returns members matching fully qualified name.
             /// Ex: "LCore.Extensions.L.Ref.FindMember"
             /// </summary>
-            [CanBeNull]
-            public static MemberInfo[] FindMember([CanBeNull] string MemberFullName, [CanBeNull] params Assembly[] Assemblies)
+            public static MemberInfo[] FindMembers([CanBeNull] string MemberFullName, [CanBeNull] params Assembly[] Assemblies)
                 {
                 if (MemberFullName == null || MemberFullName.Count(Obj: '.') < 1)
-                    return null;
+                    return new MemberInfo[] {};
 
                 string Type = MemberFullName.BeforeLast(".");
                 string MemberName = MemberFullName.AfterLast(".");
@@ -1506,9 +1509,9 @@ namespace LCore.Extensions
             /// Retrieve a statically declared MethodInfo using a lambda statement.
             /// Ex. L.Ref.StaticMethod(() => Class.StaticMethod(""));
             /// </summary>
-            public static MethodInfo StaticMethod(Expression<Action> Expr)
+            public static MethodInfo StaticMethod([CanBeNull] Expression<Action> Expr)
                 {
-                return ((MethodCallExpression) Expr.Body).Method;
+                return ((MethodCallExpression) Expr?.Body)?.Method;
                 }
 
             #endregion

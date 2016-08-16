@@ -25,7 +25,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." +
             nameof(StringExt.ReplaceAll) + "(String, IDictionary`2<String, String>) => String")]
-        public void Test_ReplaceAll_Dictionary()
+        public void ReplaceAll_Dictionary()
             {
             var Replacements = new Dictionary<string, string>
                 {
@@ -36,9 +36,9 @@ namespace L_Tests.LCore.Extensions
             const string Test = "aab long long aaa along";
 
             // ReSharper disable once StringLiteralTypo
-            Test.ReplaceAll(Replacements).Should().Be("bbb short short bbb bshort");
+            Test.ReplaceAll(Replacements).ShouldBe("bbb short short bbb bshort");
 
-            Test.ReplaceAll((Dictionary<string, string>)null).Should().Be(Test);
+            Test.ReplaceAll((Dictionary<string, string>)null).ShouldBe(Test);
 
             var Replacements2 = new Dictionary<string, string>
                 {
@@ -53,13 +53,13 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." +
             nameof(StringExt.ToStream) + "(String) => Stream")]
-        public void Test_ToStream()
+        public void ToStream()
             {
             // ReSharper disable once StringLiteralTypo
             const string Test = "abcdefghijklmnopqrstuvwxyz";
             var Result = Test.ToStream();
 
-            Result.Length.Should().Be(Test.Length);
+            Result.Length.ShouldBe(Test.Length);
 
             var Test2 = new byte[Test.Length];
 
@@ -71,21 +71,21 @@ namespace L_Tests.LCore.Extensions
             const string Test3 = null;
             var Result2 = Test3.ToStream();
 
-            Result2.Length.Should().Be(expected: 0);
+            Result2.Length.ShouldBe(Compare: 0);
             }
 
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." +
             nameof(StringExt.Matches) + "(String, String) => List`1<Match>")]
-        public void Test_Matches()
+        public void Matches()
             {
             const string Test = "123 456";
             List<Match> Matches = Test.Matches(@"\d+");
 
             Matches.Should().HaveCount(expected: 2);
-            Matches[index: 0].Value.Should().Be("123");
-            Matches[index: 1].Value.Should().Be("456");
+            Matches[index: 0].Value.ShouldBe("123");
+            Matches[index: 1].Value.ShouldBe("456");
 
 
             Test.Matches(Expression: null).Should().HaveCount(expected: 0);

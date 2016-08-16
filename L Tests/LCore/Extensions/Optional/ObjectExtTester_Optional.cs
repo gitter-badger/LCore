@@ -9,6 +9,8 @@ using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
 
+// ReSharper disable AssignNullToNotNullAttribute
+
 // ReSharper disable PartialTypeWithSinglePart
 
 // ReSharper disable MemberCanBePrivate.Local
@@ -23,9 +25,9 @@ namespace L_Tests.LCore.Extensions.Optional
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt))]
     public partial class ObjectExtTester_Optional : XUnitOutputTester, IDisposable
         {
-        public ObjectExtTester_Optional([NotNull] ITestOutputHelper Output) : base(Output) { }
+        public ObjectExtTester_Optional([NotNull] ITestOutputHelper Output) : base(Output) {}
 
-        public void Dispose() { }
+        public void Dispose() {}
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.CopyFieldsTo) + "(T, Object)")]
@@ -49,9 +51,9 @@ namespace L_Tests.LCore.Extensions.Optional
             // subclass CopyFieldsTo parent class
             Test2.CopyFieldsTo(Test);
 
-            Test.A.Should().Be(expected: 1);
-            Test.B.Should().Be(expected: 2);
-            Test.C.Should().Be(expected: 3);
+            Test.A.ShouldBe(Compare: 1);
+            Test.B.ShouldBe(Compare: 2);
+            Test.C.ShouldBe(Compare: 3);
 
             var Test3 = new TestClass
                 {
@@ -71,20 +73,20 @@ namespace L_Tests.LCore.Extensions.Optional
             // parent CopyFieldsTo subclass 
             Test3.CopyFieldsTo(Test4);
 
-            Test4.A.Should().Be(-1);
-            Test4.B.Should().Be(-2);
-            Test4.C.Should().Be(-3);
-            Test4.D.Should().Be(expected: 4);
-            Test4.E.Should().Be(expected: null);
+            Test4.A.ShouldBe(-1);
+            Test4.B.ShouldBe(-2);
+            Test4.C.ShouldBe(-3);
+            Test4.D.ShouldBe(Compare: 4);
+            Test4.E.ShouldBe(Compare: null);
 
             // subclass CopyFieldsTo subclass 
             Test4.CopyFieldsTo(Test4);
 
-            Test4.A.Should().Be(-1);
-            Test4.B.Should().Be(-2);
-            Test4.C.Should().Be(-3);
-            Test4.D.Should().Be(expected: 4);
-            Test4.E.Should().Be(expected: null);
+            Test4.A.ShouldBe(-1);
+            Test4.B.ShouldBe(-2);
+            Test4.C.ShouldBe(-3);
+            Test4.D.ShouldBe(Compare: 4);
+            Test4.E.ShouldBe(Compare: null);
 
             // anonymous type CopyFieldsTo subclass 
             var Test5 = new
@@ -102,9 +104,9 @@ namespace L_Tests.LCore.Extensions.Optional
 
             Test5.CopyFieldsTo(Test6);
 
-            Test6.A.Should().Be(-1);
-            Test6.B.Should().Be(-2);
-            Test6.C.Should().Be(-3);
+            Test6.A.ShouldBe(-1);
+            Test6.B.ShouldBe(-2);
+            Test6.C.ShouldBe(-3);
 
             // read only fields CopyFieldsTo subclass 
             var Test7 = new TestClassReadOnly(-1, -2, -3);
@@ -117,9 +119,9 @@ namespace L_Tests.LCore.Extensions.Optional
 
             Test7.CopyFieldsTo(Test8);
 
-            Test8.A.Should().Be(-1);
-            Test8.B.Should().Be(-2);
-            Test8.C.Should().Be(-3);
+            Test8.A.ShouldBe(-1);
+            Test8.B.ShouldBe(-2);
+            Test8.C.ShouldBe(-3);
             }
 
         [Fact]
@@ -151,9 +153,9 @@ namespace L_Tests.LCore.Extensions.Optional
             // subclass CopyFieldsTo parent class
             Test2.CopyFieldsTo(Test, Mapper);
 
-            Test.A.Should().Be(expected: null);
-            Test.B.Should().Be(expected: 1);
-            Test.C.Should().Be(expected: 3);
+            Test.A.ShouldBe(Compare: null);
+            Test.B.ShouldBe(Compare: 1);
+            Test.C.ShouldBe(Compare: 3);
 
             var Test3 = new TestClass
                 {
@@ -178,31 +180,31 @@ namespace L_Tests.LCore.Extensions.Optional
             // parent CopyFieldsTo subclass 
             Test3.CopyFieldsTo(Test4, Mapper2);
 
-            Test4.A.Should().Be(expected: 1);
-            Test4.B.Should().Be(-2);
-            Test4.C.Should().Be(-3);
-            Test4.D.Should().Be(expected: 4);
-            Test4.E.Should().Be(expected: null);
+            Test4.A.ShouldBe(Compare: 1);
+            Test4.B.ShouldBe(-2);
+            Test4.C.ShouldBe(-3);
+            Test4.D.ShouldBe(Compare: 4);
+            Test4.E.ShouldBe(Compare: null);
 
             // subclass CopyFieldsTo subclass 
             Test4.CopyFieldsTo(Test4, Mapper2);
 
-            Test4.A.Should().Be(expected: 1);
-            Test4.B.Should().Be(-2);
-            Test4.C.Should().Be(-3);
-            Test4.D.Should().Be(expected: 4);
-            Test4.E.Should().Be(expected: null);
+            Test4.A.ShouldBe(Compare: 1);
+            Test4.B.ShouldBe(-2);
+            Test4.C.ShouldBe(-3);
+            Test4.D.ShouldBe(Compare: 4);
+            Test4.E.ShouldBe(Compare: null);
 
 
             var Test5 = new TestSubclass();
             // copy using null dictionary
-            Test4.CopyFieldsTo(Test5, (Dictionary<string, string>)null);
+            Test4.CopyFieldsTo(Test5, (Dictionary<string, string>) null);
 
-            Test5.A.Should().Be(expected: 1);
-            Test5.B.Should().Be(-2);
-            Test5.C.Should().Be(-3);
-            Test4.D.Should().Be(expected: 4);
-            Test5.E.Should().Be(expected: null);
+            Test5.A.ShouldBe(Compare: 1);
+            Test5.B.ShouldBe(-2);
+            Test5.C.ShouldBe(-3);
+            Test4.D.ShouldBe(Compare: 4);
+            Test5.E.ShouldBe(Compare: null);
             }
 
 
@@ -297,7 +299,7 @@ namespace L_Tests.LCore.Extensions.Optional
                 C = 3
                 };
 
-            Test.Details().Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester_Optional+TestClass {\r\nA: 1\r\nB: 2\r\nC: 3\r\n}");
+            Test.Details().ShouldBe("L_Tests.LCore.Extensions.Optional.ObjectExtTester_Optional+TestClass {\r\nA: 1\r\nB: 2\r\nC: 3\r\n}");
 
 
             var Test2 = new TestClassError
@@ -307,11 +309,11 @@ namespace L_Tests.LCore.Extensions.Optional
                 };
 
             Test2.Details()
-                .Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester_Optional+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
+                .ShouldBe("L_Tests.LCore.Extensions.Optional.ObjectExtTester_Optional+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
             Test2.Details(ShowErrorFields: false)
-                .Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester_Optional+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
+                .ShouldBe("L_Tests.LCore.Extensions.Optional.ObjectExtTester_Optional+TestClassError {\r\nA: 1\r\nB: 2\r\nD: 5\r\nE: 7\r\n}");
             Test2.Details(ShowErrorFields: true)
-                .Should().Be("L_Tests.LCore.Extensions.Optional.ObjectExtTester_Optional+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
+                .ShouldBe("L_Tests.LCore.Extensions.Optional.ObjectExtTester_Optional+TestClassError {\r\nA: 1\r\nB: 2\r\nC: Exception has been thrown by the target of an invocation.\r\nD: 5\r\nE: 7\r\n}");
             }
 
         [Fact]
@@ -344,10 +346,10 @@ namespace L_Tests.LCore.Extensions.Optional
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.FN_Func) + "(T) => Func`1<T>")]
         public void FN_Func()
             {
-            5.FN_Func()().Should().Be(expected: 5);
-            5f.FN_Func()().Should().Be(expected: 5f);
-            "nice".FN_Func()().Should().Be("nice");
-            ((string)null).FN_Func()().Should().Be((string)null);
+            5.FN_Func()().ShouldBe(Compare: 5);
+            5f.FN_Func()().ShouldBe(Compare: 5f);
+            "nice".FN_Func()().ShouldBe("nice");
+            ((string) null).FN_Func()().ShouldBe((string) null);
 
             new TestClass().FN_Func()()
                 .Should().BeOfType<TestClass>()
@@ -363,22 +365,22 @@ namespace L_Tests.LCore.Extensions.Optional
             5f.SafeEquals(Obj: 5.5f).ShouldBeFalse();
             5f.SafeEquals(Obj: 5f).ShouldBeTrue();
             "nice".SafeEquals("nice").ShouldBeTrue();
-            ((string)null).SafeEquals("nice").ShouldBeFalse();
-            ((string)null).SafeEquals(Obj: null).ShouldBeTrue();
+            ((string) null).SafeEquals("nice").ShouldBeFalse();
+            ((string) null).SafeEquals(Obj: null).ShouldBeTrue();
             }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.ToS) + "(Object) => String")]
         public void ToS()
             {
-            4.ToS().Should().Be("4");
-            5.ToS().Should().Be("5");
-            5f.ToS().Should().Be("5");
-            5.5f.ToS().Should().Be("5.5");
-            "nice".ToS().Should().Be("nice");
-            ((string)null).ToS().Should().Be("");
-            new[] { 4 }.ToS().Should().Be("Int32[] { 4 }");
-            new[] { "a", "b", "c" }.ToS().Should().Be("String[] { a, b, c }");
+            4.ToS().ShouldBe("4");
+            5.ToS().ShouldBe("5");
+            5f.ToS().ShouldBe("5");
+            5.5f.ToS().ShouldBe("5.5");
+            "nice".ToS().ShouldBe("nice");
+            ((string) null).ToS().ShouldBe("");
+            new[] {4}.ToS().ShouldBe("Int32[] { 4 }");
+            new[] {"a", "b", "c"}.ToS().ShouldBe("String[] { a, b, c }");
             }
 
 
@@ -412,22 +414,22 @@ namespace L_Tests.LCore.Extensions.Optional
 
             Test.Traverse(o =>
                 {
-                    if (o.HasProperty("link"))
-                        return o.GetProperty("link");
+                if (o.HasProperty("link"))
+                    return o.GetProperty("link");
 
-                    Result = o.GetProperty("data");
-                    return null;
+                Result = o.GetProperty("data");
+                return null;
                 });
 
-            Result.Should().Be(expected: 1);
+            Result.ShouldBe(Compare: 1);
 
             // Exceptions are not hidden.
             L.A<object, Func<object, object>>(global::LCore.Extensions.Optional.ObjectExt.Traverse).ShouldFail(Test, o =>
                 {
-                    if (o.HasProperty("link"))
-                        return o.GetProperty("link");
+                if (o.HasProperty("link"))
+                    return o.GetProperty("link");
 
-                    throw new Exception();
+                throw new Exception();
                 });
 
 
@@ -458,23 +460,23 @@ namespace L_Tests.LCore.Extensions.Optional
 
             Test2.Traverse(o =>
                 {
-                    if (o.C != null)
-                        return o.C;
+                if (o.C != null)
+                    return o.C;
 
-                    Result2 = o.A.A;
-                    return null;
+                Result2 = o.A.A;
+                return null;
                 });
 
-            Result2.Should().Be(expected: 5);
+            Result2.ShouldBe(Compare: 5);
 
             // Exceptions are not hidden.
             L.A<TestMaster, Func<TestMaster, TestMaster>>(global::LCore.Extensions.Optional.ObjectExt.Traverse)
                 .ShouldFail(Test2, o =>
                     {
-                        if (o.C != null)
-                            return o.C;
+                    if (o.C != null)
+                        return o.C;
 
-                        throw new Exception();
+                    throw new Exception();
                     });
             }
 
@@ -491,11 +493,11 @@ namespace L_Tests.LCore.Extensions.Optional
 
             var Test3 = Test.SupplyTo(Test2);
 
-            Result.Should().Be(expected: 0);
+            Result.ShouldBe(Compare: 0);
             Test3();
 
             // value was supplied.
-            Result.Should().Be(expected: 5);
+            Result.ShouldBe(Compare: 5);
 
             Test.SupplyTo(In: null)();
 
@@ -503,7 +505,7 @@ namespace L_Tests.LCore.Extensions.Optional
 
             Func<int> Test5 = Test.SupplyTo(Test4);
 
-            var Test6 = Test.SupplyTo((Action<int>)null);
+            var Test6 = Test.SupplyTo((Action<int>) null);
             Test6();
 
             // Exceptions are not hidden.
@@ -524,20 +526,34 @@ namespace L_Tests.LCore.Extensions.Optional
             int Result = Test3();
 
             // value was supplied.
-            Result.Should().Be(expected: 6);
+            Result.ShouldBe(Compare: 6);
 
 
             var Test4 = new Func<int, int>(i => { throw new Exception(); });
 
             Func<int> Test5 = Test.SupplyTo(Test4);
 
-            Func<int> Test6 = Test.SupplyTo((Func<int, int>)null);
+            Func<int> Test6 = Test.SupplyTo((Func<int, int>) null);
             Test6();
 
             // Exceptions are not hidden.
             L.A(() => Test5()).ShouldFail();
             }
 
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.Optional) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt) + "." + nameof(global::LCore.Extensions.Optional.ObjectExt.IsNull) + "(T) => Boolean")]
+        public void IsNull()
+            {
+            object Obj = null;
+            Obj.IsNull().ShouldBeTrue();
+            Obj = "";
+            Obj.IsNull().ShouldBeFalse();
+
+            string Str = null;
+            Str.IsNull().ShouldBeTrue();
+            Str = "";
+            Str.IsNull().ShouldBeFalse();
+            }
 
         #region Helper classes
 

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
@@ -43,33 +43,33 @@ namespace L_Tests.LCore.Tools
                     {
                     Updater.Clear();
 
-                    Status.Should().Be("");
-                    Log.Should().Be("");
-                    Progress.Should().Be(expected: 0);
-                    Max.Should().Be(expected: 0);
+                    Status.ShouldBe("");
+                    Log.ShouldBe("");
+                    Progress.ShouldBe(Compare: 0);
+                    Max.ShouldBe(Compare: 0);
 
                     Updater.Maximum(Maximum: 100);
 
-                    Max.Should().Be(expected: 0);
+                    Max.ShouldBe(Compare: 0);
                     Thread.Sleep(millisecondsTimeout: 20);
-                    Max.Should().Be(expected: 100);
+                    Max.ShouldBe(Compare: 100);
 
                     Updater.Progress(Progress: 5);
                     Thread.Sleep(millisecondsTimeout: 20);
-                    Progress.Should().Be(expected: 5);
+                    Progress.ShouldBe(Compare: 5);
 
                     Updater.Status("hi");
                     Thread.Sleep(millisecondsTimeout: 20);
-                    Status.Should().Be("hi");
+                    Status.ShouldBe("hi");
 
                     Updater.Log("hi again");
                     Thread.Sleep(millisecondsTimeout: 20);
-                    Log.Should().Be("hi again");
+                    Log.ShouldBe("hi again");
 
-                    Status.Should().Be("hi");
-                    Log.Should().Be("hi again");
-                    Progress.Should().Be(expected: 5);
-                    Max.Should().Be(expected: 100);
+                    Status.ShouldBe("hi");
+                    Log.ShouldBe("hi again");
+                    Progress.ShouldBe(Compare: 5);
+                    Max.ShouldBe(Compare: 100);
                     }
             })();
             }

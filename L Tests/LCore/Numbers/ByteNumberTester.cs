@@ -2,6 +2,7 @@ using System;
 using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using LCore.Numbers;
 using Xunit;
 using Xunit.Abstractions;
@@ -36,7 +37,7 @@ namespace L_Tests.LCore.Numbers
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(ByteNumber) + "." +
             nameof(ByteNumber.New) + "(Byte) => Number`1<Byte>")]
-        public void Test_ByteNumber()
+        public void TestByteNumber()
             {
             byte Dec = 35;
 
@@ -44,17 +45,17 @@ namespace L_Tests.LCore.Numbers
             ByteNumber TempNumber = Dec;
             Dec = TempNumber;
 
-            $"{TempNumber}".Should().Be("35");
+            $"{TempNumber}".ShouldBe("35");
 
-            TempNumber.GetHashCode().Should().Be(Dec.GetHashCode());
-            TempNumber.NumberType.Should().Be(typeof(byte));
+            TempNumber.GetHashCode().ShouldBe(Dec.GetHashCode());
+            TempNumber.NumberType.ShouldBe(typeof(byte));
 
             TempNumber.New().Should().BeOfType<ByteNumber>().And.Be(TempNumber.DefaultValue);
 
             INumber Temp2 = TempNumber.New(Dec);
-            Temp2.GetValue().Should().Be(Dec);
+            Temp2.GetValue().ShouldBe(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((ByteNumber)1);
+            TempNumber.GetValuePrecision().ShouldBe((ByteNumber)1);
 
             TempNumber.Add((ByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)40);
             TempNumber.Subtract((ByteNumber)5).Should().BeOfType<ByteNumber>().And.Be((ByteNumber)(byte)30);

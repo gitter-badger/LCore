@@ -34,38 +34,38 @@ namespace L_Tests.LCore.Extensions
 
             Func<Type, object> ConvertTo = L.F<Type, object>(Type => Test.ConvertTo(Type));
 
-            ConvertTo(typeof(int)).Should().Be((int?)null);
-            ConvertTo(typeof(uint)).Should().Be((uint?)null);
-            ConvertTo(typeof(long)).Should().Be((long?)null);
-            ConvertTo(typeof(short)).Should().Be((short?)null);
-            ConvertTo(typeof(ushort)).Should().Be((ushort?)null);
-            ConvertTo(typeof(byte)).Should().Be((byte?)null);
-            ConvertTo(typeof(char)).Should().Be((char?)null);
+            ConvertTo(typeof(int)).ShouldBe((int?)null);
+            ConvertTo(typeof(uint)).ShouldBe((uint?)null);
+            ConvertTo(typeof(long)).ShouldBe((long?)null);
+            ConvertTo(typeof(short)).ShouldBe((short?)null);
+            ConvertTo(typeof(ushort)).ShouldBe((ushort?)null);
+            ConvertTo(typeof(byte)).ShouldBe((byte?)null);
+            ConvertTo(typeof(char)).ShouldBe((char?)null);
 
             var Result1 = Test.ConvertTo(typeof(double));
             var Result2 = Test.ConvertTo(typeof(float));
 
-            Result1.Should().Be((double)-5.5555);
-            Result2.Should().Be((float)-5.5555);
+            Result1.ShouldBe((double)-5.5555);
+            Result2.ShouldBe((float)-5.5555);
 
 
             const string Test2 = "5";
 
-            Test2.ConvertTo(typeof(int)).Should().Be(expected: 5);
-            Test2.ConvertTo(typeof(uint)).Should().Be((uint)5);
-            Test2.ConvertTo(typeof(long)).Should().Be((long)5);
-            Test2.ConvertTo(typeof(short)).Should().Be((short)5);
-            Test2.ConvertTo(typeof(ushort)).Should().Be((ushort)5);
-            Test2.ConvertTo(typeof(byte)).Should().Be((byte)5);
-            Test2.ConvertTo(typeof(char)).Should().Be(expected: '5');
-            Test2.ConvertTo(typeof(string)).Should().Be("5");
+            Test2.ConvertTo(typeof(int)).ShouldBe(Compare: 5);
+            Test2.ConvertTo(typeof(uint)).ShouldBe((uint)5);
+            Test2.ConvertTo(typeof(long)).ShouldBe((long)5);
+            Test2.ConvertTo(typeof(short)).ShouldBe((short)5);
+            Test2.ConvertTo(typeof(ushort)).ShouldBe((ushort)5);
+            Test2.ConvertTo(typeof(byte)).ShouldBe((byte)5);
+            Test2.ConvertTo(typeof(char)).ShouldBe(Compare: '5');
+            Test2.ConvertTo(typeof(string)).ShouldBe("5");
 
-            long.MaxValue.ConvertTo<int>().Should().Be(expected: null);
-            long.MaxValue.ConvertTo(typeof(int)).Should().Be(expected: null);
+            long.MaxValue.ConvertTo<int>().ShouldBe(Compare: null);
+            long.MaxValue.ConvertTo(typeof(int)).ShouldBe(Compare: null);
 
 
-            "5.000".ConvertTo(typeof(double)).Should().Be(expected: 5d);
-            "5.000".ConvertTo(typeof(int)).Should().Be(expected: 5);
+            "5.000".ConvertTo(typeof(double)).ShouldBe(Compare: 5d);
+            "5.000".ConvertTo(typeof(int)).ShouldBe(Compare: 5);
             }
 
         [Fact]
@@ -76,40 +76,40 @@ namespace L_Tests.LCore.Extensions
             {
             const string Test = "-5.5555";
 
-            Test.ConvertTo<int>().Should().Be((int?)null);
-            Test.ConvertTo<uint>().Should().Be((uint?)null);
-            Test.ConvertTo<long>().Should().Be((long?)null);
-            Test.ConvertTo<short>().Should().Be((short?)null);
-            Test.ConvertTo<ushort>().Should().Be((ushort?)null);
-            Test.ConvertTo<byte>().Should().Be((byte?)null);
-            Test.ConvertTo<char>().Should().Be((char?)null);
+            Test.ConvertTo<int>().ShouldBe((int?)null);
+            Test.ConvertTo<uint>().ShouldBe((uint?)null);
+            Test.ConvertTo<long>().ShouldBe((long?)null);
+            Test.ConvertTo<short>().ShouldBe((short?)null);
+            Test.ConvertTo<ushort>().ShouldBe((ushort?)null);
+            Test.ConvertTo<byte>().ShouldBe((byte?)null);
+            Test.ConvertTo<char>().ShouldBe((char?)null);
 
             double? Result1 = Test.ConvertTo<double>();
             float? Result2 = Test.ConvertTo<float>();
 
-            Result1.Should().Be(-5.5555);
-            Result2.Should().Be((float)-5.5555);
+            Result1.ShouldBe(-5.5555);
+            Result2.ShouldBe((float)-5.5555);
 
 
             const string Test2 = "5";
 
-            Test2.ConvertTo<int>().Should().Be(expected: 5);
-            Test2.ConvertTo<uint>().Should().Be((uint)5);
-            Test2.ConvertTo<long>().Should().Be((long)5);
-            Test2.ConvertTo<short>().Should().Be((short)5);
-            Test2.ConvertTo<ushort>().Should().Be((ushort)5);
-            Test2.ConvertTo<byte>().Should().Be((byte)5);
-            Test2.ConvertTo<char>().Should().Be(expected: '5');
-            Test2.ConvertToString().Should().Be("5");
+            Test2.ConvertTo<int>().ShouldBe(Compare: 5);
+            Test2.ConvertTo<uint>().ShouldBe((uint)5);
+            Test2.ConvertTo<long>().ShouldBe((long)5);
+            Test2.ConvertTo<short>().ShouldBe((short)5);
+            Test2.ConvertTo<ushort>().ShouldBe((ushort)5);
+            Test2.ConvertTo<byte>().ShouldBe((byte)5);
+            Test2.ConvertTo<char>().ShouldBe(Compare: '5');
+            Test2.ConvertToString().ShouldBe("5");
 
-            ConvertibleExt.ConvertTo<int>(In: null).Should().Be(default(int));
+            ConvertibleExt.ConvertTo<int>(In: null).ShouldBe(default(int));
 
-            ConvertibleExt.ConvertToString(In: null).Should().Be((string)null);
+            ConvertibleExt.ConvertToString(In: null).ShouldBe((string)null);
 
-            new BadConverter().ConvertToString().Should().Be((string)null);
+            new BadConverter().ConvertToString().ShouldBe((string)null);
 
-            "5.000".ConvertTo<double>().Should().Be(expected: 5d);
-            "5.000".ConvertTo<int>().Should().Be(expected: 5);
+            "5.000".ConvertTo<double>().ShouldBe(Compare: 5d);
+            "5.000".ConvertTo<int>().ShouldBe(Compare: 5);
             }
 
         [Fact]
@@ -452,37 +452,37 @@ namespace L_Tests.LCore.Extensions
             {
             IConvertible Test = "5";
 
-            Test.TryConvertTo<short>().Should().Be((short)5);
-            Test.TryConvertTo<long>().Should().Be((long)5);
-            Test.TryConvertTo<int>().Should().Be((int)5);
-            Test.TryConvertTo<ushort>().Should().Be((ushort)5);
-            Test.TryConvertTo<ulong>().Should().Be((ulong)5);
-            Test.TryConvertTo<uint>().Should().Be((uint)5);
-            Test.TryConvertTo<float>().Should().Be((float)5);
-            Test.TryConvertTo<double>().Should().Be((double)5);
-            Test.TryConvertTo<char>().Should().Be(expected: '5');
-            Test.TryConvertToString().Should().Be("5");
+            Test.TryConvertTo<short>().ShouldBe((short)5);
+            Test.TryConvertTo<long>().ShouldBe((long)5);
+            Test.TryConvertTo<int>().ShouldBe((int)5);
+            Test.TryConvertTo<ushort>().ShouldBe((ushort)5);
+            Test.TryConvertTo<ulong>().ShouldBe((ulong)5);
+            Test.TryConvertTo<uint>().ShouldBe((uint)5);
+            Test.TryConvertTo<float>().ShouldBe((float)5);
+            Test.TryConvertTo<double>().ShouldBe((double)5);
+            Test.TryConvertTo<char>().ShouldBe(Compare: '5');
+            Test.TryConvertToString().ShouldBe("5");
 
             Test = "-5.5";
 
-            Test.TryConvertTo<short>().Should().Be("-5.5");
-            Test.TryConvertTo<long>().Should().Be("-5.5");
-            Test.TryConvertTo<int>().Should().Be("-5.5");
-            Test.TryConvertTo<ushort>().Should().Be("-5.5");
-            Test.TryConvertTo<ulong>().Should().Be("-5.5");
-            Test.TryConvertTo<uint>().Should().Be("-5.5");
-            Test.TryConvertTo<char>().Should().Be("-5.5");
-            Test.TryConvertToString().Should().Be("-5.5");
-            Test.TryConvertTo<float>().Should().Be(-5.5f);
-            Test.TryConvertTo<double>().Should().Be((double)-5.5);
+            Test.TryConvertTo<short>().ShouldBe("-5.5");
+            Test.TryConvertTo<long>().ShouldBe("-5.5");
+            Test.TryConvertTo<int>().ShouldBe("-5.5");
+            Test.TryConvertTo<ushort>().ShouldBe("-5.5");
+            Test.TryConvertTo<ulong>().ShouldBe("-5.5");
+            Test.TryConvertTo<uint>().ShouldBe("-5.5");
+            Test.TryConvertTo<char>().ShouldBe("-5.5");
+            Test.TryConvertToString().ShouldBe("-5.5");
+            Test.TryConvertTo<float>().ShouldBe(-5.5f);
+            Test.TryConvertTo<double>().ShouldBe((double)-5.5);
 
             Test = null;
 
-            Test.TryConvertToString().Should().Be(expected: null);
+            Test.TryConvertToString().ShouldBe(Compare: null);
 
 
-            ((string)null).TryConvertToString().Should().Be(expected: null);
-            ((string)null).TryConvertTo<int>().Should().Be(expected: null);
+            ((string)null).TryConvertToString().ShouldBe(Compare: null);
+            ((string)null).TryConvertTo<int>().ShouldBe(Compare: null);
             }
 
         #region Helpers

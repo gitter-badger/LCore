@@ -1,5 +1,4 @@
 ﻿using System;
-using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
@@ -31,12 +30,12 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
             nameof(LogicExt.Cast) + "(Action`1<T1>) => Action`1<U1>")]
-        public void Test_Cast_Action_0()
+        public void Cast_Action_0()
             {
             bool Result = false;
             Action<object> Action = o =>
                 {
-                    o.Should().Be(_TestString);
+                    o.ShouldBe(_TestString);
                     Result = true;
                 };
             Action<object> ActionFail = o => { throw new Exception(); };
@@ -57,13 +56,13 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
             nameof(LogicExt.Cast) + "(Action`2<T1, T2>) => Action`2<U1, U2>")]
-        public void Test_Cast_Action_1()
+        public void Cast_Action_1()
             {
             bool Result = false;
             Action<object, object> Action = (o1, o2) =>
                 {
-                    o1.Should().Be(_TestString);
-                    o2.Should().Be(_TestString);
+                    o1.ShouldBe(_TestString);
+                    o2.ShouldBe(_TestString);
                     Result = true;
                 };
             Action<object, object> ActionFail = (o1, o2) => { throw new Exception(); };
@@ -85,14 +84,14 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
             nameof(LogicExt.Cast) + "(Action`3<T1, T2, T3>) => Action`3<U1, U2, U3>")]
-        public void Test_Cast_Action_2()
+        public void Cast_Action_2()
             {
             bool Result = false;
             Action<object, object, object> Action = (o1, o2, o3) =>
                 {
-                    o1.Should().Be(_TestString);
-                    o2.Should().Be(_TestString);
-                    o3.Should().Be(_TestString);
+                    o1.ShouldBe(_TestString);
+                    o2.ShouldBe(_TestString);
+                    o3.ShouldBe(_TestString);
                     Result = true;
                 };
             Action<object, object, object> ActionFail = (o1, o2, o3) => { throw new Exception(); };
@@ -114,15 +113,15 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
             nameof(LogicExt.Cast) + "(Action`4<T1, T2, T3, T4>) => Action`4<U1, U2, U3, U4>")]
-        public void Test_Cast_Action_3()
+        public void Cast_Action_3()
             {
             bool Result = false;
             Action<object, object, object, object> Action = (o1, o2, o3, o4) =>
                 {
-                    o1.Should().Be(_TestString);
-                    o2.Should().Be(_TestString);
-                    o3.Should().Be(_TestString);
-                    o4.Should().Be(_TestString);
+                    o1.ShouldBe(_TestString);
+                    o2.ShouldBe(_TestString);
+                    o3.ShouldBe(_TestString);
+                    o4.ShouldBe(_TestString);
                     Result = true;
                 };
             Action<object, object, object, object> ActionFail = (o1, o2, o3, o4) => { throw new Exception(); };
@@ -145,7 +144,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
             nameof(LogicExt.Cast) + "(Func`1<U1>) => Func`1<U2>")]
-        public void Test_Cast_Func_0()
+        public void Cast_Func_0()
             {
             Func<object> Func = () => true;
             Func<object> FuncFail = () => { throw new Exception(); };
@@ -164,11 +163,11 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
             nameof(LogicExt.Cast) + "(Func`2<T1, U1>) => Func`2<T2, U2>")]
-        public void Test_Cast_Func_1()
+        public void Cast_Func_1()
             {
             Func<object, bool> Func = o =>
                 {
-                    o.Should().Be(_TestString);
+                    o.ShouldBe(_TestString);
                     return true;
                 };
             Func<object, bool> FuncFail = o => { throw new Exception(); };
@@ -187,12 +186,12 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
             nameof(LogicExt.Cast) + "(Func`3<T1, T2, U1>) => Func`3<T3, T4, U2>")]
-        public void Test_Cast_Func_2()
+        public void Cast_Func_2()
             {
             Func<object, object, bool> Func = (o1, o2) =>
                 {
-                    o1.Should().Be(_TestString);
-                    o2.Should().Be(_TestString);
+                    o1.ShouldBe(_TestString);
+                    o2.ShouldBe(_TestString);
                     return true;
                 };
             Func<object, object, bool> FuncFail = (o1, o2) => { throw new Exception(); };
@@ -211,13 +210,13 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
             nameof(LogicExt.Cast) + "(Func`4<T1, T2, T3, U1>) => Func`4<T4, T5, T6, U2>")]
-        public void Test_Cast_Func_3()
+        public void Cast_Func_3()
             {
             Func<object, object, object, bool> Func = (o1, o2, o3) =>
                 {
-                    o1.Should().Be(_TestString);
-                    o2.Should().Be(_TestString);
-                    o3.Should().Be(_TestString);
+                    o1.ShouldBe(_TestString);
+                    o2.ShouldBe(_TestString);
+                    o3.ShouldBe(_TestString);
                     return true;
                 };
             Func<object, object, object, bool> FuncFail = (o1, o2, o3) => { throw new Exception(); };
@@ -236,14 +235,14 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
             nameof(LogicExt.Cast) + "(Func`5<T1, T2, T3, T4, U1>) => Func`5<T5, T6, T7, T8, U2>")]
-        public void Test_Cast_Func_4()
+        public void Cast_Func_4()
             {
             Func<object, object, object, object, bool> Func = (o1, o2, o3, o4) =>
                 {
-                    o1.Should().Be(_TestString);
-                    o2.Should().Be(_TestString);
-                    o3.Should().Be(_TestString);
-                    o4.Should().Be(_TestString);
+                    o1.ShouldBe(_TestString);
+                    o2.ShouldBe(_TestString);
+                    o3.ShouldBe(_TestString);
+                    o4.ShouldBe(_TestString);
                     return true;
                 };
             Func<object, object, object, object, bool> FuncFail = (o1, o2, o3, o4) => { throw new Exception(); };
@@ -445,7 +444,7 @@ namespace L_Tests.LCore.Extensions
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
             nameof(LogicExt.Surround4) + "(Func`5<T1, T2, T3, T4, U>, Func`2<T5, T4>) => Func`5<T1, T2, T3, T5, U>")]
 
-        public void Test_Surround_Action_0()
+        public void Surround_Action_0()
             {
             int Result = 0;
 
@@ -455,7 +454,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test.Surround(Test2)();
-            Result.Should().Be(expected: 5);
+            Result.ShouldBe(Compare: 5);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => ((Action<int>)null).Surround(Test2)).ShouldFail();
@@ -468,7 +467,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action_1()
+        public void Surround_Action_1()
             {
             int Result = 0;
 
@@ -478,7 +477,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test.Surround(Test2)(obj: 5);
-            Result.Should().Be(expected: 10);
+            Result.ShouldBe(Compare: 10);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => ((Action<int>)null).Surround(Test2)).ShouldFail();
@@ -491,7 +490,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action_2()
+        public void Surround_Action_2()
             {
             int Result = 0;
 
@@ -501,7 +500,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 2, arg2: 2);
-            Result.Should().Be(expected: 9);
+            Result.ShouldBe(Compare: 9);
 
             L.A(() => Test.Surround((Func<int, int, int>)null)).ShouldFail();
             L.A(() => ((Action<int>)null).Surround(Test2)).ShouldFail();
@@ -514,7 +513,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action_3()
+        public void Surround_Action_3()
             {
             int Result = 0;
 
@@ -524,7 +523,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 2, arg2: 2, arg3: 2);
-            Result.Should().Be(expected: 13);
+            Result.ShouldBe(Compare: 13);
 
             L.A(() => Test.Surround((Func<int, int, int, int>)null)).ShouldFail();
             L.A(() => ((Action<int>)null).Surround(Test2)).ShouldFail();
@@ -537,7 +536,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action_4()
+        public void Surround_Action_4()
             {
             int Result = 0;
 
@@ -547,7 +546,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 2, arg2: 2, arg3: 2, arg4: 2);
-            Result.Should().Be(expected: 21);
+            Result.ShouldBe(Compare: 21);
 
             L.A(() => Test.Surround((Func<int, int, int, int, int>)null)).ShouldFail();
             L.A(() => ((Action<int>)null).Surround(Test2)).ShouldFail();
@@ -561,7 +560,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action2_0()
+        public void Surround_Action2_0()
             {
             int Result = 0;
 
@@ -571,12 +570,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test.Surround(Test2)(obj: 5);
-            Result.Should().Be(expected: 10);
+            Result.ShouldBe(Compare: 10);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(obj: 8);
-            Result.Should().Be(expected: 13);
+            Result.ShouldBe(Compare: 13);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int>)null)).ShouldFail();
@@ -593,7 +592,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action2_1()
+        public void Surround_Action2_1()
             {
             int Result = 0;
 
@@ -603,12 +602,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 1, arg2: 5);
-            Result.Should().Be(expected: 11);
+            Result.ShouldBe(Compare: 11);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 3, arg2: 8);
-            Result.Should().Be(expected: 16);
+            Result.ShouldBe(Compare: 16);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int>)null)).ShouldFail();
@@ -625,7 +624,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action2_2()
+        public void Surround_Action2_2()
             {
             int Result = 0;
 
@@ -635,12 +634,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 1, arg2: 5, arg3: 6);
-            Result.Should().Be(expected: 36);
+            Result.ShouldBe(Compare: 36);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 3, arg2: 8, arg3: 10);
-            Result.Should().Be(expected: 88);
+            Result.ShouldBe(Compare: 88);
 
             L.A(() => Test.Surround((Func<int, int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int, int>)null)).ShouldFail();
@@ -657,7 +656,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action2_3()
+        public void Surround_Action2_3()
             {
             int Result = 0;
 
@@ -667,12 +666,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 1, arg2: 5, arg3: 6, arg4: 8);
-            Result.Should().Be(expected: 246);
+            Result.ShouldBe(Compare: 246);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 3, arg2: 8, arg3: 10, arg4: 12);
-            Result.Should().Be(expected: 968);
+            Result.ShouldBe(Compare: 968);
 
             L.A(() => Test.Surround((Func<int, int, int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int, int, int>)null)).ShouldFail();
@@ -690,7 +689,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action3_0()
+        public void Surround_Action3_0()
             {
             int Result = 0;
 
@@ -700,17 +699,17 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 5, arg2: 8);
-            Result.Should().Be(expected: 18);
+            Result.ShouldBe(Compare: 18);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 8, arg2: 10);
-            Result.Should().Be(expected: 23);
+            Result.ShouldBe(Compare: 23);
 
             // Reset 
             Result = 0;
             Test.Surround3(Test2)(arg1: 8, arg2: 10);
-            Result.Should().Be(expected: 23);
+            Result.ShouldBe(Compare: 23);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int>)null)).ShouldFail();
@@ -731,7 +730,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action3_1()
+        public void Surround_Action3_1()
             {
             int Result = 0;
 
@@ -741,17 +740,17 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10);
-            Result.Should().Be(expected: 28);
+            Result.ShouldBe(Compare: 28);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12);
-            Result.Should().Be(expected: 35);
+            Result.ShouldBe(Compare: 35);
 
             // Reset 
             Result = 0;
             Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 13);
-            Result.Should().Be(expected: 36);
+            Result.ShouldBe(Compare: 36);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int>)null)).ShouldFail();
@@ -772,7 +771,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action3_2()
+        public void Surround_Action3_2()
             {
             int Result = 0;
 
@@ -782,17 +781,17 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10, arg4: 14);
-            Result.Should().Be(expected: 158);
+            Result.ShouldBe(Compare: 158);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12, arg4: 14);
-            Result.Should().Be(expected: 191);
+            Result.ShouldBe(Compare: 191);
 
             // Reset 
             Result = 0;
             Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 13, arg4: 15);
-            Result.Should().Be(expected: 218);
+            Result.ShouldBe(Compare: 218);
 
             L.A(() => Test.Surround((Func<int, int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int, int>)null)).ShouldFail();
@@ -813,7 +812,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action4_0()
+        public void Surround_Action4_0()
             {
             int Result = 0;
 
@@ -823,22 +822,22 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10);
-            Result.Should().Be(expected: 28);
+            Result.ShouldBe(Compare: 28);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12);
-            Result.Should().Be(expected: 35);
+            Result.ShouldBe(Compare: 35);
 
             // Reset 
             Result = 0;
             Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 14);
-            Result.Should().Be(expected: 37);
+            Result.ShouldBe(Compare: 37);
 
             // Reset 
             Result = 0;
             Test.Surround4(Test2)(arg1: 8, arg2: 10, arg3: 15);
-            Result.Should().Be(expected: 38);
+            Result.ShouldBe(Compare: 38);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int>)null)).ShouldFail();
@@ -863,7 +862,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Action4_1()
+        public void Surround_Action4_1()
             {
             int Result = 0;
 
@@ -873,22 +872,22 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10, arg4: 15);
-            Result.Should().Be(expected: 98);
+            Result.ShouldBe(Compare: 98);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12, arg4: 15);
-            Result.Should().Be(expected: 105);
+            Result.ShouldBe(Compare: 105);
 
             // Reset 
             Result = 0;
             Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 14, arg4: 15);
-            Result.Should().Be(expected: 107);
+            Result.ShouldBe(Compare: 107);
 
             // Reset 
             Result = 0;
             Test.Surround4(Test2)(arg1: 8, arg2: 10, arg3: 15, arg4: 15);
-            Result.Should().Be(expected: 108);
+            Result.ShouldBe(Compare: 108);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int>)null)).ShouldFail();
@@ -914,14 +913,14 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func_0()
+        public void Surround_Func_0()
             {
             var Test = new Func<int, int>(i => i);
             var Test2 = new Func<int>(() => 5);
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test.Surround(Test2)().Should().Be(expected: 5);
+            Test.Surround(Test2)().ShouldBe(Compare: 5);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Surround(Test2)).ShouldFail();
@@ -934,14 +933,14 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func_1()
+        public void Surround_Func_1()
             {
             var Test = new Func<int, int>(i => i);
             var Test2 = new Func<int, int>(i => i + 5);
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg: 5).Should().Be(expected: 10);
+            Test.Surround(Test2)(arg: 5).ShouldBe(Compare: 10);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Surround(Test2)).ShouldFail();
@@ -954,14 +953,14 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func_2()
+        public void Surround_Func_2()
             {
             var Test = new Func<int, int>(i => i);
             var Test2 = new Func<int, int, int>((i1, i2) => i1 * i2 + 5);
             var BadTest = new Action<int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 2, arg2: 2).Should().Be(expected: 9);
+            Test.Surround(Test2)(arg1: 2, arg2: 2).ShouldBe(Compare: 9);
 
             L.A(() => Test.Surround((Func<int, int, int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Surround(Test2)).ShouldFail();
@@ -974,14 +973,14 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func_3()
+        public void Surround_Func_3()
             {
             var Test = new Func<int, int>(i => i);
             var Test2 = new Func<int, int, int, int>((i1, i2, i3) => i1 * i2 * i3 + 5);
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 2, arg2: 2, arg3: 2).Should().Be(expected: 13);
+            Test.Surround(Test2)(arg1: 2, arg2: 2, arg3: 2).ShouldBe(Compare: 13);
 
             L.A(() => Test.Surround((Func<int, int, int, int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Surround(Test2)).ShouldFail();
@@ -994,14 +993,14 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func_4()
+        public void Surround_Func_4()
             {
             var Test = new Func<int, int>(i => i);
             var Test2 = new Func<int, int, int, int, int>((i1, i2, i3, i4) => i1 * i2 * i3 * i4 + 5);
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 2, arg2: 2, arg3: 2, arg4: 2).Should().Be(expected: 21);
+            Test.Surround(Test2)(arg1: 2, arg2: 2, arg3: 2, arg4: 2).ShouldBe(Compare: 21);
 
             L.A(() => Test.Surround((Func<int, int, int, int, int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Surround(Test2)).ShouldFail();
@@ -1015,16 +1014,16 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func2_0()
+        public void Surround_Func2_0()
             {
             var Test = new Func<int, int, int>((i1, i2) => i1 + i2);
             var Test2 = new Func<int>(() => 5);
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg: 5).Should().Be(expected: 10);
+            Test.Surround(Test2)(arg: 5).ShouldBe(Compare: 10);
 
-            Test.Surround2(Test2)(arg: 8).Should().Be(expected: 13);
+            Test.Surround2(Test2)(arg: 8).ShouldBe(Compare: 13);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int>)null)).ShouldFail();
@@ -1041,17 +1040,17 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func2_1()
+        public void Surround_Func2_1()
             {
             var Test = new Func<int, int, int>((i1, i2) => i1 + i2);
             var Test2 = new Func<int, int>(i => i + 5);
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 1, arg2: 5).Should().Be(expected: 11);
+            Test.Surround(Test2)(arg1: 1, arg2: 5).ShouldBe(Compare: 11);
 
             // Reset 
-            Test.Surround2(Test2)(arg1: 3, arg2: 8).Should().Be(expected: 16);
+            Test.Surround2(Test2)(arg1: 3, arg2: 8).ShouldBe(Compare: 16);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int>)null)).ShouldFail();
@@ -1068,16 +1067,16 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func2_2()
+        public void Surround_Func2_2()
             {
             var Test = new Func<int, int, int>((i1, i2) => i1 + i2);
             var Test2 = new Func<int, int, int>((i1, i2) => i1 * i2 + 5);
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 1, arg2: 5, arg3: 6).Should().Be(expected: 36);
+            Test.Surround(Test2)(arg1: 1, arg2: 5, arg3: 6).ShouldBe(Compare: 36);
 
-            Test.Surround2(Test2)(arg1: 3, arg2: 8, arg3: 10).Should().Be(expected: 88);
+            Test.Surround2(Test2)(arg1: 3, arg2: 8, arg3: 10).ShouldBe(Compare: 88);
 
             L.A(() => Test.Surround((Func<int, int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int, int>)null)).ShouldFail();
@@ -1094,16 +1093,16 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func2_3()
+        public void Surround_Func2_3()
             {
             var Test = new Func<int, int, int>((i1, i2) => i1 + i2);
             var Test2 = new Func<int, int, int, int>((i1, i2, i3) => i1 * i2 * i3 + 5);
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 1, arg2: 5, arg3: 6, arg4: 8).Should().Be(expected: 246);
+            Test.Surround(Test2)(arg1: 1, arg2: 5, arg3: 6, arg4: 8).ShouldBe(Compare: 246);
 
-            Test.Surround2(Test2)(arg1: 3, arg2: 8, arg3: 10, arg4: 12).Should().Be(expected: 968);
+            Test.Surround2(Test2)(arg1: 3, arg2: 8, arg3: 10, arg4: 12).ShouldBe(Compare: 968);
 
             L.A(() => Test.Surround((Func<int, int, int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int, int, int>)null)).ShouldFail();
@@ -1121,19 +1120,19 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func3_0()
+        public void Surround_Func3_0()
             {
             var Test = new Func<int, int, int, int>((i1, i2, i3) => i1 + i2 + i3);
             var Test2 = new Func<int>(() => 5);
             var BadTest = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 5, arg2: 8).Should().Be(expected: 18);
+            Test.Surround(Test2)(arg1: 5, arg2: 8).ShouldBe(Compare: 18);
 
-            Test.Surround2(Test2)(arg1: 8, arg2: 10).Should().Be(expected: 23);
+            Test.Surround2(Test2)(arg1: 8, arg2: 10).ShouldBe(Compare: 23);
 
             // Reset 
-            Test.Surround3(Test2)(arg1: 8, arg2: 10).Should().Be(expected: 23);
+            Test.Surround3(Test2)(arg1: 8, arg2: 10).ShouldBe(Compare: 23);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int>)null)).ShouldFail();
@@ -1154,18 +1153,18 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func3_1()
+        public void Surround_Func3_1()
             {
             var Test = new Func<int, int, int, int>((i1, i2, i3) => i1 + i2 + i3);
             var Test2 = new Func<int, int>(i => i + 5);
             var BadTest = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10).Should().Be(expected: 28);
+            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10).ShouldBe(Compare: 28);
 
-            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12).Should().Be(expected: 35);
+            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12).ShouldBe(Compare: 35);
 
-            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 13).Should().Be(expected: 36);
+            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 13).ShouldBe(Compare: 36);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int>)null)).ShouldFail();
@@ -1186,18 +1185,18 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func3_2()
+        public void Surround_Func3_2()
             {
             var Test = new Func<int, int, int, int>((i1, i2, i3) => i1 + i2 + i3);
             var Test2 = new Func<int, int, int>((i1, i2) => i1 * i2 + 5);
             var BadTest = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10, arg4: 14).Should().Be(expected: 158);
+            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10, arg4: 14).ShouldBe(Compare: 158);
 
-            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12, arg4: 14).Should().Be(expected: 191);
+            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12, arg4: 14).ShouldBe(Compare: 191);
 
-            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 13, arg4: 15).Should().Be(expected: 218);
+            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 13, arg4: 15).ShouldBe(Compare: 218);
 
             L.A(() => Test.Surround((Func<int, int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int, int>)null)).ShouldFail();
@@ -1219,20 +1218,20 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func4_0()
+        public void Surround_Func4_0()
             {
             var Test = new Func<int, int, int, int, int>((i1, i2, i3, i4) => i1 + i2 + i3 + i4);
             var Test2 = new Func<int>(() => 5);
             var BadTest = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10).Should().Be(expected: 28);
+            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10).ShouldBe(Compare: 28);
 
-            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12).Should().Be(expected: 35);
+            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12).ShouldBe(Compare: 35);
 
-            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 14).Should().Be(expected: 37);
+            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 14).ShouldBe(Compare: 37);
 
-            Test.Surround4(Test2)(arg1: 8, arg2: 10, arg3: 15).Should().Be(expected: 38);
+            Test.Surround4(Test2)(arg1: 8, arg2: 10, arg3: 15).ShouldBe(Compare: 38);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int>)null)).ShouldFail();
@@ -1257,20 +1256,20 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Surround_Func4_1()
+        public void Surround_Func4_1()
             {
             var Test = new Func<int, int, int, int, int>((i1, i2, i3, i4) => i1 + i2 + i3 + i4);
             var Test2 = new Func<int, int>(i => i * 5);
             var BadTest = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10, arg4: 15).Should().Be(expected: 98);
+            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10, arg4: 15).ShouldBe(Compare: 98);
 
-            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12, arg4: 15).Should().Be(expected: 105);
+            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12, arg4: 15).ShouldBe(Compare: 105);
 
-            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 14, arg4: 15).Should().Be(expected: 107);
+            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 14, arg4: 15).ShouldBe(Compare: 107);
 
-            Test.Surround4(Test2)(arg1: 8, arg2: 10, arg3: 15, arg4: 15).Should().Be(expected: 108);
+            Test.Surround4(Test2)(arg1: 8, arg2: 10, arg3: 15, arg4: 15).ShouldBe(Compare: 108);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int>)null)).ShouldFail();
@@ -1479,7 +1478,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LogicExt) + "." +
             nameof(LogicExt.Enclose) + "(Func`3<T4, T5, T1>, Action`3<T1, T2, T3>) => Action`4<T2, T3, T4, T5>")]
-        public void Test_Enclose_Action_0()
+        public void Enclose_Action_0()
             {
             int Result = 0;
 
@@ -1489,7 +1488,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test2.Enclose(Test)();
-            Result.Should().Be(expected: 5);
+            Result.ShouldBe(Compare: 5);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Action<int>)null)).ShouldFail();
@@ -1502,7 +1501,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action_1()
+        public void Enclose_Action_1()
             {
             int Result = 0;
 
@@ -1512,7 +1511,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test2.Enclose(Test)(obj: 5);
-            Result.Should().Be(expected: 10);
+            Result.ShouldBe(Compare: 10);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Action<int>)null)).ShouldFail();
@@ -1525,7 +1524,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action_2()
+        public void Enclose_Action_2()
             {
             int Result = 0;
 
@@ -1535,7 +1534,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 2, arg2: 2);
-            Result.Should().Be(expected: 9);
+            Result.ShouldBe(Compare: 9);
 
             L.A(() => ((Func<int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Action<int>)null)).ShouldFail();
@@ -1548,7 +1547,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action_3()
+        public void Enclose_Action_3()
             {
             int Result = 0;
 
@@ -1558,7 +1557,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 2, arg2: 2, arg3: 2);
-            Result.Should().Be(expected: 13);
+            Result.ShouldBe(Compare: 13);
 
             L.A(() => ((Func<int, int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Action<int>)null)).ShouldFail();
@@ -1571,7 +1570,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action_4()
+        public void Enclose_Action_4()
             {
             int Result = 0;
 
@@ -1581,7 +1580,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 2, arg2: 2, arg3: 2, arg4: 2);
-            Result.Should().Be(expected: 21);
+            Result.ShouldBe(Compare: 21);
 
             L.A(() => ((Func<int, int, int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Action<int>)null)).ShouldFail();
@@ -1595,7 +1594,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action2_0()
+        public void Enclose_Action2_0()
             {
             int Result = 0;
 
@@ -1605,12 +1604,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test2.Enclose(Test)(obj: 5);
-            Result.Should().Be(expected: 10);
+            Result.ShouldBe(Compare: 10);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(obj: 8);
-            Result.Should().Be(expected: 13);
+            Result.ShouldBe(Compare: 13);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
@@ -1627,7 +1626,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action2_1()
+        public void Enclose_Action2_1()
             {
             int Result = 0;
 
@@ -1637,12 +1636,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 1, arg2: 5);
-            Result.Should().Be(expected: 11);
+            Result.ShouldBe(Compare: 11);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 3, arg2: 8);
-            Result.Should().Be(expected: 16);
+            Result.ShouldBe(Compare: 16);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();
@@ -1659,7 +1658,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action2_2()
+        public void Enclose_Action2_2()
             {
             int Result = 0;
 
@@ -1669,12 +1668,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 1, arg2: 5, arg3: 6);
-            Result.Should().Be(expected: 36);
+            Result.ShouldBe(Compare: 36);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10);
-            Result.Should().Be(expected: 88);
+            Result.ShouldBe(Compare: 88);
 
             L.A(() => ((Func<int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int, int>)null).Enclose2(Test)).ShouldFail();
@@ -1691,7 +1690,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action2_3()
+        public void Enclose_Action2_3()
             {
             int Result = 0;
 
@@ -1701,12 +1700,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 1, arg2: 5, arg3: 6, arg4: 8);
-            Result.Should().Be(expected: 246);
+            Result.ShouldBe(Compare: 246);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10, arg4: 12);
-            Result.Should().Be(expected: 968);
+            Result.ShouldBe(Compare: 968);
 
             L.A(() => ((Func<int, int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int, int, int>)null).Enclose2(Test)).ShouldFail();
@@ -1724,7 +1723,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action3_0()
+        public void Enclose_Action3_0()
             {
             int Result = 0;
 
@@ -1734,17 +1733,17 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 5, arg2: 8);
-            Result.Should().Be(expected: 18);
+            Result.ShouldBe(Compare: 18);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 8, arg2: 10);
-            Result.Should().Be(expected: 23);
+            Result.ShouldBe(Compare: 23);
 
             // Reset 
             Result = 0;
             Test2.Enclose3(Test)(arg1: 8, arg2: 10);
-            Result.Should().Be(expected: 23);
+            Result.ShouldBe(Compare: 23);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
@@ -1765,7 +1764,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action3_1()
+        public void Enclose_Action3_1()
             {
             int Result = 0;
 
@@ -1775,17 +1774,17 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10);
-            Result.Should().Be(expected: 28);
+            Result.ShouldBe(Compare: 28);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12);
-            Result.Should().Be(expected: 35);
+            Result.ShouldBe(Compare: 35);
 
             // Reset 
             Result = 0;
             Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 13);
-            Result.Should().Be(expected: 36);
+            Result.ShouldBe(Compare: 36);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();
@@ -1806,7 +1805,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action3_2()
+        public void Enclose_Action3_2()
             {
             int Result = 0;
 
@@ -1816,17 +1815,17 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10, arg4: 14);
-            Result.Should().Be(expected: 158);
+            Result.ShouldBe(Compare: 158);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12, arg4: 14);
-            Result.Should().Be(expected: 191);
+            Result.ShouldBe(Compare: 191);
 
             // Reset 
             Result = 0;
             Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 13, arg4: 15);
-            Result.Should().Be(expected: 218);
+            Result.ShouldBe(Compare: 218);
 
             L.A(() => ((Func<int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int, int>)null).Enclose2(Test)).ShouldFail();
@@ -1847,7 +1846,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action4_0()
+        public void Enclose_Action4_0()
             {
             int Result = 0;
 
@@ -1857,22 +1856,22 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10);
-            Result.Should().Be(expected: 28);
+            Result.ShouldBe(Compare: 28);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12);
-            Result.Should().Be(expected: 35);
+            Result.ShouldBe(Compare: 35);
 
             // Reset 
             Result = 0;
             Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 14);
-            Result.Should().Be(expected: 37);
+            Result.ShouldBe(Compare: 37);
 
             // Reset 
             Result = 0;
             Test2.Enclose4(Test)(arg1: 8, arg2: 10, arg3: 15);
-            Result.Should().Be(expected: 38);
+            Result.ShouldBe(Compare: 38);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
@@ -1897,7 +1896,7 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Action4_1()
+        public void Enclose_Action4_1()
             {
             int Result = 0;
 
@@ -1907,22 +1906,22 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10, arg4: 15);
-            Result.Should().Be(expected: 98);
+            Result.ShouldBe(Compare: 98);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12, arg4: 15);
-            Result.Should().Be(expected: 105);
+            Result.ShouldBe(Compare: 105);
 
             // Reset 
             Result = 0;
             Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 14, arg4: 15);
-            Result.Should().Be(expected: 107);
+            Result.ShouldBe(Compare: 107);
 
             // Reset 
             Result = 0;
             Test2.Enclose4(Test)(arg1: 8, arg2: 10, arg3: 15, arg4: 15);
-            Result.Should().Be(expected: 108);
+            Result.ShouldBe(Compare: 108);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();
@@ -1948,14 +1947,14 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func_0()
+        public void Enclose_Func_0()
             {
             var Test = new Func<int, int>(i => i);
             var Test2 = new Func<int>(() => 5);
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test2.Enclose(Test)().Should().Be(expected: 5);
+            Test2.Enclose(Test)().ShouldBe(Compare: 5);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Func<int, int>)null)).ShouldFail();
@@ -1968,14 +1967,14 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func_1()
+        public void Enclose_Func_1()
             {
             var Test = new Func<int, int>(i => i);
             var Test2 = new Func<int, int>(i => i + 5);
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test.Enclose(Test2)(arg: 5).Should().Be(expected: 10);
+            Test.Enclose(Test2)(arg: 5).ShouldBe(Compare: 10);
 
             L.A(() => Test.Enclose((Func<int, int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose(Test2)).ShouldFail();
@@ -1988,14 +1987,14 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func_2()
+        public void Enclose_Func_2()
             {
             var Test = new Func<int, int>(i => i);
             var Test2 = new Func<int, int, int>((i1, i2) => i1 * i2 + 5);
             var BadTest = new Action<int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 2, arg2: 2).Should().Be(expected: 9);
+            Test2.Enclose(Test)(arg1: 2, arg2: 2).ShouldBe(Compare: 9);
 
             L.A(() => Test.Enclose((Func<int, int, int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose(Test2)).ShouldFail();
@@ -2008,14 +2007,14 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func_3()
+        public void Enclose_Func_3()
             {
             var Test = new Func<int, int>(i => i);
             var Test2 = new Func<int, int, int, int>((i1, i2, i3) => i1 * i2 * i3 + 5);
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 2, arg2: 2, arg3: 2).Should().Be(expected: 13);
+            Test2.Enclose(Test)(arg1: 2, arg2: 2, arg3: 2).ShouldBe(Compare: 13);
 
             L.A(() => ((Func<int, int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Func<int, int>)null)).ShouldFail();
@@ -2028,14 +2027,14 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func_4()
+        public void Enclose_Func_4()
             {
             var Test = new Func<int, int>(i => i);
             var Test2 = new Func<int, int, int, int, int>((i1, i2, i3, i4) => i1 * i2 * i3 * i4 + 5);
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 2, arg2: 2, arg3: 2, arg4: 2).Should().Be(expected: 21);
+            Test2.Enclose(Test)(arg1: 2, arg2: 2, arg3: 2, arg4: 2).ShouldBe(Compare: 21);
 
             L.A(() => ((Func<int, int, int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Func<int, int>)null)).ShouldFail();
@@ -2049,16 +2048,16 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func2_0()
+        public void Enclose_Func2_0()
             {
             var Test = new Func<int, int, int>((i1, i2) => i1 + i2);
             var Test2 = new Func<int>(() => 5);
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg: 5).Should().Be(expected: 10);
+            Test2.Enclose(Test)(arg: 5).ShouldBe(Compare: 10);
 
-            Test2.Enclose2(Test)(arg: 8).Should().Be(expected: 13);
+            Test2.Enclose2(Test)(arg: 8).ShouldBe(Compare: 13);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
@@ -2075,17 +2074,17 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func2_1()
+        public void Enclose_Func2_1()
             {
             var Test = new Func<int, int, int>((i1, i2) => i1 + i2);
             var Test2 = new Func<int, int>(i => i + 5);
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 1, arg2: 5).Should().Be(expected: 11);
+            Test2.Enclose(Test)(arg1: 1, arg2: 5).ShouldBe(Compare: 11);
 
             // Reset 
-            Test2.Enclose2(Test)(arg1: 3, arg2: 8).Should().Be(expected: 16);
+            Test2.Enclose2(Test)(arg1: 3, arg2: 8).ShouldBe(Compare: 16);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();
@@ -2102,16 +2101,16 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func2_2()
+        public void Enclose_Func2_2()
             {
             var Test = new Func<int, int, int>((i1, i2) => i1 + i2);
             var Test2 = new Func<int, int, int>((i1, i2) => i1 * i2 + 5);
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 1, arg2: 5, arg3: 6).Should().Be(expected: 36);
+            Test2.Enclose(Test)(arg1: 1, arg2: 5, arg3: 6).ShouldBe(Compare: 36);
 
-            Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10).Should().Be(expected: 88);
+            Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10).ShouldBe(Compare: 88);
 
             L.A(() => Test.Enclose((Func<int, int, int>)null)).ShouldFail();
             L.A(() => Test.Enclose2((Func<int, int, int>)null)).ShouldFail();
@@ -2128,16 +2127,16 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func2_3()
+        public void Enclose_Func2_3()
             {
             var Test = new Func<int, int, int>((i1, i2) => i1 + i2);
             var Test2 = new Func<int, int, int, int>((i1, i2, i3) => i1 * i2 * i3 + 5);
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 1, arg2: 5, arg3: 6, arg4: 8).Should().Be(expected: 246);
+            Test2.Enclose(Test)(arg1: 1, arg2: 5, arg3: 6, arg4: 8).ShouldBe(Compare: 246);
 
-            Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10, arg4: 12).Should().Be(expected: 968);
+            Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10, arg4: 12).ShouldBe(Compare: 968);
 
             L.A(() => Test.Enclose((Func<int, int, int, int>)null)).ShouldFail();
             L.A(() => Test.Enclose2((Func<int, int, int, int>)null)).ShouldFail();
@@ -2155,18 +2154,18 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func3_0()
+        public void Enclose_Func3_0()
             {
             var Test = new Func<int, int, int, int>((i1, i2, i3) => i1 + i2 + i3);
             var Test2 = new Func<int>(() => 5);
             var BadTest = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 5, arg2: 8).Should().Be(expected: 18);
+            Test2.Enclose(Test)(arg1: 5, arg2: 8).ShouldBe(Compare: 18);
 
-            Test2.Enclose2(Test)(arg1: 8, arg2: 10).Should().Be(expected: 23);
+            Test2.Enclose2(Test)(arg1: 8, arg2: 10).ShouldBe(Compare: 23);
 
-            Test2.Enclose3(Test)(arg1: 8, arg2: 10).Should().Be(expected: 23);
+            Test2.Enclose3(Test)(arg1: 8, arg2: 10).ShouldBe(Compare: 23);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
@@ -2187,18 +2186,18 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func3_1()
+        public void Enclose_Func3_1()
             {
             var Test = new Func<int, int, int, int>((i1, i2, i3) => i1 + i2 + i3);
             var Test2 = new Func<int, int>(i => i + 5);
             var BadTest = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10).Should().Be(expected: 28);
+            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10).ShouldBe(Compare: 28);
 
-            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12).Should().Be(expected: 35);
+            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12).ShouldBe(Compare: 35);
 
-            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 13).Should().Be(expected: 36);
+            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 13).ShouldBe(Compare: 36);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();
@@ -2219,18 +2218,18 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func3_2()
+        public void Enclose_Func3_2()
             {
             var Test = new Func<int, int, int, int>((i1, i2, i3) => i1 + i2 + i3);
             var Test2 = new Func<int, int, int>((i1, i2) => i1 * i2 + 5);
             var BadTest = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10, arg4: 14).Should().Be(expected: 158);
+            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10, arg4: 14).ShouldBe(Compare: 158);
 
-            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12, arg4: 14).Should().Be(expected: 191);
+            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12, arg4: 14).ShouldBe(Compare: 191);
 
-            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 13, arg4: 15).Should().Be(expected: 218);
+            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 13, arg4: 15).ShouldBe(Compare: 218);
 
             L.A(() => ((Func<int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int, int>)null).Enclose2(Test)).ShouldFail();
@@ -2252,20 +2251,20 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func4_0()
+        public void Enclose_Func4_0()
             {
             var Test = new Func<int, int, int, int, int>((i1, i2, i3, i4) => i1 + i2 + i3 + i4);
             var Test2 = new Func<int>(() => 5);
             var BadTest = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10).Should().Be(expected: 28);
+            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10).ShouldBe(Compare: 28);
 
-            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12).Should().Be(expected: 35);
+            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12).ShouldBe(Compare: 35);
 
-            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 14).Should().Be(expected: 37);
+            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 14).ShouldBe(Compare: 37);
 
-            Test2.Enclose4(Test)(arg1: 8, arg2: 10, arg3: 15).Should().Be(expected: 38);
+            Test2.Enclose4(Test)(arg1: 8, arg2: 10, arg3: 15).ShouldBe(Compare: 38);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
@@ -2290,20 +2289,20 @@ namespace L_Tests.LCore.Extensions
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         [Fact]
-        public void Test_Enclose_Func4_1()
+        public void Enclose_Func4_1()
             {
             var Test = new Func<int, int, int, int, int>((i1, i2, i3, i4) => i1 + i2 + i3 + i4);
             var Test2 = new Func<int, int>(i => i * 5);
             var BadTest = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10, arg4: 15).Should().Be(expected: 98);
+            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10, arg4: 15).ShouldBe(Compare: 98);
 
-            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12, arg4: 15).Should().Be(expected: 105);
+            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12, arg4: 15).ShouldBe(Compare: 105);
 
-            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 14, arg4: 15).Should().Be(expected: 107);
+            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 14, arg4: 15).ShouldBe(Compare: 107);
 
-            Test2.Enclose4(Test)(arg1: 8, arg2: 10, arg3: 15, arg4: 15).Should().Be(expected: 108);
+            Test2.Enclose4(Test)(arg1: 8, arg2: 10, arg3: 15, arg4: 15).ShouldBe(Compare: 108);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();

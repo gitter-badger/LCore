@@ -30,19 +30,19 @@ namespace L_Tests.LCore.Extensions
             // Test xml member cache
             Comments = typeof(L.Comment).GetComments();
 
-            Comments.Summary.Should().Be(@"
+            Comments.Summary.ShouldBe(@"
             Contains values and test members for CommentExt
             ");
 
 
             var Comments2 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestMethod)).First().GetComments();
 
-            Comments2.Summary.Should().Be(@"
+            Comments2.Summary.ShouldBe(@"
             Test class
             ");
-            Comments2.Returns.Should().Be("Returns");
-            Comments2.Value.Should().Be("value");
-            Comments2.Remarks.Should().Be("Remark");
+            Comments2.Returns.ShouldBe("Returns");
+            Comments2.Value.ShouldBe("value");
+            Comments2.Remarks.ShouldBe("Remark");
             Comments2.Examples.Should().Equal("some code", "more code");
             Comments2.Parameters.Should().Equal(
                 new Set<string, string>("A", "param1"),
@@ -57,13 +57,13 @@ namespace L_Tests.LCore.Extensions
 
             var Comments3 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestProperty)).First().GetComments();
 
-            Comments3.Summary.Should().Be(@"
+            Comments3.Summary.ShouldBe(@"
             TestProperty 
             ");
 
             var Comments4 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestField)).First().GetComments();
 
-            Comments4.Summary.Should().Be(@"
+            Comments4.Summary.ShouldBe(@"
             TestField
             ");
 
@@ -73,7 +73,7 @@ namespace L_Tests.LCore.Extensions
             Test.GetCustomAttributes(Inherit: false).Should().BeNull();
             Test.IsDefined(AttributeType: null, Inherit: false).ShouldBeFalse();
             Test.GetCustomAttributes(AttributeType: null, Inherit: false).Should().BeNull();
-            Test.MemberType.Should().Be(default(MemberTypes));
+            Test.MemberType.ShouldBe(default(MemberTypes));
             Test.Name.Should().BeNull();
             Test.DeclaringType.Should().BeNull();
             Test.ReflectedType.Should().BeNull();

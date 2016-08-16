@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
@@ -41,8 +40,8 @@ namespace L_Tests.LCore.Tools
 
             Test.Add("a", o2: 1);
 
-            Test.Count.Should().Be(expected: 1);
-            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("a", Obj2: 1));
+            Test.Count.ShouldBe(Compare: 1);
+            Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("a", Obj2: 1));
             }
 
         [Fact]
@@ -55,20 +54,20 @@ namespace L_Tests.LCore.Tools
 
             Test.Add("a", o2: 1);
 
-            Test.Count.Should().Be(expected: 1);
-            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("a", Obj2: 1));
+            Test.Count.ShouldBe(Compare: 1);
+            Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("a", Obj2: 1));
 
             Test.Set(Index: 0, Value: "b", Value2: 2);
 
-            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("b", Obj2: 2));
+            Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("b", Obj2: 2));
 
             Test.Set1(Index: 0, Value: "c");
 
-            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("c", Obj2: 2));
+            Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("c", Obj2: 2));
 
             Test.Set2(Index: 0, Value: 3);
 
-            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("c", Obj2: 3));
+            Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("c", Obj2: 3));
             }
 
         [Fact]
@@ -84,15 +83,15 @@ namespace L_Tests.LCore.Tools
 
             L.A(() => Test.Add(Guid.NewGuid().ToString(), Rand.Next())).Repeat(Times: 100)();
 
-            Test.Count.Should().Be(expected: 103);
+            Test.Count.ShouldBe(Compare: 103);
 
             Test.RemoveAt(Index: 0);
 
-            Test.Count.Should().Be(expected: 102);
-            Test.List1.Count.Should().Be(expected: 102);
-            Test.List2.Count.Should().Be(expected: 102);
+            Test.Count.ShouldBe(Compare: 102);
+            Test.List1.Count.ShouldBe(Compare: 102);
+            Test.List2.Count.ShouldBe(Compare: 102);
 
-            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("c", Obj2: 3));
+            Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("c", Obj2: 3));
             }
 
         }

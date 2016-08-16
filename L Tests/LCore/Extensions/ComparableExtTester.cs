@@ -1,8 +1,8 @@
 ﻿using System;
-using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -14,11 +14,9 @@ namespace L_Tests.LCore.Extensions
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt))]
     public partial class ComparableExtTester : XUnitOutputTester, IDisposable
         {
-        public ComparableExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        public ComparableExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}
 
-        public void Dispose()
-            {
-            }
+        public void Dispose() {}
 
         [Fact]
         [Trait(Traits.TargetMember,
@@ -29,17 +27,17 @@ namespace L_Tests.LCore.Extensions
             nameof(ComparableExt.Max) + "(IEnumerable`1<T>, Func`2<T, IComparable>) => T")]
         public void Max()
             {
-            ((IComparable)null).Max().Should().Be(expected: null);
-            ((IComparable)null).Max(1, 2, 3, 14, 5, 6, 7).Should().Be(expected: 14);
+            ((IComparable) null).Max().ShouldBe(Compare: null);
+            ((IComparable) null).Max(1, 2, 3, 14, 5, 6, 7).ShouldBe(Compare: 14);
 
-            50.Max(1, 2, 3, 14, 5, 6, 7).Should().Be(expected: 50);
-            5.Max(1, 2, 3, 14, 5, 6, 7).Should().Be(expected: 14);
+            50.Max(1, 2, 3, 14, 5, 6, 7).ShouldBe(Compare: 50);
+            5.Max(1, 2, 3, 14, 5, 6, 7).ShouldBe(Compare: 14);
 
-            50.55.Max(1, 2, 3, 14.55, 5, 6, 7).Should().Be(expected: 50.55);
-            5.55.Max(1, 2, 3, 14.55, 5, 6, 7).Should().Be(expected: 14.55);
+            50.55.Max(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(Compare: 50.55);
+            5.55.Max(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(Compare: 14.55);
 
-            "zzzbc".Max("baa", "caff", "acl", "aegeg", "grgg", "ttt").Should().Be("zzzbc");
-            "aab".Max("baa", "caff", "acl", "aegeg", "grgg", "ttt").Should().Be("ttt");
+            "zzzbc".Max("baa", "caff", "acl", "aegeg", "grgg", "ttt").ShouldBe("zzzbc");
+            "aab".Max("baa", "caff", "acl", "aegeg", "grgg", "ttt").ShouldBe("ttt");
             }
 
         [Fact]
@@ -51,17 +49,17 @@ namespace L_Tests.LCore.Extensions
             nameof(ComparableExt.Min) + "(IEnumerable`1<T>, Func`2<T, IComparable>) => T")]
         public void Min()
             {
-            ((IComparable)null).Min().Should().Be(expected: null);
-            ((IComparable)null).Min(1, 2, 3, 14, 5, 6, 7).Should().Be(expected: 1);
+            ((IComparable) null).Min().ShouldBe(Compare: null);
+            ((IComparable) null).Min(1, 2, 3, 14, 5, 6, 7).ShouldBe(Compare: 1);
 
-            50.Min(1, 2, 3, 14, 5, 6, 7).Should().Be(expected: 1);
-            (-5).Min(1, 2, 3, 14, 5, 6, 7).Should().Be(-5);
+            50.Min(1, 2, 3, 14, 5, 6, 7).ShouldBe(Compare: 1);
+            (-5).Min(1, 2, 3, 14, 5, 6, 7).ShouldBe(-5);
 
-            50.55.Min(1, 2, 3, 14.55, 5, 6, 7).Should().Be(expected: 1);
-            (-5.55).Min(1, 2, 3, 14.55, 5, 6, 7).Should().Be(-5.55);
+            50.55.Min(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(Compare: 1);
+            (-5.55).Min(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(-5.55);
 
-            "_aaa".Min("baa", "caff", "acl", "aegeg", "grgg", "ttt").Should().Be("_aaa");
-            "ccc".Min("baa", "caff", "acl", "aegeg", "grgg", "ttt").Should().Be("acl");
+            "_aaa".Min("baa", "caff", "acl", "aegeg", "grgg", "ttt").ShouldBe("_aaa");
+            "ccc".Min("baa", "caff", "acl", "aegeg", "grgg", "ttt").ShouldBe("acl");
             }
         }
     }

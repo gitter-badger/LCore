@@ -30,7 +30,7 @@ namespace L_Tests.LCore.Extensions
 
             var Test2 = L.Obj.As<object>()(Test);
 
-            Test2.Should().Be("a");
+            Test2.ShouldBe("a");
             }
 
         [Fact]
@@ -42,8 +42,8 @@ namespace L_Tests.LCore.Extensions
 
             L.Obj.Swap(ref Test1, ref Test2);
 
-            Test1.Should().Be("b");
-            Test2.Should().Be("a");
+            Test1.ShouldBe("b");
+            Test2.ShouldBe("a");
             }
 
         [Fact]
@@ -64,9 +64,9 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.New) + "(Object[]) => T")]
         public void New()
             {
-            L.Obj.New<string>().Should().Be("");
-            L.Obj.New<int>().Should().Be(expected: 0);
-            L.Obj.New<int?>().Should().Be(expected: null);
+            L.Obj.New<string>().ShouldBe("");
+            L.Obj.New<int>().ShouldBe(Compare: 0);
+            L.Obj.New<int?>().ShouldBe(Compare: null);
             L.Obj.New<List<int>>().ShouldBeEquivalentTo(new List<int>());
             }
 
@@ -112,7 +112,7 @@ namespace L_Tests.LCore.Extensions
             {
             const string Test = "a";
 
-            L.Obj.GetProperty()(Test, nameof(string.Length)).Should().Be(expected: 1);
+            L.Obj.GetProperty()(Test, nameof(string.Length)).ShouldBe(Compare: 1);
             L.Obj.GetProperty()(Test, "derp").ShouldBeNull();
 
             L.Obj.GetProperty()(Test, arg2: null).ShouldBeNull();
@@ -129,7 +129,7 @@ namespace L_Tests.LCore.Extensions
 
             L.A(() => L.Obj.SetProperty()(Test, "derp", "d")).ShouldFail();
 
-            Test.Obj1.Should().Be("c");
+            Test.Obj1.ShouldBe("c");
             }
         }
     }

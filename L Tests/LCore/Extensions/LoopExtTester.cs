@@ -4,6 +4,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -22,7 +23,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LoopExt) + "." + nameof(LoopExt.To) +
             "(Int32, Int32, Func`1<U>) => List`1<U>")]
-        public void Test_To_0()
+        public void To_0()
             {
             const int Begin = 0;
             const int End = 10;
@@ -35,7 +36,7 @@ namespace L_Tests.LCore.Extensions
                     return Result;
                 });
 
-            Result.Should().Be(expected: 11);
+            Result.ShouldBe(Compare: 11);
 
             // ReSharper disable ArgumentsStyleLiteral
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 });
@@ -52,7 +53,7 @@ namespace L_Tests.LCore.Extensions
 
             Result2 = Begin.To(Begin, Test2);
 
-            Result.Should().Be(expected: 1);
+            Result.ShouldBe(Compare: 1);
             // ReSharper disable once ArgumentsStyleLiteral
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1 });
 
@@ -61,7 +62,7 @@ namespace L_Tests.LCore.Extensions
 
             Result2 = Begin.To(Begin + 1, Test2);
 
-            Result.Should().Be(expected: 2);
+            Result.ShouldBe(Compare: 2);
             // ReSharper disable ArgumentsStyleLiteral
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1, 2 });
             // ReSharper restore ArgumentsStyleLiteral
@@ -71,7 +72,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LoopExt) + "." + nameof(LoopExt.To) +
             "(Int32, Int32, Func`2<Int32, T>) => List`1<T>")]
-        public void Test_To_1()
+        public void To_1()
             {
             const int Begin = 0;
             const int End = 10;
@@ -80,13 +81,13 @@ namespace L_Tests.LCore.Extensions
 
             List<int> Result2 = Begin.To(End, i =>
                 {
-                    i.Should().Be(Result);
+                    i.ShouldBe(Result);
 
                     Result++;
                     return Result;
                 });
 
-            Result.Should().Be(expected: 11);
+            Result.ShouldBe(Compare: 11);
 
             // ReSharper disable ArgumentsStyleLiteral
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 });
@@ -97,7 +98,7 @@ namespace L_Tests.LCore.Extensions
 
             var Test2 = new Func<int, int>(i =>
                 {
-                    i.Should().Be(Result);
+                    i.ShouldBe(Result);
 
                     Result++;
                     return Result;
@@ -105,7 +106,7 @@ namespace L_Tests.LCore.Extensions
 
             Result2 = Begin.To(Begin, Test2);
 
-            Result.Should().Be(expected: 1);
+            Result.ShouldBe(Compare: 1);
             // ReSharper disable once ArgumentsStyleLiteral
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1 });
 
@@ -114,7 +115,7 @@ namespace L_Tests.LCore.Extensions
 
             Result2 = Begin.To(Begin + 1, Test2);
 
-            Result.Should().Be(expected: 2);
+            Result.ShouldBe(Compare: 2);
             // ReSharper disable ArgumentsStyleLiteral
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1, 2 });
             // ReSharper restore ArgumentsStyleLiteral

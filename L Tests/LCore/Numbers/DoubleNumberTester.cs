@@ -5,6 +5,7 @@ using LCore.LUnit;
 using LCore.Numbers;
 using Xunit;
 using Xunit.Abstractions;
+using LCore.LUnit.Fluent;
 // ReSharper disable RedundantCast
 
 namespace L_Tests.LCore.Numbers
@@ -33,17 +34,17 @@ namespace L_Tests.LCore.Numbers
             DoubleNumber TempNumber = Dec;
             Dec = TempNumber;
 
-            TempNumber.GetHashCode().Should().Be(Dec.GetHashCode());
-            TempNumber.NumberType.Should().Be(typeof(double));
+            TempNumber.GetHashCode().ShouldBe(Dec.GetHashCode());
+            TempNumber.NumberType.ShouldBe(typeof(double));
 
-            TempNumber.New().Should().Be(TempNumber.DefaultValue);
+            TempNumber.New().ShouldBe(TempNumber.DefaultValue);
 
-            TempNumber.ToString().Should().Be("5.5");
+            TempNumber.ToString().ShouldBe("5.5");
 
             INumber Temp2 = TempNumber.New(Dec);
-            Temp2.GetValue().Should().Be(Dec);
+            Temp2.GetValue().ShouldBe(Dec);
 
-            TempNumber.GetValuePrecision().Should().Be((DoubleNumber)0.1d);
+            TempNumber.GetValuePrecision().ShouldBe((DoubleNumber)0.1d);
 
             TempNumber.Add((DoubleNumber)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)10.5);
             TempNumber.Subtract((DoubleNumber)5).Should().BeOfType<DecimalNumber>().And.Be((DecimalNumber)(decimal)0.5);
