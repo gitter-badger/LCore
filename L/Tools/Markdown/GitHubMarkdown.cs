@@ -2,9 +2,8 @@ using LCore.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using JetBrains.Annotations;
+
 // ReSharper disable UnusedMember.Global
 // ReSharper disable CollectionNeverQueried.Global
 // ReSharper disable ClassNeverInstantiated.Global
@@ -18,12 +17,34 @@ namespace LCore.Tools
     public class GitHubMarkdown
         {
         /// <summary>
+        /// The path relative to the root repository folder that this markdown file will be saved
+        /// </summary>
+        public string FilePath { get; }
+
+        /// <summary>
+        /// The title of the markdown file
+        /// </summary>
+        public string Title { get; }
+
+        /// <summary>
+        /// Create a new GitHumMarkdown document without specifying a file title or location
+        /// </summary>
+        public GitHubMarkdown() {}
+
+        /// <summary>
+        /// Create a new GitHumMarkdown document specifying a file title and location
+        /// </summary>
+        public GitHubMarkdown([CanBeNull] string FilePath, [CanBeNull] string Title)
+            {
+            this.FilePath = (FilePath ?? "").Trim('/', '\\').ReplaceAll("\\", "/");
+            this.Title = Title ?? "";
+            }
+
+        /// <summary>
         /// List of all Markdown Lines added.
         /// </summary>
         protected List<string> MarkdownLines { get; } = new List<string>();
 
-
-        #region Public Methods
         /// <summary>
         /// Add a blank line:
         /// </summary>
@@ -82,7 +103,9 @@ namespace LCore.Tools
                 Size = 2;
 
             this.Line($"{Line}");
-            this.Line(Size == 1 ? "======" : "------");
+            this.Line(Size == 1
+                ? "======"
+                : "------");
             }
 
         /// <summary>
@@ -111,7 +134,7 @@ namespace LCore.Tools
         /// </summary>
         public void OrderedList([CanBeNull] params Tuple<uint, string>[] DepthLine)
             {
-            DepthLine.Each(Line => this.OrderedList((Set<uint, string>)Line));
+            DepthLine.Each(Line => this.OrderedList((Set<uint, string>) Line));
             }
 
         /// <summary>
@@ -132,13 +155,13 @@ namespace LCore.Tools
 
             DepthLine.Each(Line =>
                 {
-                    if (LastLevel == null || Line.Obj1 != LastLevel)
-                        CurrentNumber = 1;
+                if (LastLevel == null || Line.Obj1 != LastLevel)
+                    CurrentNumber = 1;
 
-                    this.Line($"{"  ".Times(Line.Obj1)}{CurrentNumber}{Line.Obj2}");
+                this.Line($"{"  ".Times(Line.Obj1)}{CurrentNumber}{Line.Obj2}");
 
-                    LastLevel = Line.Obj1;
-                    CurrentNumber++;
+                LastLevel = Line.Obj1;
+                CurrentNumber++;
                 });
             }
 
@@ -168,7 +191,7 @@ namespace LCore.Tools
         /// </summary>
         public void UnorderedList([CanBeNull] params Tuple<uint, string>[] DepthLine)
             {
-            DepthLine.Each(Line => this.UnorderedList((Set<uint, string>)Line));
+            DepthLine.Each(Line => this.UnorderedList((Set<uint, string>) Line));
             }
 
         /// <summary>
@@ -184,10 +207,7 @@ namespace LCore.Tools
         /// </summary>
         public void UnorderedList([CanBeNull] params Set<uint, string>[] DepthLine)
             {
-            DepthLine.Each(Line =>
-                {
-                    this.Line($"{"  ".Times(Line.Obj1)}*{Line.Obj2}");
-                });
+            DepthLine.Each(Line => { this.Line($"{"  ".Times(Line.Obj1)}*{Line.Obj2}"); });
             }
 
         /// <summary>
@@ -257,7 +277,7 @@ namespace LCore.Tools
         /// </summary>
         /// <param name="Lines"></param>
         /// <param name="Language"></param>
-        public void Code([CanBeNull] string[] Lines = null, [CanBeNull] string Language = "")
+        public void Code([CanBeNull] string[] Lines = null, [CanBeNull] string Language = MarkdownGenerator.CSharpLanguage)
             {
             this.Line($"```{Language}");
             Lines.Each(this.Line);
@@ -335,19 +355,19 @@ namespace LCore.Tools
             var Divider = new List<string>();
 
             Rows.Each((i, Row) =>
-            {
+                {
                 var Cells = new List<string>();
 
                 Row.Each((j, Column) =>
-                {
+                    {
                     Cells.Add(Column);
                     if (IncludeHeader && i == 0)
                         Divider.Add(" --- ");
-                });
+                    });
                 Table.Add(Cells.JoinLines(" | "));
                 if (IncludeHeader && i == 0)
                     Table.Add(Divider.JoinLines(" | "));
-            });
+                });
 
             Table.Each(this.Line);
             }
@@ -377,124 +397,12 @@ namespace LCore.Tools
                 this.MarkdownLines.Add(Line);
             }
 
-        #endregion
-        }
-
-    internal class MarkdownGenerator
-        {
-        protected Dictionary<Assembly, GitHubMarkdown> AssemblyMarkdown { get; } = new Dictionary<Assembly, GitHubMarkdown>();
-        protected Dictionary<Type, GitHubMarkdown> TypeMarkdown { get; } = new Dictionary<Type, GitHubMarkdown>();
-        protected Dictionary<MemberInfo, GitHubMarkdown> MemberMarkdown { get; } = new Dictionary<MemberInfo, GitHubMarkdown>();
-
-        protected virtual GitHubMarkdown GenerateMarkdown(Assembly Assembly)
+        /// <summary>
+        /// Formats a glyphicon for display in a markdown document
+        /// </summary>
+        public string Glyph(GlyphIcon Glyph)
             {
-            return null;
-            }
-
-        protected virtual GitHubMarkdown GenerateMarkdown(Type Type)
-            {
-            return null;
-            }
-
-        protected virtual GitHubMarkdown GenerateMarkdown(MemberInfo Member)
-            {
-            var MD = new GitHubMarkdown();
-
-            MD.Header($"{Member.DeclaringType?.Name}", Size: 3);
-            MD.Header(Member.Name);
-
-            string PathToRoot = "../../..";
-
-            if (Member is MethodInfo)
-                {
-                var Method = (MethodInfo)Member;
-
-                var Comments = Method.GetComments();
-
-                string Static = Method.IsStatic
-                    ? "Static "
-                    : "Instance";
-
-                string ReturnType = Method.ReturnType == typeof(void)
-                    ? "void"
-                    : Method.ReturnType.FullyQualifiedName();
-
-                string Parameters = Method.GetParameters().Convert(Param =>
-                    $"{Param.ParameterType.GetGenericName()} {Param.Name}").Combine(", ");
-
-                MD.Header($"{Static}Method", Size: 4);
-
-                MD.Header($"public static {ReturnType} {Member.Name}({Parameters});", Size: 6);
-
-                MD.Header("Summary", Size: 6);
-                MD.Line(Comments?.Summary);
-
-                if (Method.GetParameters().Length > 0)
-                    {
-                    MD.Header("Parameters", Size: 6);
-
-                    var Table = new List<string[]>
-                        {
-                        new[] {"Parameter", "Optional", "Type", "Description"}
-                        };
-
-                    Method.GetParameters().Each((k, Param) =>
-                        {
-                            Table.Add(new[]
-                                {
-                                Param.Name,
-                                Param.IsOptional ? "Yes" : "No",
-                                Param.ParameterType.GetGenericName(),
-                                Comments?.Parameters[k].Obj2
-                                });
-                        });
-
-                    MD.Table(Table);
-                    }
-
-                MD.Header("Returns", Size: 4);
-
-                MD.Header(Method.ReturnType == typeof(void)
-                    ? "void"
-                    : Method.ReturnType.GetGenericName(), Size: 6);
-
-                MD.Line(Comments?.Returns);
-                }
-
-
-            return MD;
-            }
-
-        protected virtual string GeneratedMarkdownRoot => "/GeneratedMarkdown";
-        protected virtual string AssemblyMarkdownPath(Assembly Assembly) => $"{this.GeneratedMarkdownRoot}/{Assembly.GetName().Name}.md";
-        protected virtual string AssemblyMarkdownPath(Type Type) => $"{this.GeneratedMarkdownRoot}/{Type.GetAssembly()?.GetName().Name}/{Type.Name}.md";
-        protected virtual string AssemblyMarkdownPath(MemberInfo Member) => $"{this.GeneratedMarkdownRoot}/{Member.DeclaringType.GetAssembly()?.GetName().Name}/{Member.DeclaringType.Name}/{Member.Name}.md";
-
-        protected virtual bool IncludeType(Type Type) =>
-            !Type.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) &&
-            !Type.HasAttribute<IExcludeFromMarkdownAttribute>();
-
-        protected virtual bool IncludeMember(MemberInfo Member) =>
-            !Member.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) &&
-            !Member.HasAttribute<IExcludeFromMarkdownAttribute>();
-
-        public void Load(Assembly Assembly)
-            {
-            this.AssemblyMarkdown.Add(Assembly, this.GenerateMarkdown(Assembly));
-
-            Assembly.GetExportedTypes().Select(this.IncludeType).Each(this.Load);
-            }
-
-        public void Load(Type Type)
-            {
-            this.TypeMarkdown.Add(Type, this.GenerateMarkdown(Type));
-
-            Type.GetMembers().Select(this.IncludeMember).Each(this.Load);
-            }
-
-        public void Load(MemberInfo Member)
-            {
-            this.MemberMarkdown.Add(Member, this.GenerateMarkdown(Member));
+            return $"<span class=\"glyphicon glyphicon-{Glyph.ToString().ToLower().Trim('_').ReplaceAll("_", "-")}\"></span>";
             }
         }
     }

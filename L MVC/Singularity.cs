@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using LCore;
 using LCore.Extensions;
 using LMVC.Extensions;
 
@@ -40,71 +41,71 @@ namespace LMVC
 
         public static class Icons
             {
-            public static readonly Dictionary<Type, FontAwesomeExt.Icon> TypeIcons_L = new Dictionary<Type, FontAwesomeExt.Icon>
+            public static readonly Dictionary<Type, FontAwesomeIcon> TypeIcons_L = new Dictionary<Type, FontAwesomeIcon>
                 {
-                [typeof(BooleanExt)] = FontAwesomeExt.Icon.adjust,
-                [typeof(ReflectionExt)] = FontAwesomeExt.Icon.shield,
-                [typeof(EnumerableExt)] = FontAwesomeExt.Icon.list,
-                [typeof(LoopExt)] = FontAwesomeExt.Icon.repeat,
-                [typeof(DateExt)] = FontAwesomeExt.Icon.calendar,
-                [typeof(DictionaryExt)] = FontAwesomeExt.Icon.book,
-                [typeof(FileExt)] = FontAwesomeExt.Icon.archive,
-                [typeof(StringExt)] = FontAwesomeExt.Icon.quote_left,
-                [typeof(ObjectExt)] = FontAwesomeExt.Icon.square_o,
-                [typeof(ConvertibleExt)] = FontAwesomeExt.Icon.info_circle,
-                [typeof(ExceptionExt)] = FontAwesomeExt.Icon.warning,
-                [typeof(EnumExt)] = FontAwesomeExt.Icon.navicon,
-                [typeof(ThreadExt)] = FontAwesomeExt.Icon.random,
-                [typeof(NumberExt)] = FontAwesomeExt.Icon.sort_numeric_asc,
-                [typeof(CommentExt)] = FontAwesomeExt.Icon.adjust,
-                [typeof(ComparableExt)] = FontAwesomeExt.Icon.question,
-                [typeof(L)] = FontAwesomeExt.Icon.gbp
+                [typeof(BooleanExt)] = FontAwesomeIcon.adjust,
+                [typeof(ReflectionExt)] = FontAwesomeIcon.shield,
+                [typeof(EnumerableExt)] = FontAwesomeIcon.list,
+                [typeof(LoopExt)] = FontAwesomeIcon.repeat,
+                [typeof(DateExt)] = FontAwesomeIcon.calendar,
+                [typeof(DictionaryExt)] = FontAwesomeIcon.book,
+                [typeof(FileExt)] = FontAwesomeIcon.archive,
+                [typeof(StringExt)] = FontAwesomeIcon.quote_left,
+                [typeof(ObjectExt)] = FontAwesomeIcon.square_o,
+                [typeof(ConvertibleExt)] = FontAwesomeIcon.info_circle,
+                [typeof(ExceptionExt)] = FontAwesomeIcon.warning,
+                [typeof(EnumExt)] = FontAwesomeIcon.navicon,
+                [typeof(ThreadExt)] = FontAwesomeIcon.random,
+                [typeof(NumberExt)] = FontAwesomeIcon.sort_numeric_asc,
+                [typeof(CommentExt)] = FontAwesomeIcon.adjust,
+                [typeof(ComparableExt)] = FontAwesomeIcon.question,
+                [typeof(L)] = FontAwesomeIcon.gbp
                 };
 
-            public static readonly Dictionary<Type, FontAwesomeExt.Icon> TypeIcons_LMVC = new Dictionary<Type, FontAwesomeExt.Icon>
+            public static readonly Dictionary<Type, FontAwesomeIcon> TypeIcons_LMVC = new Dictionary<Type, FontAwesomeIcon>
                 {
-                [typeof(MetaExt)] = FontAwesomeExt.Icon.question,
-                [typeof(ContextExt)] = FontAwesomeExt.Icon.question,
-                [typeof(ControllerExt)] = FontAwesomeExt.Icon.question,
-                [typeof(GlyphIconExt)] = FontAwesomeExt.Icon.question,
-                [typeof(HtmlExt)] = FontAwesomeExt.Icon.question,
-                [typeof(ModelExt)] = FontAwesomeExt.Icon.question,
-                [typeof(DataExt)] = FontAwesomeExt.Icon.question,
-                [typeof(UrlExt)] = FontAwesomeExt.Icon.internet_explorer,
-                [typeof(SessionExt)] = FontAwesomeExt.Icon.question,
-                [typeof(SingularityControllerExt)] = FontAwesomeExt.Icon.question,
-                [typeof(MVCExt)] = FontAwesomeExt.Icon.question,
-                [typeof(ResponseExt)] = FontAwesomeExt.Icon.question,
-                [typeof(FontAwesomeExt)] = FontAwesomeExt.Icon.question,
-                [typeof(QueryExt)] = FontAwesomeExt.Icon.question
+                [typeof(MetaExt)] = FontAwesomeIcon.question,
+                [typeof(ContextExt)] = FontAwesomeIcon.question,
+                [typeof(ControllerExt)] = FontAwesomeIcon.question,
+                [typeof(GlyphIconExt)] = FontAwesomeIcon.question,
+                [typeof(HtmlExt)] = FontAwesomeIcon.question,
+                [typeof(ModelExt)] = FontAwesomeIcon.question,
+                [typeof(DataExt)] = FontAwesomeIcon.question,
+                [typeof(UrlExt)] = FontAwesomeIcon.internet_explorer,
+                [typeof(SessionExt)] = FontAwesomeIcon.question,
+                [typeof(SingularityControllerExt)] = FontAwesomeIcon.question,
+                [typeof(MVCExt)] = FontAwesomeIcon.question,
+                [typeof(ResponseExt)] = FontAwesomeIcon.question,
+                [typeof(FontAwesomeExt)] = FontAwesomeIcon.question,
+                [typeof(QueryExt)] = FontAwesomeIcon.question
                 };
 
-            public static readonly Dictionary<Type, FontAwesomeExt.Icon> TypeIcons = new Dictionary<Type, FontAwesomeExt.Icon>
+            public static readonly Dictionary<Type, FontAwesomeIcon> TypeIcons = new Dictionary<Type, FontAwesomeIcon>
                 {
-                [typeof(bool)] = FontAwesomeExt.Icon.adjust,
-                [typeof(IEnumerable)] = FontAwesomeExt.Icon.list,
-                [typeof(Array)] = FontAwesomeExt.Icon.list,
-                [typeof(DateTime)] = FontAwesomeExt.Icon.calendar,
-                [typeof(TimeSpan)] = FontAwesomeExt.Icon.calendar,
-                [typeof(IDictionary)] = FontAwesomeExt.Icon.book,
-                [typeof(System.IO.File)] = FontAwesomeExt.Icon.archive,
-                [typeof(System.IO.FileInfo)] = FontAwesomeExt.Icon.archive,
-                [typeof(string)] = FontAwesomeExt.Icon.quote_left,
-                [typeof(object)] = FontAwesomeExt.Icon.square_o,
-                [typeof(Exception)] = FontAwesomeExt.Icon.warning,
-                [typeof(Enum)] = FontAwesomeExt.Icon.navicon,
-                [typeof(System.Threading.Thread)] = FontAwesomeExt.Icon.random,
-                [typeof(int)] = FontAwesomeExt.Icon.sort_numeric_asc,
-                [typeof(double)] = FontAwesomeExt.Icon.sort_numeric_asc,
-                [typeof(float)] = FontAwesomeExt.Icon.sort_numeric_asc,
-                [typeof(short)] = FontAwesomeExt.Icon.sort_numeric_asc,
-                [typeof(long)] = FontAwesomeExt.Icon.sort_numeric_asc,
-                [typeof(uint)] = FontAwesomeExt.Icon.sort_numeric_asc,
-                [typeof(ushort)] = FontAwesomeExt.Icon.sort_numeric_asc,
-                [typeof(ulong)] = FontAwesomeExt.Icon.sort_numeric_asc
+                [typeof(bool)] = FontAwesomeIcon.adjust,
+                [typeof(IEnumerable)] = FontAwesomeIcon.list,
+                [typeof(Array)] = FontAwesomeIcon.list,
+                [typeof(DateTime)] = FontAwesomeIcon.calendar,
+                [typeof(TimeSpan)] = FontAwesomeIcon.calendar,
+                [typeof(IDictionary)] = FontAwesomeIcon.book,
+                [typeof(System.IO.File)] = FontAwesomeIcon.archive,
+                [typeof(System.IO.FileInfo)] = FontAwesomeIcon.archive,
+                [typeof(string)] = FontAwesomeIcon.quote_left,
+                [typeof(object)] = FontAwesomeIcon.square_o,
+                [typeof(Exception)] = FontAwesomeIcon.warning,
+                [typeof(Enum)] = FontAwesomeIcon.navicon,
+                [typeof(System.Threading.Thread)] = FontAwesomeIcon.random,
+                [typeof(int)] = FontAwesomeIcon.sort_numeric_asc,
+                [typeof(double)] = FontAwesomeIcon.sort_numeric_asc,
+                [typeof(float)] = FontAwesomeIcon.sort_numeric_asc,
+                [typeof(short)] = FontAwesomeIcon.sort_numeric_asc,
+                [typeof(long)] = FontAwesomeIcon.sort_numeric_asc,
+                [typeof(uint)] = FontAwesomeIcon.sort_numeric_asc,
+                [typeof(ushort)] = FontAwesomeIcon.sort_numeric_asc,
+                [typeof(ulong)] = FontAwesomeIcon.sort_numeric_asc
                 };
 
-            public static FontAwesomeExt.Icon? GetTypeIcon([CanBeNull]Type Type)
+            public static FontAwesomeIcon? GetTypeIcon([CanBeNull]Type Type)
                 {
                 if (Type == null)
                     return null;
@@ -119,7 +120,7 @@ namespace LMVC
                 if (TypeIcons_LMVC.ContainsKey(Type))
                     return TypeIcons_LMVC[Type];
 
-                return FontAwesomeExt.Icon.question;
+                return FontAwesomeIcon.question;
                 }
             }
 

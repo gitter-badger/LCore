@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using LMVC.Extensions;
+using LCore;
 using LMVC.Models;
 using LMVC.Routes;
 using LCore.Extensions;
@@ -13,7 +13,7 @@ namespace LMVC.Controllers
     {
     public class ExamplesController : SingularityController, IDefaultViewLayout
         {
-        [MenuAction(ParentAction: null, Icon: FontAwesomeExt.Icon.circle)]
+        [MenuAction(ParentAction: null, Icon: FontAwesomeIcon.circle)]
         public ActionResult Home()
             {
             this.Breadcrumbs = new[]
@@ -26,7 +26,7 @@ namespace LMVC.Controllers
             }
 
 
-        [MenuAction(ParentAction: null, Icon: FontAwesomeExt.Icon.gbp, ActionFriendlyTitle: nameof(Home))]
+        [MenuAction(ParentAction: null, Icon: FontAwesomeIcon.gbp, ActionFriendlyTitle: nameof(Home))]
         public ActionResult L()
             {
             this.Breadcrumbs = new[]
@@ -39,7 +39,7 @@ namespace LMVC.Controllers
             }
 
         [Route("/Examples/L/Extensions")]
-        [MenuAction(ParentAction: null, Icon: FontAwesomeExt.Icon.chain, ActionFriendlyTitle: nameof(L))]
+        [MenuAction(ParentAction: null, Icon: FontAwesomeIcon.chain, ActionFriendlyTitle: nameof(L))]
         public ActionResult L_Extensions()
             {
             this.Breadcrumbs = new[]
@@ -54,7 +54,7 @@ namespace LMVC.Controllers
             }
 
         [Route("/Examples/L/Extensions/{ClassName:string}")]
-        [MenuAction(ParentAction: null, Icon: FontAwesomeExt.Icon.chain, ActionFriendlyTitle: nameof(L_Extensions))]
+        [MenuAction(ParentAction: null, Icon: FontAwesomeIcon.chain, ActionFriendlyTitle: nameof(L_Extensions))]
         public ActionResult L_Extensions_Class(string ClassName)
             {
             var ExtClass = LCore.Extensions.L.Ref.FindType($"LCore.Extensions.{ClassName}");
@@ -75,7 +75,7 @@ namespace LMVC.Controllers
             }
 
 
-        [MenuAction(ParentAction: null, Icon: FontAwesomeExt.Icon.circle, ActionFriendlyTitle: nameof(Home))]
+        [MenuAction(ParentAction: null, Icon: FontAwesomeIcon.circle, ActionFriendlyTitle: nameof(Home))]
         public ActionResult Singularity()
             {
             // ReSharper disable once Mvc.ViewNotResolved
@@ -83,7 +83,7 @@ namespace LMVC.Controllers
             }
 
         [Route("Examples/Singularity/Extensions")]
-        [MenuAction(ParentAction: null, Icon: FontAwesomeExt.Icon.chain, ActionFriendlyTitle: nameof(Singularity))]
+        [MenuAction(ParentAction: null, Icon: FontAwesomeIcon.chain, ActionFriendlyTitle: nameof(Singularity))]
         public ActionResult SingularityExtensions()
             {
             // ReSharper disable once Mvc.ViewNotResolved
@@ -91,7 +91,7 @@ namespace LMVC.Controllers
             }
 
         [Route("Examples/Singularity/Extensions/{Type}")]
-        [MenuAction(ParentAction: null, Icon: FontAwesomeExt.Icon.question, ActionFriendlyTitle: nameof(SingularityExtensions))]
+        [MenuAction(ParentAction: null, Icon: FontAwesomeIcon.question, ActionFriendlyTitle: nameof(SingularityExtensions))]
         public ActionResult SingularityExtensionType(string Type)
             {
             // ReSharper disable once Mvc.ViewNotResolved
@@ -99,7 +99,7 @@ namespace LMVC.Controllers
             }
 
         [Route("Examples/Singularity/Extensions/{Type}/{Method}")]
-        [MenuAction(ParentAction: null, Icon: FontAwesomeExt.Icon.chain, ActionFriendlyTitle: nameof(Singularity))]
+        [MenuAction(ParentAction: null, Icon: FontAwesomeIcon.chain, ActionFriendlyTitle: nameof(Singularity))]
         public ActionResult SingularityExtensionMethod(string Type, string Method)
             {
             // ReSharper disable once Mvc.ViewNotResolved

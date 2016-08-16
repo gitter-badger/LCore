@@ -10,6 +10,7 @@ using LCore.Tests;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
+
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
 // ReSharper disable ArgumentsStyleLiteral
 
@@ -94,7 +95,7 @@ namespace L_Tests.LCore.Extensions
 
             Member.ShouldNotBeNull();
 
-            var Members = (MemberInfo[]) ((MethodInfo) Member)?.Invoke(obj: null, parameters: new object[] {$"{nameof(L)}.{nameof(L.Ref)}.{nameof(L.Ref.FindMember)}"});
+            var Members = (MemberInfo[]) ((MethodInfo) Member)?.Invoke(obj: null, parameters: new object[] {$"{typeof(L).Namespace}.{nameof(L)}.{nameof(L.Ref)}.{nameof(L.Ref.FindMember)}"});
 
             Members.First().ShouldBe(Member);
             }
