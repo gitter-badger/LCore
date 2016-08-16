@@ -28,7 +28,7 @@ namespace LCore.LUnit.Fluent
         /// <exception cref="InternalTestFailureException">The test fails</exception>
         public static void ShouldSucceed(this MethodInfo Method, object Target = null, object[] Params = null)
             {
-            Method.ShouldSucceed<object>(Target, Params, (Func<object, bool>[])null);
+            Method.ShouldSucceed<object>(Target, Params, (Func<object, bool>[]) null);
             }
 
         /// <summary>
@@ -194,10 +194,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail(this Action Act)
             {
-            Act.Method.ShouldFail(new object[] { }, Act.Target);
+            Act.Method.ShouldFail(new object[] {}, Act.Target);
             }
 
         /// <summary>
@@ -205,10 +204,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1>(this Action<T1> Act, T1 o1)
             {
-            Act.Method.ShouldFail(new object[] { o1 }, Act.Target);
+            Act.Method.ShouldFail(new object[] {o1}, Act.Target);
             }
 
         /// <summary>
@@ -216,10 +214,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, T2>(this Action<T1, T2> Act, T1 o1, T2 o2)
             {
-            Act.Method.ShouldFail(new object[] { o1, o2 }, Act.Target);
+            Act.Method.ShouldFail(new object[] {o1, o2}, Act.Target);
             }
 
         /// <summary>
@@ -227,10 +224,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, T2, T3>(this Action<T1, T2, T3> Act, T1 o1, T2 o2, T3 o3)
             {
-            Act.Method.ShouldFail(new object[] { o1, o2, o3 }, Act.Target);
+            Act.Method.ShouldFail(new object[] {o1, o2, o3}, Act.Target);
             }
 
         /// <summary>
@@ -238,10 +234,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> Act, T1 o1, T2 o2, T3 o3, T4 o4)
             {
-            Act.Method.ShouldFail(new object[] { o1, o2, o3, o4 }, Act.Target);
+            Act.Method.ShouldFail(new object[] {o1, o2, o3, o4}, Act.Target);
             }
 
         /// <summary>
@@ -249,10 +244,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<E>(this Action Act) where E : Exception
             {
-            Act.Method.ShouldFail<E>(new object[] { }, Act.Target);
+            Act.Method.ShouldFail<E>(new object[] {}, Act.Target);
             }
 
         /// <summary>
@@ -260,10 +254,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, E>(this Action<T1> Act, T1 o1) where E : Exception
             {
-            Act.Method.ShouldFail<E>(new object[] { o1 }, Act.Target);
+            Act.Method.ShouldFail<E>(new object[] {o1}, Act.Target);
             }
 
         /// <summary>
@@ -271,10 +264,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, T2, E>(this Action<T1, T2> Act, T1 o1, T2 o2) where E : Exception
             {
-            Act.Method.ShouldFail<E>(new object[] { o1, o2 }, Act.Target);
+            Act.Method.ShouldFail<E>(new object[] {o1, o2}, Act.Target);
             }
 
         /// <summary>
@@ -282,10 +274,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, T2, T3, E>(this Action<T1, T2, T3> Act, T1 o1, T2 o2, T3 o3) where E : Exception
             {
-            Act.Method.ShouldFail<E>(new object[] { o1, o2, o3 }, Act.Target);
+            Act.Method.ShouldFail<E>(new object[] {o1, o2, o3}, Act.Target);
             }
 
         /// <summary>
@@ -293,10 +284,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, T2, T3, T4, E>(this Action<T1, T2, T3, T4> Act, T1 o1, T2 o2, T3 o3, T4 o4) where E : Exception
             {
-            Act.Method.ShouldFail<E>(new object[] { o1, o2, o3, o4 }, Act.Target);
+            Act.Method.ShouldFail<E>(new object[] {o1, o2, o3, o4}, Act.Target);
             }
 
         /// <summary>
@@ -304,10 +294,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<U>(this Func<U> Func)
             {
-            Func.Method.ShouldFail(new object[] { }, Func.Target);
+            Func.Method.ShouldFail(new object[] {}, Func.Target);
             }
 
         /// <summary>
@@ -315,10 +304,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, U>(this Func<T1, U> Func, T1 o1)
             {
-            Func.Method.ShouldFail(new object[] { o1 }, Func.Target);
+            Func.Method.ShouldFail(new object[] {o1}, Func.Target);
             }
 
         /// <summary>
@@ -326,10 +314,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, T2, U>(this Func<T1, T2, U> Func, T1 o1, T2 o2)
             {
-            Func.Method.ShouldFail(new object[] { o1, o2 }, Func.Target);
+            Func.Method.ShouldFail(new object[] {o1, o2}, Func.Target);
             }
 
         /// <summary>
@@ -337,10 +324,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, T2, T3, U>(this Func<T1, T2, T3, U> Func, T1 o1, T2 o2, T3 o3)
             {
-            Func.Method.ShouldFail(new object[] { o1, o2, o3 }, Func.Target);
+            Func.Method.ShouldFail(new object[] {o1, o2, o3}, Func.Target);
             }
 
         /// <summary>
@@ -348,10 +334,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> Func, T1 o1, T2 o2, T3 o3, T4 o4)
             {
-            Func.Method.ShouldFail(new object[] { o1, o2, o3, o4 }, Func.Target);
+            Func.Method.ShouldFail(new object[] {o1, o2, o3, o4}, Func.Target);
             }
 
         /// <summary>
@@ -359,10 +344,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<U, E>(this Func<U> Func) where E : Exception
             {
-            Func.Method.ShouldFail<E>(new object[] { }, Func.Target);
+            Func.Method.ShouldFail<E>(new object[] {}, Func.Target);
             }
 
         /// <summary>
@@ -370,10 +354,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, U, E>(this Func<T1, U> Func, T1 o1) where E : Exception
             {
-            Func.Method.ShouldFail<E>(new object[] { o1 }, Func.Target);
+            Func.Method.ShouldFail<E>(new object[] {o1}, Func.Target);
             }
 
         /// <summary>
@@ -381,10 +364,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, T2, U, E>(this Func<T1, T2, U> Func, T1 o1, T2 o2) where E : Exception
             {
-            Func.Method.ShouldFail<E>(new object[] { o1, o2 }, Func.Target);
+            Func.Method.ShouldFail<E>(new object[] {o1, o2}, Func.Target);
             }
 
         /// <summary>
@@ -392,10 +374,9 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> Func, T1 o1, T2 o2, T3 o3) where E : Exception
             {
-            Func.Method.ShouldFail<E>(new object[] { o1, o2, o3 }, Func.Target);
+            Func.Method.ShouldFail<E>(new object[] {o1, o2, o3}, Func.Target);
             }
 
         /// <summary>
@@ -403,11 +384,10 @@ namespace LCore.LUnit.Fluent
         /// </summary>
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
-        
         public static void ShouldFail<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> Func, T1 o1, T2 o2, T3 o3, T4 o4)
             where E : Exception
             {
-            Func.Method.ShouldFail<E>(new object[] { o1, o2, o3, o4 }, Func.Target);
+            Func.Method.ShouldFail<E>(new object[] {o1, o2, o3, o4}, Func.Target);
             }
 
         #endregion
@@ -510,6 +490,7 @@ namespace LCore.LUnit.Fluent
             Type.Subject.HasAttribute<T>().ShouldBeTrue(Because, BecauseArgs);
             return new AndConstraint<TypeAssertions>(Type);
             }
+
         /// <summary>
         /// Asserts that the current System.Type has an attribute of type <typeparamref name="T"/>.
         /// </summary>
@@ -571,8 +552,45 @@ namespace LCore.LUnit.Fluent
 
         #endregion
 
-
         #region Abbreviations +
+
+        #region ShouldBe
+
+        /// <summary>
+        /// Asserts that the value is null.
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <param name="Compare"></param>
+        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
+        ///     explaining why the assertion is needed. If the phrase does not start with the
+        ///     word because, it is prepended automatically.</param>
+        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
+        /// <returns></returns>
+        public static AndConstraint<ObjectAssertions> ShouldBe<T>(this T Value, T Compare, string Because = "",
+            params object[] BecauseArgs)
+            where T : class
+            {
+            return Value.Should().Be(Compare, Because, BecauseArgs);
+            }
+
+        /// <summary>
+        /// Asserts that the value is null.
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <param name="Compare"></param>
+        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
+        ///     explaining why the assertion is needed. If the phrase does not start with the
+        ///     word because, it is prepended automatically.</param>
+        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
+        /// <returns></returns>
+        public static AndConstraint<ObjectAssertions> ShouldBe<T>(this T? Value, T Compare, string Because = "",
+            params object[] BecauseArgs)
+            where T : struct
+            {
+            return Value.Should().Be(Compare, Because, BecauseArgs);
+            }
+
+        #endregion
 
         #region ShouldBeTrue
 
@@ -644,6 +662,42 @@ namespace LCore.LUnit.Fluent
             where T : struct
             {
             return Value.Should().BeNull(Because, BecauseArgs);
+            }
+
+        #endregion
+
+        #region ShouldNotBeNull
+
+        /// <summary>
+        /// Asserts that the value is null.
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
+        ///     explaining why the assertion is needed. If the phrase does not start with the
+        ///     word because, it is prepended automatically.</param>
+        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
+        /// <returns></returns>
+        public static AndConstraint<ObjectAssertions> ShouldNotBeNull<T>(this T Value, string Because = "",
+            params object[] BecauseArgs)
+            where T : class
+            {
+            return Value.Should().NotBeNull(Because, BecauseArgs);
+            }
+
+        /// <summary>
+        /// Asserts that the value is null.
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
+        ///     explaining why the assertion is needed. If the phrase does not start with the
+        ///     word because, it is prepended automatically.</param>
+        /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
+        /// <returns></returns>
+        public static AndConstraint<ObjectAssertions> ShouldNotBeNull<T>(this T? Value, string Because = "",
+            params object[] BecauseArgs)
+            where T : struct
+            {
+            return Value.Should().NotBeNull(Because, BecauseArgs);
             }
 
         #endregion
