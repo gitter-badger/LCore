@@ -105,9 +105,17 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.Member) + "(Expression`1<Func`2<T, Object>>) => MemberInfo")]
         public void Member()
             {
-            L.Ref.Member<object>(o => o.ToString()).ShouldNotBeNull();
+            L.Ref.Member<object>(o => o.ToString()).ShouldBeNull();
 
             L.Ref.Member<object>(Expr: null).ShouldBeNull();
+
+            var Member = L.Ref.Member<ReflectionExtTester.TestClass>(o => o.Test);
+
+            Member.ShouldNotBeNull();
+            
+            var Test = new ReflectionExtTester.TestClass {Test = "a"};
+
+            (Member as PropertyInfo)?.GetValue(Test).ShouldBe("a");
             }
 
         [Fact]

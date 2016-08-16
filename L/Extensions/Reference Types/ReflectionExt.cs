@@ -1446,9 +1446,9 @@ namespace LCore.Extensions
             /// Retrieve a MemberInfo using a lambda statement.
             /// Ex. L.Ref.Member`Class(t => t.Member);
             /// </summary>
-            public static MemberInfo Member<T>(Expression<Func<T, object>> Expr)
+            public static MemberInfo Member<T>([CanBeNull] Expression<Func<T, object>> Expr)
                 {
-                var Out = (Expr.Body as MemberExpression)?.Member;
+                var Out = (Expr?.Body as MemberExpression)?.Member;
 
                 if (Out != null)
                     {
@@ -1478,26 +1478,28 @@ namespace LCore.Extensions
             /// Retrieve a MethodInfo using a lambda statement.
             /// Ex. L.Ref.Method`Class(t => t.Method(""));
             /// </summary>
-            public static MethodInfo Method<T>(Expression<Action<T>> Expr)
+            public static MethodInfo Method<T>([CanBeNull] Expression<Action<T>> Expr)
                 {
-                var Out = ((MethodCallExpression) Expr.Body).Method;
+                var Out = ((MethodCallExpression) Expr?.Body)?.Method;
 
-                var TypeCursor = typeof(T);
-                while (TypeCursor != null)
+                if (Out != null)
                     {
-                    // Ambiguous match not possible here as parameters are present.
-                    // ReSharper disable once ExceptionNotDocumented
-                    var TopLevelMember = typeof(T).GetMethod(Out.Name, Out.GetParameters().Convert(Param => Param.ParameterType));
-
-                    if (TopLevelMember != null)
+                    var TypeCursor = typeof(T);
+                    while (TypeCursor != null)
                         {
-                        Out = TopLevelMember;
-                        break;
+                        // Ambiguous match not possible here as parameters are present.
+                        // ReSharper disable once ExceptionNotDocumented
+                        var TopLevelMember = typeof(T).GetMethod(Out.Name, Out.GetParameters().Convert(Param => Param.ParameterType));
+
+                        if (TopLevelMember != null)
+                            {
+                            Out = TopLevelMember;
+                            break;
+                            }
+
+                        TypeCursor = TypeCursor.BaseType;
                         }
-
-                    TypeCursor = TypeCursor.BaseType;
                     }
-
                 return Out;
                 }
 

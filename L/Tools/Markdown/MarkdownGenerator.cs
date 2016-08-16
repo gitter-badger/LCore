@@ -34,8 +34,6 @@ namespace LCore.Tools
             MD.Header($"{Member.DeclaringType?.Name}", Size: 3);
             MD.Header(Member.Name);
 
-            string PathToRoot = "../../..";
-
             if (Member is MethodInfo)
                 {
                 var Method = (MethodInfo) Member;
