@@ -10,6 +10,8 @@ using LCore.Tests;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
+// ReSharper disable ReturnValueOfPureMethodIsNotUsed
+// ReSharper disable ArgumentsStyleLiteral
 
 // ReSharper disable InvokeAsExtensionMethod
 
@@ -74,10 +76,10 @@ namespace L_Tests.LCore.Extensions
 
             L.Ref.FindType($"{nameof(System)}.{nameof(String)}").ShouldBe(typeof(string));
 
-            L.Ref.FindType($"{nameof(L)}.{nameof(L.Ref)}").Should().Be(typeof(L.Ref));
+            L.Ref.FindType($"{typeof(L).Namespace}.{nameof(L)}.{nameof(L.Ref)}").Should().Be(typeof(L.Ref));
 
-            L.Ref.FindType($"{nameof(L)}.{nameof(L.Ref)}", typeof(LCoreAssemblyTester).GetAssembly()).ShouldBeNull();
-            L.Ref.FindType($"{nameof(L)}.{nameof(L.Ref)}", typeof(L).GetAssembly()).ShouldBe(typeof(L.Ref));
+            L.Ref.FindType($"{typeof(L).Namespace}.{nameof(L)}.{nameof(L.Ref)}", typeof(LCoreAssemblyTester).GetAssembly()).ShouldBeNull();
+            L.Ref.FindType($"{typeof(L).Namespace}.{nameof(L)}.{nameof(L.Ref)}", typeof(L).GetAssembly()).ShouldBe(typeof(L.Ref));
 
 
             L.Ref.FindType("nope").ShouldBeNull();

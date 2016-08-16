@@ -89,7 +89,7 @@ namespace L_Tests.LCore.Extensions
             L.Obj.IsA<string>()(arg: null).ShouldBeFalse();
             L.Obj.IsA<string>()((string)null).ShouldBeFalse();
             L.Obj.IsA<int>()((string)null).ShouldBeFalse();
-            L.Obj.IsA<object>()(arg: "").ShouldBeTrue();
+            L.Obj.IsA<object>()("").ShouldBeTrue();
             L.Obj.IsA<object>()(arg: null).ShouldBeFalse();
             }
 

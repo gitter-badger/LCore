@@ -503,7 +503,7 @@ namespace L_Tests.LCore.Extensions.Optional
 
             Func<int> Test5 = Test.SupplyTo(Test4);
 
-            Action Test6 = Test.SupplyTo((Action<int>)null);
+            var Test6 = Test.SupplyTo((Action<int>)null);
             Test6();
 
             // Exceptions are not hidden.

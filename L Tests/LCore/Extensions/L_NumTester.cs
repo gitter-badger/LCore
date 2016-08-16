@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using FluentAssertions;
-using JetBrains.dotMemoryUnit.Util;
 using LCore.Extensions;
 using LCore.LUnit;
 using LCore.Numbers;

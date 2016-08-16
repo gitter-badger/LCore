@@ -8,6 +8,7 @@ using System.Reflection;
 using FluentAssertions;
 using FluentAssertions.Primitives;
 using FluentAssertions.Types;
+using JetBrains.Annotations;
 using LCore.LUnit.Assert;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -566,8 +567,8 @@ namespace LCore.LUnit.Fluent
         ///     word because, it is prepended automatically.</param>
         /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
         /// <returns></returns>
-        public static AndConstraint<ObjectAssertions> ShouldBe<T>(this T Value, T Compare, string Because = "",
-            params object[] BecauseArgs)
+        public static AndConstraint<ObjectAssertions> ShouldBe<T>([CanBeNull] this T Value, [CanBeNull] T Compare, [CanBeNull] string Because = "",
+            [CanBeNull] params object[] BecauseArgs)
             where T : class
             {
             return Value.Should().Be(Compare, Because, BecauseArgs);
@@ -583,8 +584,8 @@ namespace LCore.LUnit.Fluent
         ///     word because, it is prepended automatically.</param>
         /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
         /// <returns></returns>
-        public static AndConstraint<ObjectAssertions> ShouldBe<T>(this T? Value, T Compare, string Because = "",
-            params object[] BecauseArgs)
+        public static AndConstraint<ObjectAssertions> ShouldBe<T>([CanBeNull] this T? Value, [CanBeNull] T? Compare, [CanBeNull] string Because = "",
+            [CanBeNull] params object[] BecauseArgs)
             where T : struct
             {
             return Value.Should().Be(Compare, Because, BecauseArgs);
@@ -641,8 +642,8 @@ namespace LCore.LUnit.Fluent
         ///     word because, it is prepended automatically.</param>
         /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
         /// <returns></returns>
-        public static AndConstraint<ObjectAssertions> ShouldBeNull<T>(this T Value, string Because = "",
-            params object[] BecauseArgs)
+        public static AndConstraint<ObjectAssertions> ShouldBeNull<T>([CanBeNull] this T Value, [CanBeNull] string Because = "",
+            [CanBeNull] params object[] BecauseArgs)
             where T : class
             {
             return Value.Should().BeNull(Because, BecauseArgs);
@@ -657,8 +658,8 @@ namespace LCore.LUnit.Fluent
         ///     word because, it is prepended automatically.</param>
         /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
         /// <returns></returns>
-        public static AndConstraint<ObjectAssertions> ShouldBeNull<T>(this T? Value, string Because = "",
-            params object[] BecauseArgs)
+        public static AndConstraint<ObjectAssertions> ShouldBeNull<T>([CanBeNull] this T? Value, [CanBeNull] string Because = "",
+            [CanBeNull] params object[] BecauseArgs)
             where T : struct
             {
             return Value.Should().BeNull(Because, BecauseArgs);
@@ -677,8 +678,8 @@ namespace LCore.LUnit.Fluent
         ///     word because, it is prepended automatically.</param>
         /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
         /// <returns></returns>
-        public static AndConstraint<ObjectAssertions> ShouldNotBeNull<T>(this T Value, string Because = "",
-            params object[] BecauseArgs)
+        public static AndConstraint<ObjectAssertions> ShouldNotBeNull<T>([CanBeNull] this T Value, [CanBeNull] string Because = "",
+            [CanBeNull] params object[] BecauseArgs)
             where T : class
             {
             return Value.Should().NotBeNull(Because, BecauseArgs);
@@ -693,8 +694,8 @@ namespace LCore.LUnit.Fluent
         ///     word because, it is prepended automatically.</param>
         /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
         /// <returns></returns>
-        public static AndConstraint<ObjectAssertions> ShouldNotBeNull<T>(this T? Value, string Because = "",
-            params object[] BecauseArgs)
+        public static AndConstraint<ObjectAssertions> ShouldNotBeNull<T>([CanBeNull] this T? Value, [CanBeNull] string Because = "",
+            [CanBeNull] params object[] BecauseArgs)
             where T : struct
             {
             return Value.Should().NotBeNull(Because, BecauseArgs);
