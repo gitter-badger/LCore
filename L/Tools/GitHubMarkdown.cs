@@ -7,24 +7,43 @@ using JetBrains.Annotations;
 
 namespace LCore.Tools
     {
-    internal class GitHubMarkdown
+    /// <summary>
+    /// Helper class for generating GitHub markdown documents.
+    /// </summary>
+    public class GitHubMarkdown
         {
-        public GitHubMarkdown()
-            {
-
-            }
-
+        #region Public Methods
+        /// <summary>
+        /// Add a blank line:
+        /// </summary>
         public void BlankLine()
             {
             this.AddLine();
             }
 
-
+        /// <summary>
+        /// Add a horizontal rule:
+        /// 
+        /// ---
+        /// 
+        /// 
+        /// </summary>
         public void HorizontalRule()
             {
             this.AddLine("---");
             }
 
+        /// <summary>
+        /// Add a header line:
+        /// 
+        /// # Header
+        /// ## Header
+        /// ### Header
+        /// #### Header
+        /// ##### Header
+        /// ###### Header
+        /// 
+        /// </summary>
         public void Header(string Line, int Size = 1)
             {
             if (Size < 1)
@@ -35,6 +54,15 @@ namespace LCore.Tools
             this.AddLine($"{"#".Times(Size)}{Line}");
             }
 
+        /// <summary>
+        /// Add a header underlined:
+        /// 
+        /// Line
+        /// ======
+        /// 
+        /// Line 
+        /// ------
+        /// </summary>
         public void HeaderUnderline(string Line, int Size = 1)
             {
             if (Size < 1)
@@ -46,16 +74,47 @@ namespace LCore.Tools
             this.AddLine(Size == 1 ? "======" : "------");
             }
 
-        public void OrderedList([CanBeNull]params string[] Lines)
+        /// <summary>
+        /// Add an ordered list
+        /// 
+        /// 1. Line
+        /// 2. Line
+        /// 3. Line
+        /// 
+        /// </summary>
+        public void OrderedList([CanBeNull] params string[] Lines)
             {
             Lines.Each((i, Line) => this.AddLine($"{i + 1}. {Line}"));
             }
 
-        public void OrderedList([CanBeNull]params Tuple<uint, string>[] DepthLine)
+        /// <summary>
+        /// Add an ordered list with indentation
+        /// 
+        /// 1. Item
+        /// 2. Item
+        ///     1. Subitem
+        ///     2. Subitem
+        ///     3. Subitem
+        /// 3. Item
+        /// 
+        /// </summary>
+        public void OrderedList([CanBeNull] params Tuple<uint, string>[] DepthLine)
             {
             DepthLine.Each(Line => this.OrderedList((Set<uint, string>)Line));
             }
-        public void OrderedList([CanBeNull]params Set<uint, string>[] DepthLine)
+
+        /// <summary>
+        /// Add an ordered list with indentation
+        /// 
+        /// 1. Item
+        /// 2. Item
+        ///     1. Subitem
+        ///     2. Subitem
+        ///     3. Subitem
+        /// 3. Item
+        /// 
+        /// </summary>
+        public void OrderedList([CanBeNull] params Set<uint, string>[] DepthLine)
             {
             uint CurrentNumber = 0;
             uint? LastLevel = null;
@@ -72,37 +131,88 @@ namespace LCore.Tools
                 });
             }
 
-
-        public void UnorderedList([CanBeNull]params string[] Lines)
+        /// <summary>
+        /// Add an unordered list
+        /// 
+        /// - Line
+        /// - Line
+        /// - Line
+        /// 
+        /// </summary>
+        public void UnorderedList([CanBeNull] params string[] Lines)
             {
             Lines.Each(Line => this.AddLine($"- {Line}"));
             }
 
-        public void UnorderedList([CanBeNull]params Tuple<uint, string>[] DepthLine)
+        /// <summary>
+        /// Add an unordered list with indentation
+        /// 
+        /// - Item
+        /// - Item
+        ///     - Subitem
+        ///     - Subitem
+        ///     - Subitem
+        /// - Item
+        /// 
+        /// </summary>
+        public void UnorderedList([CanBeNull] params Tuple<uint, string>[] DepthLine)
             {
             DepthLine.Each(Line => this.UnorderedList((Set<uint, string>)Line));
             }
-        public void UnorderedList([CanBeNull]params Set<uint, string>[] DepthLine)
+
+        /// <summary>
+        /// Add an unordered list with indentation
+        /// 
+        /// - Item
+        /// - Item
+        ///     - Subitem
+        ///     - Subitem
+        ///     - Subitem
+        /// - Item
+        /// 
+        /// </summary>
+        public void UnorderedList([CanBeNull] params Set<uint, string>[] DepthLine)
             {
             DepthLine.Each(Line =>
-            {
-                this.AddLine($"{"  ".Times(Line.Obj1)}*{Line.Obj2}");
-            });
+                {
+                    this.AddLine($"{"  ".Times(Line.Obj1)}*{Line.Obj2}");
+                });
             }
 
+        /// <summary>
+        /// Add a strikethrough line
+        /// 
+        /// ~Line~
+        /// 
+        /// </summary>
         public void Strikethrough([CanBeNull] string Text)
             {
             if (!string.IsNullOrEmpty(Text))
                 this.AddLine($"~~{Text}~~");
             }
+
+        /// <summary>
+        /// Add a highlight line
+        /// 
+        /// =Line=
+        /// 
+        /// </summary>
         public void Highlight([CanBeNull] string Text)
             {
             if (!string.IsNullOrEmpty(Text))
                 this.AddLine($"=={Text}==");
             }
 
-
-        public void Link([CanBeNull]string Text, [CanBeNull]string Url = "", [CanBeNull]string ReferenceText = "")
+        /// <summary>
+        /// Add a link, all arguments are optional
+        /// 
+        /// (Url)
+        /// [Text]
+        /// [Text](Url)
+        /// [Text](Url)"Reference Text"
+        /// 
+        /// </summary>
+        public void Link([CanBeNull] string Url = "", [CanBeNull] string Text = "", [CanBeNull] string ReferenceText = "")
             {
             if (!string.IsNullOrEmpty(Url))
                 {
@@ -116,6 +226,13 @@ namespace LCore.Tools
             this.AddLine($"[{Text}]{Url}{ReferenceText}");
             }
 
+        /// <summary>
+        /// Adds an image, optionally with Reference Text
+        /// 
+        /// !(Image Url)
+        /// ![Reference Text](Image Url)
+        /// 
+        /// </summary>
         public void Image([CanBeNull] string Url, [CanBeNull] string ReferenceText = "")
             {
             if (!string.IsNullOrEmpty(ReferenceText))
@@ -124,14 +241,35 @@ namespace LCore.Tools
             this.AddLine($"!{ReferenceText}({Url})");
             }
 
-        public void Code([CanBeNull]string Language = "", [CanBeNull]IEnumerable<string> Lines = null)
+        /// <summary>
+        /// Add a number of lines of code, optionally include a Language for 
+        /// </summary>
+        /// <param name="Lines"></param>
+        /// <param name="Language"></param>
+        public void Code([CanBeNull] string[] Lines = null, [CanBeNull] string Language = "")
             {
             this.AddLine($"```{Language}");
             Lines.Each(this.AddLine);
             this.AddLine("```");
             }
 
-        public void Table([CanBeNull] string[,] Rows, bool IncludeHeader)
+        /// <summary>
+        /// Add a table of data.
+        /// By default, the first row will be used as the header row, and separator will be added
+        /// 
+        /// Header |  Header | Header
+        /// -------------------------
+        /// Data | Data | Data
+        /// Data | Data | Data
+        /// 
+        /// //////////////////////////////////////////
+        /// 
+        /// Data | Data | Data
+        /// Data | Data | Data
+        /// Data | Data | Data
+        /// 
+        /// </summary>
+        public void Table([CanBeNull] string[,] Rows, bool IncludeHeader = true)
             {
             if (Rows == null)
                 return;
@@ -161,23 +299,41 @@ namespace LCore.Tools
             Table.Each(this.AddLine);
             }
 
+        /// <summary>
+        /// Adds a blockquoted series of <paramref name="Lines"/>
+        /// </summary>
         public void BlockQuote([CanBeNull] params string[] Lines)
             {
             Lines.Each(Line => this.AddLine($"> {Line}"));
             }
 
-        public void Lines([CanBeNull] params string[] AddLines)
+        /// <summary>
+        /// Add a single <paramref name="Line"/>
+        /// </summary>
+        public void Line([CanBeNull] string Line)
             {
-            AddLines?.Each(this.AddLine);
+            this.AddLine(Line);
             }
 
+        /// <summary>
+        /// Add a number of <paramref name="Lines"/>
+        /// </summary>
+        public void Lines([CanBeNull] params string[] Lines)
+            {
+            Lines?.Each(this.AddLine);
+            }
+
+        #endregion
 
         private void AddLine([CanBeNull]string Line = "")
             {
             if (Line != null)
-                this.AllLines.Add(Line);
+                this.MarkdownLines.Add(Line);
             }
 
-        protected List<string> AllLines { get; } = new List<string>();
+        /// <summary>
+        /// List of all Markdown Lines added.
+        /// </summary>
+        protected List<string> MarkdownLines { get; } = new List<string>();
         }
     }
