@@ -1321,11 +1321,23 @@ namespace LCore.Extensions
                     (Member.IsSpecialName && Member.Name.StartsWith("set_")));
             }
 
+        /// <summary>
+        /// Returns true if a member is declared on the type it was retrieved from,
+        /// False if it was inherited from a base class.
+        /// 
+        /// <see cref="ReflectionExt.IsInheritedMember"/>
+        /// </summary>
         public static bool IsDeclaredMember([CanBeNull] this MemberInfo Member)
             {
             return !Member.IsInheritedMember();
             }
 
+        /// <summary>
+        /// Returns true if a member was inherited from a base class,
+        /// False if it is declared on the type it was retrieved from.
+        /// 
+        /// <see cref="ReflectionExt.IsDeclaredMember"/>
+        /// </summary>
         public static bool IsInheritedMember([CanBeNull] this MemberInfo Member)
             {
             return Member?.DeclaringType != null &&
