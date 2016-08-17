@@ -36,7 +36,7 @@ namespace L_Tests.LCore.Numbers
             nameof(ByteNumber.Divide) + "(Byte, Byte) => Object")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(ByteNumber) + "." +
-            nameof(ByteNumber.New) + "(Byte) => Number`1<Byte>")]
+            nameof(ByteNumber.New) + "(Byte) => Number<Byte>")]
         public void TestByteNumber()
             {
             byte Dec = 35;

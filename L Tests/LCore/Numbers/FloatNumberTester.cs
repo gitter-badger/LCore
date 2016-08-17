@@ -37,7 +37,7 @@ namespace L_Tests.LCore.Numbers
             nameof(FloatNumber.Divide) + "(Single, Single) => Object")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(FloatNumber) + "." +
-            nameof(FloatNumber.New) + "(Single) => Number`1<Single>")]
+            nameof(FloatNumber.New) + "(Single) => Number<Single>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(FloatNumber) + "." +
             nameof(FloatNumber.ToString) + "() => String")]

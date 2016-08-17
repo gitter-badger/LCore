@@ -25,7 +25,7 @@ namespace L_Tests.LCore.Numbers
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(UIntNumber) + "." + nameof(UIntNumber.Subtract) + "(UInt32, UInt32) => UInt32")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(UIntNumber) + "." + nameof(UIntNumber.Multiply) + "(UInt32, UInt32) => UInt32")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(UIntNumber) + "." + nameof(UIntNumber.Divide) + "(UInt32, UInt32) => Object")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(UIntNumber) + "." + nameof(UIntNumber.New) + "(UInt32) => Number`1<UInt32>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(UIntNumber) + "." + nameof(UIntNumber.New) + "(UInt32) => Number<UInt32>")]
         public void TestUIntNumber()
             {
             uint Dec = 65;

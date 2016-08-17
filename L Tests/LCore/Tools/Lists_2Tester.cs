@@ -13,7 +13,7 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Tools
     {
-    [Trait(Traits.TargetClass, "LCore.Tools.Lists`2")]
+    [Trait(Traits.TargetClass, "LCore.Tools.Lists")]
     public partial class Lists_2Tester : XUnitOutputTester, IDisposable
         {
         public Lists_2Tester([NotNull] ITestOutputHelper Output) : base(Output) { }
@@ -32,8 +32,8 @@ namespace L_Tests.LCore.Tools
 
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.Add(T1, T2)")]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.GetAt(Int32) => Set`2<T1, T2>")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists.Add(T1, T2)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists.GetAt(Int32) => Set<T1, T2>")]
         public void Add()
             {
             var Test = new Lists<string, int>();
@@ -45,9 +45,9 @@ namespace L_Tests.LCore.Tools
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.Set(Int32, T1, T2)")]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.Set1(Int32, T1)")]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.Set2(Int32, T2)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists.Set(Int32, T1, T2)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists.Set1(Int32, T1)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists.Set2(Int32, T2)")]
         public void Set()
             {
             var Test = new Lists<string, int>();
@@ -71,7 +71,7 @@ namespace L_Tests.LCore.Tools
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.RemoveAt(Int32)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists.RemoveAt(Int32)")]
         public void RemoveAt()
             {
             var Test = new Lists<string, int>();

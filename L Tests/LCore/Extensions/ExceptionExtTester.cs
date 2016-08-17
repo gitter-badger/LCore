@@ -25,7 +25,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Try) + "(Action) => Func`1<Boolean>")]
+            nameof(ExceptionExt.Try) + "(Action) => Func<Boolean>")]
         public void Try_Action_0()
             {
             var A = new Action(() => { });
@@ -45,7 +45,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Try) + "(Action`1<T1>) => Func`2<T1, Boolean>")]
+            nameof(ExceptionExt.Try) + "(Action<T1>) => Func<T1, Boolean>")]
         public void Try_Action_1()
             {
             var A = new Action<string>(o => { o.ShouldBe(_TestString); });
@@ -70,7 +70,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Try) + "(Action`2<T1, T2>) => Func`3<T1, T2, Boolean>")]
+            nameof(ExceptionExt.Try) + "(Action<T1, T2>) => Func<T1, T2, Boolean>")]
         public void Try_Action_2()
             {
             var A = new Action<string, string>((o1, o2) =>
@@ -100,7 +100,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Try) + "(Action`3<T1, T2, T3>) => Func`4<T1, T2, T3, Boolean>")]
+            nameof(ExceptionExt.Try) + "(Action<T1, T2, T3>) => Func<T1, T2, T3, Boolean>")]
         public void Try_Action_3()
             {
             var A = new Action<string, string, string>((o1, o2, o3) =>
@@ -132,7 +132,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Try) + "(Action`4<T1, T2, T3, T4>) => Func`5<T1, T2, T3, T4, Boolean>")]
+            nameof(ExceptionExt.Try) + "(Action<T1, T2, T3, T4>) => Func<T1, T2, T3, T4, Boolean>")]
         public void Try_Action_4()
             {
             var A = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -166,7 +166,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Try) + "(Func`1<U>) => Func`1<U>")]
+            nameof(ExceptionExt.Try) + "(Func<U>) => Func<U>")]
         public void Try_Func_0()
             {
             var A = new Func<int>(() => { return 5; });
@@ -186,7 +186,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Try) + "(Func`2<T1, U>) => Func`2<T1, U>")]
+            nameof(ExceptionExt.Try) + "(Func<T1, U>) => Func<T1, U>")]
         public void Try_Func_1()
             {
             var A = new Func<string, int>(o =>
@@ -215,7 +215,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Try) + "(Func`3<T1, T2, U>) => Func`3<T1, T2, U>")]
+            nameof(ExceptionExt.Try) + "(Func<T1, T2, U>) => Func<T1, T2, U>")]
         public void Try_Func_2()
             {
             var A = new Func<string, string, int>((o1, o2) =>
@@ -246,7 +246,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Try) + "(Func`4<T1, T2, T3, U>) => Func`4<T1, T2, T3, U>")]
+            nameof(ExceptionExt.Try) + "(Func<T1, T2, T3, U>) => Func<T1, T2, T3, U>")]
         public void Try_Func_3()
             {
             var A = new Func<string, string, string, int>((o1, o2, o3) =>
@@ -279,7 +279,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Try) + "(Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T2, T3, T4, U>")]
+            nameof(ExceptionExt.Try) + "(Func<T1, T2, T3, T4, U>) => Func<T1, T2, T3, T4, U>")]
         public void Try_Func_4()
             {
             var A = new Func<string, string, string, string, int>((o1, o2, o3, o4) =>
@@ -344,7 +344,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Retry) + "(Action`1<T>, Int32) => Action`1<T>")]
+            nameof(ExceptionExt.Retry) + "(Action<T>, Int32) => Action<T>")]
         public void Retry_Action_1()
             {
             int I = 0;
@@ -373,7 +373,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Retry) + "(Action`2<T1, T2>, Int32) => Action`2<T1, T2>")]
+            nameof(ExceptionExt.Retry) + "(Action<T1, T2>, Int32) => Action<T1, T2>")]
         public void Retry_Action_2()
             {
             int I = 0;
@@ -403,7 +403,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Retry) + "(Action`3<T1, T2, T3>, Int32) => Action`3<T1, T2, T3>")]
+            nameof(ExceptionExt.Retry) + "(Action<T1, T2, T3>, Int32) => Action<T1, T2, T3>")]
         public void Retry_Action_3()
             {
             int I = 0;
@@ -434,7 +434,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Retry) + "(Action`4<T1, T2, T3, T4>, Int32) => Action`4<T1, T2, T3, T4>")]
+            nameof(ExceptionExt.Retry) + "(Action<T1, T2, T3, T4>, Int32) => Action<T1, T2, T3, T4>")]
         public void Retry_Action_4()
             {
             int I = 0;
@@ -467,7 +467,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Retry) + "(Func`1<U>, Int32) => Func`1<U>")]
+            nameof(ExceptionExt.Retry) + "(Func<U>, Int32) => Func<U>")]
         public void Retry_Func_0()
             {
             int I = 0;
@@ -496,7 +496,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Retry) + "(Func`2<T1, U>, Int32) => Func`2<T1, U>")]
+            nameof(ExceptionExt.Retry) + "(Func<T1, U>, Int32) => Func<T1, U>")]
         public void Retry_Func_1()
             {
             int I = 0;
@@ -527,7 +527,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Retry) + "(Func`3<T1, T2, U>, Int32) => Func`3<T1, T2, U>")]
+            nameof(ExceptionExt.Retry) + "(Func<T1, T2, U>, Int32) => Func<T1, T2, U>")]
         public void Retry_Func_2()
             {
             int I = 0;
@@ -559,7 +559,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Retry) + "(Func`4<T1, T2, T3, U>, Int32) => Func`4<T1, T2, T3, U>")]
+            nameof(ExceptionExt.Retry) + "(Func<T1, T2, T3, U>, Int32) => Func<T1, T2, T3, U>")]
         public void Retry_Func_3()
             {
             int I = 0;
@@ -592,7 +592,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Retry) + "(Func`5<T1, T2, T3, T4, U>, Int32) => Func`5<T1, T2, T3, T4, U>")]
+            nameof(ExceptionExt.Retry) + "(Func<T1, T2, T3, T4, U>, Int32) => Func<T1, T2, T3, T4, U>")]
         public void Retry_Func_4()
             {
             int I = 0;
@@ -628,7 +628,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action, Action`1<E>) => Action")]
+            nameof(ExceptionExt.Catch) + "(Action, Action<E>) => Action")]
         public void Catch_Exception_Action_0()
             {
             var Test = new Action(() => { throw new ArgumentException(); });
@@ -656,7 +656,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action`1<T1>, Action`1<E>) => Action`1<T1>")]
+            nameof(ExceptionExt.Catch) + "(Action<T1>, Action<E>) => Action<T1>")]
         public void Catch_Exception_Action_1()
             {
             var Test = new Action<string>(o =>
@@ -688,7 +688,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action`2<T1, T2>, Action`1<E>) => Action`2<T1, T2>")]
+            nameof(ExceptionExt.Catch) + "(Action<T1, T2>, Action<E>) => Action<T1, T2>")]
         public void Catch_Exception_Action_2()
             {
             var Test = new Action<string, string>((o1, o2) =>
@@ -725,7 +725,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action`3<T1, T2, T3>, Action`1<E>) => Action`3<T1, T2, T3>")]
+            nameof(ExceptionExt.Catch) + "(Action<T1, T2, T3>, Action<E>) => Action<T1, T2, T3>")]
         public void Catch_Exception_Action_3()
             {
             var Test = new Action<string, string, string>((o1, o2, o3) =>
@@ -764,7 +764,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action`4<T1, T2, T3, T4>, Action`1<E>) => Action`4<T1, T2, T3, T4>")]
+            nameof(ExceptionExt.Catch) + "(Action<T1, T2, T3, T4>, Action<E>) => Action<T1, T2, T3, T4>")]
         public void Catch_Exception_Action_4()
             {
             var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -806,7 +806,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`1<U>, Action`1<Exception>) => Func`1<U>")]
+            nameof(ExceptionExt.Catch) + "(Func<U>, Action<Exception>) => Func<U>")]
         public void Catch_Exception_Func_0()
             {
             var Test = new Func<string>(() => { throw new ArgumentException(); });
@@ -834,7 +834,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`2<T1, U>, Action`1<Exception>) => Func`2<T1, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, U>, Action<Exception>) => Func<T1, U>")]
         public void Catch_Exception_Func_1()
             {
             var Test = new Func<string, string>(o =>
@@ -870,7 +870,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`3<T1, T2, U>, Action`1<Exception>) => Func`3<T1, T2, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, T2, U>, Action<Exception>) => Func<T1, T2, U>")]
         public void Catch_Exception_Func_2()
             {
             var Test = new Func<string, string, string>((o1, o2) =>
@@ -908,7 +908,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`4<T1, T2, T3, U>, Action`1<Exception>) => Func`4<T1, T2, T3, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, T2, T3, U>, Action<Exception>) => Func<T1, T2, T3, U>")]
         public void Catch_Exception_Func_3()
             {
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
@@ -948,7 +948,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`5<T1, T2, T3, T4, U>, Action`1<Exception>) => Func`5<T1, T2, T3, T4, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, T2, T3, T4, U>, Action<Exception>) => Func<T1, T2, T3, T4, U>")]
         public void Catch_Exception_Func_4()
             {
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
@@ -989,7 +989,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`1<U>, Action`1<E>) => Func`1<U>")]
+            nameof(ExceptionExt.Catch) + "(Func<U>, Action<E>) => Func<U>")]
         public void Catch_EType_Action_0()
             {
             var Test = new Action(() => { throw new ArgumentException(); });
@@ -1022,7 +1022,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`2<T1, U>, Action`1<E>) => Func`2<T1, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, U>, Action<E>) => Func<T1, U>")]
         public void Catch_EType_Action_1()
             {
             var Test = new Action<string>(o =>
@@ -1060,7 +1060,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`3<T1, T2, U>, Action`1<E>) => Func`3<T1, T2, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, T2, U>, Action<E>) => Func<T1, T2, U>")]
         public void Catch_EType_Action_2()
             {
             var Test = new Action<string, string>((o1, o2) =>
@@ -1103,7 +1103,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`4<T1, T2, T3, U>, Action`1<E>) => Func`4<T1, T2, T3, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, T2, T3, U>, Action<E>) => Func<T1, T2, T3, U>")]
         public void Catch_EType_Action_3()
             {
             var Test = new Action<string, string, string>((o1, o2, o3) =>
@@ -1148,7 +1148,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`5<T1, T2, T3, T4, U>, Action`1<E>) => Func`5<T1, T2, T3, T4, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, T2, T3, T4, U>, Action<E>) => Func<T1, T2, T3, T4, U>")]
         public void Catch_EType_Action_4()
             {
             var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -1196,7 +1196,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`1<U>, Func`2<E, U>) => Func`1<U>")]
+            nameof(ExceptionExt.Catch) + "(Func<U>, Func<E, U>) => Func<U>")]
         public void Catch_EType_Func_0()
             {
             var Test = new Func<string>(() => { throw new ArgumentException(); });
@@ -1229,7 +1229,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`2<T1, U>, Func`2<E, U>) => Func`2<T1, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, U>, Func<E, U>) => Func<T1, U>")]
         public void Catch_EType_Func_1()
             {
             var Test = new Func<string, string>(o =>
@@ -1272,7 +1272,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`3<T1, T2, U>, Func`2<E, U>) => Func`3<T1, T2, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, T2, U>, Func<E, U>) => Func<T1, T2, U>")]
         public void Catch_EType_Func_2()
             {
             var Test = new Func<string, string, string>((o1, o2) =>
@@ -1317,7 +1317,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`4<T1, T2, T3, U>, Func`2<E, U>) => Func`4<T1, T2, T3, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, T2, T3, U>, Func<E, U>) => Func<T1, T2, T3, U>")]
         public void Catch_EType_Func_3()
             {
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
@@ -1364,7 +1364,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`5<T1, T2, T3, T4, U>, Func`2<E, U>) => Func`5<T1, T2, T3, T4, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, T2, T3, T4, U>, Func<E, U>) => Func<T1, T2, T3, T4, U>")]
         public void Catch_EType_Func_4()
             {
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
@@ -1415,7 +1415,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action, Action`1<Exception>) => Action")]
+            nameof(ExceptionExt.Catch) + "(Action, Action<Exception>) => Action")]
         public void Catch_EType_Func_Func_0()
             {
             var Test = new Func<string>(() => { throw new ArgumentException(); });
@@ -1449,7 +1449,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action`1<T1>, Action`1<Exception>) => Action`1<T1>")]
+            nameof(ExceptionExt.Catch) + "(Action<T1>, Action<Exception>) => Action<T1>")]
         public void Catch_EType_Func_Func_1()
             {
             var Test = new Func<string, string>(o =>
@@ -1493,7 +1493,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action`2<T1, T2>, Action`1<Exception>) => Action`2<T1, T2>")]
+            nameof(ExceptionExt.Catch) + "(Action<T1, T2>, Action<Exception>) => Action<T1, T2>")]
         public void Catch_EType_Func_Func_2()
             {
             var Test = new Func<string, string, string>((o1, o2) =>
@@ -1539,7 +1539,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action`3<T1, T2, T3>, Action`1<Exception>) => Action`3<T1, T2, T3>")]
+            nameof(ExceptionExt.Catch) + "(Action<T1, T2, T3>, Action<Exception>) => Action<T1, T2, T3>")]
         public void Catch_EType_Func_Func_3()
             {
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
@@ -1587,7 +1587,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action`4<T1, T2, T3, T4>, Action`1<Exception>) => Action`4<T1, T2, T3, T4>")]
+            nameof(ExceptionExt.Catch) + "(Action<T1, T2, T3, T4>, Action<Exception>) => Action<T1, T2, T3, T4>")]
         public void Catch_EType_Func_Func_4()
             {
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
@@ -1656,7 +1656,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action`1<T1>) => Action`1<T1>")]
+            nameof(ExceptionExt.Catch) + "(Action<T1>) => Action<T1>")]
         public void Catch_NoArgs_Action_1()
             {
             var Test = new Action<string>(o =>
@@ -1677,7 +1677,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action`2<T1, T2>) => Action`2<T1, T2>")]
+            nameof(ExceptionExt.Catch) + "(Action<T1, T2>) => Action<T1, T2>")]
         public void Catch_NoArgs_Action_2()
             {
             var Test = new Action<string, string>((o1, o2) =>
@@ -1703,7 +1703,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action`3<T1, T2, T3>) => Action`3<T1, T2, T3>")]
+            nameof(ExceptionExt.Catch) + "(Action<T1, T2, T3>) => Action<T1, T2, T3>")]
         public void Catch_NoArgs_Action_3()
             {
             var Test = new Action<string, string, string>((o1, o2, o3) =>
@@ -1732,7 +1732,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Action`4<T1, T2, T3, T4>) => Action`4<T1, T2, T3, T4>")]
+            nameof(ExceptionExt.Catch) + "(Action<T1, T2, T3, T4>) => Action<T1, T2, T3, T4>")]
         public void Catch_NoArgs_Action_4()
             {
             var Test = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -1763,7 +1763,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`1<U>) => Func`1<U>")]
+            nameof(ExceptionExt.Catch) + "(Func<U>) => Func<U>")]
         public void Catch_NoArgs_Func_0()
             {
             var Test = new Func<string>(() => { throw new ArgumentException(); });
@@ -1780,7 +1780,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`2<T1, U>) => Func`2<T1, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, U>) => Func<T1, U>")]
         public void Catch_NoArgs_Func_1()
             {
             var Test = new Func<string, string>(o =>
@@ -1805,7 +1805,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`3<T1, T2, U>) => Func`3<T1, T2, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, T2, U>) => Func<T1, T2, U>")]
         public void Catch_NoArgs_Func_2()
             {
             var Test = new Func<string, string, string>((o1, o2) =>
@@ -1833,7 +1833,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`4<T1, T2, T3, U>) => Func`4<T1, T2, T3, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, T2, T3, U>) => Func<T1, T2, T3, U>")]
         public void Catch_NoArgs_Func_3()
             {
             var Test = new Func<string, string, string, string>((o1, o2, o3) =>
@@ -1867,7 +1867,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Catch) + "(Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T2, T3, T4, U>")]
+            nameof(ExceptionExt.Catch) + "(Func<T1, T2, T3, T4, U>) => Func<T1, T2, T3, T4, U>")]
         public void Catch_NoArgs_Func_4()
             {
             var Test = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
@@ -1918,7 +1918,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Fail) + "(Action`1<T>) => Action`1<T>")]
+            nameof(ExceptionExt.Fail) + "(Action<T>) => Action<T>")]
         public void Fail_Action_1()
             {
             var Act = new Action<string>(o => { o.ShouldBe(_TestString); });
@@ -1932,7 +1932,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Fail) + "(Action`2<T1, T2>) => Action`2<T1, T2>")]
+            nameof(ExceptionExt.Fail) + "(Action<T1, T2>) => Action<T1, T2>")]
         public void Fail_Action_2()
             {
             var Act = new Action<string, string>((o1, o2) =>
@@ -1950,7 +1950,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Fail) + "(Action`3<T1, T2, T3>) => Action`3<T1, T2, T3>")]
+            nameof(ExceptionExt.Fail) + "(Action<T1, T2, T3>) => Action<T1, T2, T3>")]
         public void Fail_Action_3()
             {
             var Act = new Action<string, string, string>((o1, o2, o3) =>
@@ -1969,7 +1969,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Fail) + "(Action`4<T1, T2, T3, T4>) => Action`4<T1, T2, T3, T4>")]
+            nameof(ExceptionExt.Fail) + "(Action<T1, T2, T3, T4>) => Action<T1, T2, T3, T4>")]
         public void Fail_Action_4()
             {
             var Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -1989,7 +1989,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Fail) + "(Func`1<U>) => Func`1<U>")]
+            nameof(ExceptionExt.Fail) + "(Func<U>) => Func<U>")]
         public void Fail_Func()
             {
             var Act = new Func<string>(() => { return _TestString; });
@@ -2003,7 +2003,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Fail) + "(Func`2<T, U>) => Func`2<T, U>")]
+            nameof(ExceptionExt.Fail) + "(Func<T, U>) => Func<T, U>")]
         public void Fail_Func_1()
             {
             var Act = new Func<string, string>(o =>
@@ -2021,7 +2021,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Fail) + "(Func`3<T1, T2, U>) => Func`3<T1, T2, U>")]
+            nameof(ExceptionExt.Fail) + "(Func<T1, T2, U>) => Func<T1, T2, U>")]
         public void Fail_Func_2()
             {
             var Act = new Func<string, string, string>((o1, o2) =>
@@ -2040,7 +2040,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Fail) + "(Func`4<T1, T2, T3, U>) => Func`4<T1, T2, T3, U>")]
+            nameof(ExceptionExt.Fail) + "(Func<T1, T2, T3, U>) => Func<T1, T2, T3, U>")]
         public void Fail_Func_3()
             {
             var Act = new Func<string, string, string, string>((o1, o2, o3) =>
@@ -2060,7 +2060,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Fail) + "(Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T2, T3, T4, U>")]
+            nameof(ExceptionExt.Fail) + "(Func<T1, T2, T3, T4, U>) => Func<T1, T2, T3, T4, U>")]
         public void Fail_Func_4()
             {
             var Act = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
@@ -2103,10 +2103,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Action`1<T>, String, E) => Action`1<T>")]
+            nameof(ExceptionExt.Report) + "(Action<T>, String, E) => Action<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Action`1<T>, E) => Action`1<T>")]
+            nameof(ExceptionExt.Report) + "(Action<T>, E) => Action<T>")]
         public void Report_Action_1()
             {
             var Act = new Action<string>(o => { o.ShouldBe(_TestString); });
@@ -2126,10 +2126,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Action`2<T1, T2>, String, E) => Action`2<T1, T2>")]
+            nameof(ExceptionExt.Report) + "(Action<T1, T2>, String, E) => Action<T1, T2>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Action`2<T1, T2>, E) => Action`2<T1, T2>")]
+            nameof(ExceptionExt.Report) + "(Action<T1, T2>, E) => Action<T1, T2>")]
         public void Report_Action_2()
             {
             var Act = new Action<string, string>((o1, o2) =>
@@ -2154,10 +2154,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Action`3<T1, T2, T3>, String, E) => Action`3<T1, T2, T3>")]
+            nameof(ExceptionExt.Report) + "(Action<T1, T2, T3>, String, E) => Action<T1, T2, T3>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Action`3<T1, T2, T3>, E) => Action`3<T1, T2, T3>")]
+            nameof(ExceptionExt.Report) + "(Action<T1, T2, T3>, E) => Action<T1, T2, T3>")]
         public void Report_Action_3()
             {
             var Act = new Action<string, string, string>((o1, o2, o3) =>
@@ -2183,10 +2183,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Action`4<T1, T2, T3, T4>, String, E) => Action`4<T1, T2, T3, T4>")]
+            nameof(ExceptionExt.Report) + "(Action<T1, T2, T3, T4>, String, E) => Action<T1, T2, T3, T4>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Action`4<T1, T2, T3, T4>, E) => Action`4<T1, T2, T3, T4>")]
+            nameof(ExceptionExt.Report) + "(Action<T1, T2, T3, T4>, E) => Action<T1, T2, T3, T4>")]
         public void Report_Action_4()
             {
             var Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -2215,10 +2215,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Func`1<U>, E) => Func`1<U>")]
+            nameof(ExceptionExt.Report) + "(Func<U>, E) => Func<U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Func`1<U>, String, E) => Func`1<U>")]
+            nameof(ExceptionExt.Report) + "(Func<U>, String, E) => Func<U>")]
         public void Report_Func_0()
             {
             var Act = new Func<string>(() => { return $"{_TestString}a"; });
@@ -2238,10 +2238,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Func`2<T, U>, E) => Func`2<T, U>")]
+            nameof(ExceptionExt.Report) + "(Func<T, U>, E) => Func<T, U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Func`2<T, U>, String, E) => Func`2<T, U>")]
+            nameof(ExceptionExt.Report) + "(Func<T, U>, String, E) => Func<T, U>")]
         public void Report_Func_1()
             {
             var Act = new Func<string, string>(o =>
@@ -2265,10 +2265,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Func`3<T1, T2, U>, E) => Func`3<T1, T2, U>")]
+            nameof(ExceptionExt.Report) + "(Func<T1, T2, U>, E) => Func<T1, T2, U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Func`3<T1, T2, U>, String, E) => Func`3<T1, T2, U>")]
+            nameof(ExceptionExt.Report) + "(Func<T1, T2, U>, String, E) => Func<T1, T2, U>")]
         public void Report_Func_2()
             {
             var Act = new Func<string, string, string>((o1, o2) =>
@@ -2294,10 +2294,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Func`4<T1, T2, T3, U>, E) => Func`4<T1, T2, T3, U>")]
+            nameof(ExceptionExt.Report) + "(Func<T1, T2, T3, U>, E) => Func<T1, T2, T3, U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Func`4<T1, T2, T3, U>, String, E) => Func`4<T1, T2, T3, U>")]
+            nameof(ExceptionExt.Report) + "(Func<T1, T2, T3, U>, String, E) => Func<T1, T2, T3, U>")]
         public void Report_Func_3()
             {
             var Act = new Func<string, string, string, string>((o1, o2, o3) =>
@@ -2324,10 +2324,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Func`5<T1, T2, T3, T4, U>, String, E) => Func`5<T1, T2, T3, T4, U>")]
+            nameof(ExceptionExt.Report) + "(Func<T1, T2, T3, T4, U>, String, E) => Func<T1, T2, T3, T4, U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Report) + "(Func`5<T1, T2, T3, T4, U>, E) => Func`5<T1, T2, T3, T4, U>")]
+            nameof(ExceptionExt.Report) + "(Func<T1, T2, T3, T4, U>, E) => Func<T1, T2, T3, T4, U>")]
         public void Report_Func_4()
             {
             var Act = new Func<string, string, string, string, string>((o1, o2, o3, o4) =>
@@ -2361,7 +2361,7 @@ namespace L_Tests.LCore.Extensions
             nameof(ExceptionExt.Throw) + "(Action, String) => Action")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Throw) + "(Func`1<U>, String) => Func`1<U>")]
+            nameof(ExceptionExt.Throw) + "(Func<U>, String) => Func<U>")]
         public void Throw_0()
             {
             var Act = new Action(() => { });
@@ -2383,10 +2383,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Throw) + "(Func`2<T, U>, String) => Func`2<T, U>")]
+            nameof(ExceptionExt.Throw) + "(Func<T, U>, String) => Func<T, U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Throw) + "(Action`1<T>, String) => Action`1<T>")]
+            nameof(ExceptionExt.Throw) + "(Action<T>, String) => Action<T>")]
         public void Throw_1()
             {
             var Act = new Action<string>(o => { o.ShouldBe(_TestString); });
@@ -2408,10 +2408,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Throw) + "(Func`3<T1, T2, U>, String) => Func`3<T1, T2, U>")]
+            nameof(ExceptionExt.Throw) + "(Func<T1, T2, U>, String) => Func<T1, T2, U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Throw) + "(Action`2<T1, T2>, String) => Action`2<T1, T2>")]
+            nameof(ExceptionExt.Throw) + "(Action<T1, T2>, String) => Action<T1, T2>")]
         public void Throw_2()
             {
             var Act = new Action<string, string>((o1, o2) =>
@@ -2437,10 +2437,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Throw) + "(Func`4<T1, T2, T3, U>, String) => Func`4<T1, T2, T3, U>")]
+            nameof(ExceptionExt.Throw) + "(Func<T1, T2, T3, U>, String) => Func<T1, T2, T3, U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Throw) + "(Action`3<T1, T2, T3>, String) => Action`3<T1, T2, T3>")]
+            nameof(ExceptionExt.Throw) + "(Action<T1, T2, T3>, String) => Action<T1, T2, T3>")]
         public void Throw_3()
             {
             var Act = new Action<string, string, string>((o1, o2, o3) =>
@@ -2467,10 +2467,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Throw) + "(Action`4<T1, T2, T3, T4>, String) => Action`4<T1, T2, T3, T4>")]
+            nameof(ExceptionExt.Throw) + "(Action<T1, T2, T3, T4>, String) => Action<T1, T2, T3, T4>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Throw) + "(Func`5<T1, T2, T3, T4, U>, String) => Func`5<T1, T2, T3, T4, U>")]
+            nameof(ExceptionExt.Throw) + "(Func<T1, T2, T3, T4, U>, String) => Func<T1, T2, T3, T4, U>")]
         public void Throw_4()
             {
             var Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>
@@ -2500,7 +2500,7 @@ namespace L_Tests.LCore.Extensions
             nameof(ExceptionExt.Handle) + "(Action) => Action")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Handle) + "(Func`1<U>) => Func`1<U>")]
+            nameof(ExceptionExt.Handle) + "(Func<U>) => Func<U>")]
         public void Handle_0()
             {
             lock (this)
@@ -2529,10 +2529,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Handle) + "(Action`1<T1>) => Action`1<T1>")]
+            nameof(ExceptionExt.Handle) + "(Action<T1>) => Action<T1>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Handle) + "(Func`2<T1, U>) => Func`2<T1, U>")]
+            nameof(ExceptionExt.Handle) + "(Func<T1, U>) => Func<T1, U>")]
         public void Handle_1()
             {
             lock (this)
@@ -2565,10 +2565,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Handle) + "(Action`2<T1, T2>) => Action`2<T1, T2>")]
+            nameof(ExceptionExt.Handle) + "(Action<T1, T2>) => Action<T1, T2>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Handle) + "(Func`3<T1, T2, U>) => Func`3<T1, T2, U>")]
+            nameof(ExceptionExt.Handle) + "(Func<T1, T2, U>) => Func<T1, T2, U>")]
         public void Handle_2()
             {
             lock (this)
@@ -2606,10 +2606,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Handle) + "(Action`3<T1, T2, T3>) => Action`3<T1, T2, T3>")]
+            nameof(ExceptionExt.Handle) + "(Action<T1, T2, T3>) => Action<T1, T2, T3>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Handle) + "(Func`4<T1, T2, T3, U>) => Func`4<T1, T2, T3, U>")]
+            nameof(ExceptionExt.Handle) + "(Func<T1, T2, T3, U>) => Func<T1, T2, T3, U>")]
         public void Handle_3()
             {
             lock (this)
@@ -2649,10 +2649,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Handle) + "(Action`4<T1, T2, T3, T4>) => Action`4<T1, T2, T3, T4>")]
+            nameof(ExceptionExt.Handle) + "(Action<T1, T2, T3, T4>) => Action<T1, T2, T3, T4>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Handle) + "(Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T2, T3, T4, U>")]
+            nameof(ExceptionExt.Handle) + "(Func<T1, T2, T3, T4, U>) => Func<T1, T2, T3, T4, U>")]
         public void Handle_4()
             {
             lock (this)
@@ -2695,10 +2695,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Debug) + "(Action`1<T1>) => Action`1<T1>")]
+            nameof(ExceptionExt.Debug) + "(Action<T1>) => Action<T1>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Debug) + "(Func`2<T1, U>) => Func`2<T1, U>")]
+            nameof(ExceptionExt.Debug) + "(Func<T1, U>) => Func<T1, U>")]
         public void Debug_1()
             {
             var Good_Act = new Action<string>(o => { o.ShouldBe(_TestString); });
@@ -2722,10 +2722,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Debug) + "(Action`2<T1, T2>) => Action`2<T1, T2>")]
+            nameof(ExceptionExt.Debug) + "(Action<T1, T2>) => Action<T1, T2>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Debug) + "(Func`3<T1, T2, U>) => Func`3<T1, T2, U>")]
+            nameof(ExceptionExt.Debug) + "(Func<T1, T2, U>) => Func<T1, T2, U>")]
         public void Debug_2()
             {
             var Good_Act = new Action<string, string>((o1, o2) =>
@@ -2755,10 +2755,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Debug) + "(Action`3<T1, T2, T3>) => Action`3<T1, T2, T3>")]
+            nameof(ExceptionExt.Debug) + "(Action<T1, T2, T3>) => Action<T1, T2, T3>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Debug) + "(Func`4<T1, T2, T3, U>) => Func`4<T1, T2, T3, U>")]
+            nameof(ExceptionExt.Debug) + "(Func<T1, T2, T3, U>) => Func<T1, T2, T3, U>")]
         public void Debug_3()
             {
             var Good_Act = new Action<string, string, string>((o1, o2, o3) =>
@@ -2794,10 +2794,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Debug) + "(Action`4<T1, T2, T3, T4>) => Action`4<T1, T2, T3, T4>")]
+            nameof(ExceptionExt.Debug) + "(Action<T1, T2, T3, T4>) => Action<T1, T2, T3, T4>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ExceptionExt) + "." +
-            nameof(ExceptionExt.Debug) + "(Func`5<T1, T2, T3, T4, U>) => Func`5<T1, T2, T3, T4, U>")]
+            nameof(ExceptionExt.Debug) + "(Func<T1, T2, T3, T4, U>) => Func<T1, T2, T3, T4, U>")]
         public void Debug_4()
             {
             var Good_Act = new Action<string, string, string, string>((o1, o2, o3, o4) =>

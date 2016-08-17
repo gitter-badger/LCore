@@ -60,14 +60,14 @@ namespace L_Tests.LCore.Extensions
 
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.ParseEnum) + "(String) => Nullable`1<T>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.ParseEnum) + "(String) => Nullable<T>")]
         public void ParseEnum_String_Nullable_1()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.ParseEnum) + "(Enum) => Nullable`1<T>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.ParseEnum) + "(Enum) => Nullable<T>")]
         public void ParseEnum_Enum_Nullable_1()
             {
             // Attribute Tests Implemented

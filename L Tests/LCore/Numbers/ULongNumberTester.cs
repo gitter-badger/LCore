@@ -25,7 +25,7 @@ namespace L_Tests.LCore.Numbers
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(ULongNumber) + "." + nameof(ULongNumber.Subtract) + "(UInt64, UInt64) => UInt64")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(ULongNumber) + "." + nameof(ULongNumber.Multiply) + "(UInt64, UInt64) => UInt64")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(ULongNumber) + "." + nameof(ULongNumber.Divide) + "(UInt64, UInt64) => Object")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(ULongNumber) + "." + nameof(ULongNumber.New) + "(UInt64) => Number`1<UInt64>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(ULongNumber) + "." + nameof(ULongNumber.New) + "(UInt64) => Number<UInt64>")]
         public void TestULongNumber()
             {
             ulong Dec = 65;

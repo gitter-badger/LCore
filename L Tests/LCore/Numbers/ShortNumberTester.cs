@@ -36,7 +36,7 @@ namespace L_Tests.LCore.Numbers
             nameof(ShortNumber.Divide) + "(Int16, Int16) => Object")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(ShortNumber) + "." +
-            nameof(ShortNumber.New) + "(Int16) => Number`1<Int16>")]
+            nameof(ShortNumber.New) + "(Int16) => Number<Int16>")]
         public void TestShortNumber()
             {
             short Dec = 65;

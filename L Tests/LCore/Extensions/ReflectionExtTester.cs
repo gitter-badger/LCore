@@ -33,7 +33,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.AlsoBaseTypes) + "(Type) => List`1<Type>")]
+            nameof(ReflectionExt.AlsoBaseTypes) + "(Type) => List<Type>")]
         public void AlsoBaseTypes()
             {
             typeof(TestClass).AlsoBaseTypes()
@@ -50,7 +50,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.BaseTypes) + "(Type) => List`1<Type>")]
+            nameof(ReflectionExt.BaseTypes) + "(Type) => List<Type>")]
         public void BaseTypes()
             {
             typeof(TestClass).BaseTypes().Should().Equal(typeof(TestBaseClass), typeof(TestBaseClass2), typeof(object));
@@ -169,7 +169,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.GetAttributes) + "(ICustomAttributeProvider, Boolean) => List`1<T>")]
+            nameof(ReflectionExt.GetAttributes) + "(ICustomAttributeProvider, Boolean) => List<T>")]
         public void GetAttributes()
             {
             var Member = L.Ref.Method<TestClass>(Test => Test.Test5(""));
@@ -246,7 +246,7 @@ namespace L_Tests.LCore.Extensions
             nameof(ReflectionExt.GetComparer) + "(MemberInfo) => IComparer")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.GetComparer) + "(MemberInfo) => IComparer`1<T>")]
+            nameof(ReflectionExt.GetComparer) + "(MemberInfo) => IComparer<T>")]
         public void GetComparer()
             {
             L.Ref.Member<TestClass>(Test => Test.Test2).GetComparer().Should().NotBeNull();
@@ -311,7 +311,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.GetSubClasses) + "(Type) => List`1<Type>")]
+            nameof(ReflectionExt.GetSubClasses) + "(Type) => List<Type>")]
         public void GetSubClasses()
             {
             typeof(TestClass).GetSubClasses().Should().Equal(
@@ -361,10 +361,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.GetValues) + "(Type, Object, Boolean) => List`1<T>")]
+            nameof(ReflectionExt.GetValues) + "(Type, Object, Boolean) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.GetValues) + "(IEnumerable`1<MemberInfo>, Object, Boolean) => List`1<T>")]
+            nameof(ReflectionExt.GetValues) + "(IEnumerable<MemberInfo>, Object, Boolean) => List<T>")]
         public void GetValues()
             {
             var Test = new TestClass { Test = "a", Test6 = "b" };
@@ -387,7 +387,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.GetTypes) + "(IEnumerable`1<T>) => List`1<Type>")]
+            nameof(ReflectionExt.GetTypes) + "(IEnumerable<T>) => List<Type>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
             nameof(ReflectionExt.GetTypes) + "(T[]) => Type[]")]
@@ -620,10 +620,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.InstantiateValues) + "(Type, Object, Boolean) => List`1<T>")]
+            nameof(ReflectionExt.InstantiateValues) + "(Type, Object, Boolean) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.InstantiateValues) + "(IEnumerable`1<MemberInfo>, Object) => List`1<T>")]
+            nameof(ReflectionExt.InstantiateValues) + "(IEnumerable<MemberInfo>, Object) => List<T>")]
         public void InstantiateValues()
             {
             var Test = new TestClass { Test = "a", Test6 = "b" };
@@ -697,7 +697,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.MembersOfType) + "(Type, Type, Boolean) => List`1<MemberInfo>")]
+            nameof(ReflectionExt.MembersOfType) + "(Type, Type, Boolean) => List<MemberInfo>")]
         public void MembersOfType()
             {
             typeof(TestClass).MembersOfType(typeof(string)).ShouldBeEquivalentTo(new List<MemberInfo>
@@ -876,13 +876,13 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.WithAttribute) + "(IEnumerable`1<TMember>, Boolean) => List`1<TMember>")]
+            nameof(ReflectionExt.WithAttribute) + "(IEnumerable<TMember>, Boolean) => List<TMember>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.WithAttribute) + "(IEnumerable`1<MemberInfo>, Boolean) => List`1<MemberInfo>")]
+            nameof(ReflectionExt.WithAttribute) + "(IEnumerable<MemberInfo>, Boolean) => List<MemberInfo>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.WithAttribute) + "(IEnumerable`1<MemberInfo>, Type, Boolean) => List`1<MemberInfo>")]
+            nameof(ReflectionExt.WithAttribute) + "(IEnumerable<MemberInfo>, Type, Boolean) => List<MemberInfo>")]
         public void WithAttribute()
             {
             typeof(TestClass).GetMembers().WithAttribute<NotMappedAttribute>().Should().Equal(
@@ -911,13 +911,13 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.WithoutAttribute) + "(IEnumerable`1<TMember>, Boolean) => List`1<TMember>")]
+            nameof(ReflectionExt.WithoutAttribute) + "(IEnumerable<TMember>, Boolean) => List<TMember>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.WithoutAttribute) + "(IEnumerable`1<MemberInfo>, Boolean) => List`1<MemberInfo>")]
+            nameof(ReflectionExt.WithoutAttribute) + "(IEnumerable<MemberInfo>, Boolean) => List<MemberInfo>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.WithoutAttribute) + "(IEnumerable`1<MemberInfo>, Type, Boolean) => List`1<MemberInfo>")]
+            nameof(ReflectionExt.WithoutAttribute) + "(IEnumerable<MemberInfo>, Type, Boolean) => List<MemberInfo>")]
         public void WithoutAttribute()
             {
             typeof(TestClass).GetMembers()

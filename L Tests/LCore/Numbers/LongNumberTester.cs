@@ -37,7 +37,7 @@ namespace L_Tests.LCore.Numbers
             nameof(LongNumber.Divide) + "(Int64, Int64) => Object")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(LongNumber) + "." +
-            nameof(LongNumber.New) + "(Int64) => Number`1<Int64>")]
+            nameof(LongNumber.New) + "(Int64) => Number<Int64>")]
         public void TestLongNumber()
             {
             long Dec = 5000000;

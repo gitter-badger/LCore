@@ -26,7 +26,7 @@ namespace L_Tests.LCore.Extensions
         public void Dispose() {}
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.As) + "() => Func`2<Object, T>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.As) + "() => Func<Object, T>")]
         public void As()
             {
             const string Test = "a";
@@ -74,7 +74,7 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.IsNull) + "() => Func`2<T, Boolean>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.IsNull) + "() => Func<T, Boolean>")]
         public void IsNull()
             {
             L.Obj.IsNull<object>()(arg: null).ShouldBeTrue();
@@ -85,7 +85,7 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.IsA) + "() => Func`2<Object, Boolean>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.IsA) + "() => Func<Object, Boolean>")]
         public void IsA()
             {
             L.Obj.IsA<string>()("").ShouldBeTrue();
@@ -97,7 +97,7 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.HasProperty) + "() => Func`3<Object, String, Boolean>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.HasProperty) + "() => Func<Object, String, Boolean>")]
         public void HasProperty()
             {
             const string Test = "a";
@@ -110,7 +110,7 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.GetProperty) + "() => Func`3<Object, String, Object>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.GetProperty) + "() => Func<Object, String, Object>")]
         public void GetProperty()
             {
             const string Test = "a";
@@ -123,7 +123,7 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.SetProperty) + "() => Action`3<Object, String, Object>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.SetProperty) + "() => Action<Object, String, Object>")]
         public void SetProperty()
             {
             var Test = new Set<string, string>("a", "b");
@@ -136,7 +136,7 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.NewRandom) + "(Nullable`1<T>, Nullable`1<T>) => T")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.NewRandom) + "(Nullable<T>, Nullable<T>) => T")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.NewRandom) + "(Type, Object, Object) => Object")]
         public void NewRandom()
             {

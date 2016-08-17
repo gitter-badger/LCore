@@ -184,10 +184,10 @@ namespace L_Thread_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.Async) + "(Action`1<T>) => Action`1<T>")]
+            nameof(ThreadExt.Async) + "(Action<T>) => Action<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.Async) + "(Action`1<T>, ThreadPriority) => Action`1<T>")]
+            nameof(ThreadExt.Async) + "(Action<T>, ThreadPriority) => Action<T>")]
         public void Async_Action_T()
             {
             string Success = "";
@@ -222,19 +222,19 @@ namespace L_Thread_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.Async) + "(Action`1<T>, TimeSpan, ThreadPriority) => Action`1<T>")]
+            nameof(ThreadExt.Async) + "(Action<T>, TimeSpan, ThreadPriority) => Action<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.Async) + "(Action`1<T>, Int32, ThreadPriority) => Action`1<T>")]
+            nameof(ThreadExt.Async) + "(Action<T>, Int32, ThreadPriority) => Action<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.Async) + "(Action`1<T>, UInt32, ThreadPriority) => Action`1<T>")]
+            nameof(ThreadExt.Async) + "(Action<T>, UInt32, ThreadPriority) => Action<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.Async) + "(Action`1<T>, Int64, ThreadPriority) => Action`1<T>")]
+            nameof(ThreadExt.Async) + "(Action<T>, Int64, ThreadPriority) => Action<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.Async) + "(Action`1<T>, UInt64, ThreadPriority) => Action`1<T>")]
+            nameof(ThreadExt.Async) + "(Action<T>, UInt64, ThreadPriority) => Action<T>")]
         public void Async_Action_T_TimeLimit()
             {
             string Result = "";
@@ -356,10 +356,10 @@ namespace L_Thread_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>) => Action")]
+            nameof(ThreadExt.AsyncResult) + "(Func<U>, Action<U>) => Action")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>, ThreadPriority) => Action")]
+            nameof(ThreadExt.AsyncResult) + "(Func<U>, Action<U>, ThreadPriority) => Action")]
         public void Async_Func()
             {
             var TestAction = new Func<string>(() => "yes");
@@ -379,10 +379,10 @@ namespace L_Thread_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>) => Action`1<T1>")]
+            nameof(ThreadExt.AsyncResult) + "(Func<T1, U>, Action<U>) => Action<T1>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>, ThreadPriority) => Action`1<T1>")]
+            nameof(ThreadExt.AsyncResult) + "(Func<T1, U>, Action<U>, ThreadPriority) => Action<T1>")]
         public void Async_Func_T()
             {
             var TestAction = new Func<string, string>(Str => $"{Str}yes");
@@ -416,19 +416,19 @@ namespace L_Thread_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>, TimeSpan, ThreadPriority) => Action")]
+            nameof(ThreadExt.AsyncResult) + "(Func<U>, Action<U>, TimeSpan, ThreadPriority) => Action")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>, Int32, ThreadPriority) => Action")]
+            nameof(ThreadExt.AsyncResult) + "(Func<U>, Action<U>, Int32, ThreadPriority) => Action")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>, UInt32, ThreadPriority) => Action")]
+            nameof(ThreadExt.AsyncResult) + "(Func<U>, Action<U>, UInt32, ThreadPriority) => Action")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>, Int64, ThreadPriority) => Action")]
+            nameof(ThreadExt.AsyncResult) + "(Func<U>, Action<U>, Int64, ThreadPriority) => Action")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`1<U>, Action`1<U>, UInt64, ThreadPriority) => Action")]
+            nameof(ThreadExt.AsyncResult) + "(Func<U>, Action<U>, UInt64, ThreadPriority) => Action")]
         public void Async_Func_U_TimeLimit()
             {
             bool Success = false;
@@ -549,19 +549,19 @@ namespace L_Thread_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>, TimeSpan, ThreadPriority) => Action`1<T1>")]
+            nameof(ThreadExt.AsyncResult) + "(Func<T1, U>, Action<U>, TimeSpan, ThreadPriority) => Action<T1>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>, Int32, ThreadPriority) => Action`1<T1>")]
+            nameof(ThreadExt.AsyncResult) + "(Func<T1, U>, Action<U>, Int32, ThreadPriority) => Action<T1>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>, UInt32, ThreadPriority) => Action`1<T1>")]
+            nameof(ThreadExt.AsyncResult) + "(Func<T1, U>, Action<U>, UInt32, ThreadPriority) => Action<T1>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>, Int64, ThreadPriority) => Action`1<T1>")]
+            nameof(ThreadExt.AsyncResult) + "(Func<T1, U>, Action<U>, Int64, ThreadPriority) => Action<T1>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.AsyncResult) + "(Func`2<T1, U>, Action`1<U>, UInt64, ThreadPriority) => Action`1<T1>")]
+            nameof(ThreadExt.AsyncResult) + "(Func<T1, U>, Action<U>, UInt64, ThreadPriority) => Action<T1>")]
         public void Async_Func_T_U_TimeLimit()
             {
             bool Success = false;
@@ -737,7 +737,7 @@ namespace L_Thread_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.Profile) + "(Action`1<T1>, String) => Action`1<T1>")]
+            nameof(ThreadExt.Profile) + "(Action<T1>, String) => Action<T1>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.Profile) + "(Action, String) => Action")]
@@ -774,7 +774,7 @@ namespace L_Thread_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.Profile) + "(Func`1<U>, UInt32) => MethodProfileData`1<U>")]
+            nameof(ThreadExt.Profile) + "(Func<U>, UInt32) => MethodProfileData<U>")]
         public void ProfileFunc()
             {
             Func<int> Func = () =>
@@ -805,7 +805,7 @@ namespace L_Thread_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.Profile) + "(Func`1<U>, String) => Func`1<U>")]
+            nameof(ThreadExt.Profile) + "(Func<U>, String) => Func<U>")]
         public void ProfileFuncString()
             {
             const string ProfieName = "TestProfile";
@@ -842,7 +842,7 @@ namespace L_Thread_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
-            nameof(ThreadExt.Profile) + "(Func`2<T1, U>, String) => Func`2<T1, U>")]
+            nameof(ThreadExt.Profile) + "(Func<T1, U>, String) => Func<T1, U>")]
         public void ProfileFuncString_2()
             {
             L.Thread.MethodProfileData_Remove("TestProfile");

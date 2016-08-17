@@ -146,7 +146,7 @@ namespace L_Tests.LCore.Extensions
 
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.AddEach) + "(IEnumerable`1<Int32>, Int32) => List`1<Int32>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.AddEach) + "(IEnumerable<Int32>, Int32) => List<Int32>")]
         public void AddEach()
             {
             // Attribute Tests Implemented
@@ -244,42 +244,42 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average) + "(IEnumerable`1<Int32>) => Double")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average) + "(IEnumerable<Int32>) => Double")]
         public void Average_IEnumerable_1_Int32_Double()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average) + "(IEnumerable`1<UInt32>) => Double")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average) + "(IEnumerable<UInt32>) => Double")]
         public void Average_IEnumerable_1_UInt32_Double()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average) + "(IEnumerable`1<Int64>) => Double")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average) + "(IEnumerable<Int64>) => Double")]
         public void Average_IEnumerable_1_Int64_Double()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average) + "(IEnumerable`1<UInt64>) => Double")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average) + "(IEnumerable<UInt64>) => Double")]
         public void Average_IEnumerable_1_UInt64_Double()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average) + "(IEnumerable`1<Single>) => Double")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average) + "(IEnumerable<Single>) => Double")]
         public void Average_IEnumerable_1_Single_Double()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average) + "(IEnumerable`1<Double>) => Double")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Average) + "(IEnumerable<Double>) => Double")]
         public void Average_IEnumerable_1_Double_Double()
             {
             // Attribute Tests Implemented
@@ -567,49 +567,49 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.SubtractEach) + "(List`1<Int32>, Int32) => List`1<Int32>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.SubtractEach) + "(List<Int32>, Int32) => List<Int32>")]
         public void SubtractEach()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum) + "(IEnumerable`1<Int32>) => Int32")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum) + "(IEnumerable<Int32>) => Int32")]
         public void Sum_IEnumerable_1_Int32_Int32()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum) + "(IEnumerable`1<UInt32>) => UInt32")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum) + "(IEnumerable<UInt32>) => UInt32")]
         public void Sum_IEnumerable_1_UInt32_UInt32()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum) + "(IEnumerable`1<Int64>) => Int64")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum) + "(IEnumerable<Int64>) => Int64")]
         public void Sum_IEnumerable_1_Int64_Int64()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum) + "(IEnumerable`1<UInt64>) => UInt64")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum) + "(IEnumerable<UInt64>) => UInt64")]
         public void Sum_IEnumerable_1_UInt64_UInt64()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum) + "(IEnumerable`1<Single>) => Single")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum) + "(IEnumerable<Single>) => Single")]
         public void Sum_IEnumerable_1_Single_Single()
             {
             // Attribute Tests Implemented
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum) + "(IEnumerable`1<Double>) => Double")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.Sum) + "(IEnumerable<Double>) => Double")]
         public void Sum_IEnumerable_1_Double_Double()
             {
             // Attribute Tests Implemented

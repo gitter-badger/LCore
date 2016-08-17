@@ -15,7 +15,7 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Tools
     {
-    [Trait(Traits.TargetClass, "LCore.Tools.Set`2")]
+    [Trait(Traits.TargetClass, "LCore.Tools.Set")]
     public partial class Set_2Tester : XUnitOutputTester, IDisposable
         {
         public Set_2Tester([NotNull] ITestOutputHelper Output) : base(Output) { }
@@ -26,9 +26,9 @@ namespace L_Tests.LCore.Tools
         private readonly Set<int?, string> _Test3 = new Set<int?, string>(Obj1: null, Obj2: null);
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Set`2.Equals(Object) => Boolean")]
-        [Trait(Traits.TargetMember, "LCore.Tools.Set`2.op_Equality(Set`2, Set`2) => Boolean")]
-        [Trait(Traits.TargetMember, "LCore.Tools.Set`2.op_Inequality(Set`2, Set`2) => Boolean")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Set.Equals(Object) => Boolean")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Set.op_Equality(Set, Set) => Boolean")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Set.op_Inequality(Set, Set) => Boolean")]
         public void Equals_Object_Boolean()
             {
             this._Test.Equals(Other: null).ShouldBeFalse();
@@ -57,7 +57,7 @@ namespace L_Tests.LCore.Tools
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Set`2.Equals(Set`2) => Boolean")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Set.Equals(Set) => Boolean")]
         public void Equals_Set_2_Boolean()
             {
             this._Test.Equals(this._Test2).ShouldBeTrue();
@@ -66,7 +66,7 @@ namespace L_Tests.LCore.Tools
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Set`2.GetHashCode() => Int32")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Set.GetHashCode() => Int32")]
         public new void GetHashCode()
             {
             this._Test.GetHashCode().ShouldBe(Compare: 372027467);
@@ -74,7 +74,7 @@ namespace L_Tests.LCore.Tools
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Set`2.op_Implicit(Set`2) => Tuple`2<T1, T2>")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Set.op_Implicit(Set) => Tuple<T1, T2>")]
         public void op_Implicit_Set_2_Tuple_2_T1_T2()
             {
             var Tuple = (Tuple<int, string>)this._Test;
@@ -82,14 +82,14 @@ namespace L_Tests.LCore.Tools
             var Set = (Set<int, string>)Tuple;
 
             (Set == this._Test).ShouldBeTrue();
-            // TODO: Implement method test LCore.Tools.Set`2.op_Implicit
+            // TODO: Implement method test LCore.Tools.Set.op_Implicit
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Set`2.op_Implicit(Tuple`2<T1, T2>) => Set`2")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Set.op_Implicit(Tuple<T1, T2>) => Set")]
         public void op_Implicit_Tuple_2_T1_T2_Set_2()
             {
-            // TODO: Implement method test LCore.Tools.Set`2.op_Implicit
+            // TODO: Implement method test LCore.Tools.Set.op_Implicit
             }
 
         [Fact]
@@ -105,7 +105,7 @@ namespace L_Tests.LCore.Tools
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Set`2.ToString() => String")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Set.ToString() => String")]
         public new void ToString()
             {
             this._Test.ToString().ShouldBe("[5,4]");

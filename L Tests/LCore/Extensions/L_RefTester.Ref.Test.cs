@@ -59,7 +59,7 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.Constructor) + "(Expression`1<Func`1<T>>) => ConstructorInfo")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.Constructor) + "(Expression<Func<T>>) => ConstructorInfo")]
         public void Constructor()
             {
             var Constructor = L.Ref.Constructor(() => new Set<string, string>("", ""));
@@ -102,7 +102,7 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.Member) + "(Expression`1<Func`2<T, Object>>) => MemberInfo")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.Member) + "(Expression<Func<T, Object>>) => MemberInfo")]
         public void Member()
             {
             L.Ref.Member<object>(o => o.ToString()).ShouldBeNull();
@@ -119,7 +119,7 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.Method) + "(Expression`1<Action`1<T>>) => MethodInfo")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.Method) + "(Expression<Action<T>>) => MethodInfo")]
         public void Method()
             {
             L.Ref.Method<object>(o => o.ToString()).ShouldNotBeNull();
@@ -128,7 +128,7 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.StaticMethod) + "(Expression`1<Action>) => MethodInfo")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.StaticMethod) + "(Expression<Action>) => MethodInfo")]
         public void StaticMethod()
             {
             L.Ref.StaticMethod(() => StringExt.AlignLeft("", 0, ' ')).ShouldNotBeNull();

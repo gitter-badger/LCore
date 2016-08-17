@@ -45,8 +45,8 @@ namespace L_Tests.LCore.Threads
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.AwaitThreadAdded) + "() => Task")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.GetThreadHistory) + "() => List`1<ThreadSpinner>")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.GetThreadsWaiting) + "() => List`1<ThreadSpinner>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.GetThreadHistory) + "() => List<ThreadSpinner>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.GetThreadsWaiting) + "() => List<ThreadSpinner>")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(ThreadSpinner) + "." + nameof(ThreadSpinner.Wait) + "() => Task")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(ThreadSpinner) + "." + nameof(ThreadSpinner.StopWaiting) + "()")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Threads) + "." + nameof(FakeThreadPool) + "." + nameof(FakeThreadPool.Delay) + "(Int32) => Task")]

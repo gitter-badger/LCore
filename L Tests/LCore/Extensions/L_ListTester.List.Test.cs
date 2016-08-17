@@ -38,7 +38,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.List) + "." +
-            nameof(L.List.ToList) + "() => Func`1<List`1<T>>")]
+            nameof(L.List.ToList) + "() => Func<List<T>>")]
         public void ToList_Func_1_List_1_T()
             {
             L.List.ToList<int>()()
@@ -47,20 +47,20 @@ namespace L_Tests.LCore.Extensions
                 .And.Subject.ToS()
                 .Should()
                 .Be(
-                    "List`1<Int32> {  }");
+                    "List<Int32> {  }");
             L.List.ToList<string>()()
                 .Should()
                 .BeOfType<List<string>>()
                 .And.Subject.ToS()
                 .Should()
                 .Be(
-                    "List`1<String> {  }");
+                    "List<String> {  }");
             }
 
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.List) + "." +
-            nameof(L.List.ToList) + "(T[]) => Func`1<List`1<T>>")]
+            nameof(L.List.ToList) + "(T[]) => Func<List<T>>")]
         public void ToList_T_Func_1_List_1_T()
             {
             L.List.ToList(1, 2, 3)()
@@ -69,7 +69,7 @@ namespace L_Tests.LCore.Extensions
                 .And.Subject.ToS()
                 .Should()
                 .Be(
-                    "List`1<Int32> { 1, 2, 3 }");
+                    "List<Int32> { 1, 2, 3 }");
 
             L.List.ToList("a", "b", "c")()
                 .Should()
@@ -77,7 +77,7 @@ namespace L_Tests.LCore.Extensions
                 .And.Subject.ToS()
                 .Should()
                 .Be(
-                    "List`1<String> { a, b, c }");
+                    "List<String> { a, b, c }");
             }
         }
     }

@@ -42,19 +42,19 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.All) + "(IEnumerable, Func`2<Object, Boolean>) => Boolean")]
+            nameof(EnumerableExt.All) + "(IEnumerable, Func<Object, Boolean>) => Boolean")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.All) + "(IEnumerable`1<T>, Func`2<T, Boolean>) => Boolean")]
+            nameof(EnumerableExt.All) + "(IEnumerable<T>, Func<T, Boolean>) => Boolean")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.All) + "(IEnumerable, Func`3<Int32, Object, Boolean>) => Boolean")]
+            nameof(EnumerableExt.All) + "(IEnumerable, Func<Int32, Object, Boolean>) => Boolean")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.All) + "(IEnumerable, Func`3<Int32, T, Boolean>) => Boolean")]
+            nameof(EnumerableExt.All) + "(IEnumerable, Func<Int32, T, Boolean>) => Boolean")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.All) + "(IEnumerable`1<T>, Func`3<Int32, T, Boolean>) => Boolean")]
+            nameof(EnumerableExt.All) + "(IEnumerable<T>, Func<Int32, T, Boolean>) => Boolean")]
         public void All_0()
             {
             int[] Test = {1, 5, 7, 3, 4, 7, 4, 7, 10};
@@ -119,10 +119,10 @@ namespace L_Tests.LCore.Extensions
             nameof(EnumerableExt.Array) + "(IEnumerable) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Array) + "(IEnumerable`1<T>) => T[]")]
+            nameof(EnumerableExt.Array) + "(IEnumerable<T>) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Array) + "(IEnumerable`1<T>) => U[]")]
+            nameof(EnumerableExt.Array) + "(IEnumerable<T>) => U[]")]
         public void Array()
             {
             // ReSharper disable ArgumentsStyleLiteral
@@ -148,10 +148,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Collect) + "(Func`1<T>, Int32) => List`1<T>")]
+            nameof(EnumerableExt.Collect) + "(Func<T>, Int32) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Collect) + "(Func`2<Int32, T>, Int32) => List`1<T>")]
+            nameof(EnumerableExt.Collect) + "(Func<Int32, T>, Int32) => List<T>")]
         public void CollectFunc()
             {
             int Counter = 0;
@@ -181,16 +181,16 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.CollectStr) + "(String, Func`2<Char, Char>) => String")]
+            nameof(EnumerableExt.CollectStr) + "(String, Func<Char, Char>) => String")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.CollectStr) + "(List`1<T>, Func`3<Int32, T, String>) => String")]
+            nameof(EnumerableExt.CollectStr) + "(List<T>, Func<Int32, T, String>) => String")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.CollectStr) + "(T[], Func`3<Int32, T, String>) => String")]
+            nameof(EnumerableExt.CollectStr) + "(T[], Func<Int32, T, String>) => String")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.CollectStr) + "(U, Func`3<Int32, T, String>) => String")]
+            nameof(EnumerableExt.CollectStr) + "(U, Func<Int32, T, String>) => String")]
         public void CollectStr()
             {
             Func<char, char> Modifier = Char => (char) (Char + 1);
@@ -210,16 +210,16 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Combine) + "(IEnumerable`1<String>) => String")]
+            nameof(EnumerableExt.Combine) + "(IEnumerable<String>) => String")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Combine) + "(IEnumerable`1<String>, Char) => String")]
+            nameof(EnumerableExt.Combine) + "(IEnumerable<String>, Char) => String")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Combine) + "(IEnumerable`1<T>, String) => String")]
+            nameof(EnumerableExt.Combine) + "(IEnumerable<T>, String) => String")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Combine) + "(IEnumerable`1<T>, Char) => String")]
+            nameof(EnumerableExt.Combine) + "(IEnumerable<T>, Char) => String")]
         public void CombineString()
             {
             IConvertible[] List = {123, "abc", 5.5f, null, 'a'};
@@ -234,28 +234,28 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Convert) + "(List`1<T>, Func`2<T, U>) => List`1<U>")]
+            nameof(EnumerableExt.Convert) + "(List<T>, Func<T, U>) => List<U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Convert) + "(IEnumerable, Func`2<Object, Object>) => List`1<Object>")]
+            nameof(EnumerableExt.Convert) + "(IEnumerable, Func<Object, Object>) => List<Object>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Convert) + "(T[], Func`2<T, U>) => U[]")]
+            nameof(EnumerableExt.Convert) + "(T[], Func<T, U>) => U[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Convert) + "(IEnumerable`1<T>, Func`2<T, U>) => List`1<U>")]
+            nameof(EnumerableExt.Convert) + "(IEnumerable<T>, Func<T, U>) => List<U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Convert) + "(IEnumerable, Func`3<Int32, Object, Object>) => List`1<Object>")]
+            nameof(EnumerableExt.Convert) + "(IEnumerable, Func<Int32, Object, Object>) => List<Object>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Convert) + "(T[], Func`3<Int32, T, U>) => U[]")]
+            nameof(EnumerableExt.Convert) + "(T[], Func<Int32, T, U>) => U[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Convert) + "(List`1<T>, Func`3<Int32, T, U>) => List`1<U>")]
+            nameof(EnumerableExt.Convert) + "(List<T>, Func<Int32, T, U>) => List<U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Convert) + "(IEnumerable`1<T>, Func`3<Int32, T, U>) => List`1<U>")]
+            nameof(EnumerableExt.Convert) + "(IEnumerable<T>, Func<Int32, T, U>) => List<U>")]
         public void Convert()
             {
             object[] List = {123, "abc", 5.5f, null, 'a'};
@@ -284,19 +284,19 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.ConvertAll) + "(IEnumerable, Func`2<Object, IEnumerable`1<Object>>) => List`1<Object>")]
+            nameof(EnumerableExt.ConvertAll) + "(IEnumerable, Func<Object, IEnumerable<Object>>) => List<Object>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.ConvertAll) + "(IEnumerable, Func`2<T, IEnumerable`1<U>>) => List`1<U>")]
+            nameof(EnumerableExt.ConvertAll) + "(IEnumerable, Func<T, IEnumerable<U>>) => List<U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.ConvertAll) + "(IEnumerable`1<T>, Func`2<T, IEnumerable`1<U>>) => List`1<U>")]
+            nameof(EnumerableExt.ConvertAll) + "(IEnumerable<T>, Func<T, IEnumerable<U>>) => List<U>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.ConvertAll) + "(T[], Func`2<T, IEnumerable`1<U>>) => U[]")]
+            nameof(EnumerableExt.ConvertAll) + "(T[], Func<T, IEnumerable<U>>) => U[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.ConvertAll) + "(List`1<T>, Func`2<T, IEnumerable`1<U>>) => List`1<U>")]
+            nameof(EnumerableExt.ConvertAll) + "(List<T>, Func<T, IEnumerable<U>>) => List<U>")]
         public void ConvertAll()
             {
             object[] List = {123, "abc", 5.5f, null, 'a'};
@@ -338,10 +338,10 @@ namespace L_Tests.LCore.Extensions
             nameof(EnumerableExt.Count) + "(T) => UInt32")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Count) + "(IEnumerable`1<T>, T) => UInt32")]
+            nameof(EnumerableExt.Count) + "(IEnumerable<T>, T) => UInt32")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Count) + "(IEnumerable`1<T>, Func`2<T, Boolean>) => UInt32")]
+            nameof(EnumerableExt.Count) + "(IEnumerable<T>, Func<T, Boolean>) => UInt32")]
         public void Count_T()
             {
             "55555".Count().ShouldBe(Compare: 5u);
@@ -373,10 +373,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Cycle) + "(IEnumerable, Func`2<Object, Boolean>)")]
+            nameof(EnumerableExt.Cycle) + "(IEnumerable, Func<Object, Boolean>)")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Cycle) + "(IEnumerable`1<T>, Func`2<T, Boolean>)")]
+            nameof(EnumerableExt.Cycle) + "(IEnumerable<T>, Func<T, Boolean>)")]
         public void Cycle()
             {
             string[] Test = {"a", "a", "a", "a", null, "a"};
@@ -434,22 +434,22 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Each) + "(IEnumerable, Action`1<T>)")]
+            nameof(EnumerableExt.Each) + "(IEnumerable, Action<T>)")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Each) + "(IEnumerable, Action`1<Object>)")]
+            nameof(EnumerableExt.Each) + "(IEnumerable, Action<Object>)")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Each) + "(IEnumerable`1<T>, Action`1<T>)")]
+            nameof(EnumerableExt.Each) + "(IEnumerable<T>, Action<T>)")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Each) + "(IEnumerable, Action`2<Int32, Object>)")]
+            nameof(EnumerableExt.Each) + "(IEnumerable, Action<Int32, Object>)")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Each) + "(IEnumerable`1<T>, Action`2<Int32, T>)")]
+            nameof(EnumerableExt.Each) + "(IEnumerable<T>, Action<Int32, T>)")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Each) + "(Action`1<T>, IEnumerable`1<T>)")]
+            nameof(EnumerableExt.Each) + "(Action<T>, IEnumerable<T>)")]
         public void EachObject()
             {
             string[] Test = {"a", "b", "c"};
@@ -507,7 +507,7 @@ namespace L_Tests.LCore.Extensions
             nameof(EnumerableExt.Fill) + "(T[], T) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Fill) + "(T[], Func`2<T, T>) => T[]")]
+            nameof(EnumerableExt.Fill) + "(T[], Func<T, T>) => T[]")]
         public void Fill()
             {
             int[] Test = new int[5];
@@ -523,7 +523,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Fill) + "(List`1<T>, T) => List`1<T>")]
+            nameof(EnumerableExt.Fill) + "(List<T>, T) => List<T>")]
         public void Fill_List()
             {
             int[] Test = new int[5];
@@ -541,13 +541,13 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Filter) + "(IEnumerable, Boolean) => List`1<T>")]
+            nameof(EnumerableExt.Filter) + "(IEnumerable, Boolean) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Filter) + "(T[], Boolean) => U[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Filter) + "(List`1<T>, Boolean) => List`1<U>")]
+            nameof(EnumerableExt.Filter) + "(List<T>, Boolean) => List<U>")]
         public void Filter()
             {
             object[] Test = {0, 5, "abc", "123", 'a', 'b', null};
@@ -586,16 +586,16 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.First) + "(IEnumerable`1<T>, Int32, Func`2<T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.First) + "(IEnumerable<T>, Int32, Func<T, Boolean>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.First) + "(IEnumerable`1<T>, UInt32, Func`2<T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.First) + "(IEnumerable<T>, UInt32, Func<T, Boolean>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.First) + "(T[], Int32, Func`2<T, Boolean>) => T[]")]
+            nameof(EnumerableExt.First) + "(T[], Int32, Func<T, Boolean>) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.First) + "(T[], UInt32, Func`2<T, Boolean>) => T[]")]
+            nameof(EnumerableExt.First) + "(T[], UInt32, Func<T, Boolean>) => T[]")]
         public void First()
             {
             int[] Test = {5, 21436, 7, 2, 2, 253};
@@ -631,19 +631,19 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.First) + "(IEnumerable, Func`2<T, Boolean>) => T")]
+            nameof(EnumerableExt.First) + "(IEnumerable, Func<T, Boolean>) => T")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.First) + "(T[], Func`2<Object, Boolean>) => T")]
+            nameof(EnumerableExt.First) + "(T[], Func<Object, Boolean>) => T")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.First) + "(IEnumerable`1<T>, Func`2<T, Boolean>) => T")]
+            nameof(EnumerableExt.First) + "(IEnumerable<T>, Func<T, Boolean>) => T")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.First) + "(IEnumerable, Int32, Func`2<T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.First) + "(IEnumerable, Int32, Func<T, Boolean>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.First) + "(IEnumerable, UInt32, Func`2<T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.First) + "(IEnumerable, UInt32, Func<T, Boolean>) => List<T>")]
         public void FirstMulti()
             {
             int[] Test = {5, 21436, 7, 2, 2, 253};
@@ -724,7 +724,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Flatten) + "(IEnumerable) => List`1<T>")]
+            nameof(EnumerableExt.Flatten) + "(IEnumerable) => List<T>")]
         public void Flatten()
             {
             object[] Test =
@@ -757,10 +757,10 @@ namespace L_Tests.LCore.Extensions
             nameof(EnumerableExt.GetAt) + "(IEnumerable, UInt32) => Object")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.GetAt) + "(IEnumerable`1<T>, Int32) => T")]
+            nameof(EnumerableExt.GetAt) + "(IEnumerable<T>, Int32) => T")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.GetAt) + "(IEnumerable`1<T>, UInt32) => T")]
+            nameof(EnumerableExt.GetAt) + "(IEnumerable<T>, UInt32) => T")]
         public void GetAt()
             {
             int[] Test = {5, 32, 46, 43, 13, 26531, 15315};
@@ -823,10 +823,10 @@ namespace L_Tests.LCore.Extensions
             nameof(EnumerableExt.GetAtIndices) + "(T[], Int32[]) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.GetAtIndices) + "(IEnumerable, Int32[]) => List`1<T>")]
+            nameof(EnumerableExt.GetAtIndices) + "(IEnumerable, Int32[]) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.GetAtIndices) + "(IEnumerable`1<T>, Int32[]) => List`1<T>")]
+            nameof(EnumerableExt.GetAtIndices) + "(IEnumerable<T>, Int32[]) => List<T>")]
         public void GetAtIndices()
             {
             int[] Test = {5, 32, 46, 43, 13, 26531, 15315, 4364643, 445, 44, 553, 663, 223};
@@ -853,11 +853,11 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Group) + "(IEnumerable`1<T>) => Dictionary`2<String, List`1<T>>")]
+            nameof(EnumerableExt.Group) + "(IEnumerable<T>) => Dictionary<String, List<T>>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Group) +
-            "(IEnumerable`1<TValue>, Func`2<TValue, TKey>) => Dictionary`2<TKey, List`1<TValue>>")]
+            "(IEnumerable<TValue>, Func<TValue, TKey>) => Dictionary<TKey, List<TValue>>")]
         public void Group()
             {
             int[] Test =
@@ -938,7 +938,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.GroupTwice) +
-            "(IEnumerable`1<T>, Func`2<T, U>, Func`2<T, V>) => Dictionary`2<U, Dictionary`2<V, List`1<T>>>")]
+            "(IEnumerable<T>, Func<T, U>, Func<T, V>) => Dictionary<U, Dictionary<V, List<T>>>")]
         public void GroupTwice()
             {
             int[] Test =
@@ -978,10 +978,10 @@ namespace L_Tests.LCore.Extensions
             nameof(EnumerableExt.Has) + "(IEnumerable, UInt32, T) => Boolean")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Has) + "(IEnumerable, Func`2<T, Boolean>) => Boolean")]
+            nameof(EnumerableExt.Has) + "(IEnumerable, Func<T, Boolean>) => Boolean")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Has) + "(IEnumerable`1<T>, Func`2<T, Boolean>) => Boolean")]
+            nameof(EnumerableExt.Has) + "(IEnumerable<T>, Func<T, Boolean>) => Boolean")]
         public void Has()
             {
             object[] Test =
@@ -1001,13 +1001,13 @@ namespace L_Tests.LCore.Extensions
             nameof(EnumerableExt.HasAny) + "(IEnumerable, IEnumerable) => Boolean")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.HasAny) + "(IEnumerable`1<T>, IEnumerable`1<T>) => Boolean")]
+            nameof(EnumerableExt.HasAny) + "(IEnumerable<T>, IEnumerable<T>) => Boolean")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.HasAny) + "(IEnumerable, Object[]) => Boolean")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.HasAny) + "(IEnumerable`1<T>, T[]) => Boolean")]
+            nameof(EnumerableExt.HasAny) + "(IEnumerable<T>, T[]) => Boolean")]
         public void HasAny()
             {
             object[] Test =
@@ -1115,10 +1115,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Index) + "(IEnumerable, Func`2<Object, U>) => Dictionary`2<U, Object>")]
+            nameof(EnumerableExt.Index) + "(IEnumerable, Func<Object, U>) => Dictionary<U, Object>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Index) + "(IEnumerable`1<T>, Func`2<T, U>) => Dictionary`2<U, T>")]
+            nameof(EnumerableExt.Index) + "(IEnumerable<T>, Func<T, U>) => Dictionary<U, T>")]
         public void Index()
             {
             object[] Test =
@@ -1153,7 +1153,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.IndexTwice) +
-            "(IEnumerable`1<T>, Func`2<T, U>, Func`2<T, V>) => Dictionary`2<U, Dictionary`2<V, T>>")]
+            "(IEnumerable<T>, Func<T, U>, Func<T, V>) => Dictionary<U, Dictionary<V, T>>")]
         public void IndexTwice()
             {
             int[] Test =
@@ -1190,10 +1190,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.IndexOf) + "(IEnumerable, Func`2<T, Boolean>) => Nullable`1<Int32>")]
+            nameof(EnumerableExt.IndexOf) + "(IEnumerable, Func<T, Boolean>) => Nullable<Int32>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.IndexOf) + "(IEnumerable`1<T>, Func`2<T, Boolean>) => Nullable`1<Int32>")]
+            nameof(EnumerableExt.IndexOf) + "(IEnumerable<T>, Func<T, Boolean>) => Nullable<Int32>")]
         public void IndexOf()
             {
             int[] Test =
@@ -1235,31 +1235,31 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Last) + "(IEnumerable, Func`2<T, Boolean>) => T")]
+            nameof(EnumerableExt.Last) + "(IEnumerable, Func<T, Boolean>) => T")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Last) + "(T[], Func`2<Object, Boolean>) => T")]
+            nameof(EnumerableExt.Last) + "(T[], Func<Object, Boolean>) => T")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Last) + "(IEnumerable`1<T>, Func`2<T, Boolean>) => T")]
+            nameof(EnumerableExt.Last) + "(IEnumerable<T>, Func<T, Boolean>) => T")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Last) + "(IEnumerable, Int32, Func`2<T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.Last) + "(IEnumerable, Int32, Func<T, Boolean>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Last) + "(IEnumerable, UInt32, Func`2<T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.Last) + "(IEnumerable, UInt32, Func<T, Boolean>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Last) + "(IEnumerable`1<T>, Int32, Func`2<T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.Last) + "(IEnumerable<T>, Int32, Func<T, Boolean>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Last) + "(IEnumerable`1<T>, UInt32, Func`2<T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.Last) + "(IEnumerable<T>, UInt32, Func<T, Boolean>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Last) + "(T[], Int32, Func`2<T, Boolean>) => T[]")]
+            nameof(EnumerableExt.Last) + "(T[], Int32, Func<T, Boolean>) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Last) + "(T[], UInt32, Func`2<T, Boolean>) => T[]")]
+            nameof(EnumerableExt.Last) + "(T[], UInt32, Func<T, Boolean>) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Last) + "(IEnumerable, T) => T")]
@@ -1373,16 +1373,16 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.List) + "(IEnumerable, Boolean) => List`1<Object>")]
+            nameof(EnumerableExt.List) + "(IEnumerable, Boolean) => List<Object>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.List) + "(IEnumerable`1<T>, Boolean) => List`1<T>")]
+            nameof(EnumerableExt.List) + "(IEnumerable<T>, Boolean) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.List) + "(IEnumerable, Boolean) => List`1<T>")]
+            nameof(EnumerableExt.List) + "(IEnumerable, Boolean) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.List) + "(IEnumerable`1<T>, Boolean) => List`1<U>")]
+            nameof(EnumerableExt.List) + "(IEnumerable<T>, Boolean) => List<U>")]
         public void List()
             {
             int[] Test = {5, 6, 2, 2};
@@ -1475,13 +1475,13 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Named) + "(IEnumerable, String) => List`1<INamed>")]
+            nameof(EnumerableExt.Named) + "(IEnumerable, String) => List<INamed>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Named) + "(T[], String) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Named) + "(IEnumerable`1<T>, String) => IEnumerable`1<T>")]
+            nameof(EnumerableExt.Named) + "(IEnumerable<T>, String) => IEnumerable<T>")]
         public void Named()
             {
             TestGroup[] Test =
@@ -1526,13 +1526,13 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Named) + "(IEnumerable, String, Func`2<Object, String>) => List`1<Object>")]
+            nameof(EnumerableExt.Named) + "(IEnumerable, String, Func<Object, String>) => List<Object>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Named) + "(IEnumerable`1<T>, String, Func`2<T, String>) => List`1<T>")]
+            nameof(EnumerableExt.Named) + "(IEnumerable<T>, String, Func<T, String>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Named) + "(T[], String, Func`2<T, String>) => T[]")]
+            nameof(EnumerableExt.Named) + "(T[], String, Func<T, String>) => T[]")]
         public void Named_Func()
             {
             int[] Test = {48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446};
@@ -1557,10 +1557,10 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Random) + "(IEnumerable`1<T>, Int32, Boolean) => List`1<T>")]
+            nameof(EnumerableExt.Random) + "(IEnumerable<T>, Int32, Boolean) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Random) + "(IEnumerable`1<T>, UInt32, Boolean) => List`1<T>")]
+            nameof(EnumerableExt.Random) + "(IEnumerable<T>, UInt32, Boolean) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Random) + "(T[], Int32, Boolean) => T[]")]
@@ -1569,7 +1569,7 @@ namespace L_Tests.LCore.Extensions
             nameof(EnumerableExt.Random) + "(T[], UInt32, Boolean) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Random) + "(IEnumerable`1<T>) => T")]
+            nameof(EnumerableExt.Random) + "(IEnumerable<T>) => T")]
         public void Random()
             {
             int[] Test = {48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446};
@@ -1665,13 +1665,13 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Remove) + "(IEnumerable`1<T>, T[]) => List`1<T>")]
+            nameof(EnumerableExt.Remove) + "(IEnumerable<T>, T[]) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Remove) + "(IEnumerable`1<T>, Func`2<T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.Remove) + "(IEnumerable<T>, Func<T, Boolean>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Remove) + "(IEnumerable`1<T>, Func`3<Int32, T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.Remove) + "(IEnumerable<T>, Func<Int32, T, Boolean>) => List<T>")]
         public void Remove()
             {
             int[] Test = {48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446};
@@ -1696,7 +1696,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.RemoveAt) + "(IEnumerable`1<T>, Int32[]) => List`1<T>")]
+            nameof(EnumerableExt.RemoveAt) + "(IEnumerable<T>, Int32[]) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.RemoveAt) + "(T[], Int32[]) => T[]")]
@@ -1730,13 +1730,13 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.RemoveDuplicate) + "(IEnumerable`1<T>, Func`2<T, U>) => List`1<T>")]
+            nameof(EnumerableExt.RemoveDuplicate) + "(IEnumerable<T>, Func<T, U>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.RemoveDuplicate) + "(T[], Func`2<T, U>) => T[]")]
+            nameof(EnumerableExt.RemoveDuplicate) + "(T[], Func<T, U>) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.RemoveDuplicate) + "(IEnumerable, Func`2<T, U>) => List`1<T>")]
+            nameof(EnumerableExt.RemoveDuplicate) + "(IEnumerable, Func<T, U>) => List<T>")]
         public void RemoveDuplicate()
             {
             int[] Test = {48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6, 446};
@@ -1792,10 +1792,10 @@ namespace L_Tests.LCore.Extensions
             nameof(EnumerableExt.RemoveDuplicates) + "(T[]) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.RemoveDuplicates) + "(IEnumerable) => List`1<T>")]
+            nameof(EnumerableExt.RemoveDuplicates) + "(IEnumerable) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.RemoveDuplicates) + "(IEnumerable`1<T>) => List`1<T>")]
+            nameof(EnumerableExt.RemoveDuplicates) + "(IEnumerable<T>) => List<T>")]
         public void RemoveDuplicates()
             {
             int[] Test =
@@ -1834,10 +1834,10 @@ namespace L_Tests.LCore.Extensions
             nameof(EnumerableExt.Mirror) + "(T[]) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Mirror) + "(IEnumerable`1<T>) => List`1<T>")]
+            nameof(EnumerableExt.Mirror) + "(IEnumerable<T>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Mirror) + "(IEnumerable) => List`1<T>")]
+            nameof(EnumerableExt.Mirror) + "(IEnumerable) => List<T>")]
         public void Mirror()
             {
             int[] Test =
@@ -1868,25 +1868,25 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Select) + "(T[], Func`2<T, Boolean>) => T[]")]
+            nameof(EnumerableExt.Select) + "(T[], Func<T, Boolean>) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Select) + "(IEnumerable`1<T>, Func`2<T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.Select) + "(IEnumerable<T>, Func<T, Boolean>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Select) + "(IEnumerable, Func`2<T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.Select) + "(IEnumerable, Func<T, Boolean>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Select) + "(IEnumerable, Func`3<Int32, T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.Select) + "(IEnumerable, Func<Int32, T, Boolean>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Select) + "(T[], Func`3<Int32, T, Boolean>) => T[]")]
+            nameof(EnumerableExt.Select) + "(T[], Func<Int32, T, Boolean>) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Select) + "(List`1<T>, Func`3<Int32, T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.Select) + "(List<T>, Func<Int32, T, Boolean>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Select) + "(IEnumerable`1<T>, Func`3<Int32, T, Boolean>) => List`1<T>")]
+            nameof(EnumerableExt.Select) + "(IEnumerable<T>, Func<Int32, T, Boolean>) => List<T>")]
         public void Select()
             {
             int[] Test =
@@ -1997,10 +1997,10 @@ namespace L_Tests.LCore.Extensions
             nameof(EnumerableExt.SetAt) + "(IEnumerable, UInt32, T)")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.SetAt) + "(IEnumerable`1<T>, Int32, T)")]
+            nameof(EnumerableExt.SetAt) + "(IEnumerable<T>, Int32, T)")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.SetAt) + "(IEnumerable`1<T>, UInt32, T)")]
+            nameof(EnumerableExt.SetAt) + "(IEnumerable<T>, UInt32, T)")]
         public void SetAt()
             {
             int[] Test =
@@ -2066,13 +2066,13 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Shuffle) + "(IEnumerable`1<T>) => List`1<T>")]
+            nameof(EnumerableExt.Shuffle) + "(IEnumerable<T>) => List<T>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Shuffle) + "(T[]) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Shuffle) + "(IEnumerable) => List`1<T>")]
+            nameof(EnumerableExt.Shuffle) + "(IEnumerable) => List<T>")]
         public void Shuffle()
             {
             int[] Test =
@@ -2129,10 +2129,10 @@ namespace L_Tests.LCore.Extensions
             nameof(EnumerableExt.Sort) + "(IList)")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Sort) + "(IList`1<T>, Func`3<T, T, Int32>)")]
+            nameof(EnumerableExt.Sort) + "(IList<T>, Func<T, T, Int32>)")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Sort) + "(IList`1<T>, Func`2<T, IComparable>)")]
+            nameof(EnumerableExt.Sort) + "(IList<T>, Func<T, IComparable>)")]
         public void Sort()
             {
             for (int i = 0; i < 50; i++)
@@ -2243,16 +2243,16 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Add) + "(T[], IEnumerable`1<T>) => T[]")]
+            nameof(EnumerableExt.Add) + "(T[], IEnumerable<T>) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
             nameof(EnumerableExt.Add) + "(T[], T[]) => T[]")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Add) + "(List`1<T>, T[])")]
+            nameof(EnumerableExt.Add) + "(List<T>, T[])")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.Add) + "(List`1<T>, IEnumerable`1<T>)")]
+            nameof(EnumerableExt.Add) + "(List<T>, IEnumerable<T>)")]
         public void Add()
             {
             int[] Test = {1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736};
@@ -2290,7 +2290,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." +
-            nameof(EnumerableExt.AddTo) + "(IEnumerable`1<T>, ICollection)")]
+            nameof(EnumerableExt.AddTo) + "(IEnumerable<T>, ICollection)")]
         public void AddTo()
             {
             int[] Test = {1, 3, 7, 8, 3, 33578, 24, 7854, 332889, 35235, 78, 235839, 26, 765643547, 54736};

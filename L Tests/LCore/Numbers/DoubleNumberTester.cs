@@ -24,7 +24,7 @@ namespace L_Tests.LCore.Numbers
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(DoubleNumber) + "." + nameof(DoubleNumber.Subtract) + "(Double, Double) => Double")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(DoubleNumber) + "." + nameof(DoubleNumber.Multiply) + "(Double, Double) => Double")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(DoubleNumber) + "." + nameof(DoubleNumber.Divide) + "(Double, Double) => Object")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(DoubleNumber) + "." + nameof(DoubleNumber.New) + "(Double) => Number`1<Double>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(DoubleNumber) + "." + nameof(DoubleNumber.New) + "(Double) => Number<Double>")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(DoubleNumber) + "." + nameof(DoubleNumber.ToString) + "() => String")]
         public void TestDoubleNumber()
             {

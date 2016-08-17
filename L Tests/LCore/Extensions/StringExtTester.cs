@@ -24,7 +24,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." +
-            nameof(StringExt.ReplaceAll) + "(String, IDictionary`2<String, String>) => String")]
+            nameof(StringExt.ReplaceAll) + "(String, IDictionary<String, String>) => String")]
         public void ReplaceAll_Dictionary()
             {
             var Replacements = new Dictionary<string, string>
@@ -77,7 +77,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt) + "." +
-            nameof(StringExt.Matches) + "(String, String) => List`1<Match>")]
+            nameof(StringExt.Matches) + "(String, String) => List<Match>")]
         public void Matches()
             {
             const string Test = "123 456";

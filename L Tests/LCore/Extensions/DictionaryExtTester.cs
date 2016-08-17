@@ -23,7 +23,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt) + "." +
             nameof(DictionaryExt.Merge) +
-            "(IDictionary`2<TKey, TValue>, IDictionary`2<TKey, TValue>, Func`2<KeyValuePair`2<TKey, TValue>, KeyValuePair`2<TKey, TValue>>)")]
+            "(IDictionary<TKey, TValue>, IDictionary<TKey, TValue>, Func<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>>)")]
         public void Merge()
             {
             var Test = new Dictionary<string, string>
@@ -71,7 +71,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt) + "." +
-            nameof(DictionaryExt.AddRange) + "(IDictionary`2<TKey, TValue>, IDictionary`2<TKey, TValue>)")]
+            nameof(DictionaryExt.AddRange) + "(IDictionary<TKey, TValue>, IDictionary<TKey, TValue>)")]
         public void AddRange()
             {
             var Test = new Dictionary<string, string>
@@ -94,7 +94,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt) + "." +
-            nameof(DictionaryExt.SafeAdd) + "(IDictionary`2<TKey, TValue>, TKey, TValue)")]
+            nameof(DictionaryExt.SafeAdd) + "(IDictionary<TKey, TValue>, TKey, TValue)")]
         public void SafeAdd()
             {
             ((Dictionary<string, string>) null).SafeAdd("a", "b");
@@ -122,7 +122,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt) + "." +
-            nameof(DictionaryExt.SafeGet) + "(IDictionary`2<TKey, TValue>, TKey) => TValue")]
+            nameof(DictionaryExt.SafeGet) + "(IDictionary<TKey, TValue>, TKey) => TValue")]
         public void SafeSet()
             {
             ((Dictionary<string, string>) null).SafeSet("a", "b");
@@ -148,7 +148,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt) + "." +
-            nameof(DictionaryExt.SafeSet) + "(IDictionary`2<TKey, TValue>, TKey, TValue)")]
+            nameof(DictionaryExt.SafeSet) + "(IDictionary<TKey, TValue>, TKey, TValue)")]
         public void SafeGet()
             {
             ((Dictionary<string, string>) null).SafeGet("a").Should().BeNull();
@@ -164,7 +164,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DictionaryExt) + "." +
-            nameof(DictionaryExt.GetAllValues) + "(Dictionary`2<TKey, TValueList>) => List`1<TValue>")]
+            nameof(DictionaryExt.GetAllValues) + "(Dictionary<TKey, TValueList>) => List<TValue>")]
         public void GetAllValues()
             {
             ((Dictionary<string, int[]>) null).GetAllValues<string, int, int[]>()

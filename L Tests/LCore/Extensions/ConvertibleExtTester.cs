@@ -71,7 +71,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
-            nameof(ConvertibleExt.ConvertTo) + "(IConvertible) => Nullable`1<T>")]
+            nameof(ConvertibleExt.ConvertTo) + "(IConvertible) => Nullable<T>")]
         public void ConvertTo_T()
             {
             const string Test = "-5.5555";

@@ -36,7 +36,7 @@ namespace L_Tests.LCore.Numbers
             nameof(IntNumber.Divide) + "(Int32, Int32) => Object")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(IntNumber) + "." + nameof(IntNumber.New) +
-            "(Int32) => Number`1<Int32>")]
+            "(Int32) => Number<Int32>")]
         public void TestIntNumber()
             {
             int Dec = 65;

@@ -22,7 +22,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LoopExt) + "." + nameof(LoopExt.To) +
-            "(Int32, Int32, Func`1<U>) => List`1<U>")]
+            "(Int32, Int32, Func<U>) => List<U>")]
         public void To_0()
             {
             const int Begin = 0;
@@ -71,7 +71,7 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LoopExt) + "." + nameof(LoopExt.To) +
-            "(Int32, Int32, Func`2<Int32, T>) => List`1<T>")]
+            "(Int32, Int32, Func<Int32, T>) => List<T>")]
         public void To_1()
             {
             const int Begin = 0;

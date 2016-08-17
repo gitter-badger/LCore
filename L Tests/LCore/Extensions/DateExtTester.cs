@@ -19,7 +19,7 @@ namespace L_Tests.LCore.Extensions
         ~DateExtTester() {}
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.Average) + "(IEnumerable`1<TimeSpan>) => TimeSpan")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.Average) + "(IEnumerable<TimeSpan>) => TimeSpan")]
         public void Average()
             {
             var Test = new TimeSpan(days: 1, hours: 0, minutes: 0, seconds: 40);

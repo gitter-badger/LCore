@@ -24,7 +24,7 @@ namespace L_Tests.LCore.Extensions
             nameof(ComparableExt.Max) + "(T, T[]) => T")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." +
-            nameof(ComparableExt.Max) + "(IEnumerable`1<T>, Func`2<T, IComparable>) => T")]
+            nameof(ComparableExt.Max) + "(IEnumerable<T>, Func<T, IComparable>) => T")]
         public void Max()
             {
             ((IComparable) null).Max().ShouldBe(Compare: null);
@@ -46,7 +46,7 @@ namespace L_Tests.LCore.Extensions
             nameof(ComparableExt.Min) + "(T, T[]) => T")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ComparableExt) + "." +
-            nameof(ComparableExt.Min) + "(IEnumerable`1<T>, Func`2<T, IComparable>) => T")]
+            nameof(ComparableExt.Min) + "(IEnumerable<T>, Func<T, IComparable>) => T")]
         public void Min()
             {
             ((IComparable) null).Min().ShouldBe(Compare: null);

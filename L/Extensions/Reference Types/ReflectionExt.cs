@@ -1243,9 +1243,9 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Gets a method's parameter signature.
-        /// Ex: (Func`1&lt;String%gt;, Int32) => Action
+        /// Ex: (Func`1&lt;String%gt;, Int32) =&gt; Action
         ///     (String, String)
-        ///     (String, String) => Boolean
+        ///     (String, String) =&gt; Boolean
         /// </summary>
         public static string ToParameterSignature([CanBeNull] this MethodInfo In)
             {
@@ -1280,9 +1280,32 @@ namespace LCore.Extensions
 
             Type[] Generics = In.GenericTypeArguments;
 
-            return Generics.Length == 0
+            string Out = Generics.Length == 0
                 ? In.Name
                 : $"{In.Name}<{Generics.Convert(Type => Type.GetGenericName()).JoinLines(", ")}>";
+
+            Out = Out.ReplaceAll(new Dictionary<string, string>
+                {
+                ["`10"] = "",
+                ["`11"] = "",
+                ["`12"] = "",
+                ["`13"] = "",
+                ["`14"] = "",
+                ["`15"] = "",
+                ["`16"] = "",
+                ["`17"] = "",
+                ["`1"] = "",
+                ["`2"] = "",
+                ["`3"] = "",
+                ["`4"] = "",
+                ["`5"] = "",
+                ["`6"] = "",
+                ["`7"] = "",
+                ["`8"] = "",
+                ["`9"] = "",
+                });
+
+            return Out;
             }
 
 

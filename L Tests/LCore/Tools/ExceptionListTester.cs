@@ -20,8 +20,8 @@ namespace L_Tests.LCore.Tools
         [Fact]
         [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit(ExceptionList) => Exception[]")]
         [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit(Exception[]) => ExceptionList")]
-        [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit(ExceptionList) => List`1<Exception>")]
-        [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit(List`1<Exception>) => ExceptionList")]
+        [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit(ExceptionList) => List<Exception>")]
+        [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit(List<Exception>) => ExceptionList")]
         public void ExceptionList()
             {
             var Ex = new ExceptionList(new[]
@@ -32,7 +32,7 @@ namespace L_Tests.LCore.Tools
                 new FormatException("3")
                 });
 
-            Ex.Exceptions.ToS().ShouldBe("List`1<Exception> { System.Exception: 1, System.ArgumentNullException: Value cannot be null.\r\nParameter name: 2, System.FormatException: 3 }");
+            Ex.Exceptions.ToS().ShouldBe("List<Exception> { System.Exception: 1, System.ArgumentNullException: Value cannot be null.\r\nParameter name: 2, System.FormatException: 3 }");
 
             Ex.StackTrace.ShouldBe("");
 

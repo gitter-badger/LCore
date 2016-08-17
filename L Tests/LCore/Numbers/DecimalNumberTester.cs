@@ -33,7 +33,7 @@ namespace L_Tests.LCore.Numbers
             nameof(DecimalNumber.Divide) + "(Decimal, Decimal) => Object")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(DecimalNumber) + "." +
-            nameof(DecimalNumber.New) + "(Decimal) => Number`1<Decimal>")]
+            nameof(DecimalNumber.New) + "(Decimal) => Number<Decimal>")]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(DecimalNumber) + "." +
             nameof(DecimalNumber.Multiply) + "(Decimal, Decimal) => Decimal")]
