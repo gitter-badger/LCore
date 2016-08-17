@@ -1320,6 +1320,18 @@ namespace LCore.Extensions
                     (Member.IsSpecialName && Member.Name.StartsWith("get_")) ||
                     (Member.IsSpecialName && Member.Name.StartsWith("set_")));
             }
+
+        public static bool IsDeclaredMember([CanBeNull] this MemberInfo Member)
+            {
+            return !Member.IsInheritedMember();
+            }
+
+        public static bool IsInheritedMember([CanBeNull] this MemberInfo Member)
+            {
+            return Member?.DeclaringType != null &&
+                   Member.ReflectedType != null &&
+                   Member.DeclaringType != Member.ReflectedType;
+            }
         }
 
     public static partial class L
