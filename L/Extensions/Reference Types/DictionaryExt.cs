@@ -16,62 +16,297 @@ namespace LCore.Extensions
         #region Extensions +
 
         #region Flatten
-        // TODO: complete dictionary Flatten.
-        internal static List<Tuple<T1, T2>> Flatten<T1, T2>([CanBeNull]this Dictionary<T1, T2> In)
+        public static List<Tuple<T1, T2>> Flatten<T1, T2>([CanBeNull]this Dictionary<T1, T2> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2>>();
+
+            In?.Each(KeyValue =>
+                {
+                    Out.Add(new Tuple<T1, T2>(KeyValue.Key, KeyValue.Value));
+                });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2>> Flatten<T1, T2>([CanBeNull]this Dictionary<T1, IEnumerable<T2>> In)
+        public static List<Tuple<T1, T2>> Flatten<T1, T2>([CanBeNull]this Dictionary<T1, IEnumerable<T2>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2>>();
+
+            In?.Each(KeyValue =>
+                {
+                    KeyValue.Value.Each(Value =>
+                    {
+                        Out.Add(new Tuple<T1, T2>(KeyValue.Key, Value));
+                    });
+                });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2, T3>> Flatten<T1, T2, T3>([CanBeNull]this Dictionary<T1, Dictionary<T2, T3>> In)
+        public static List<Tuple<T1, T2, T3>> Flatten<T1, T2, T3>([CanBeNull]this Dictionary<T1, Dictionary<T2, T3>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2, T3>>();
+
+            In?.Each(KeyValue =>
+            {
+                KeyValue.Value.Each(KeyValue2 =>
+                {
+                    Out.Add(new Tuple<T1, T2, T3>(KeyValue.Key, KeyValue2.Key, KeyValue2.Value));
+                });
+            });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2, T3>> Flatten<T1, T2, T3>([CanBeNull]this Dictionary<T1, Dictionary<T2, IEnumerable<T3>>> In)
+        public static List<Tuple<T1, T2, T3>> Flatten<T1, T2, T3>([CanBeNull]this Dictionary<T1, Dictionary<T2, IEnumerable<T3>>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2, T3>>();
+
+            In?.Each(KeyValue =>
+            {
+                KeyValue.Value.Each(KeyValue2 =>
+                {
+                    KeyValue2.Value.Each(Value =>
+                        Out.Add(new Tuple<T1, T2, T3>(KeyValue.Key, KeyValue2.Key, Value)));
+                });
+            });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2, T3, T4>> Flatten<T1, T2, T3, T4>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, T4>>> In)
+        public static List<Tuple<T1, T2, T3, T4>> Flatten<T1, T2, T3, T4>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, T4>>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2, T3, T4>>();
+
+            In?.Each(KeyValue =>
+                {
+                    KeyValue.Value.Each(KeyValue2 =>
+                        {
+                            KeyValue2.Value.Each(KeyValue3 =>
+                            {
+                                Out.Add(new Tuple<T1, T2, T3, T4>(KeyValue.Key, KeyValue2.Key, KeyValue3.Key, KeyValue3.Value));
+                            });
+                        });
+                });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2, T3, T4>> Flatten<T1, T2, T3, T4>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, IEnumerable<T4>>>> In)
+        public static List<Tuple<T1, T2, T3, T4>> Flatten<T1, T2, T3, T4>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, IEnumerable<T4>>>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2, T3, T4>>();
+
+            In?.Each(KeyValue =>
+            {
+                KeyValue.Value.Each(KeyValue2 =>
+                {
+                    KeyValue2.Value.Each(KeyValue3 =>
+                    {
+                        KeyValue3.Value.Each(Value => Out.Add(new Tuple<T1, T2, T3, T4>(KeyValue.Key, KeyValue2.Key, KeyValue3.Key, Value)));
+                    });
+                });
+            });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2, T3, T4, T5>> Flatten<T1, T2, T3, T4, T5>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, T5>>>> In)
+        public static List<Tuple<T1, T2, T3, T4, T5>> Flatten<T1, T2, T3, T4, T5>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, T5>>>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2, T3, T4, T5>>();
+
+            In?.Each(KeyValue =>
+            {
+                KeyValue.Value.Each(KeyValue2 =>
+                {
+                    KeyValue2.Value.Each(KeyValue3 =>
+                    {
+                        KeyValue3.Value.Each(KeyValue4 =>
+                            {
+                                Out.Add(new Tuple<T1, T2, T3, T4, T5>(KeyValue.Key, KeyValue2.Key, KeyValue3.Key, KeyValue4.Key, KeyValue4.Value));
+                            });
+                    });
+                });
+            });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2, T3, T4, T5>> Flatten<T1, T2, T3, T4, T5>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, IEnumerable<T5>>>>> In)
+        public static List<Tuple<T1, T2, T3, T4, T5>> Flatten<T1, T2, T3, T4, T5>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, IEnumerable<T5>>>>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2, T3, T4, T5>>();
+
+            In?.Each(KeyValue =>
+            {
+                KeyValue.Value.Each(KeyValue2 =>
+                {
+                    KeyValue2.Value.Each(KeyValue3 =>
+                    {
+                        KeyValue3.Value.Each(KeyValue4 =>
+                        {
+                            KeyValue4.Value.Each(Value => Out.Add(new Tuple<T1, T2, T3, T4, T5>(KeyValue.Key, KeyValue2.Key, KeyValue3.Key, KeyValue4.Key, Value)));
+                        });
+                    });
+                });
+            });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2, T3, T4, T5, T6>> Flatten<T1, T2, T3, T4, T5, T6>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, T6>>>>> In)
+        public static List<Tuple<T1, T2, T3, T4, T5, T6>> Flatten<T1, T2, T3, T4, T5, T6>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, T6>>>>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2, T3, T4, T5, T6>>();
+
+            In?.Each(KeyValue =>
+            {
+                KeyValue.Value.Each(KeyValue2 =>
+                {
+                    KeyValue2.Value.Each(KeyValue3 =>
+                    {
+                        KeyValue3.Value.Each(KeyValue4 =>
+                        {
+                            KeyValue4.Value.Each(KeyValue5 =>
+                                {
+                                    Out.Add(new Tuple<T1, T2, T3, T4, T5, T6>(KeyValue.Key, KeyValue2.Key, KeyValue3.Key,
+                                        KeyValue4.Key, KeyValue5.Key, KeyValue5.Value));
+                                });
+                        });
+                    });
+                });
+            });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2, T3, T4, T5, T6>> Flatten<T1, T2, T3, T4, T5, T6>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, IEnumerable<T6>>>>>> In)
+        public static List<Tuple<T1, T2, T3, T4, T5, T6>> Flatten<T1, T2, T3, T4, T5, T6>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, IEnumerable<T6>>>>>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2, T3, T4, T5, T6>>();
+
+            In?.Each(KeyValue =>
+                {
+                    KeyValue.Value.Each(KeyValue2 =>
+                        {
+                            KeyValue2.Value.Each(KeyValue3 =>
+                            {
+                                KeyValue3.Value.Each(KeyValue4 =>
+                                {
+                                    KeyValue4.Value.Each(KeyValue5 =>
+                                    {
+                                        KeyValue5.Value.Each(Value =>
+                                        Out.Add(new Tuple<T1, T2, T3, T4, T5, T6>(KeyValue.Key, KeyValue2.Key, KeyValue3.Key,
+                                            KeyValue4.Key, KeyValue5.Key, Value)));
+                                    });
+                                });
+                            });
+                        });
+                });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2, T3, T4, T5, T6, T7>> Flatten<T1, T2, T3, T4, T5, T6, T7>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, T7>>>>>> In)
+        public static List<Tuple<T1, T2, T3, T4, T5, T6, T7>> Flatten<T1, T2, T3, T4, T5, T6, T7>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, T7>>>>>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2, T3, T4, T5, T6, T7>>();
+
+            In?.Each(KeyValue =>
+            {
+                KeyValue.Value.Each(KeyValue2 =>
+                {
+                    KeyValue2.Value.Each(KeyValue3 =>
+                    {
+                        KeyValue3.Value.Each(KeyValue4 =>
+                        {
+                            KeyValue4.Value.Each(KeyValue5 =>
+                                {
+                                    KeyValue5.Value.Each(KeyValue6 =>
+                                        {
+                                            Out.Add(new Tuple<T1, T2, T3, T4, T5, T6, T7>(KeyValue.Key, KeyValue2.Key, KeyValue3.Key, KeyValue4.Key, KeyValue5.Key, KeyValue6.Key, KeyValue6.Value));
+                                        });
+                                });
+                        });
+                    });
+                });
+            });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2, T3, T4, T5, T6, T7>> Flatten<T1, T2, T3, T4, T5, T6, T7>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, IEnumerable<T7>>>>>>> In)
+        public static List<Tuple<T1, T2, T3, T4, T5, T6, T7>> Flatten<T1, T2, T3, T4, T5, T6, T7>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, IEnumerable<T7>>>>>>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2, T3, T4, T5, T6, T7>>();
+
+            In?.Each(KeyValue =>
+            {
+                KeyValue.Value.Each(KeyValue2 =>
+                {
+                    KeyValue2.Value.Each(KeyValue3 =>
+                    {
+                        KeyValue3.Value.Each(KeyValue4 =>
+                        {
+                            KeyValue4.Value.Each(KeyValue5 =>
+                            {
+                                KeyValue5.Value.Each(KeyValue6 =>
+                                    {
+                                        KeyValue6.Value.Each(Value => Out.Add(new Tuple<T1, T2, T3, T4, T5, T6, T7>(KeyValue.Key, KeyValue2.Key, KeyValue3.Key, KeyValue4.Key, KeyValue5.Key, KeyValue6.Key, Value)));
+                                    });
+                            });
+                        });
+                    });
+                });
+            });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2, T3, T4, T5, T6, T7, T8>> Flatten<T1, T2, T3, T4, T5, T6, T7, T8>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, Dictionary<T7, T8>>>>>>> In)
+        public static List<Tuple<T1, T2, T3, T4, T5, T6, T7, T8>> Flatten<T1, T2, T3, T4, T5, T6, T7, T8>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, Dictionary<T7, T8>>>>>>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2, T3, T4, T5, T6, T7, T8>>();
+
+            In?.Each(KeyValue =>
+            {
+                KeyValue.Value.Each(KeyValue2 =>
+                {
+                    KeyValue2.Value.Each(KeyValue3 =>
+                    {
+                        KeyValue3.Value.Each(KeyValue4 =>
+                        {
+                            KeyValue4.Value.Each(KeyValue5 =>
+                            {
+                                KeyValue5.Value.Each(KeyValue6 =>
+                                {
+                                    KeyValue6.Value.Each(KeyValue7 =>
+                                        {
+                                            Out.Add(new Tuple<T1, T2, T3, T4, T5, T6, T7, T8>(KeyValue.Key, KeyValue2.Key,
+                                                KeyValue3.Key, KeyValue4.Key, KeyValue5.Key, KeyValue6.Key, KeyValue7.Key,
+                                                KeyValue7.Value));
+                                        });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+
+            return Out;
             }
-        internal static List<Tuple<T1, T2, T3, T4, T5, T6, T7, T8>> Flatten<T1, T2, T3, T4, T5, T6, T7, T8>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, Dictionary<T7, IEnumerable<T8>>>>>>>> In)
+        public static List<Tuple<T1, T2, T3, T4, T5, T6, T7, T8>> Flatten<T1, T2, T3, T4, T5, T6, T7, T8>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, Dictionary<T7, IEnumerable<T8>>>>>>>> In)
             {
-            return null;
+            var Out = new List<Tuple<T1, T2, T3, T4, T5, T6, T7, T8>>();
+
+            In?.Each(KeyValue =>
+            {
+                KeyValue.Value.Each(KeyValue2 =>
+                {
+                    KeyValue2.Value.Each(KeyValue3 =>
+                    {
+                        KeyValue3.Value.Each(KeyValue4 =>
+                        {
+                            KeyValue4.Value.Each(KeyValue5 =>
+                            {
+                                KeyValue5.Value.Each(KeyValue6 =>
+                                {
+                                    KeyValue6.Value.Each(KeyValue7 =>
+                                    {
+                                        KeyValue7.Value.Each(Value =>
+                                        Out.Add(new Tuple<T1, T2, T3, T4, T5, T6, T7, T8>(KeyValue.Key, KeyValue2.Key,
+                                            KeyValue3.Key, KeyValue4.Key, KeyValue5.Key, KeyValue6.Key, KeyValue7.Key,
+                                            Value)));
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+
+            return Out;
             }
         #endregion
 
