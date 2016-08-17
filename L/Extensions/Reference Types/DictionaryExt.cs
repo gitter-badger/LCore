@@ -16,6 +16,9 @@ namespace LCore.Extensions
         #region Extensions +
 
         #region Flatten
+        /// <summary>
+        /// Flatten a Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2>> Flatten<T1, T2>([CanBeNull]this Dictionary<T1, T2> In)
             {
             var Out = new List<Tuple<T1, T2>>();
@@ -27,6 +30,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2>> Flatten<T1, T2>([CanBeNull]this Dictionary<T1, IEnumerable<T2>> In)
             {
             var Out = new List<Tuple<T1, T2>>();
@@ -41,6 +47,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a multi-level Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2, T3>> Flatten<T1, T2, T3>([CanBeNull]this Dictionary<T1, Dictionary<T2, T3>> In)
             {
             var Out = new List<Tuple<T1, T2, T3>>();
@@ -55,6 +64,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a multi-level Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2, T3>> Flatten<T1, T2, T3>([CanBeNull]this Dictionary<T1, Dictionary<T2, IEnumerable<T3>>> In)
             {
             var Out = new List<Tuple<T1, T2, T3>>();
@@ -70,6 +82,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a multi-level Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2, T3, T4>> Flatten<T1, T2, T3, T4>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, T4>>> In)
             {
             var Out = new List<Tuple<T1, T2, T3, T4>>();
@@ -87,6 +102,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a multi-level Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2, T3, T4>> Flatten<T1, T2, T3, T4>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, IEnumerable<T4>>>> In)
             {
             var Out = new List<Tuple<T1, T2, T3, T4>>();
@@ -104,6 +122,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a multi-level Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2, T3, T4, T5>> Flatten<T1, T2, T3, T4, T5>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, T5>>>> In)
             {
             var Out = new List<Tuple<T1, T2, T3, T4, T5>>();
@@ -124,6 +145,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a multi-level Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2, T3, T4, T5>> Flatten<T1, T2, T3, T4, T5>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, IEnumerable<T5>>>>> In)
             {
             var Out = new List<Tuple<T1, T2, T3, T4, T5>>();
@@ -144,6 +168,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a multi-level Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2, T3, T4, T5, T6>> Flatten<T1, T2, T3, T4, T5, T6>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, T6>>>>> In)
             {
             var Out = new List<Tuple<T1, T2, T3, T4, T5, T6>>();
@@ -168,6 +195,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a multi-level Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2, T3, T4, T5, T6>> Flatten<T1, T2, T3, T4, T5, T6>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, IEnumerable<T6>>>>>> In)
             {
             var Out = new List<Tuple<T1, T2, T3, T4, T5, T6>>();
@@ -193,6 +223,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a multi-level Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2, T3, T4, T5, T6, T7>> Flatten<T1, T2, T3, T4, T5, T6, T7>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, T7>>>>>> In)
             {
             var Out = new List<Tuple<T1, T2, T3, T4, T5, T6, T7>>();
@@ -219,6 +252,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a multi-level Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2, T3, T4, T5, T6, T7>> Flatten<T1, T2, T3, T4, T5, T6, T7>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, IEnumerable<T7>>>>>>> In)
             {
             var Out = new List<Tuple<T1, T2, T3, T4, T5, T6, T7>>();
@@ -245,6 +281,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a multi-level Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2, T3, T4, T5, T6, T7, T8>> Flatten<T1, T2, T3, T4, T5, T6, T7, T8>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, Dictionary<T7, T8>>>>>>> In)
             {
             var Out = new List<Tuple<T1, T2, T3, T4, T5, T6, T7, T8>>();
@@ -276,6 +315,9 @@ namespace LCore.Extensions
 
             return Out;
             }
+        /// <summary>
+        /// Flatten a multi-level Dictionary into a List of Tuples
+        /// </summary>
         public static List<Tuple<T1, T2, T3, T4, T5, T6, T7, T8>> Flatten<T1, T2, T3, T4, T5, T6, T7, T8>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, Dictionary<T7, IEnumerable<T8>>>>>>>> In)
             {
             var Out = new List<Tuple<T1, T2, T3, T4, T5, T6, T7, T8>>();
