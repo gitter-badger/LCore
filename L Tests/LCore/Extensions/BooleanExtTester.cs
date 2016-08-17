@@ -24,8 +24,6 @@ namespace L_Tests.LCore.Extensions
 
         ~BooleanExtTester() {}
 
-        #region Trait
-
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." +
@@ -179,7 +177,6 @@ namespace L_Tests.LCore.Extensions
                 .ShouldFail();
             }
 
-        #endregion
 
         [Fact]
         [Trait(Traits.TargetMember,
@@ -2629,6 +2626,162 @@ namespace L_Tests.LCore.Extensions
             False.Else(Result)(_TestString, _TestString, _TestString, _TestString).ShouldBe(Compare: 10);
 
             L.A(() => False.Else(DontExecute)(_TestString, _TestString, _TestString, _TestString)).ShouldFail();
+            }
+
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.And) + "(IEnumerable<Func<Boolean>>) => Func<Boolean>")]
+        public void And_IEnumerable_Func_Boolean_Func_Boolean()
+            {
+            var True = new Func<bool>(() => true);
+            var False = new Func<bool>(() => false);
+            var Fail = new Func<bool>(() => { throw new Exception(); });
+
+
+            new[] {True, True, True, True}.And()().ShouldBeTrue();
+            new[] {True, True, True, null}.And()().ShouldBeFalse();
+            new[] {True, True, True, False}.And()().ShouldBeFalse();
+
+            ((Func<bool>[]) null).And()().ShouldBeFalse();
+            L.A(() => new[] {True, Fail, True, True}.And()()).ShouldFail();
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.And) + "(IEnumerable<Func<T1, Boolean>>) => Func<T1, Boolean>")]
+        public void And_IEnumerable_Func_T1_Boolean_Func_T1_Boolean()
+            {
+            var True = new Func<string, bool>(o =>
+                {
+                o.ShouldBe("abc");
+                return true;
+                });
+            var False = new Func<string, bool>(o =>
+                {
+                o.ShouldBe("abc");
+                return false;
+                });
+            var Fail = new Func<string, bool>(o =>
+                {
+                o.ShouldBe("abc");
+                throw new Exception();
+                });
+
+
+            new[] {True, True, True, True}.And()("abc").ShouldBeTrue();
+            new[] {True, True, True, null}.And()("abc").ShouldBeFalse();
+            new[] {True, True, True, False}.And()("abc").ShouldBeFalse();
+
+            ((Func<string, bool>[]) null).And()("abc").ShouldBeFalse();
+
+            L.A(() => new[] {True, Fail, True, True}.And()("abc")).ShouldFail();
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.And) + "(IEnumerable<Func<T1, T2, Boolean>>) => Func<T1, T2, Boolean>")]
+        public void And_IEnumerable_Func_T1_T2_Boolean_Func_T1_T2_Boolean()
+            {
+            var True = new Func<string, string, bool>((o1, o2) =>
+                {
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                return true;
+                });
+            var False = new Func<string, string, bool>((o1, o2) =>
+                {
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                return false;
+                });
+            var Fail = new Func<string, string, bool>((o1, o2) =>
+                {
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                throw new Exception();
+                });
+
+
+            new[] {True, True, True, True}.And()("abc", "abc").ShouldBeTrue();
+            new[] {True, True, True, null}.And()("abc", "abc").ShouldBeFalse();
+            new[] {True, True, True, False}.And()("abc", "abc").ShouldBeFalse();
+
+            ((Func<string, string, bool>[]) null).And()("abc", "abc").ShouldBeFalse();
+
+            L.A(() => new[] {True, Fail, True, True}.And()("abc", "abc")).ShouldFail();
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.And) + "(IEnumerable<Func<T1, T2, T3, Boolean>>) => Func<T1, T2, T3, Boolean>")]
+        public void And_IEnumerable_Func_T1_T2_T3_Boolean_Func_T1_T2_T3_Boolean()
+            {
+            var True = new Func<string, string, string, bool>((o1, o2, o3) =>
+                {
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                return true;
+                });
+            var False = new Func<string, string, string, bool>((o1, o2, o3) =>
+                {
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                return false;
+                });
+            var Fail = new Func<string, string, string, bool>((o1, o2, o3) =>
+                {
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                throw new Exception();
+                });
+
+
+            new[] {True, True, True, True}.And()("abc", "abc", "abc").ShouldBeTrue();
+            new[] {True, True, True, null}.And()("abc", "abc", "abc").ShouldBeFalse();
+            new[] {True, True, True, False}.And()("abc", "abc", "abc").ShouldBeFalse();
+
+            ((Func<string, string, string, bool>[]) null).And()("abc", "abc", "abc").ShouldBeFalse();
+
+            L.A(() => new[] {True, Fail, True, True}.And()("abc", "abc", "abc")).ShouldFail();
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.And) + "(IEnumerable<Func<T1, T2, T3, T4, Boolean>>) => Func<T1, T2, T3, T4, Boolean>")]
+        public void And_IEnumerable_Func_T1_T2_T3_T4_Boolean_Func_T1_T2_T3_T4_Boolean()
+            {
+            var True = new Func<string, string, string, string, bool>((o1, o2, o3, o4) =>
+                {
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                o4.ShouldBe("abc");
+                return true;
+                });
+            var False = new Func<string, string, string, string, bool>((o1, o2, o3, o4) =>
+                {
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                o4.ShouldBe("abc");
+                return false;
+                });
+            var Fail = new Func<string, string, string, string, bool>((o1, o2, o3, o4) =>
+                {
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                o4.ShouldBe("abc");
+                throw new Exception();
+                });
+
+
+            new[] {True, True, True, True}.And()("abc", "abc", "abc", "abc").ShouldBeTrue();
+            new[] {True, True, True, null}.And()("abc", "abc", "abc", "abc").ShouldBeFalse();
+            new[] {True, True, True, False}.And()("abc", "abc", "abc", "abc").ShouldBeFalse();
+
+            ((Func<string, string, string, string, bool>[]) null).And()("abc", "abc", "abc", "abc").ShouldBeFalse();
+
+            L.A(() => new[] {True, Fail, True, True}.And()("abc", "abc", "abc", "abc")).ShouldFail();
             }
         }
     }
