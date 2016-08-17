@@ -1,9 +1,13 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
+using FluentAssertions;
 using LCore.Extensions;
 using LCore.LUnit;
 using LCore.LUnit.Fluent;
+using LCore.Naming;
 using Xunit;
 using Xunit.Abstractions;
+// ReSharper disable ExpressionIsAlwaysNull
 
 namespace LUnit_Tests.LCore.LUnit.Fluent
     {
@@ -16,64 +20,64 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
 
         private readonly Action<object> _TestFail2 = o =>
             {
-            o.ShouldBe("abc");
-            throw new ArgumentException();
+                o.ShouldBe("abc");
+                throw new ArgumentException();
             };
 
         private readonly Action<object, object> _TestFail3 = (o1, o2) =>
             {
-            o1.ShouldBe("abc");
-            o2.ShouldBe("abc");
-            throw new ArgumentException();
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                throw new ArgumentException();
             };
 
         private readonly Action<object, object, object> _TestFail4 = (o1, o2, o3) =>
             {
-            o1.ShouldBe("abc");
-            o2.ShouldBe("abc");
-            o3.ShouldBe("abc");
-            throw new ArgumentException();
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                throw new ArgumentException();
             };
 
         private readonly Action<object, object, object, object> _TestFail5 = (o1, o2, o3, o4) =>
             {
-            o1.ShouldBe("abc");
-            o2.ShouldBe("abc");
-            o3.ShouldBe("abc");
-            o4.ShouldBe("abc");
-            throw new ArgumentException();
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                o4.ShouldBe("abc");
+                throw new ArgumentException();
             };
 
         private readonly Func<string> _TestFailFunc = () => { throw new ArgumentException(); };
 
         private readonly Func<object, string> _TestFailFunc2 = o =>
             {
-            o.ShouldBe("abc");
-            throw new ArgumentException();
+                o.ShouldBe("abc");
+                throw new ArgumentException();
             };
 
         private readonly Func<object, object, string> _TestFailFunc3 = (o1, o2) =>
             {
-            o1.ShouldBe("abc");
-            o2.ShouldBe("abc");
-            throw new ArgumentException();
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                throw new ArgumentException();
             };
 
         private readonly Func<object, object, object, string> _TestFailFunc4 = (o1, o2, o3) =>
             {
-            o1.ShouldBe("abc");
-            o2.ShouldBe("abc");
-            o3.ShouldBe("abc");
-            throw new ArgumentException();
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                throw new ArgumentException();
             };
 
         private readonly Func<object, object, object, object, string> _TestFailFunc5 = (o1, o2, o3, o4) =>
             {
-            o1.ShouldBe("abc");
-            o2.ShouldBe("abc");
-            o3.ShouldBe("abc");
-            o4.ShouldBe("abc");
-            throw new ArgumentException();
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                o4.ShouldBe("abc");
+                throw new ArgumentException();
             };
 
         private readonly Action _Test = () => { };
@@ -81,62 +85,62 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
 
         private readonly Action<object, object> _Test3 = (o1, o2) =>
             {
-            o1.ShouldBe("abc");
-            o2.ShouldBe("abc");
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
             };
 
         private readonly Action<object, object, object> _Test4 = (o1, o2, o3) =>
             {
-            o1.ShouldBe("abc");
-            o2.ShouldBe("abc");
-            o3.ShouldBe("abc");
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
             };
 
         private readonly Action<object, object, object, object> _Test5 = (o1, o2, o3, o4) =>
             {
-            o1.ShouldBe("abc");
-            o2.ShouldBe("abc");
-            o3.ShouldBe("abc");
-            o4.ShouldBe("abc");
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                o4.ShouldBe("abc");
             };
 
         private readonly Func<string> _TestFunc = () => "abc";
 
         private readonly Func<object, string> _TestFunc2 = o =>
             {
-            o.ShouldBe("abc");
-            return "abc";
+                o.ShouldBe("abc");
+                return "abc";
             };
 
         private readonly Func<object, object, string> _TestFunc3 = (o1, o2) =>
             {
-            o1.ShouldBe("abc");
-            o2.ShouldBe("abc");
-            return "abc";
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                return "abc";
             };
 
         private readonly Func<object, object, object, string> _TestFunc4 = (o1, o2, o3) =>
             {
-            o1.ShouldBe("abc");
-            o2.ShouldBe("abc");
-            o3.ShouldBe("abc");
-            return "abc";
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                return "abc";
             };
 
         private readonly Func<object, object, object, object, string> _TestFunc5 = (o1, o2, o3, o4) =>
             {
-            o1.ShouldBe("abc");
-            o2.ShouldBe("abc");
-            o3.ShouldBe("abc");
-            o4.ShouldBe("abc");
-            return "abc";
+                o1.ShouldBe("abc");
+                o2.ShouldBe("abc");
+                o3.ShouldBe("abc");
+                o4.ShouldBe("abc");
+                return "abc";
             };
 
         #endregion
 
-        public FluentExtTester(ITestOutputHelper Output) : base(Output) {}
+        public FluentExtTester(ITestOutputHelper Output) : base(Output) { }
 
-        public void Dispose() {}
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldSucceed) + "(MethodInfo, Object, Object[])")]
@@ -144,23 +148,23 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             {
             var Target = new Helper();
 
-            L.Ref.Method<Helper>(o => o.Test()).ShouldSucceed(Target, new object[] {});
-            L.Ref.Method<Helper>(o => o.Test("")).ShouldSucceed(Target, new object[] {""});
-            L.Ref.Method<Helper>(o => o.Test("", "")).ShouldSucceed(Target, new object[] {"", ""});
-            L.Ref.Method<Helper>(o => o.Test("", "", "")).ShouldSucceed(Target, new object[] {"", "", ""});
-            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).ShouldSucceed(Target, new object[] {"", "", "", ""});
+            L.Ref.Method<Helper>(o => o.Test()).ShouldSucceed(Target, new object[] { });
+            L.Ref.Method<Helper>(o => o.Test("")).ShouldSucceed(Target, new object[] { "" });
+            L.Ref.Method<Helper>(o => o.Test("", "")).ShouldSucceed(Target, new object[] { "", "" });
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).ShouldSucceed(Target, new object[] { "", "", "" });
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).ShouldSucceed(Target, new object[] { "", "", "", "" });
 
-            L.Ref.Method<Helper>(o => o.Test()).ShouldSucceed(Target, new object[] {}, o => true);
-            L.Ref.Method<Helper>(o => o.Test("")).ShouldSucceed(Target, new object[] {""}, o => true);
-            L.Ref.Method<Helper>(o => o.Test("", "")).ShouldSucceed(Target, new object[] {"", ""}, o => true);
-            L.Ref.Method<Helper>(o => o.Test("", "", "")).ShouldSucceed(Target, new object[] {"", "", ""}, o => true);
-            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).ShouldSucceed(Target, new object[] {"", "", "", ""}, o => true);
+            L.Ref.Method<Helper>(o => o.Test()).ShouldSucceed(Target, new object[] { }, o => true);
+            L.Ref.Method<Helper>(o => o.Test("")).ShouldSucceed(Target, new object[] { "" }, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "")).ShouldSucceed(Target, new object[] { "", "" }, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).ShouldSucceed(Target, new object[] { "", "", "" }, o => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).ShouldSucceed(Target, new object[] { "", "", "", "" }, o => true);
 
-            L.Ref.Method<Helper>(o => o.Test()).ShouldSucceed(Target, new object[] {}, () => true);
-            L.Ref.Method<Helper>(o => o.Test("")).ShouldSucceed(Target, new object[] {""}, () => true);
-            L.Ref.Method<Helper>(o => o.Test("", "")).ShouldSucceed(Target, new object[] {"", ""}, () => true);
-            L.Ref.Method<Helper>(o => o.Test("", "", "")).ShouldSucceed(Target, new object[] {"", "", ""}, () => true);
-            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).ShouldSucceed(Target, new object[] {"", "", "", ""}, () => true);
+            L.Ref.Method<Helper>(o => o.Test()).ShouldSucceed(Target, new object[] { }, () => true);
+            L.Ref.Method<Helper>(o => o.Test("")).ShouldSucceed(Target, new object[] { "" }, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "")).ShouldSucceed(Target, new object[] { "", "" }, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).ShouldSucceed(Target, new object[] { "", "", "" }, () => true);
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).ShouldSucceed(Target, new object[] { "", "", "", "" }, () => true);
             }
 
 
@@ -283,11 +287,11 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             {
             var Target = new Helper();
 
-            L.Ref.Method<Helper>(o => o.Test()).ShouldBe(Target, new object[] {}, ExpectedResult: 5);
-            L.Ref.Method<Helper>(o => o.Test("")).ShouldBe(Target, new object[] {""}, ExpectedResult: 5);
-            L.Ref.Method<Helper>(o => o.Test("", "")).ShouldBe(Target, new object[] {"", ""}, ExpectedResult: 5);
-            L.Ref.Method<Helper>(o => o.Test("", "", "")).ShouldBe(Target, new object[] {"", "", ""}, ExpectedResult: 5);
-            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).ShouldBe(Target, new object[] {"", "", "", ""}, ExpectedResult: 5);
+            L.Ref.Method<Helper>(o => o.Test()).ShouldBe(Target, new object[] { }, ExpectedResult: 5);
+            L.Ref.Method<Helper>(o => o.Test("")).ShouldBe(Target, new object[] { "" }, ExpectedResult: 5);
+            L.Ref.Method<Helper>(o => o.Test("", "")).ShouldBe(Target, new object[] { "", "" }, ExpectedResult: 5);
+            L.Ref.Method<Helper>(o => o.Test("", "", "")).ShouldBe(Target, new object[] { "", "", "" }, ExpectedResult: 5);
+            L.Ref.Method<Helper>(o => o.Test("", "", "", "")).ShouldBe(Target, new object[] { "", "", "", "" }, ExpectedResult: 5);
             }
 
         [Fact]
@@ -311,9 +315,135 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             L.A(() => this._TestFunc5.ShouldBe("abc", "abc", "abc", "abc", "abcd")).ShouldFail();
             }
 
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldSucceed) + "(MethodInfo, Object, Object[], Func[])")]
+        public void ShouldSucceed_MethodInfo_Object_Object_Func()
+            {
+            var Method = typeof(Helper).GetMethod(nameof(Helper.Test), new Type[] { });
+
+            var Test = new Helper();
+
+            Method.ShouldSucceed(Test, new object[] { });
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldFail) + "(MethodInfo, Object[], Object, Func[])")]
+        public void ShouldFail_MethodInfo_Object_Object_Func()
+            {
+            var Method = typeof(Helper).GetMethod(nameof(Helper.Fail));
+
+            var Test = new Helper();
+
+            Method.ShouldFail(new object[] { }, Test);
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldFail) + "(MethodInfo, Object[], Object, Type, Func[])")]
+        public void ShouldFail_MethodInfo_Object_Object_Type_Func()
+            {
+            var Method = typeof(Helper).GetMethod(nameof(Helper.Fail));
+
+            var Test = new Helper();
+
+            Method.ShouldFail(new object[] { }, Test, typeof(ArgumentException));
+
+            L.A(() => Method.ShouldFail(new object[] { }, Test, typeof(ArgumentNullException))).ShouldFail();
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBe) + "(MethodInfo, Object, Object[], U, Func[])")]
+        public void ShouldBe_MethodInfo_Object_Object_U_Func()
+            {
+            var Method = typeof(Helper).GetMethod(nameof(Helper.Test), new Type[] { });
+
+            var Test = new Helper();
+
+            Method.ShouldBe(Test, new object[] { }, ExpectedResult: 5);
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.HaveAttribute) + "(TypeAssertions, String, Object[]) => AndConstraint<TypeAssertions>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.HaveAttribute) + "(TypeAssertions, Boolean, String, Object[]) => AndConstraint<TypeAssertions>")]
+        public void HaveAttribute_TypeAssertions_String_Object_AndConstraint_TypeAssertions()
+            {
+            typeof(Helper).Should().HaveAttribute<FriendlyNameAttribute>(IncludeBaseTypes: true);
+            typeof(Helper).Should().HaveAttribute<FriendlyNameAttribute>(IncludeBaseTypes: false);
+            typeof(Helper2).Should().HaveAttribute<FriendlyNameAttribute>(IncludeBaseTypes: true);
+            L.A(() => typeof(Helper2).Should().HaveAttribute<FriendlyNameAttribute>(IncludeBaseTypes: false)).ShouldFail();
+
+            L.A(() => typeof(Helper).Should().HaveAttribute<ITestResultAttribute>()).ShouldFail();
+            L.A(() => typeof(Helper).Should().HaveAttribute<ITestResultAttribute>(IncludeBaseTypes: true)).ShouldFail();
+            L.A(() => typeof(Helper).Should().HaveAttribute<ITestResultAttribute>(IncludeBaseTypes: false)).ShouldFail();
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.NotHaveAttribute) + "(TypeAssertions, String, Object[]) => AndConstraint<TypeAssertions>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.NotHaveAttribute) + "(TypeAssertions, Boolean, String, Object[]) => AndConstraint<TypeAssertions>")]
+        public void NotHaveAttribute_TypeAssertions_String_Object_AndConstraint_TypeAssertions()
+            {
+            typeof(Helper).Should().NotHaveAttribute<ITestResultAttribute>();
+            typeof(Helper).Should().NotHaveAttribute<ITestResultAttribute>(IncludeBaseTypes: true);
+            typeof(Helper).Should().NotHaveAttribute<ITestResultAttribute>(IncludeBaseTypes: false);
+
+            L.A(() => typeof(Helper).Should().NotHaveAttribute<FriendlyNameAttribute>(IncludeBaseTypes: true)).ShouldFail();
+            L.A(() => typeof(Helper).Should().NotHaveAttribute<FriendlyNameAttribute>(IncludeBaseTypes: false)).ShouldFail();
+            L.A(() => typeof(Helper2).Should().NotHaveAttribute<FriendlyNameAttribute>(IncludeBaseTypes: true)).ShouldFail();
+            typeof(Helper2).Should().NotHaveAttribute<FriendlyNameAttribute>(IncludeBaseTypes: false);
+            }
+
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBeTrue) + "(Boolean, String, Object[]) => AndConstraint<BooleanAssertions>")]
+        public void ShouldBeTrue()
+            {
+            true.ShouldBeTrue();
+            L.A(() => false.ShouldBeTrue()).ShouldFail();
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBeFalse) + "(Boolean, String, Object[]) => AndConstraint<BooleanAssertions>")]
+        public void ShouldBeFalse()
+            {
+            false.ShouldBeFalse();
+            L.A(() => true.ShouldBeFalse()).ShouldFail();
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBeNull) + "(T, String, Object[]) => AndConstraint<ObjectAssertions>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBeNull) + "(Nullable<T>, String, Object[]) => AndConstraint<ObjectAssertions>")]
+        public void ShouldBeNull_T_String_Object_AndConstraint_ObjectAssertions()
+            {
+            string s = null;
+
+            s.ShouldBeNull();
+
+            L.A(() => "".ShouldBeNull()).ShouldFail();
+            }
+
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldNotBeNull) + "(T, String, Object[]) => AndConstraint<ObjectAssertions>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldNotBeNull) + "(Nullable<T>, String, Object[]) => AndConstraint<ObjectAssertions>")]
+        public void ShouldNotBeNull_Nullable_T_String_Object_AndConstraint_ObjectAssertions()
+            {
+            string s = "";
+
+            s.ShouldNotBeNull();
+
+            L.A(() => ((string)null).ShouldNotBeNull()).ShouldFail();
+            }
+
         #region Helpers
 
-        internal class Helper
+        public class Helper2 : Helper
+            {
+
+            }
+
+        [FriendlyName("")]
+        [ExcludeFromCodeCoverage]
+        public class Helper
             {
             public int Test()
                 {
@@ -338,6 +468,12 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             public int Test(string Str, string Str2, string Str3, string Str4)
                 {
                 return 5;
+                }
+
+
+            public int Fail()
+                {
+                throw new ArgumentException();
                 }
             }
 

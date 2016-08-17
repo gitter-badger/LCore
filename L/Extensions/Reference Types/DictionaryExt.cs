@@ -15,6 +15,66 @@ namespace LCore.Extensions
         {
         #region Extensions +
 
+        #region Flatten
+        // TODO: complete dictionary Flatten.
+        internal static List<Tuple<T1, T2>> Flatten<T1, T2>([CanBeNull]this Dictionary<T1, T2> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2>> Flatten<T1, T2>([CanBeNull]this Dictionary<T1, IEnumerable<T2>> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2, T3>> Flatten<T1, T2, T3>([CanBeNull]this Dictionary<T1, Dictionary<T2, T3>> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2, T3>> Flatten<T1, T2, T3>([CanBeNull]this Dictionary<T1, Dictionary<T2, IEnumerable<T3>>> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2, T3, T4>> Flatten<T1, T2, T3, T4>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, T4>>> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2, T3, T4>> Flatten<T1, T2, T3, T4>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, IEnumerable<T4>>>> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2, T3, T4, T5>> Flatten<T1, T2, T3, T4, T5>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, T5>>>> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2, T3, T4, T5>> Flatten<T1, T2, T3, T4, T5>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, IEnumerable<T5>>>>> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2, T3, T4, T5, T6>> Flatten<T1, T2, T3, T4, T5, T6>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, T6>>>>> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2, T3, T4, T5, T6>> Flatten<T1, T2, T3, T4, T5, T6>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, IEnumerable<T6>>>>>> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2, T3, T4, T5, T6, T7>> Flatten<T1, T2, T3, T4, T5, T6, T7>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, T7>>>>>> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2, T3, T4, T5, T6, T7>> Flatten<T1, T2, T3, T4, T5, T6, T7>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, IEnumerable<T7>>>>>>> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2, T3, T4, T5, T6, T7, T8>> Flatten<T1, T2, T3, T4, T5, T6, T7, T8>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, Dictionary<T7, T8>>>>>>> In)
+            {
+            return null;
+            }
+        internal static List<Tuple<T1, T2, T3, T4, T5, T6, T7, T8>> Flatten<T1, T2, T3, T4, T5, T6, T7, T8>([CanBeNull]this Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, Dictionary<T7, IEnumerable<T8>>>>>>>> In)
+            {
+            return null;
+            }
+        #endregion
+
         #region Flip
         /// <summary>
         /// Flips the Keys and Values in a Dictionary.
@@ -47,7 +107,7 @@ namespace LCore.Extensions
         /// To leave an item out, return a KeyValuePair with a null key.
         /// </summary>
 
-        
+
         public static void Merge<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]IDictionary<TKey, TValue> Add,
             [CanBeNull]Func<KeyValuePair<TKey, TValue>, KeyValuePair<TKey, TValue>> Conflict = null)
             {
@@ -79,7 +139,7 @@ namespace LCore.Extensions
         /// Safely adds one dictionary to another.
         /// If keys from <paramref name="Add" /> already exist in <paramref name="In" />, they will not be added
         /// </summary>
-        
+
         public static void AddRange<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]IDictionary<TKey, TValue> Add)
             {
             Add?.Keys.Each(o => { In.SafeAdd(o, Add[o]); });
@@ -92,7 +152,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns all values from a dictionary with IEnumerable values.
         /// </summary>
-        
+
         public static List<TValue> GetAllValues<TKey, TValue, TValueList>([CanBeNull]this Dictionary<TKey, TValueList> In)
             where TValueList : IEnumerable<TValue>
             {
@@ -117,7 +177,7 @@ namespace LCore.Extensions
         /// Safely adds an item to a dictionary.
         /// If the dictionary is null or the item exists already, nothing is added.
         /// </summary>
-        
+
         public static void SafeAdd<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]TKey Key, [CanBeNull]TValue Val)
             {
             if (In != null)
@@ -139,7 +199,7 @@ namespace LCore.Extensions
         /// If the item doesn't exist it is added.
         /// If it does exist it gets updated.
         /// </summary>
-        
+
         public static void SafeSet<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]TKey Key, [CanBeNull]TValue Val)
             {
             if (In != null && Key != null)
@@ -161,7 +221,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Safely gets an item from a dictionary if it exists.
         /// </summary>
-        
+
         [CanBeNull]
         public static TValue SafeGet<TKey, TValue>([CanBeNull]this IDictionary<TKey, TValue> In, [CanBeNull]TKey Key)
             {
@@ -197,8 +257,6 @@ namespace LCore.Extensions
                     }
                 }
             }
-
-        #endregion
 
         #endregion
 
@@ -451,6 +509,8 @@ namespace LCore.Extensions
 
             return Out;
             }
+        #endregion
+
         #endregion
         }
     }

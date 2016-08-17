@@ -80,7 +80,6 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <None Include="Generated\LUnitGenerated.cs" />
     <Compile Include="LCore\LUnit\Assert\AssertionExtTester.cs" />
     <Compile Include="LCore\LUnit\Fluent\FluentExtTester.cs" />
     <Compile Include="Tests\LUnitAssemblyTester.cs" />

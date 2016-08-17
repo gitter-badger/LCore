@@ -1996,9 +1996,11 @@ namespace LCore.Extensions
             /// <summary>
             /// Character indexer returns the character at index <paramref name="i" />
             /// </summary>
-            public static char Char(string Str, int i)
+            public static char Char([CanBeNull]string Str, int i)
                 {
-                return Str[i];
+                return Str.HasIndex(i)
+                    ? Str?[i] ?? default(char)
+                    : default(char);
                 }
 
             #endregion
@@ -2008,7 +2010,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Function that joins strings from an IEnumerable <paramref name="Line" />.
             /// </summary>
-            public static string JoinLines(IEnumerable<string> Line, string CombineStr)
+            public static string JoinLines([CanBeNull]IEnumerable<string> Line, [CanBeNull]string CombineStr)
                 {
                 return Line.Combine(CombineStr);
                 }
@@ -2026,8 +2028,15 @@ namespace LCore.Extensions
             ///    -2
             ///    -0.00000001
             /// </summary>
-            public static int CompareNumberString(string Compare1, string Compare2)
+            public static int CompareNumberString([CanBeNull]string Compare1, [CanBeNull]string Compare2)
                 {
+                if (Compare1 == null && Compare2 == null)
+                    return 0;
+                if (Compare2 == null)
+                    return 1;
+                if (Compare1 == null)
+                    return -1;
+
                 int DecimalIndex1 = Compare1.IndexOf(".");
                 int DecimalIndex2 = Compare2.IndexOf(".");
 
@@ -2230,9 +2239,9 @@ namespace LCore.Extensions
             /// <summary>
             /// Function that removes any of the supplied characters from a string.
             /// </summary>
-            public static string RemoveChars(string Str, char[] Chars)
+            public static string RemoveChars([CanBeNull]string Str, [CanBeNull] params char[] Chars)
                 {
-                return Str.CollectStr(F<char[], char, char, char>(Substitute).Supply(Chars).Supply2(Obj: ' ')).ReplaceAll("  ", " ").Trim();
+                return new string(Str.Select(Char => !Chars.Has(Char)).Array());
                 }
 
             #endregion
@@ -2242,7 +2251,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Function that replaces all double occurrences of a string with single occurrences.
             /// </summary>
-            public static string ReplaceDouble(string StrIn, char Char)
+            public static string ReplaceDouble([CanBeNull]string StrIn, char Char)
                 {
                 string Str = Char.ToString();
                 return StrIn.ReplaceAll(Str + Str, Str);
@@ -2265,7 +2274,7 @@ namespace LCore.Extensions
 
             #region Substitute
 
-            internal static char Substitute(char[] Chars, char Char, char Substitute) => Chars.Has(Char)
+            internal static char Substitute([CanBeNull]char[] Chars, char Char, char Substitute) => Chars.Has(Char)
                 ? Substitute
                 : Char;
 
@@ -2276,7 +2285,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Surrounds a string with <paramref name="Before" /> and <paramref name="After" />
             /// </summary>
-            public static string Surround(string In, string Before, string After)
+            public static string Surround([CanBeNull]string In, [CanBeNull]string Before, [CanBeNull] string After)
                 {
                 if (In.IsEmpty())
                     return "";
