@@ -23,7 +23,6 @@ namespace LCore.Tools
         protected List<string> MarkdownLines { get; } = new List<string>();
 
 
-        #region Public Methods
         /// <summary>
         /// Add a blank line:
         /// </summary>
@@ -191,68 +190,6 @@ namespace LCore.Tools
             }
 
         /// <summary>
-        /// Add a strikethrough line
-        /// 
-        /// ~Line~
-        /// 
-        /// </summary>
-        public void Strikethrough([CanBeNull] string Text)
-            {
-            if (!string.IsNullOrEmpty(Text))
-                this.Line($"~~{Text}~~");
-            }
-
-        /// <summary>
-        /// Add a highlight line
-        /// 
-        /// =Line=
-        /// 
-        /// </summary>
-        public void Highlight([CanBeNull] string Text)
-            {
-            if (!string.IsNullOrEmpty(Text))
-                this.Line($"=={Text}==");
-            }
-
-        /// <summary>
-        /// Add a link, all arguments are optional
-        /// 
-        /// (Url)
-        /// [Text]
-        /// [Text](Url)
-        /// [Text](Url)"Reference Text"
-        /// 
-        /// </summary>
-        public void Link([CanBeNull] string Url = "", [CanBeNull] string Text = "", [CanBeNull] string ReferenceText = "")
-            {
-            if (!string.IsNullOrEmpty(Url))
-                {
-                Url = $"({Url})";
-                if (!string.IsNullOrEmpty(ReferenceText))
-                    ReferenceText = $"[{ReferenceText}]";
-                }
-            if (!string.IsNullOrEmpty(ReferenceText))
-                ReferenceText = $" \"{ReferenceText}\"";
-
-            this.Line($"[{Text}]{Url}{ReferenceText}");
-            }
-
-        /// <summary>
-        /// Adds an image, optionally with Reference Text
-        /// 
-        /// !(Image Url)
-        /// ![Reference Text](Image Url)
-        /// 
-        /// </summary>
-        public void Image([CanBeNull] string Url, [CanBeNull] string ReferenceText = "")
-            {
-            if (!string.IsNullOrEmpty(ReferenceText))
-                ReferenceText = $"[{ReferenceText}]";
-
-            this.Line($"!{ReferenceText}({Url})");
-            }
-
-        /// <summary>
         /// Add a number of lines of code, optionally include a Language for 
         /// </summary>
         /// <param name="Lines"></param>
@@ -377,7 +314,107 @@ namespace LCore.Tools
                 this.MarkdownLines.Add(Line);
             }
 
-        #endregion
+
+
+        /// <summary>
+        /// Returns strikethrough line
+        /// 
+        /// ~Line~
+        /// 
+        /// </summary>
+        public string Strikethrough([CanBeNull] string Text)
+            {
+            return !string.IsNullOrEmpty(Text)
+                ? $"~~{Text}~~"
+                : "";
+            }
+
+        /// <summary>
+        /// Returns highlighted test
+        /// 
+        /// =Line=
+        /// 
+        /// </summary>
+        public string Highlight([CanBeNull] string Text)
+            {
+            return !string.IsNullOrEmpty(Text)
+                ? $"=={Text}=="
+                : "";
+            }
+
+        /// <summary>
+        /// Returns a link, all arguments are optional
+        /// 
+        /// (Url)
+        /// [Text]
+        /// [Text](Url)
+        /// [Text](Url)"Reference Text"
+        /// 
+        /// </summary>
+        public string Link([CanBeNull] string Url = "", [CanBeNull] string Text = "", [CanBeNull] string ReferenceText = "")
+            {
+            if (!string.IsNullOrEmpty(Url))
+                {
+                Url = $"({Url})";
+                if (!string.IsNullOrEmpty(ReferenceText))
+                    ReferenceText = $"[{ReferenceText}]";
+                }
+            if (!string.IsNullOrEmpty(ReferenceText))
+                ReferenceText = $" \"{ReferenceText}\"";
+
+            return $"[{Text}]{Url}{ReferenceText}";
+            }
+
+        /// <summary>
+        /// Returns an image link, optionally with Reference Text
+        /// 
+        /// !(Image Url)
+        /// ![Reference Text](Image Url)
+        /// 
+        /// </summary>
+        public string Image([CanBeNull] string Url, [CanBeNull] string ReferenceText = "")
+            {
+            if (!string.IsNullOrEmpty(ReferenceText))
+                ReferenceText = $"[{ReferenceText}]";
+
+            return $"!{ReferenceText}({Url})";
+            }
+
+        /// <summary>
+        /// Returns a string formatted as inline code
+        /// </summary>
+        public string InlineCode([CanBeNull] string Code = "")
+            {
+            return Code == null
+                ? ""
+                : $"`{Code}`";
+            }
+
+        /// <summary>
+        /// Returns a string formatted in italics
+        /// 
+        /// *Text*
+        /// 
+        /// </summary>
+        public string Italic([CanBeNull] string Text = "")
+            {
+            return Text == null
+                ? ""
+                : $"*{Text}*";
+            }
+
+        /// <summary>
+        /// Returns a string formatted as bold
+        /// 
+        /// **Text**
+        /// 
+        /// </summary>
+        public string Bold([CanBeNull] string Text = "")
+            {
+            return Text == null
+                ? ""
+                : $"**{Text}**";
+            }
         }
 
     internal class MarkdownGenerator
@@ -388,11 +425,15 @@ namespace LCore.Tools
 
         protected virtual GitHubMarkdown GenerateMarkdown(Assembly Assembly)
             {
+            // TODO generate Assembly markdown
+
             return null;
             }
 
         protected virtual GitHubMarkdown GenerateMarkdown(Type Type)
             {
+            // TODO generate Type markdown
+
             return null;
             }
 
@@ -466,9 +507,15 @@ namespace LCore.Tools
             }
 
         protected virtual string GeneratedMarkdownRoot => "/GeneratedMarkdown";
-        protected virtual string AssemblyMarkdownPath(Assembly Assembly) => $"{this.GeneratedMarkdownRoot}/{Assembly.GetName().Name}.md";
-        protected virtual string AssemblyMarkdownPath(Type Type) => $"{this.GeneratedMarkdownRoot}/{Type.GetAssembly()?.GetName().Name}/{Type.Name}.md";
-        protected virtual string AssemblyMarkdownPath(MemberInfo Member) => $"{this.GeneratedMarkdownRoot}/{Member.DeclaringType.GetAssembly()?.GetName().Name}/{Member.DeclaringType.Name}/{Member.Name}.md";
+
+        protected virtual string AssemblyMarkdownPath(Assembly Assembly) =>
+            $"{this.GeneratedMarkdownRoot}/{Assembly.GetName().Name}.md";
+
+        protected virtual string AssemblyMarkdownPath(Type Type) =>
+            $"{this.GeneratedMarkdownRoot}/{Type.GetAssembly()?.GetName().Name}/{Type.Name}.md";
+
+        protected virtual string AssemblyMarkdownPath(MemberInfo Member) =>
+            $"{this.GeneratedMarkdownRoot}/{Member.DeclaringType.GetAssembly()?.GetName().Name}/{Member.DeclaringType?.Name}/{Member.Name}.md";
 
         protected virtual bool IncludeType(Type Type) =>
             !Type.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) &&
