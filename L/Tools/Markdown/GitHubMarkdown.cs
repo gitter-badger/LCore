@@ -436,133 +436,7 @@ namespace LCore.Tools
                 ? ""
                 : $"**{Text}**";
             }
-        }
 
-    internal class MarkdownGenerator
-        {
-        protected Dictionary<Assembly, GitHubMarkdown> AssemblyMarkdown { get; } = new Dictionary<Assembly, GitHubMarkdown>();
-        protected Dictionary<Type, GitHubMarkdown> TypeMarkdown { get; } = new Dictionary<Type, GitHubMarkdown>();
-        protected Dictionary<MemberInfo, GitHubMarkdown> MemberMarkdown { get; } = new Dictionary<MemberInfo, GitHubMarkdown>();
-
-        protected virtual GitHubMarkdown GenerateMarkdown(Assembly Assembly)
-            {
-            // TODO generate Assembly markdown
-
-            return null;
-            }
-
-        protected virtual GitHubMarkdown GenerateMarkdown(Type Type)
-            {
-            // TODO generate Type markdown
-
-            return null;
-            }
-
-        protected virtual GitHubMarkdown GenerateMarkdown(MemberInfo Member)
-            {
-            var MD = new GitHubMarkdown();
-
-            MD.Header($"{Member.DeclaringType?.Name}", Size: 3);
-            MD.Header(Member.Name);
-
-            string PathToRoot = "../../..";
-
-            if (Member is MethodInfo)
-                {
-                var Method = (MethodInfo)Member;
-
-                var Comments = Method.GetComments();
-
-                string Static = Method.IsStatic
-                    ? "Static "
-                    : "Instance";
-
-                string ReturnType = Method.ReturnType == typeof(void)
-                    ? "void"
-                    : Method.ReturnType.FullyQualifiedName();
-
-                string Parameters = Method.GetParameters().Convert(Param =>
-                    $"{Param.ParameterType.GetGenericName()} {Param.Name}").Combine(", ");
-
-                MD.Header($"{Static}Method", Size: 4);
-
-                MD.Header($"public static {ReturnType} {Member.Name}({Parameters});", Size: 6);
-
-                MD.Header("Summary", Size: 6);
-                MD.Line(Comments?.Summary);
-
-                if (Method.GetParameters().Length > 0)
-                    {
-                    MD.Header("Parameters", Size: 6);
-
-                    var Table = new List<string[]>
-                        {
-                        new[] {"Parameter", "Optional", "Type", "Description"}
-                        };
-
-                    Method.GetParameters().Each((k, Param) =>
-                        {
-                            Table.Add(new[]
-                                {
-                                Param.Name,
-                                Param.IsOptional ? "Yes" : "No",
-                                Param.ParameterType.GetGenericName(),
-                                Comments?.Parameters[k].Obj2
-                                });
-                        });
-
-                    MD.Table(Table);
-                    }
-
-                MD.Header("Returns", Size: 4);
-
-                MD.Header(Method.ReturnType == typeof(void)
-                    ? "void"
-                    : Method.ReturnType.GetGenericName(), Size: 6);
-
-                MD.Line(Comments?.Returns);
-                }
-
-
-            return MD;
-            }
-
-        protected virtual string GeneratedMarkdownRoot => "/GeneratedMarkdown";
-
-        protected virtual string AssemblyMarkdownPath(Assembly Assembly) =>
-            $"{this.GeneratedMarkdownRoot}/{Assembly.GetName().Name}.md";
-
-        protected virtual string AssemblyMarkdownPath(Type Type) =>
-            $"{this.GeneratedMarkdownRoot}/{Type.GetAssembly()?.GetName().Name}/{Type.Name}.md";
-
-        protected virtual string AssemblyMarkdownPath(MemberInfo Member) =>
-            $"{this.GeneratedMarkdownRoot}/{Member.DeclaringType.GetAssembly()?.GetName().Name}/{Member.DeclaringType?.Name}/{Member.Name}.md";
-
-        protected virtual bool IncludeType(Type Type) =>
-            !Type.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) &&
-            !Type.HasAttribute<IExcludeFromMarkdownAttribute>();
-
-        protected virtual bool IncludeMember(MemberInfo Member) =>
-            !Member.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) &&
-            !Member.HasAttribute<IExcludeFromMarkdownAttribute>();
-
-        public void Load(Assembly Assembly)
-            {
-            this.AssemblyMarkdown.Add(Assembly, this.GenerateMarkdown(Assembly));
-
-            Assembly.GetExportedTypes().Select(this.IncludeType).Each(this.Load);
-            }
-
-        public void Load(Type Type)
-            {
-            this.TypeMarkdown.Add(Type, this.GenerateMarkdown(Type));
-
-            Type.GetMembers().Select(this.IncludeMember).Each(this.Load);
-            }
-
-        public void Load(MemberInfo Member)
-            {
-            this.MemberMarkdown.Add(Member, this.GenerateMarkdown(Member));
         /// <summary>
         /// Formats a glyphicon for display in a markdown document
         /// </summary>
@@ -571,4 +445,5 @@ namespace LCore.Tools
             return $"<span class=\"glyphicon glyphicon-{Glyph.ToString().ToLower().Trim('_').ReplaceAll("_", "-")}\"></span>";
             }
         }
+    
     }
