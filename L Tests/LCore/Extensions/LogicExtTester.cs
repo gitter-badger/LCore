@@ -454,7 +454,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test.Surround(Test2)();
-            Result.ShouldBe(Compare: 5);
+            Result.ShouldBe(Expected: 5);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => ((Action<int>)null).Surround(Test2)).ShouldFail();
@@ -477,7 +477,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test.Surround(Test2)(obj: 5);
-            Result.ShouldBe(Compare: 10);
+            Result.ShouldBe(Expected: 10);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => ((Action<int>)null).Surround(Test2)).ShouldFail();
@@ -500,7 +500,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 2, arg2: 2);
-            Result.ShouldBe(Compare: 9);
+            Result.ShouldBe(Expected: 9);
 
             L.A(() => Test.Surround((Func<int, int, int>)null)).ShouldFail();
             L.A(() => ((Action<int>)null).Surround(Test2)).ShouldFail();
@@ -523,7 +523,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 2, arg2: 2, arg3: 2);
-            Result.ShouldBe(Compare: 13);
+            Result.ShouldBe(Expected: 13);
 
             L.A(() => Test.Surround((Func<int, int, int, int>)null)).ShouldFail();
             L.A(() => ((Action<int>)null).Surround(Test2)).ShouldFail();
@@ -546,7 +546,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 2, arg2: 2, arg3: 2, arg4: 2);
-            Result.ShouldBe(Compare: 21);
+            Result.ShouldBe(Expected: 21);
 
             L.A(() => Test.Surround((Func<int, int, int, int, int>)null)).ShouldFail();
             L.A(() => ((Action<int>)null).Surround(Test2)).ShouldFail();
@@ -570,12 +570,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test.Surround(Test2)(obj: 5);
-            Result.ShouldBe(Compare: 10);
+            Result.ShouldBe(Expected: 10);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(obj: 8);
-            Result.ShouldBe(Compare: 13);
+            Result.ShouldBe(Expected: 13);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int>)null)).ShouldFail();
@@ -602,12 +602,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 1, arg2: 5);
-            Result.ShouldBe(Compare: 11);
+            Result.ShouldBe(Expected: 11);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 3, arg2: 8);
-            Result.ShouldBe(Compare: 16);
+            Result.ShouldBe(Expected: 16);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int>)null)).ShouldFail();
@@ -634,12 +634,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 1, arg2: 5, arg3: 6);
-            Result.ShouldBe(Compare: 36);
+            Result.ShouldBe(Expected: 36);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 3, arg2: 8, arg3: 10);
-            Result.ShouldBe(Compare: 88);
+            Result.ShouldBe(Expected: 88);
 
             L.A(() => Test.Surround((Func<int, int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int, int>)null)).ShouldFail();
@@ -666,12 +666,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 1, arg2: 5, arg3: 6, arg4: 8);
-            Result.ShouldBe(Compare: 246);
+            Result.ShouldBe(Expected: 246);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 3, arg2: 8, arg3: 10, arg4: 12);
-            Result.ShouldBe(Compare: 968);
+            Result.ShouldBe(Expected: 968);
 
             L.A(() => Test.Surround((Func<int, int, int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int, int, int>)null)).ShouldFail();
@@ -699,17 +699,17 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 5, arg2: 8);
-            Result.ShouldBe(Compare: 18);
+            Result.ShouldBe(Expected: 18);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 8, arg2: 10);
-            Result.ShouldBe(Compare: 23);
+            Result.ShouldBe(Expected: 23);
 
             // Reset 
             Result = 0;
             Test.Surround3(Test2)(arg1: 8, arg2: 10);
-            Result.ShouldBe(Compare: 23);
+            Result.ShouldBe(Expected: 23);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int>)null)).ShouldFail();
@@ -740,17 +740,17 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10);
-            Result.ShouldBe(Compare: 28);
+            Result.ShouldBe(Expected: 28);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12);
-            Result.ShouldBe(Compare: 35);
+            Result.ShouldBe(Expected: 35);
 
             // Reset 
             Result = 0;
             Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 13);
-            Result.ShouldBe(Compare: 36);
+            Result.ShouldBe(Expected: 36);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int>)null)).ShouldFail();
@@ -781,17 +781,17 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10, arg4: 14);
-            Result.ShouldBe(Compare: 158);
+            Result.ShouldBe(Expected: 158);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12, arg4: 14);
-            Result.ShouldBe(Compare: 191);
+            Result.ShouldBe(Expected: 191);
 
             // Reset 
             Result = 0;
             Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 13, arg4: 15);
-            Result.ShouldBe(Compare: 218);
+            Result.ShouldBe(Expected: 218);
 
             L.A(() => Test.Surround((Func<int, int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int, int>)null)).ShouldFail();
@@ -822,22 +822,22 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10);
-            Result.ShouldBe(Compare: 28);
+            Result.ShouldBe(Expected: 28);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12);
-            Result.ShouldBe(Compare: 35);
+            Result.ShouldBe(Expected: 35);
 
             // Reset 
             Result = 0;
             Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 14);
-            Result.ShouldBe(Compare: 37);
+            Result.ShouldBe(Expected: 37);
 
             // Reset 
             Result = 0;
             Test.Surround4(Test2)(arg1: 8, arg2: 10, arg3: 15);
-            Result.ShouldBe(Compare: 38);
+            Result.ShouldBe(Expected: 38);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int>)null)).ShouldFail();
@@ -872,22 +872,22 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10, arg4: 15);
-            Result.ShouldBe(Compare: 98);
+            Result.ShouldBe(Expected: 98);
 
             // Reset 
             Result = 0;
             Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12, arg4: 15);
-            Result.ShouldBe(Compare: 105);
+            Result.ShouldBe(Expected: 105);
 
             // Reset 
             Result = 0;
             Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 14, arg4: 15);
-            Result.ShouldBe(Compare: 107);
+            Result.ShouldBe(Expected: 107);
 
             // Reset 
             Result = 0;
             Test.Surround4(Test2)(arg1: 8, arg2: 10, arg3: 15, arg4: 15);
-            Result.ShouldBe(Compare: 108);
+            Result.ShouldBe(Expected: 108);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int>)null)).ShouldFail();
@@ -920,7 +920,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test.Surround(Test2)().ShouldBe(Compare: 5);
+            Test.Surround(Test2)().ShouldBe(Expected: 5);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Surround(Test2)).ShouldFail();
@@ -940,7 +940,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg: 5).ShouldBe(Compare: 10);
+            Test.Surround(Test2)(arg: 5).ShouldBe(Expected: 10);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Surround(Test2)).ShouldFail();
@@ -960,7 +960,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Action<int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 2, arg2: 2).ShouldBe(Compare: 9);
+            Test.Surround(Test2)(arg1: 2, arg2: 2).ShouldBe(Expected: 9);
 
             L.A(() => Test.Surround((Func<int, int, int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Surround(Test2)).ShouldFail();
@@ -980,7 +980,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 2, arg2: 2, arg3: 2).ShouldBe(Compare: 13);
+            Test.Surround(Test2)(arg1: 2, arg2: 2, arg3: 2).ShouldBe(Expected: 13);
 
             L.A(() => Test.Surround((Func<int, int, int, int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Surround(Test2)).ShouldFail();
@@ -1000,7 +1000,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 2, arg2: 2, arg3: 2, arg4: 2).ShouldBe(Compare: 21);
+            Test.Surround(Test2)(arg1: 2, arg2: 2, arg3: 2, arg4: 2).ShouldBe(Expected: 21);
 
             L.A(() => Test.Surround((Func<int, int, int, int, int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Surround(Test2)).ShouldFail();
@@ -1021,9 +1021,9 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg: 5).ShouldBe(Compare: 10);
+            Test.Surround(Test2)(arg: 5).ShouldBe(Expected: 10);
 
-            Test.Surround2(Test2)(arg: 8).ShouldBe(Compare: 13);
+            Test.Surround2(Test2)(arg: 8).ShouldBe(Expected: 13);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int>)null)).ShouldFail();
@@ -1047,10 +1047,10 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 1, arg2: 5).ShouldBe(Compare: 11);
+            Test.Surround(Test2)(arg1: 1, arg2: 5).ShouldBe(Expected: 11);
 
             // Reset 
-            Test.Surround2(Test2)(arg1: 3, arg2: 8).ShouldBe(Compare: 16);
+            Test.Surround2(Test2)(arg1: 3, arg2: 8).ShouldBe(Expected: 16);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int>)null)).ShouldFail();
@@ -1074,9 +1074,9 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 1, arg2: 5, arg3: 6).ShouldBe(Compare: 36);
+            Test.Surround(Test2)(arg1: 1, arg2: 5, arg3: 6).ShouldBe(Expected: 36);
 
-            Test.Surround2(Test2)(arg1: 3, arg2: 8, arg3: 10).ShouldBe(Compare: 88);
+            Test.Surround2(Test2)(arg1: 3, arg2: 8, arg3: 10).ShouldBe(Expected: 88);
 
             L.A(() => Test.Surround((Func<int, int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int, int>)null)).ShouldFail();
@@ -1100,9 +1100,9 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 1, arg2: 5, arg3: 6, arg4: 8).ShouldBe(Compare: 246);
+            Test.Surround(Test2)(arg1: 1, arg2: 5, arg3: 6, arg4: 8).ShouldBe(Expected: 246);
 
-            Test.Surround2(Test2)(arg1: 3, arg2: 8, arg3: 10, arg4: 12).ShouldBe(Compare: 968);
+            Test.Surround2(Test2)(arg1: 3, arg2: 8, arg3: 10, arg4: 12).ShouldBe(Expected: 968);
 
             L.A(() => Test.Surround((Func<int, int, int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int, int, int>)null)).ShouldFail();
@@ -1127,12 +1127,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 5, arg2: 8).ShouldBe(Compare: 18);
+            Test.Surround(Test2)(arg1: 5, arg2: 8).ShouldBe(Expected: 18);
 
-            Test.Surround2(Test2)(arg1: 8, arg2: 10).ShouldBe(Compare: 23);
+            Test.Surround2(Test2)(arg1: 8, arg2: 10).ShouldBe(Expected: 23);
 
             // Reset 
-            Test.Surround3(Test2)(arg1: 8, arg2: 10).ShouldBe(Compare: 23);
+            Test.Surround3(Test2)(arg1: 8, arg2: 10).ShouldBe(Expected: 23);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int>)null)).ShouldFail();
@@ -1160,11 +1160,11 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10).ShouldBe(Compare: 28);
+            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10).ShouldBe(Expected: 28);
 
-            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12).ShouldBe(Compare: 35);
+            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12).ShouldBe(Expected: 35);
 
-            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 13).ShouldBe(Compare: 36);
+            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 13).ShouldBe(Expected: 36);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int>)null)).ShouldFail();
@@ -1192,11 +1192,11 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10, arg4: 14).ShouldBe(Compare: 158);
+            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10, arg4: 14).ShouldBe(Expected: 158);
 
-            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12, arg4: 14).ShouldBe(Compare: 191);
+            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12, arg4: 14).ShouldBe(Expected: 191);
 
-            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 13, arg4: 15).ShouldBe(Compare: 218);
+            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 13, arg4: 15).ShouldBe(Expected: 218);
 
             L.A(() => Test.Surround((Func<int, int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int, int>)null)).ShouldFail();
@@ -1225,13 +1225,13 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10).ShouldBe(Compare: 28);
+            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10).ShouldBe(Expected: 28);
 
-            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12).ShouldBe(Compare: 35);
+            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12).ShouldBe(Expected: 35);
 
-            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 14).ShouldBe(Compare: 37);
+            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 14).ShouldBe(Expected: 37);
 
-            Test.Surround4(Test2)(arg1: 8, arg2: 10, arg3: 15).ShouldBe(Compare: 38);
+            Test.Surround4(Test2)(arg1: 8, arg2: 10, arg3: 15).ShouldBe(Expected: 38);
 
             L.A(() => Test.Surround((Func<int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int>)null)).ShouldFail();
@@ -1263,13 +1263,13 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10, arg4: 15).ShouldBe(Compare: 98);
+            Test.Surround(Test2)(arg1: 5, arg2: 8, arg3: 10, arg4: 15).ShouldBe(Expected: 98);
 
-            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12, arg4: 15).ShouldBe(Compare: 105);
+            Test.Surround2(Test2)(arg1: 8, arg2: 10, arg3: 12, arg4: 15).ShouldBe(Expected: 105);
 
-            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 14, arg4: 15).ShouldBe(Compare: 107);
+            Test.Surround3(Test2)(arg1: 8, arg2: 10, arg3: 14, arg4: 15).ShouldBe(Expected: 107);
 
-            Test.Surround4(Test2)(arg1: 8, arg2: 10, arg3: 15, arg4: 15).ShouldBe(Compare: 108);
+            Test.Surround4(Test2)(arg1: 8, arg2: 10, arg3: 15, arg4: 15).ShouldBe(Expected: 108);
 
             L.A(() => Test.Surround((Func<int, int>)null)).ShouldFail();
             L.A(() => Test.Surround2((Func<int, int>)null)).ShouldFail();
@@ -1488,7 +1488,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test2.Enclose(Test)();
-            Result.ShouldBe(Compare: 5);
+            Result.ShouldBe(Expected: 5);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Action<int>)null)).ShouldFail();
@@ -1511,7 +1511,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test2.Enclose(Test)(obj: 5);
-            Result.ShouldBe(Compare: 10);
+            Result.ShouldBe(Expected: 10);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Action<int>)null)).ShouldFail();
@@ -1534,7 +1534,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 2, arg2: 2);
-            Result.ShouldBe(Compare: 9);
+            Result.ShouldBe(Expected: 9);
 
             L.A(() => ((Func<int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Action<int>)null)).ShouldFail();
@@ -1557,7 +1557,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 2, arg2: 2, arg3: 2);
-            Result.ShouldBe(Compare: 13);
+            Result.ShouldBe(Expected: 13);
 
             L.A(() => ((Func<int, int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Action<int>)null)).ShouldFail();
@@ -1580,7 +1580,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 2, arg2: 2, arg3: 2, arg4: 2);
-            Result.ShouldBe(Compare: 21);
+            Result.ShouldBe(Expected: 21);
 
             L.A(() => ((Func<int, int, int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Action<int>)null)).ShouldFail();
@@ -1604,12 +1604,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test2.Enclose(Test)(obj: 5);
-            Result.ShouldBe(Compare: 10);
+            Result.ShouldBe(Expected: 10);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(obj: 8);
-            Result.ShouldBe(Compare: 13);
+            Result.ShouldBe(Expected: 13);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
@@ -1636,12 +1636,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 1, arg2: 5);
-            Result.ShouldBe(Compare: 11);
+            Result.ShouldBe(Expected: 11);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 3, arg2: 8);
-            Result.ShouldBe(Compare: 16);
+            Result.ShouldBe(Expected: 16);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();
@@ -1668,12 +1668,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 1, arg2: 5, arg3: 6);
-            Result.ShouldBe(Compare: 36);
+            Result.ShouldBe(Expected: 36);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10);
-            Result.ShouldBe(Compare: 88);
+            Result.ShouldBe(Expected: 88);
 
             L.A(() => ((Func<int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int, int>)null).Enclose2(Test)).ShouldFail();
@@ -1700,12 +1700,12 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 1, arg2: 5, arg3: 6, arg4: 8);
-            Result.ShouldBe(Compare: 246);
+            Result.ShouldBe(Expected: 246);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10, arg4: 12);
-            Result.ShouldBe(Compare: 968);
+            Result.ShouldBe(Expected: 968);
 
             L.A(() => ((Func<int, int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int, int, int>)null).Enclose2(Test)).ShouldFail();
@@ -1733,17 +1733,17 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 5, arg2: 8);
-            Result.ShouldBe(Compare: 18);
+            Result.ShouldBe(Expected: 18);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 8, arg2: 10);
-            Result.ShouldBe(Compare: 23);
+            Result.ShouldBe(Expected: 23);
 
             // Reset 
             Result = 0;
             Test2.Enclose3(Test)(arg1: 8, arg2: 10);
-            Result.ShouldBe(Compare: 23);
+            Result.ShouldBe(Expected: 23);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
@@ -1774,17 +1774,17 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10);
-            Result.ShouldBe(Compare: 28);
+            Result.ShouldBe(Expected: 28);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12);
-            Result.ShouldBe(Compare: 35);
+            Result.ShouldBe(Expected: 35);
 
             // Reset 
             Result = 0;
             Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 13);
-            Result.ShouldBe(Compare: 36);
+            Result.ShouldBe(Expected: 36);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();
@@ -1815,17 +1815,17 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10, arg4: 14);
-            Result.ShouldBe(Compare: 158);
+            Result.ShouldBe(Expected: 158);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12, arg4: 14);
-            Result.ShouldBe(Compare: 191);
+            Result.ShouldBe(Expected: 191);
 
             // Reset 
             Result = 0;
             Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 13, arg4: 15);
-            Result.ShouldBe(Compare: 218);
+            Result.ShouldBe(Expected: 218);
 
             L.A(() => ((Func<int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int, int>)null).Enclose2(Test)).ShouldFail();
@@ -1856,22 +1856,22 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10);
-            Result.ShouldBe(Compare: 28);
+            Result.ShouldBe(Expected: 28);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12);
-            Result.ShouldBe(Compare: 35);
+            Result.ShouldBe(Expected: 35);
 
             // Reset 
             Result = 0;
             Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 14);
-            Result.ShouldBe(Compare: 37);
+            Result.ShouldBe(Expected: 37);
 
             // Reset 
             Result = 0;
             Test2.Enclose4(Test)(arg1: 8, arg2: 10, arg3: 15);
-            Result.ShouldBe(Compare: 38);
+            Result.ShouldBe(Expected: 38);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
@@ -1906,22 +1906,22 @@ namespace L_Tests.LCore.Extensions
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
             Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10, arg4: 15);
-            Result.ShouldBe(Compare: 98);
+            Result.ShouldBe(Expected: 98);
 
             // Reset 
             Result = 0;
             Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12, arg4: 15);
-            Result.ShouldBe(Compare: 105);
+            Result.ShouldBe(Expected: 105);
 
             // Reset 
             Result = 0;
             Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 14, arg4: 15);
-            Result.ShouldBe(Compare: 107);
+            Result.ShouldBe(Expected: 107);
 
             // Reset 
             Result = 0;
             Test2.Enclose4(Test)(arg1: 8, arg2: 10, arg3: 15, arg4: 15);
-            Result.ShouldBe(Compare: 108);
+            Result.ShouldBe(Expected: 108);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();
@@ -1954,7 +1954,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test2.Enclose(Test)().ShouldBe(Compare: 5);
+            Test2.Enclose(Test)().ShouldBe(Expected: 5);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Func<int, int>)null)).ShouldFail();
@@ -1974,7 +1974,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test.Enclose(Test2)(arg: 5).ShouldBe(Compare: 10);
+            Test.Enclose(Test2)(arg: 5).ShouldBe(Expected: 10);
 
             L.A(() => Test.Enclose((Func<int, int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose(Test2)).ShouldFail();
@@ -1994,7 +1994,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Action<int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 2, arg2: 2).ShouldBe(Compare: 9);
+            Test2.Enclose(Test)(arg1: 2, arg2: 2).ShouldBe(Expected: 9);
 
             L.A(() => Test.Enclose((Func<int, int, int>)null)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose(Test2)).ShouldFail();
@@ -2014,7 +2014,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 2, arg2: 2, arg3: 2).ShouldBe(Compare: 13);
+            Test2.Enclose(Test)(arg1: 2, arg2: 2, arg3: 2).ShouldBe(Expected: 13);
 
             L.A(() => ((Func<int, int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Func<int, int>)null)).ShouldFail();
@@ -2034,7 +2034,7 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int>(i => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 2, arg2: 2, arg3: 2, arg4: 2).ShouldBe(Compare: 21);
+            Test2.Enclose(Test)(arg1: 2, arg2: 2, arg3: 2, arg4: 2).ShouldBe(Expected: 21);
 
             L.A(() => ((Func<int, int, int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => Test2.Enclose((Func<int, int>)null)).ShouldFail();
@@ -2055,9 +2055,9 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg: 5).ShouldBe(Compare: 10);
+            Test2.Enclose(Test)(arg: 5).ShouldBe(Expected: 10);
 
-            Test2.Enclose2(Test)(arg: 8).ShouldBe(Compare: 13);
+            Test2.Enclose2(Test)(arg: 8).ShouldBe(Expected: 13);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
@@ -2081,10 +2081,10 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 1, arg2: 5).ShouldBe(Compare: 11);
+            Test2.Enclose(Test)(arg1: 1, arg2: 5).ShouldBe(Expected: 11);
 
             // Reset 
-            Test2.Enclose2(Test)(arg1: 3, arg2: 8).ShouldBe(Compare: 16);
+            Test2.Enclose2(Test)(arg1: 3, arg2: 8).ShouldBe(Expected: 16);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();
@@ -2108,9 +2108,9 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 1, arg2: 5, arg3: 6).ShouldBe(Compare: 36);
+            Test2.Enclose(Test)(arg1: 1, arg2: 5, arg3: 6).ShouldBe(Expected: 36);
 
-            Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10).ShouldBe(Compare: 88);
+            Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10).ShouldBe(Expected: 88);
 
             L.A(() => Test.Enclose((Func<int, int, int>)null)).ShouldFail();
             L.A(() => Test.Enclose2((Func<int, int, int>)null)).ShouldFail();
@@ -2134,9 +2134,9 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 1, arg2: 5, arg3: 6, arg4: 8).ShouldBe(Compare: 246);
+            Test2.Enclose(Test)(arg1: 1, arg2: 5, arg3: 6, arg4: 8).ShouldBe(Expected: 246);
 
-            Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10, arg4: 12).ShouldBe(Compare: 968);
+            Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10, arg4: 12).ShouldBe(Expected: 968);
 
             L.A(() => Test.Enclose((Func<int, int, int, int>)null)).ShouldFail();
             L.A(() => Test.Enclose2((Func<int, int, int, int>)null)).ShouldFail();
@@ -2161,11 +2161,11 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 5, arg2: 8).ShouldBe(Compare: 18);
+            Test2.Enclose(Test)(arg1: 5, arg2: 8).ShouldBe(Expected: 18);
 
-            Test2.Enclose2(Test)(arg1: 8, arg2: 10).ShouldBe(Compare: 23);
+            Test2.Enclose2(Test)(arg1: 8, arg2: 10).ShouldBe(Expected: 23);
 
-            Test2.Enclose3(Test)(arg1: 8, arg2: 10).ShouldBe(Compare: 23);
+            Test2.Enclose3(Test)(arg1: 8, arg2: 10).ShouldBe(Expected: 23);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
@@ -2193,11 +2193,11 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10).ShouldBe(Compare: 28);
+            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10).ShouldBe(Expected: 28);
 
-            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12).ShouldBe(Compare: 35);
+            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12).ShouldBe(Expected: 35);
 
-            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 13).ShouldBe(Compare: 36);
+            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 13).ShouldBe(Expected: 36);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();
@@ -2225,11 +2225,11 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int, int>((i1, i2, i3) => { throw new Exception(); });
             var BadTest2 = new Func<int, int, int>((i1, i2) => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10, arg4: 14).ShouldBe(Compare: 158);
+            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10, arg4: 14).ShouldBe(Expected: 158);
 
-            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12, arg4: 14).ShouldBe(Compare: 191);
+            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12, arg4: 14).ShouldBe(Expected: 191);
 
-            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 13, arg4: 15).ShouldBe(Compare: 218);
+            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 13, arg4: 15).ShouldBe(Expected: 218);
 
             L.A(() => ((Func<int, int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int, int>)null).Enclose2(Test)).ShouldFail();
@@ -2258,13 +2258,13 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
             var BadTest2 = new Func<int>(() => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10).ShouldBe(Compare: 28);
+            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10).ShouldBe(Expected: 28);
 
-            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12).ShouldBe(Compare: 35);
+            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12).ShouldBe(Expected: 35);
 
-            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 14).ShouldBe(Compare: 37);
+            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 14).ShouldBe(Expected: 37);
 
-            Test2.Enclose4(Test)(arg1: 8, arg2: 10, arg3: 15).ShouldBe(Compare: 38);
+            Test2.Enclose4(Test)(arg1: 8, arg2: 10, arg3: 15).ShouldBe(Expected: 38);
 
             L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
@@ -2296,13 +2296,13 @@ namespace L_Tests.LCore.Extensions
             var BadTest = new Func<int, int, int, int, int>((i1, i2, i3, i4) => { throw new Exception(); });
             var BadTest2 = new Func<int, int>(i => { throw new Exception(); });
 
-            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10, arg4: 15).ShouldBe(Compare: 98);
+            Test2.Enclose(Test)(arg1: 5, arg2: 8, arg3: 10, arg4: 15).ShouldBe(Expected: 98);
 
-            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12, arg4: 15).ShouldBe(Compare: 105);
+            Test2.Enclose2(Test)(arg1: 8, arg2: 10, arg3: 12, arg4: 15).ShouldBe(Expected: 105);
 
-            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 14, arg4: 15).ShouldBe(Compare: 107);
+            Test2.Enclose3(Test)(arg1: 8, arg2: 10, arg3: 14, arg4: 15).ShouldBe(Expected: 107);
 
-            Test2.Enclose4(Test)(arg1: 8, arg2: 10, arg3: 15, arg4: 15).ShouldBe(Compare: 108);
+            Test2.Enclose4(Test)(arg1: 8, arg2: 10, arg3: 15, arg4: 15).ShouldBe(Expected: 108);
 
             L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
             L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();

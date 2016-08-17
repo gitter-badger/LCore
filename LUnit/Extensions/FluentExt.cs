@@ -563,16 +563,16 @@ namespace LCore.LUnit.Fluent
         /// Asserts that the value is null.
         /// </summary>
         /// <param name="Value"></param>
-        /// <param name="Compare"></param>
+        /// <param name="Expected"></param>
         /// <param name="Because">A formatted phrase as is supported by System.String.Format(System.String,System.Object[])
         ///     explaining why the assertion is needed. If the phrase does not start with the
         ///     word because, it is prepended automatically.</param>
         /// <param name="BecauseArgs">Zero or more objects to format using the placeholders in because.</param>
         /// <returns></returns>
-        public static AndConstraint<ObjectAssertions> ShouldBe<T>([CanBeNull] this T Value, [CanBeNull] T Compare, [CanBeNull] string Because = "",
+        public static AndConstraint<ObjectAssertions> ShouldBe<T>([CanBeNull] this T Value, [CanBeNull] T Expected, [CanBeNull] string Because = "",
             [CanBeNull] params object[] BecauseArgs)
             {
-            return Value.Should().Be(Compare, Because, BecauseArgs);
+            return Value.Should().Be(Expected, Because, BecauseArgs);
             }
 
         #endregion

@@ -44,14 +44,14 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void TestDayOfWeek()
             {
-            L.Date.GetDayNumber(DayOfWeek.Sunday).ShouldBe(Compare: 0);
-            L.Date.GetDayNumber(DayOfWeek.Monday).ShouldBe(Compare: 1);
-            L.Date.GetDayNumber(DayOfWeek.Tuesday).ShouldBe(Compare: 2);
-            L.Date.GetDayNumber(DayOfWeek.Wednesday).ShouldBe(Compare: 3);
-            L.Date.GetDayNumber(DayOfWeek.Thursday).ShouldBe(Compare: 4);
-            L.Date.GetDayNumber(DayOfWeek.Friday).ShouldBe(Compare: 5);
-            L.Date.GetDayNumber(DayOfWeek.Saturday).ShouldBe(Compare: 6);
-            L.Date.GetDayNumber(default(DayOfWeek)).ShouldBe(Compare: 0);
+            L.Date.GetDayNumber(DayOfWeek.Sunday).ShouldBe(Expected: 0);
+            L.Date.GetDayNumber(DayOfWeek.Monday).ShouldBe(Expected: 1);
+            L.Date.GetDayNumber(DayOfWeek.Tuesday).ShouldBe(Expected: 2);
+            L.Date.GetDayNumber(DayOfWeek.Wednesday).ShouldBe(Expected: 3);
+            L.Date.GetDayNumber(DayOfWeek.Thursday).ShouldBe(Expected: 4);
+            L.Date.GetDayNumber(DayOfWeek.Friday).ShouldBe(Expected: 5);
+            L.Date.GetDayNumber(DayOfWeek.Saturday).ShouldBe(Expected: 6);
+            L.Date.GetDayNumber(default(DayOfWeek)).ShouldBe(Expected: 0);
             }
         }
     }

@@ -80,7 +80,7 @@ namespace L_Tests.LCore.Threads
                     await Pool.Delay(L.Obj.NewRandom<int>(MinWait, MaxWait));
                     Task2Waited++;
                     }
-                Handoff.ShouldBe(Compare: 1);
+                Handoff.ShouldBe(Expected: 1);
                 Handoff++;
                 });
             var Task3 = new Task(async () =>
@@ -90,7 +90,7 @@ namespace L_Tests.LCore.Threads
                     await Pool.Delay(L.Obj.NewRandom<uint>((uint) MinWait, (uint) MaxWait));
                     Task3Waited++;
                     }
-                Handoff.ShouldBe(Compare: 2);
+                Handoff.ShouldBe(Expected: 2);
                 Handoff++;
                 });
             var Task4 = new Task(async () =>
@@ -100,7 +100,7 @@ namespace L_Tests.LCore.Threads
                     await Pool.Delay(TimeSpan.FromMilliseconds(L.Obj.NewRandom<int>(MinWait, MaxWait)));
                     Task4Waited++;
                     }
-                Handoff.ShouldBe(Compare: 3);
+                Handoff.ShouldBe(Expected: 3);
                 });
 
             Task1.Start();
@@ -164,7 +164,7 @@ namespace L_Tests.LCore.Threads
                     while (Handoff%3 != 0)
                         await Pool.Delay(SmallDelay);
 
-                    (Handoff%3).ShouldBe(Compare: 0);
+                    (Handoff%3).ShouldBe(Expected: 0);
                     Handoff++;
                     History.Add("Task2");
                     }
@@ -176,7 +176,7 @@ namespace L_Tests.LCore.Threads
                     while (Handoff%3 != 1)
                         await Pool.Delay(SmallDelay);
 
-                    (Handoff%3).ShouldBe(Compare: 1);
+                    (Handoff%3).ShouldBe(Expected: 1);
                     Handoff++;
                     History.Add("Task3");
                     }
@@ -188,7 +188,7 @@ namespace L_Tests.LCore.Threads
                     while (Handoff%3 != 2)
                         await Pool.Delay(SmallDelay);
 
-                    (Handoff%3).ShouldBe(Compare: 2);
+                    (Handoff%3).ShouldBe(Expected: 2);
                     Handoff++;
                     History.Add("Task4");
                     }

@@ -36,7 +36,7 @@ namespace L_Tests.LCore.Extensions
                     return Result;
                 });
 
-            Result.ShouldBe(Compare: 11);
+            Result.ShouldBe(Expected: 11);
 
             // ReSharper disable ArgumentsStyleLiteral
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 });
@@ -53,7 +53,7 @@ namespace L_Tests.LCore.Extensions
 
             Result2 = Begin.To(Begin, Test2);
 
-            Result.ShouldBe(Compare: 1);
+            Result.ShouldBe(Expected: 1);
             // ReSharper disable once ArgumentsStyleLiteral
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1 });
 
@@ -62,7 +62,7 @@ namespace L_Tests.LCore.Extensions
 
             Result2 = Begin.To(Begin + 1, Test2);
 
-            Result.ShouldBe(Compare: 2);
+            Result.ShouldBe(Expected: 2);
             // ReSharper disable ArgumentsStyleLiteral
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1, 2 });
             // ReSharper restore ArgumentsStyleLiteral
@@ -87,7 +87,7 @@ namespace L_Tests.LCore.Extensions
                     return Result;
                 });
 
-            Result.ShouldBe(Compare: 11);
+            Result.ShouldBe(Expected: 11);
 
             // ReSharper disable ArgumentsStyleLiteral
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 });
@@ -106,7 +106,7 @@ namespace L_Tests.LCore.Extensions
 
             Result2 = Begin.To(Begin, Test2);
 
-            Result.ShouldBe(Compare: 1);
+            Result.ShouldBe(Expected: 1);
             // ReSharper disable once ArgumentsStyleLiteral
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1 });
 
@@ -115,7 +115,7 @@ namespace L_Tests.LCore.Extensions
 
             Result2 = Begin.To(Begin + 1, Test2);
 
-            Result.ShouldBe(Compare: 2);
+            Result.ShouldBe(Expected: 2);
             // ReSharper disable ArgumentsStyleLiteral
             Result2.ShouldAllBeEquivalentTo(new List<int> { 1, 2 });
             // ReSharper restore ArgumentsStyleLiteral

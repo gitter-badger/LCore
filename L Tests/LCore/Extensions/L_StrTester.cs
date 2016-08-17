@@ -23,9 +23,9 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         public void CharConstants()
             {
-            L.Char.LowerCaseChars.Length.ShouldBe(Compare: 26);
-            L.Char.UpperCaseChars.Length.ShouldBe(Compare: 26);
-            L.Char.NumberChars.Length.ShouldBe(Compare: 10);
+            L.Char.LowerCaseChars.Length.ShouldBe(Expected: 26);
+            L.Char.UpperCaseChars.Length.ShouldBe(Expected: 26);
+            L.Char.NumberChars.Length.ShouldBe(Expected: 10);
             L.Char.SpecialChars.Length.Should().BeGreaterOrEqualTo(expected: 10);
             }
 
@@ -38,8 +38,8 @@ namespace L_Tests.LCore.Extensions
             L.Str.CompareNumberString("-5", "10").Should().BeLessThan(expected: 0);
             L.Str.CompareNumberString("5", "-10").Should().BeGreaterThan(expected: 0);
             L.Str.CompareNumberString("-5", "-10").Should().BeGreaterThan(expected: 0);
-            L.Str.CompareNumberString("-5", "-5").ShouldBe(Compare: 0);
-            L.Str.CompareNumberString("-5000.00000", "-5000.000").ShouldBe(Compare: 0);
+            L.Str.CompareNumberString("-5", "-5").ShouldBe(Expected: 0);
+            L.Str.CompareNumberString("-5000.00000", "-5000.000").ShouldBe(Expected: 0);
 
             L.Str.CompareNumberString("-5000.000001", "-5000.000").Should().BeLessThan(expected: 0);
             L.Str.CompareNumberString("-5000.000001", "-5000.0001").Should().BeGreaterThan(expected: 0);
@@ -59,9 +59,9 @@ namespace L_Tests.LCore.Extensions
             L.Str.Char("", i: 0).ShouldBe(default(char));
             L.Str.Char(" ", i: 1).ShouldBe(default(char));
             L.Str.Char(" ", -1).ShouldBe(default(char));
-            L.Str.Char(" ", i: 0).ShouldBe(Compare: ' ');
-            L.Str.Char("abc", i: 0).ShouldBe(Compare: 'a');
-            L.Str.Char("abc", i: 1).ShouldBe(Compare: 'b');
+            L.Str.Char(" ", i: 0).ShouldBe(Expected: ' ');
+            L.Str.Char("abc", i: 0).ShouldBe(Expected: 'a');
+            L.Str.Char("abc", i: 1).ShouldBe(Expected: 'b');
             }
 
         [Fact]

@@ -51,7 +51,7 @@ namespace L_Tests.LCore.Extensions
             {
             const string Test = "test test test test test test test test test";
 
-            Test.GetProperty(nameof(string.Length)).ShouldBe(Compare: 44);
+            Test.GetProperty(nameof(string.Length)).ShouldBe(Expected: 44);
 
             Test.GetProperty(PropertyName: null).Should().BeNull();
 
@@ -73,7 +73,7 @@ namespace L_Tests.LCore.Extensions
 
             Test.SetProperty(nameof(TestClass.A), PropertyValue: 999);
 
-            Test.A.ShouldBe(Compare: 999);
+            Test.A.ShouldBe(Expected: 999);
 
             L.A(() => Test.SetProperty(nameof(TestClass.A), "nope")).ShouldFail();
             L.A(() => Test.SetProperty("no prop", PropertyValue: 999)).ShouldFail();

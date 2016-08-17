@@ -21,16 +21,16 @@ namespace LCore.LUnit.Tests.Extensions
             {
             var Attr = new TestBoundAttribute(Minimum: 1, Maximum: 2);
 
-            Attr.Minimum.ShouldBe(Compare: 1);
-            Attr.Maximum.ShouldBe(Compare: 2);
+            Attr.Minimum.ShouldBe(Expected: 1);
+            Attr.Maximum.ShouldBe(Expected: 2);
             Attr.ValueType.ShouldBe(typeof(int));
 
             //////
 
             Attr = new TestBoundAttribute(Minimum: 1u, Maximum: 2u);
 
-            Attr.Minimum.ShouldBe(Compare: 1u);
-            Attr.Maximum.ShouldBe(Compare: 2u);
+            Attr.Minimum.ShouldBe(Expected: 1u);
+            Attr.Maximum.ShouldBe(Expected: 2u);
             Attr.ValueType.ShouldBe(typeof(uint));
 
             //////

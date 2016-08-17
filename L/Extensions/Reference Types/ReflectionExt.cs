@@ -1656,6 +1656,27 @@ namespace LCore.Extensions
                         if (HasAttribute)
                             return Objs[0];
 
+                        var Type = Prop as Type;
+                        if (Type != null)
+                            {
+                            if (Type.BaseType == null)
+                                {
+                                Prop = null;
+                                }
+                            else
+                                {
+                                try
+                                    {
+                                    Prop = Type.BaseType;
+                                    }
+                                catch
+                                    {
+                                    Prop = null;
+                                    }
+                                }
+                            continue;
+                            }
+
                         var MemberInfo = Prop as MemberInfo;
                         if (MemberInfo != null)
                             {
@@ -1674,33 +1695,6 @@ namespace LCore.Extensions
                                     Prop = null;
                                     }
                                 }
-                            continue;
-                            }
-                        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-                        // ReSharper disable once ExpressionIsAlwaysNull
-                        var MethodInfo = Prop as MethodInfo;
-                        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-                        if (MethodInfo != null)
-                            {
-                            if (MethodInfo.DeclaringType?.BaseType == null)
-                                {
-                                Prop = null;
-                                }
-                            else
-                                {
-                                try
-                                    {
-                                    Prop = ((MethodInfo) Prop).DeclaringType.BaseType.GetProperty(((MethodInfo) Prop).Name);
-                                    }
-                                catch
-                                    {
-                                    Prop = null;
-                                    }
-                                }
-                            }
-                        else
-                            {
-                            Prop = null;
                             }
                         }
                         // ReSharper disable once ConditionIsAlwaysTrueOrFalse

@@ -177,7 +177,7 @@ namespace L_Tests.LCore.Extensions
             int Result2 = B.Try()();
 
             // Result was true
-            Result.ShouldBe(Compare: 5);
+            Result.ShouldBe(Expected: 5);
 
             // Result was false
             Result2.ShouldBe(default(int));
@@ -206,7 +206,7 @@ namespace L_Tests.LCore.Extensions
             int Result2 = B.Try()(_TestString);
 
             // Result was true
-            Result.ShouldBe(Compare: 5);
+            Result.ShouldBe(Expected: 5);
 
             // Result was false
             Result2.ShouldBe(default(int));
@@ -237,7 +237,7 @@ namespace L_Tests.LCore.Extensions
             int Result2 = B.Try()(_TestString, _TestString);
 
             // Result was true
-            Result.ShouldBe(Compare: 5);
+            Result.ShouldBe(Expected: 5);
 
             // Result was false
             Result2.ShouldBe(default(int));
@@ -270,7 +270,7 @@ namespace L_Tests.LCore.Extensions
             int Result2 = B.Try()(_TestString, _TestString, _TestString);
 
             // Result was true
-            Result.ShouldBe(Compare: 5);
+            Result.ShouldBe(Expected: 5);
 
             // Result was false
             Result2.ShouldBe(default(int));
@@ -305,7 +305,7 @@ namespace L_Tests.LCore.Extensions
             int Result2 = B.Try()(_TestString, _TestString, _TestString, _TestString);
 
             // Result was true
-            Result.ShouldBe(Compare: 5);
+            Result.ShouldBe(Expected: 5);
 
             // Result was false
             Result2.ShouldBe(default(int));
@@ -333,7 +333,7 @@ namespace L_Tests.LCore.Extensions
             // Reset
             I = 0;
             Test.Retry(Tries: 4)();
-            I.ShouldBe(Compare: 5);
+            I.ShouldBe(Expected: 5);
 
             L.A(() => Test.Retry(Tries: 0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
@@ -362,7 +362,7 @@ namespace L_Tests.LCore.Extensions
             // Reset
             I = 0;
             Test.Retry(Tries: 4)(_TestString);
-            I.ShouldBe(Compare: 5);
+            I.ShouldBe(Expected: 5);
 
             L.A(() => Test.Retry(Tries: 0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
@@ -392,7 +392,7 @@ namespace L_Tests.LCore.Extensions
             // Reset
             I = 0;
             Test.Retry(Tries: 4)(_TestString, _TestString);
-            I.ShouldBe(Compare: 5);
+            I.ShouldBe(Expected: 5);
 
             L.A(() => Test.Retry(Tries: 0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
@@ -423,7 +423,7 @@ namespace L_Tests.LCore.Extensions
             // Reset
             I = 0;
             Test.Retry(Tries: 4)(_TestString, _TestString, _TestString);
-            I.ShouldBe(Compare: 5);
+            I.ShouldBe(Expected: 5);
 
             L.A(() => Test.Retry(Tries: 0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
@@ -455,7 +455,7 @@ namespace L_Tests.LCore.Extensions
             // Reset
             I = 0;
             Test.Retry(Tries: 4)(_TestString, _TestString, _TestString, _TestString);
-            I.ShouldBe(Compare: 5);
+            I.ShouldBe(Expected: 5);
 
             L.A(() => Test.Retry(Tries: 0)).ShouldFail();
             L.A(() => Test.Retry(-1)).ShouldFail();
@@ -485,7 +485,7 @@ namespace L_Tests.LCore.Extensions
             // Reset
             I = 0;
             Test.Retry(Tries: 4)().ShouldBe(_TestString);
-            I.ShouldBe(Compare: 5);
+            I.ShouldBe(Expected: 5);
 
             L.F(() => Test.Retry(Tries: 0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
@@ -516,7 +516,7 @@ namespace L_Tests.LCore.Extensions
             // Reset
             I = 0;
             Test.Retry(Tries: 4)(_TestString);
-            I.ShouldBe(Compare: 5);
+            I.ShouldBe(Expected: 5);
 
             L.F(() => Test.Retry(Tries: 0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
@@ -548,7 +548,7 @@ namespace L_Tests.LCore.Extensions
             // Reset
             I = 0;
             Test.Retry(Tries: 4)(_TestString, _TestString);
-            I.ShouldBe(Compare: 5);
+            I.ShouldBe(Expected: 5);
 
             L.F(() => Test.Retry(Tries: 0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
@@ -581,7 +581,7 @@ namespace L_Tests.LCore.Extensions
             // Reset
             I = 0;
             Test.Retry(Tries: 4)(_TestString, _TestString, _TestString);
-            I.ShouldBe(Compare: 5);
+            I.ShouldBe(Expected: 5);
 
             L.F(() => Test.Retry(Tries: 0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();
@@ -616,7 +616,7 @@ namespace L_Tests.LCore.Extensions
             // Reset
             I = 0;
             Test.Retry(Tries: 4)(_TestString, _TestString, _TestString, _TestString);
-            I.ShouldBe(Compare: 5);
+            I.ShouldBe(Expected: 5);
 
             L.F(() => Test.Retry(Tries: 0)).ShouldFail();
             L.F(() => Test.Retry(-1)).ShouldFail();

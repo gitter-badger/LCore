@@ -42,11 +42,11 @@ namespace L_Tests.LCore.Extensions
 
             Test.Merge(Test2);
 
-            Test.Keys.Count.ShouldBe(Compare: 6);
+            Test.Keys.Count.ShouldBe(Expected: 6);
 
             Test.Merge(Test2);
 
-            Test.Keys.Count.ShouldBe(Compare: 6);
+            Test.Keys.Count.ShouldBe(Expected: 6);
 
             var Test3 = new Dictionary<string, string>
                 {
@@ -57,13 +57,13 @@ namespace L_Tests.LCore.Extensions
 
             Test.Merge(Test3);
 
-            Test.Keys.Count.ShouldBe(Compare: 9);
+            Test.Keys.Count.ShouldBe(Expected: 9);
 
             Test.Keys.List().Should().Equal(new List<string> {"a", "b", "c", "d", "e", "f", "g", "h", "i"});
 
             Test.Merge(Test3, Value => new KeyValuePair<string, string>($"{Value.Key}a", $"{Value.Value}b"));
 
-            Test.Keys.Count.ShouldBe(Compare: 12);
+            Test.Keys.Count.ShouldBe(Expected: 12);
 
             Test.Keys.List().Should().Equal(new List<string> {"a", "b", "c", "d", "e", "f", "g", "h", "i", "ga", "ha", "ia"});
             }
@@ -104,18 +104,18 @@ namespace L_Tests.LCore.Extensions
             Test.SafeAdd("a", "b");
             Test.SafeAdd("a", "c");
 
-            Test.Keys.Count.ShouldBe(Compare: 1);
+            Test.Keys.Count.ShouldBe(Expected: 1);
             Test["a"].ShouldBe("b");
 
             Test.SafeAdd(Key: null, Val: null);
-            Test.Keys.Count.ShouldBe(Compare: 1);
+            Test.Keys.Count.ShouldBe(Expected: 1);
             Test.SafeAdd(Key: null, Val: "");
-            Test.Keys.Count.ShouldBe(Compare: 1);
+            Test.Keys.Count.ShouldBe(Expected: 1);
             Test.SafeAdd("", Val: null);
-            Test.Keys.Count.ShouldBe(Compare: 2);
+            Test.Keys.Count.ShouldBe(Expected: 2);
             Test.SafeAdd("", "");
-            Test.Keys.Count.ShouldBe(Compare: 2);
-            Test[""].ShouldBe(Compare: null);
+            Test.Keys.Count.ShouldBe(Expected: 2);
+            Test[""].ShouldBe(Expected: null);
             }
 
 
@@ -132,7 +132,7 @@ namespace L_Tests.LCore.Extensions
             Test.SafeSet("a", "b");
             Test.SafeSet("a", "c");
 
-            Test.Keys.Count.ShouldBe(Compare: 1);
+            Test.Keys.Count.ShouldBe(Expected: 1);
             Test["a"].ShouldBe("c");
 
             Test.SafeSet(Key: null, Val: null);
@@ -140,7 +140,7 @@ namespace L_Tests.LCore.Extensions
             Test.SafeSet(Key: null, Val: "c");
 
             Test.SafeSet("", "c");
-            Test.Keys.Count.ShouldBe(Compare: 2);
+            Test.Keys.Count.ShouldBe(Expected: 2);
             Test[""].ShouldBe("c");
             }
 
@@ -157,7 +157,7 @@ namespace L_Tests.LCore.Extensions
             Test.SafeSet("a", "b");
 
             Test.SafeGet("a").ShouldBe("b");
-            Test.SafeGet("b").ShouldBe(Compare: null);
+            Test.SafeGet("b").ShouldBe(Expected: null);
             }
 
 

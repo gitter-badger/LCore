@@ -49,7 +49,7 @@ namespace L_Tests.LCore.Tools
             Test.AddStat(Stat: 9);
             Test.AddStat(Stat: 10);
 
-            Test.GetCurrentAverageStat().ShouldBe(Compare: 5.5);
+            Test.GetCurrentAverageStat().ShouldBe(Expected: 5.5);
 
             Test.AddStat(Stat: 11);
             Test.AddStat(Stat: 12);
@@ -62,7 +62,7 @@ namespace L_Tests.LCore.Tools
             Test.AddStat(Stat: 19);
             Test.AddStat(Stat: 20);
 
-            Test.GetCurrentAverageStat().ShouldBe(Compare: 15.5);
+            Test.GetCurrentAverageStat().ShouldBe(Expected: 15.5);
 
             Test.Clear();
             Test.GetCurrentAverageStat().ShouldBe(double.NaN);

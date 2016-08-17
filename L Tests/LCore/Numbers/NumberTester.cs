@@ -77,8 +77,8 @@ namespace L_Tests.LCore.Numbers
 
             ((ByteNumber)5).CompareTo((byte)3).Should().BeGreaterThan(expected: 0);
             ((ByteNumber)5).CompareTo((byte)7).Should().BeLessThan(expected: 0);
-            ((ByteNumber)5).CompareTo((byte)5).ShouldBe(Compare: 0);
-            ((ByteNumber)5).CompareTo("5").ShouldBe(Compare: 0);
+            ((ByteNumber)5).CompareTo((byte)5).ShouldBe(Expected: 0);
+            ((ByteNumber)5).CompareTo("5").ShouldBe(Expected: 0);
 
             ((ByteNumber)5 < 3).ShouldBeFalse();
             ((ByteNumber)5 < 5).ShouldBeFalse();
@@ -98,8 +98,8 @@ namespace L_Tests.LCore.Numbers
 
 
             ((ByteNumber)5).CompareTo((byte)7).Should().BeLessThan(expected: 0);
-            ((ByteNumber)5).CompareTo((byte)5).ShouldBe(Compare: 0);
-            ((ByteNumber)5).CompareTo("5").ShouldBe(Compare: 0);
+            ((ByteNumber)5).CompareTo((byte)5).ShouldBe(Expected: 0);
+            ((ByteNumber)5).CompareTo("5").ShouldBe(Expected: 0);
 
             ((ByteNumber)5).Equals((Number)(ByteNumber)5).ShouldBeTrue();
             ((ByteNumber)5).Equals(Obj: null).ShouldBeFalse();

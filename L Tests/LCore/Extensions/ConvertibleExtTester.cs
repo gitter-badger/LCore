@@ -51,21 +51,21 @@ namespace L_Tests.LCore.Extensions
 
             const string Test2 = "5";
 
-            Test2.ConvertTo(typeof(int)).ShouldBe(Compare: 5);
+            Test2.ConvertTo(typeof(int)).ShouldBe(Expected: 5);
             Test2.ConvertTo(typeof(uint)).ShouldBe((uint) 5);
             Test2.ConvertTo(typeof(long)).ShouldBe((long) 5);
             Test2.ConvertTo(typeof(short)).ShouldBe((short) 5);
             Test2.ConvertTo(typeof(ushort)).ShouldBe((ushort) 5);
             Test2.ConvertTo(typeof(byte)).ShouldBe((byte) 5);
-            Test2.ConvertTo(typeof(char)).ShouldBe(Compare: '5');
+            Test2.ConvertTo(typeof(char)).ShouldBe(Expected: '5');
             Test2.ConvertTo(typeof(string)).ShouldBe("5");
 
-            long.MaxValue.ConvertTo<int>().ShouldBe(Compare: null);
-            long.MaxValue.ConvertTo(typeof(int)).ShouldBe(Compare: null);
+            long.MaxValue.ConvertTo<int>().ShouldBe(Expected: null);
+            long.MaxValue.ConvertTo(typeof(int)).ShouldBe(Expected: null);
 
 
-            "5.000".ConvertTo(typeof(double)).ShouldBe(Compare: 5d);
-            "5.000".ConvertTo(typeof(int)).ShouldBe(Compare: 5);
+            "5.000".ConvertTo(typeof(double)).ShouldBe(Expected: 5d);
+            "5.000".ConvertTo(typeof(int)).ShouldBe(Expected: 5);
             }
 
         [Fact]
@@ -94,13 +94,13 @@ namespace L_Tests.LCore.Extensions
 
             const string Test2 = "5";
 
-            Test2.ConvertTo<int>().ShouldBe(Compare: 5);
+            Test2.ConvertTo<int>().ShouldBe(Expected: 5);
             Test2.ConvertTo<uint>().ShouldBe((uint) 5);
             Test2.ConvertTo<long>().ShouldBe((long) 5);
             Test2.ConvertTo<short>().ShouldBe((short) 5);
             Test2.ConvertTo<ushort>().ShouldBe((ushort) 5);
             Test2.ConvertTo<byte>().ShouldBe((byte) 5);
-            Test2.ConvertTo<char>().ShouldBe(Compare: '5');
+            Test2.ConvertTo<char>().ShouldBe(Expected: '5');
             Test2.ConvertToString().ShouldBe("5");
 
             ConvertibleExt.ConvertTo<int>(In: null).ShouldBe(default(int));
@@ -109,8 +109,8 @@ namespace L_Tests.LCore.Extensions
 
             new BadConverter().ConvertToString().ShouldBe((string) null);
 
-            "5.000".ConvertTo<double>().ShouldBe(Compare: 5d);
-            "5.000".ConvertTo<int>().ShouldBe(Compare: 5);
+            "5.000".ConvertTo<double>().ShouldBe(Expected: 5d);
+            "5.000".ConvertTo<int>().ShouldBe(Expected: 5);
             }
 
         [Fact]
@@ -463,7 +463,7 @@ namespace L_Tests.LCore.Extensions
             Test.TryConvertTo<uint>().ShouldBe((uint) 5);
             Test.TryConvertTo<float>().ShouldBe((float) 5);
             Test.TryConvertTo<double>().ShouldBe((double) 5);
-            Test.TryConvertTo<char>().ShouldBe(Compare: '5');
+            Test.TryConvertTo<char>().ShouldBe(Expected: '5');
             Test.TryConvertToString().ShouldBe("5");
 
             Test = "-5.5";
@@ -481,11 +481,11 @@ namespace L_Tests.LCore.Extensions
 
             Test = null;
 
-            Test.TryConvertToString().ShouldBe(Compare: null);
+            Test.TryConvertToString().ShouldBe(Expected: null);
 
 
-            ((string) null).TryConvertToString().ShouldBe(Compare: null);
-            ((string) null).TryConvertTo<int>().ShouldBe(Compare: null);
+            ((string) null).TryConvertToString().ShouldBe(Expected: null);
+            ((string) null).TryConvertTo<int>().ShouldBe(Expected: null);
             }
 
         #region Helpers

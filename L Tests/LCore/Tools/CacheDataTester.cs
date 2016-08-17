@@ -53,7 +53,7 @@ namespace L_Tests.LCore.Tools
 
             Dictionary<string, CacheData> Cache = L.Logic.GetCacheData("testcache");
 
-            Cache.Values.Count.ShouldBe(Compare: 2);
+            Cache.Values.Count.ShouldBe(Expected: 2);
 
             foreach (var CacheValue in Cache.Values.List())
                 {

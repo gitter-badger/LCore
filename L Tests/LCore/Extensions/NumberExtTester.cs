@@ -36,14 +36,14 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(Single) => UInt16")]
         public void DecimalPlaces()
             {
-            1.DecimalPlaces().ShouldBe(Compare: 0u);
-            ((short) 1).DecimalPlaces().ShouldBe(Compare: 0u);
-            1L.DecimalPlaces().ShouldBe(Compare: 0u);
-            1uL.DecimalPlaces().ShouldBe(Compare: 0u);
-            ((char) 0).DecimalPlaces().ShouldBe(Compare: 0u);
-            ((char) 0).DecimalPlaces().ShouldBe(Compare: 0u);
-            ((byte) 0).DecimalPlaces().ShouldBe(Compare: 0u);
-            ((sbyte) 0).DecimalPlaces().ShouldBe(Compare: 0u);
+            1.DecimalPlaces().ShouldBe(Expected: 0u);
+            ((short) 1).DecimalPlaces().ShouldBe(Expected: 0u);
+            1L.DecimalPlaces().ShouldBe(Expected: 0u);
+            1uL.DecimalPlaces().ShouldBe(Expected: 0u);
+            ((char) 0).DecimalPlaces().ShouldBe(Expected: 0u);
+            ((char) 0).DecimalPlaces().ShouldBe(Expected: 0u);
+            ((byte) 0).DecimalPlaces().ShouldBe(Expected: 0u);
+            ((sbyte) 0).DecimalPlaces().ShouldBe(Expected: 0u);
 
             5.5m.DecimalPlaces().ShouldBe((ushort) 1);
             5.50032m.DecimalPlaces().ShouldBe((ushort) 5);

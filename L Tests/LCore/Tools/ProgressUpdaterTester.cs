@@ -45,18 +45,18 @@ namespace L_Tests.LCore.Tools
 
                     Status.ShouldBe("");
                     Log.ShouldBe("");
-                    Progress.ShouldBe(Compare: 0);
-                    Max.ShouldBe(Compare: 0);
+                    Progress.ShouldBe(Expected: 0);
+                    Max.ShouldBe(Expected: 0);
 
                     Updater.Maximum(Maximum: 100);
 
-                    Max.ShouldBe(Compare: 0);
+                    Max.ShouldBe(Expected: 0);
                     Thread.Sleep(millisecondsTimeout: 20);
-                    Max.ShouldBe(Compare: 100);
+                    Max.ShouldBe(Expected: 100);
 
                     Updater.Progress(Progress: 5);
                     Thread.Sleep(millisecondsTimeout: 20);
-                    Progress.ShouldBe(Compare: 5);
+                    Progress.ShouldBe(Expected: 5);
 
                     Updater.Status("hi");
                     Thread.Sleep(millisecondsTimeout: 20);
@@ -68,8 +68,8 @@ namespace L_Tests.LCore.Tools
 
                     Status.ShouldBe("hi");
                     Log.ShouldBe("hi again");
-                    Progress.ShouldBe(Compare: 5);
-                    Max.ShouldBe(Compare: 100);
+                    Progress.ShouldBe(Expected: 5);
+                    Max.ShouldBe(Expected: 100);
                     }
             })();
             }

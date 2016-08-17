@@ -69,8 +69,8 @@ namespace L_Tests.LCore.Tools
         [Trait(Traits.TargetMember, "LCore.Tools.Set.GetHashCode() => Int32")]
         public new void GetHashCode()
             {
-            this._Test.GetHashCode().ShouldBe(Compare: 372027467);
-            this._Test2.GetHashCode().ShouldBe(Compare: 372027467);
+            this._Test.GetHashCode().ShouldBe(Expected: 372027467);
+            this._Test2.GetHashCode().ShouldBe(Expected: 372027467);
             }
 
         [Fact]
@@ -97,11 +97,11 @@ namespace L_Tests.LCore.Tools
             {
             var Test = new Set<int, string>(Obj1: 5, Obj2: "4");
 
-            Test.Obj1.ShouldBe(Compare: 5);
+            Test.Obj1.ShouldBe(Expected: 5);
             Test.Obj2.ShouldBe("4");
 
-            this._Test3.Obj1.ShouldBe(Compare: null);
-            this._Test3.Obj2.ShouldBe(Compare: null);
+            this._Test3.Obj1.ShouldBe(Expected: null);
+            this._Test3.Obj2.ShouldBe(Expected: null);
             }
 
         [Fact]

@@ -2472,10 +2472,10 @@ namespace L_Tests.LCore.Extensions
             const int Result = 10;
 
 
-            Act.If(True).ElseIf(True, DontExecute).Else(Result)().ShouldBe(Compare: 5);
-            Act.If(False).ElseIf(False, DontExecute).Else(Result)().ShouldBe(Compare: 10);
+            Act.If(True).ElseIf(True, DontExecute).Else(Result)().ShouldBe(Expected: 5);
+            Act.If(False).ElseIf(False, DontExecute).Else(Result)().ShouldBe(Expected: 10);
 
-            DontExecute.If(False).ElseIf(False, DontExecute).Else(Result)().ShouldBe(Compare: 10);
+            DontExecute.If(False).ElseIf(False, DontExecute).Else(Result)().ShouldBe(Expected: 10);
 
             L.A(() => Act.If(False).ElseIf(True, DontExecute).Else(Result)()).ShouldFail();
             }
@@ -2507,8 +2507,8 @@ namespace L_Tests.LCore.Extensions
 
             const int Result = 10;
 
-            True.Else(DontExecute)(_TestString).ShouldBe(Compare: 1);
-            False.Else(Result)(_TestString).ShouldBe(Compare: 10);
+            True.Else(DontExecute)(_TestString).ShouldBe(Expected: 1);
+            False.Else(Result)(_TestString).ShouldBe(Expected: 10);
 
             L.A(() => False.Else(DontExecute)(_TestString)).ShouldFail();
             }
@@ -2543,8 +2543,8 @@ namespace L_Tests.LCore.Extensions
 
             const int Result = 10;
 
-            True.Else(DontExecute)(_TestString, _TestString).ShouldBe(Compare: 1);
-            False.Else(Result)(_TestString, _TestString).ShouldBe(Compare: 10);
+            True.Else(DontExecute)(_TestString, _TestString).ShouldBe(Expected: 1);
+            False.Else(Result)(_TestString, _TestString).ShouldBe(Expected: 10);
 
             L.A(() => False.Else(DontExecute)(_TestString, _TestString)).ShouldFail();
             }
@@ -2582,8 +2582,8 @@ namespace L_Tests.LCore.Extensions
 
             const int Result = 10;
 
-            True.Else(DontExecute)(_TestString, _TestString, _TestString).ShouldBe(Compare: 1);
-            False.Else(Result)(_TestString, _TestString, _TestString).ShouldBe(Compare: 10);
+            True.Else(DontExecute)(_TestString, _TestString, _TestString).ShouldBe(Expected: 1);
+            False.Else(Result)(_TestString, _TestString, _TestString).ShouldBe(Expected: 10);
 
             L.A(() => False.Else(DontExecute)(_TestString, _TestString, _TestString)).ShouldFail();
             }
@@ -2622,8 +2622,8 @@ namespace L_Tests.LCore.Extensions
 
             const int Result = 10;
 
-            True.Else(DontExecute)(_TestString, _TestString, _TestString, _TestString).ShouldBe(Compare: 1);
-            False.Else(Result)(_TestString, _TestString, _TestString, _TestString).ShouldBe(Compare: 10);
+            True.Else(DontExecute)(_TestString, _TestString, _TestString, _TestString).ShouldBe(Expected: 1);
+            False.Else(Result)(_TestString, _TestString, _TestString, _TestString).ShouldBe(Expected: 10);
 
             L.A(() => False.Else(DontExecute)(_TestString, _TestString, _TestString, _TestString)).ShouldFail();
             }

@@ -27,14 +27,14 @@ namespace L_Tests.LCore.Extensions
             nameof(ComparableExt.Max) + "(IEnumerable<T>, Func<T, IComparable>) => T")]
         public void Max()
             {
-            ((IComparable) null).Max().ShouldBe(Compare: null);
-            ((IComparable) null).Max(1, 2, 3, 14, 5, 6, 7).ShouldBe(Compare: 14);
+            ((IComparable) null).Max().ShouldBe(Expected: null);
+            ((IComparable) null).Max(1, 2, 3, 14, 5, 6, 7).ShouldBe(Expected: 14);
 
-            50.Max(1, 2, 3, 14, 5, 6, 7).ShouldBe(Compare: 50);
-            5.Max(1, 2, 3, 14, 5, 6, 7).ShouldBe(Compare: 14);
+            50.Max(1, 2, 3, 14, 5, 6, 7).ShouldBe(Expected: 50);
+            5.Max(1, 2, 3, 14, 5, 6, 7).ShouldBe(Expected: 14);
 
-            50.55.Max(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(Compare: 50.55);
-            5.55.Max(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(Compare: 14.55);
+            50.55.Max(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(Expected: 50.55);
+            5.55.Max(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(Expected: 14.55);
 
             "zzzbc".Max("baa", "caff", "acl", "aegeg", "grgg", "ttt").ShouldBe("zzzbc");
             "aab".Max("baa", "caff", "acl", "aegeg", "grgg", "ttt").ShouldBe("ttt");
@@ -49,13 +49,13 @@ namespace L_Tests.LCore.Extensions
             nameof(ComparableExt.Min) + "(IEnumerable<T>, Func<T, IComparable>) => T")]
         public void Min()
             {
-            ((IComparable) null).Min().ShouldBe(Compare: null);
-            ((IComparable) null).Min(1, 2, 3, 14, 5, 6, 7).ShouldBe(Compare: 1);
+            ((IComparable) null).Min().ShouldBe(Expected: null);
+            ((IComparable) null).Min(1, 2, 3, 14, 5, 6, 7).ShouldBe(Expected: 1);
 
-            50.Min(1, 2, 3, 14, 5, 6, 7).ShouldBe(Compare: 1);
+            50.Min(1, 2, 3, 14, 5, 6, 7).ShouldBe(Expected: 1);
             (-5).Min(1, 2, 3, 14, 5, 6, 7).ShouldBe(-5);
 
-            50.55.Min(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(Compare: 1);
+            50.55.Min(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(Expected: 1);
             (-5.55).Min(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(-5.55);
 
             "_aaa".Min("baa", "caff", "acl", "aegeg", "grgg", "ttt").ShouldBe("_aaa");

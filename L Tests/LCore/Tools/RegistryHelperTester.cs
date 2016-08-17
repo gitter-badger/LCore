@@ -149,7 +149,7 @@ namespace L_Tests.LCore.Tools
             this.Reg.LoadObject("a").ShouldBe("abc");
 
             this.Reg.Save("b", (object)55);
-            this.Reg.LoadInt("b").ShouldBe(Compare: 55);
+            this.Reg.LoadInt("b").ShouldBe(Expected: 55);
             this.Reg.LoadObject("b").ShouldBe("55");
 
             this.Reg.Save("c", (object)-5.5f);
@@ -165,11 +165,11 @@ namespace L_Tests.LCore.Tools
             this.Reg.LoadObject("e").ToS().ShouldBe(new byte[] { 5, 243, 224, 21 }.ToS());
 
             this.Reg.Save("f", (object)'c');
-            this.Reg.LoadChar("f").ShouldBe(Compare: 'c');
+            this.Reg.LoadChar("f").ShouldBe(Expected: 'c');
             this.Reg.LoadObject("f").ShouldBe("c");
 
             this.Reg.Save("g", (object)true);
-            this.Reg.LoadBool("g").ShouldBe(Compare: true);
+            this.Reg.LoadBool("g").ShouldBe(Expected: true);
             this.Reg.LoadObject("g").ShouldBe("True");
 
             this.Reg.Save("h", (object)new object[] { 5, -5.5f, "abc", (double)-55, (double)double.NaN });

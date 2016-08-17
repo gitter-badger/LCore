@@ -24,7 +24,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.ParseEnum) + "(String, Type) => Enum")]
         public void ParseEnum_String_Type_Enum()
             {
-            ((string) null).ParseEnum(typeof(TestEnum)).ShouldBe(Compare: null);
+            ((string) null).ParseEnum(typeof(TestEnum)).ShouldBe(Expected: null);
 
             "".ParseEnum(typeof(TestEnum)).Should().BeNull();
             "Test1".ParseEnum(Type: null).Should().BeNull();
@@ -38,8 +38,8 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt) + "." + nameof(EnumExt.ParseEnum_FriendlyName) + "(String, Type) => Enum")]
         public void ParseEnum_FriendlyName()
             {
-            ((string) null).ParseEnum_FriendlyName(typeof(TestEnum)).ShouldBe(Compare: null);
-            "".ParseEnum_FriendlyName(typeof(TestEnum)).ShouldBe(Compare: null);
+            ((string) null).ParseEnum_FriendlyName(typeof(TestEnum)).ShouldBe(Expected: null);
+            "".ParseEnum_FriendlyName(typeof(TestEnum)).ShouldBe(Expected: null);
 
             "FriendlyName".ParseEnum_FriendlyName(typeof(TestEnum)).ShouldBe(TestEnum.Test1);
             "Camel Case Enums Are Great".ParseEnum_FriendlyName(typeof(TestEnum))

@@ -705,7 +705,7 @@ namespace L_Thread_Tests.LCore.Extensions
                 var Profile = L.Thread.MethodProfileData_Get(ProfileName);
 
                 Profile.AverageMS.Should().BeInRange(minimumValue: 25, maximumValue: 55);
-                Profile.Times.Count.ShouldBe(Compare: 6);
+                Profile.Times.Count.ShouldBe(Expected: 6);
 
                 L.Thread.MethodProfileData_Remove(ProfileName);
                 L.Thread.MethodProfileData_Get(ProfileName).ShouldBeNull();
@@ -765,9 +765,9 @@ namespace L_Thread_Tests.LCore.Extensions
 
                 var Result = L.Thread.MethodProfileData_Get("TestProfile");
 
-                Result.Times.Count.ShouldBe(Compare: 5);
+                Result.Times.Count.ShouldBe(Expected: 5);
                 Result.AverageMS.Should().BeInRange(minimumValue: 8, maximumValue: 20);
-                Result.Data.Count().ShouldBe(Compare: 0u);
+                Result.Data.Count().ShouldBe(Expected: 0u);
                 }
             }
 
@@ -791,14 +791,14 @@ namespace L_Thread_Tests.LCore.Extensions
                 MethodProfileData<int> Result = Func.Profile();
 
                 Result.AverageMS.Should().BeInRange(minimumValue: 45, maximumValue: 95);
-                Result.Data.Count().ShouldBe(Compare: 1u);
+                Result.Data.Count().ShouldBe(Expected: 1u);
                 Result.Data.GetAt(Index: 0).Should().BeInRange(minimumValue: 45, maximumValue: 75);
 
 
                 Result = Func.Profile(Repeat: 5);
 
                 Result.AverageMS.Should().BeInRange(minimumValue: 45, maximumValue: 95);
-                Result.Data.Count().ShouldBe(Compare: 6u);
+                Result.Data.Count().ShouldBe(Expected: 6u);
                 }
             }
 
@@ -832,9 +832,9 @@ namespace L_Thread_Tests.LCore.Extensions
 
                 var Result = L.Thread.MethodProfileData_Get(ProfieName);
 
-                Result.Times.Count.ShouldBe(Compare: 5);
+                Result.Times.Count.ShouldBe(Expected: 5);
                 Result.AverageMS.Should().BeInRange(minimumValue: 5, maximumValue: 25);
-                Result.Data.Count().ShouldBe(Compare: 5u);
+                Result.Data.Count().ShouldBe(Expected: 5u);
                 Result.Data.Should().Equal("abc", "abc", "abc", "abc", "abc");
                 }
             }
@@ -868,9 +868,9 @@ namespace L_Thread_Tests.LCore.Extensions
 
                 var Result = L.Thread.MethodProfileData_Get("TestProfile");
 
-                Result.Times.Count.ShouldBe(Compare: 5);
+                Result.Times.Count.ShouldBe(Expected: 5);
                 Result.AverageMS.Should().BeInRange(minimumValue: 5, maximumValue: 25);
-                Result.Data.Count().ShouldBe(Compare: 5u);
+                Result.Data.Count().ShouldBe(Expected: 5u);
                 Result.Data.Should().Equal("abc", "abc", "abc", "abc", "abc");
                 }
             }

@@ -356,12 +356,6 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
     [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.LUnit)+ "." + nameof(global::LCore.LUnit.Fluent)+ "." + nameof(FluentExt))]
    public partial class FluentExtTester
     {
-        [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.LUnit)+ "." + nameof(global::LCore.LUnit.Fluent)+ "." + nameof(FluentExt)+ "." + nameof(FluentExt.ShouldBe) + "(T, T, String, Object[]) => AndConstraint<ObjectAssertions>")]
-        public void ShouldBe_T_T_String_Object_AndConstraint_ObjectAssertions()
-         {
-            // TODO: Implement method test LCore.LUnit.Fluent.FluentExt.ShouldBe
-         }
          
     }
 }

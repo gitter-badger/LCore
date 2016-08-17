@@ -68,8 +68,8 @@ namespace L_Tests.LCore.Extensions
         public void New()
             {
             L.Obj.New<string>().ShouldBe("");
-            L.Obj.New<int>().ShouldBe(Compare: 0);
-            L.Obj.New<int?>().ShouldBe(Compare: null);
+            L.Obj.New<int>().ShouldBe(Expected: 0);
+            L.Obj.New<int?>().ShouldBe(Expected: null);
             L.Obj.New<List<int>>().ShouldBeEquivalentTo(new List<int>());
             }
 
@@ -115,7 +115,7 @@ namespace L_Tests.LCore.Extensions
             {
             const string Test = "a";
 
-            L.Obj.GetProperty()(Test, nameof(string.Length)).ShouldBe(Compare: 1);
+            L.Obj.GetProperty()(Test, nameof(string.Length)).ShouldBe(Expected: 1);
             L.Obj.GetProperty()(Test, "derp").ShouldBeNull();
 
             L.Obj.GetProperty()(Test, arg2: null).ShouldBeNull();

@@ -71,7 +71,7 @@ namespace L_Tests.LCore.Extensions
             const string Test3 = null;
             var Result2 = Test3.ToStream();
 
-            Result2.Length.ShouldBe(Compare: 0);
+            Result2.Length.ShouldBe(Expected: 0);
             }
 
         [Fact]
