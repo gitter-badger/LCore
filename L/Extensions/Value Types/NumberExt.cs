@@ -958,13 +958,13 @@ namespace LCore.Extensions
         /// <summary>
         /// Raise <paramref name="UShort"/> to the power of <paramref name="Power"/>.
         /// </summary>
-        // ReSharper disable once InconsistentNaming
         [TestResult(new object[] {(ushort) 0, 0d}, ExpectedResult: 1d)]
         [TestResult(new object[] {(ushort) 1, 0d}, ExpectedResult: 1d)]
         [TestResult(new object[] {(ushort) 2, 1d}, ExpectedResult: 2d)]
         [TestResult(new object[] {(ushort) 2, -1d}, ExpectedResult: 0.5d)]
         [TestResult(new object[] {(ushort) 5, 2d}, ExpectedResult: 25d)]
         [TestResult(new object[] {(ushort) 5, 5d}, ExpectedResult: 3125d)]
+        // ReSharper disable once InconsistentNaming
         public static double Pow(this ushort UShort, double Power)
             {
             return Math.Pow(UShort, Power);

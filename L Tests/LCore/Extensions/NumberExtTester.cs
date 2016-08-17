@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
@@ -10,9 +9,7 @@ using Xunit.Abstractions;
 using LCore.LUnit.Fluent;
 
 // ReSharper disable PossibleInvalidOperationException
-
 // ReSharper disable ArgumentsStyleLiteral
-
 // ReSharper disable InvokeAsExtensionMethod
 
 namespace L_Tests.LCore.Extensions
@@ -25,30 +22,18 @@ namespace L_Tests.LCore.Extensions
         public void Dispose() {}
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." +
-                                    nameof(NumberExt.DecimalPlaces) + "(Int32) => UInt32")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." +
-                                    nameof(NumberExt.DecimalPlaces) + "(Int16) => UInt32")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." +
-                                    nameof(NumberExt.DecimalPlaces) + "(Int64) => UInt32")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." +
-                                    nameof(NumberExt.DecimalPlaces) + "(UInt32) => UInt32")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." +
-                                    nameof(NumberExt.DecimalPlaces) + "(UInt16) => UInt32")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." +
-                                    nameof(NumberExt.DecimalPlaces) + "(UInt64) => UInt32")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." +
-                                    nameof(NumberExt.DecimalPlaces) + "(Char) => UInt32")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." +
-                                    nameof(NumberExt.DecimalPlaces) + "(Byte) => UInt32")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." +
-                                    nameof(NumberExt.DecimalPlaces) + "(SByte) => UInt32")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." +
-                                    nameof(NumberExt.DecimalPlaces) + "(Decimal) => UInt16")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." +
-                                    nameof(NumberExt.DecimalPlaces) + "(Double) => UInt16")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." +
-                                    nameof(NumberExt.DecimalPlaces) + "(Single) => UInt16")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(Int32) => UInt32")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(Int16) => UInt32")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(Int64) => UInt32")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(UInt32) => UInt32")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(UInt16) => UInt32")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(UInt64) => UInt32")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(Char) => UInt32")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(Byte) => UInt32")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(SByte) => UInt32")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(Decimal) => UInt16")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(Double) => UInt16")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt) + "." + nameof(NumberExt.DecimalPlaces) + "(Single) => UInt16")]
         public void DecimalPlaces()
             {
             1.DecimalPlaces().ShouldBe(Compare: 0u);

@@ -8,6 +8,7 @@ using LCore.LUnit.Fluent;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
+
 // ReSharper disable RedundantNameQualifier
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable MemberCanBePrivate.Local
@@ -20,9 +21,9 @@ namespace L_Tests.LCore.Extensions
         nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt))]
     public partial class ObjectExtTester : XUnitOutputTester, IDisposable
         {
-        public ObjectExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        public ObjectExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}
 
-        public void Dispose() { }
+        public void Dispose() {}
 
         #region LCore.Extensions.ObjectExt
 
@@ -38,7 +39,7 @@ namespace L_Tests.LCore.Extensions
             Test.HasProperty("no i dont").ShouldBeFalse();
             Test.HasProperty("").ShouldBeFalse();
             Test.HasProperty(PropertyName: null).ShouldBeFalse();
-            ((string)null).HasProperty(nameof(string.Length)).ShouldBeFalse();
+            ((string) null).HasProperty(nameof(string.Length)).ShouldBeFalse();
             }
 
 
@@ -80,7 +81,6 @@ namespace L_Tests.LCore.Extensions
 
         #endregion
 
-
         #region Helper classes
 
         [ExcludeFromCodeCoverage]
@@ -90,6 +90,7 @@ namespace L_Tests.LCore.Extensions
             public TestClass B { get; set; }
             public TestMaster C { get; set; }
             }
+
         [ExcludeFromCodeCoverage]
         private class TestClass
             {
@@ -138,5 +139,20 @@ namespace L_Tests.LCore.Extensions
             }
 
         #endregion
+
+        // Attribute Tested //////////////////////////////////////////////////////////////////////////////
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt) + "." + nameof(global::LCore.Extensions.ObjectExt.Objects_ToString) + "(IEnumerable<Object>) => String")]
+        public void Objects_ToString()
+            {
+            // Attribute Tests Implemented
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt) + "." + nameof(global::LCore.Extensions.ObjectExt.Type) + "(T) => Type")]
+        public void Type()
+            {
+            // Attribute Tests Implemented
+            }
         }
     }

@@ -1302,7 +1302,7 @@ namespace LCore.Extensions
                 ["`6"] = "",
                 ["`7"] = "",
                 ["`8"] = "",
-                ["`9"] = "",
+                ["`9"] = ""
                 });
 
             return Out;
@@ -1385,7 +1385,17 @@ namespace LCore.Extensions
                     }
 
                 // for nested types
-                return Assemblies.Convert(Assembly => Assembly.GetExportedTypes()).Flatten<Type>()
+                return Assemblies.Convert(Assembly =>
+                    {
+                    try
+                        {
+                        return Assembly.GetExportedTypes();
+                        }
+                    catch
+                        {
+                        return null;
+                        }
+                    }).Flatten<Type>()
                     .First(Type => TypeName == Type.GetNestedNames() ||
                                    TypeName == Type.FullyQualifiedName());
                 }

@@ -2512,5 +2512,72 @@ namespace L_Tests.LCore.Extensions
             }
 
         #endregion
+
+
+
+        // Attribute Tested //////////////////////////////////////////////////////////////////////////////
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect) + "(IEnumerable, Func<T, T>) => List<T>")]
+        public void Collect_IEnumerable_Func_T_T_List_T()
+            {
+            // Attribute Tests Implemented
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect) + "(IEnumerable<T>, Func<T, T>) => List<T>")]
+        public void Collect_IEnumerable_T_Func_T_T_List_T()
+            {
+            // Attribute Tests Implemented
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect) + "(T[], Func<T, T>) => T[]")]
+        public void Collect_T_Func_T_T_T()
+            {
+            // Attribute Tests Implemented
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect) + "(List<T>, Func<T, T>) => List<T>")]
+        public void Collect_List_T_Func_T_T_List_T()
+            {
+            // Attribute Tests Implemented
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect) + "(IEnumerable, Func<Int32, Object, Object>) => List<Object>")]
+        public void Collect_IEnumerable_Func_Int32_Object_Object_List_Object()
+            {
+            // Attribute Tests Implemented
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect) + "(IEnumerable, Func<Int32, T, T>) => List<T>")]
+        public void Collect_IEnumerable_Func_Int32_T_T_List_T()
+            {
+            // Attribute Tests Implemented
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect) + "(IEnumerable<T>, Func<Int32, T, T>) => List<T>")]
+        public void Collect_IEnumerable_T_Func_Int32_T_T_List_T()
+            {
+            // Attribute Tests Implemented
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect) + "(T[], Func<Int32, T, T>) => T[]")]
+        public void Collect_T_Func_Int32_T_T_T()
+            {
+            // Attribute Tests Implemented
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumerableExt) + "." + nameof(EnumerableExt.Collect) + "(List<T>, Func<Int32, T, T>) => List<T>")]
+        public void Collect_List_T_Func_Int32_T_T_List_T()
+            {
+            // Attribute Tests Implemented
+            }
         }
     }
