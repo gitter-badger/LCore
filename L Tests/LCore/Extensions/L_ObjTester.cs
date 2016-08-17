@@ -9,6 +9,9 @@ using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
+
+// ReSharper disable ObjectCreationAsStatement
+
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable RedundantCast
 // ReSharper disable RedundantNameQualifier
@@ -18,19 +21,19 @@ namespace L_Tests.LCore.Extensions
     [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L))]
     public partial class L_ObjTester : XUnitOutputTester, IDisposable
         {
-        public L_ObjTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        public L_ObjTester([NotNull] ITestOutputHelper Output) : base(Output) {}
 
-        public void Dispose() { }
+        public void Dispose() {}
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.As) + "() => Func`2<Object, T>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.As) + "() => Func<Object, T>")]
         public void As()
             {
             const string Test = "a";
 
             var Test2 = L.Obj.As<object>()(Test);
 
-            Test2.Should().Be("a");
+            Test2.ShouldBe("a");
             }
 
         [Fact]
@@ -42,8 +45,8 @@ namespace L_Tests.LCore.Extensions
 
             L.Obj.Swap(ref Test1, ref Test2);
 
-            Test1.Should().Be("b");
-            Test2.Should().Be("a");
+            Test1.ShouldBe("b");
+            Test2.ShouldBe("a");
             }
 
         [Fact]
@@ -64,37 +67,37 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.New) + "(Object[]) => T")]
         public void New()
             {
-            L.Obj.New<string>().Should().Be("");
-            L.Obj.New<int>().Should().Be(expected: 0);
-            L.Obj.New<int?>().Should().Be(expected: null);
+            L.Obj.New<string>().ShouldBe("");
+            L.Obj.New<int>().ShouldBe(Compare: 0);
+            L.Obj.New<int?>().ShouldBe(Compare: null);
             L.Obj.New<List<int>>().ShouldBeEquivalentTo(new List<int>());
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.IsNull) + "() => Func`2<T, Boolean>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.IsNull) + "() => Func<T, Boolean>")]
         public void IsNull()
             {
             L.Obj.IsNull<object>()(arg: null).ShouldBeTrue();
             L.Obj.IsNull<object>()("").ShouldBeFalse();
             L.Obj.IsNull<object>()(arg: 1).ShouldBeFalse();
             L.Obj.IsNull<int?>()(arg: 1).ShouldBeFalse();
-            L.Obj.IsNull<int?>()((int?)null).ShouldBeTrue();
+            L.Obj.IsNull<int?>()((int?) null).ShouldBeTrue();
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.IsA) + "() => Func`2<Object, Boolean>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.IsA) + "() => Func<Object, Boolean>")]
         public void IsA()
             {
             L.Obj.IsA<string>()("").ShouldBeTrue();
             L.Obj.IsA<string>()(arg: null).ShouldBeFalse();
-            L.Obj.IsA<string>()((string)null).ShouldBeFalse();
-            L.Obj.IsA<int>()((string)null).ShouldBeFalse();
+            L.Obj.IsA<string>()((string) null).ShouldBeFalse();
+            L.Obj.IsA<int>()((string) null).ShouldBeFalse();
             L.Obj.IsA<object>()("").ShouldBeTrue();
             L.Obj.IsA<object>()(arg: null).ShouldBeFalse();
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.HasProperty) + "() => Func`3<Object, String, Boolean>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.HasProperty) + "() => Func<Object, String, Boolean>")]
         public void HasProperty()
             {
             const string Test = "a";
@@ -107,12 +110,12 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.GetProperty) + "() => Func`3<Object, String, Object>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.GetProperty) + "() => Func<Object, String, Object>")]
         public void GetProperty()
             {
             const string Test = "a";
 
-            L.Obj.GetProperty()(Test, nameof(string.Length)).Should().Be(expected: 1);
+            L.Obj.GetProperty()(Test, nameof(string.Length)).ShouldBe(Compare: 1);
             L.Obj.GetProperty()(Test, "derp").ShouldBeNull();
 
             L.Obj.GetProperty()(Test, arg2: null).ShouldBeNull();
@@ -120,7 +123,7 @@ namespace L_Tests.LCore.Extensions
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.SetProperty) + "() => Action`3<Object, String, Object>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.SetProperty) + "() => Action<Object, String, Object>")]
         public void SetProperty()
             {
             var Test = new Set<string, string>("a", "b");
@@ -129,7 +132,32 @@ namespace L_Tests.LCore.Extensions
 
             L.A(() => L.Obj.SetProperty()(Test, "derp", "d")).ShouldFail();
 
-            Test.Obj1.Should().Be("c");
+            Test.Obj1.ShouldBe("c");
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.NewRandom) + "(Nullable<T>, Nullable<T>) => T")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Obj) + "." + nameof(L.Obj.NewRandom) + "(Type, Object, Object) => Object")]
+        public void NewRandom()
+            {
+            int Random = (int) L.Obj.NewRandom(typeof(int));
+
+            Random.Should().BeInRange(int.MinValue, int.MaxValue);
+
+            for (int i = 0; i < 50; i++)
+                {
+                int Minimum = L.Obj.NewRandom<int>(int.MinValue, int.MaxValue - 1);
+                int Maximum = L.Obj.NewRandom<int>(Minimum + 1, int.MaxValue);
+
+                Random = (int) L.Obj.NewRandom(typeof(int), Minimum, Maximum);
+                int Random2 = L.Obj.NewRandom<int>(Minimum, Maximum);
+
+                Random.Should().BeInRange(Minimum, Maximum);
+                Random2.Should().BeInRange(Minimum, Maximum);
+                }
+
+
+            new Guid(L.Obj.NewRandom(typeof(string)) as string);
             }
         }
     }

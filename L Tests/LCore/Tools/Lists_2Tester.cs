@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
@@ -14,7 +13,7 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Tools
     {
-    [Trait(Traits.TargetClass, "LCore.Tools.Lists`2")]
+    [Trait(Traits.TargetClass, "LCore.Tools.Lists")]
     public partial class Lists_2Tester : XUnitOutputTester, IDisposable
         {
         public Lists_2Tester([NotNull] ITestOutputHelper Output) : base(Output) { }
@@ -33,46 +32,46 @@ namespace L_Tests.LCore.Tools
 
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.Add(T1, T2)")]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.GetAt(Int32) => Set`2<T1, T2>")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists.Add(T1, T2)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists.GetAt(Int32) => Set<T1, T2>")]
         public void Add()
             {
             var Test = new Lists<string, int>();
 
             Test.Add("a", o2: 1);
 
-            Test.Count.Should().Be(expected: 1);
-            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("a", Obj2: 1));
+            Test.Count.ShouldBe(Compare: 1);
+            Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("a", Obj2: 1));
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.Set(Int32, T1, T2)")]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.Set1(Int32, T1)")]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.Set2(Int32, T2)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists.Set(Int32, T1, T2)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists.Set1(Int32, T1)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists.Set2(Int32, T2)")]
         public void Set()
             {
             var Test = new Lists<string, int>();
 
             Test.Add("a", o2: 1);
 
-            Test.Count.Should().Be(expected: 1);
-            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("a", Obj2: 1));
+            Test.Count.ShouldBe(Compare: 1);
+            Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("a", Obj2: 1));
 
             Test.Set(Index: 0, Value: "b", Value2: 2);
 
-            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("b", Obj2: 2));
+            Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("b", Obj2: 2));
 
             Test.Set1(Index: 0, Value: "c");
 
-            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("c", Obj2: 2));
+            Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("c", Obj2: 2));
 
             Test.Set2(Index: 0, Value: 3);
 
-            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("c", Obj2: 3));
+            Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("c", Obj2: 3));
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists`2.RemoveAt(Int32)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists.RemoveAt(Int32)")]
         public void RemoveAt()
             {
             var Test = new Lists<string, int>();
@@ -84,15 +83,15 @@ namespace L_Tests.LCore.Tools
 
             L.A(() => Test.Add(Guid.NewGuid().ToString(), Rand.Next())).Repeat(Times: 100)();
 
-            Test.Count.Should().Be(expected: 103);
+            Test.Count.ShouldBe(Compare: 103);
 
             Test.RemoveAt(Index: 0);
 
-            Test.Count.Should().Be(expected: 102);
-            Test.List1.Count.Should().Be(expected: 102);
-            Test.List2.Count.Should().Be(expected: 102);
+            Test.Count.ShouldBe(Compare: 102);
+            Test.List1.Count.ShouldBe(Compare: 102);
+            Test.List2.Count.ShouldBe(Compare: 102);
 
-            Test.GetAt(Index: 0).Should().Be(new Set<string, int>("c", Obj2: 3));
+            Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("c", Obj2: 3));
             }
 
         }

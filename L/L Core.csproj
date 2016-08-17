@@ -131,11 +131,14 @@
     <Compile Include="LUnit\Attributes\Interfaces\ITestedAttribute.cs" />
     <Compile Include="Tools\Async\Threads\FakeThreadPool.cs" />
     <Compile Include="Tools\Markdown\ExcludeFromMarkdownAttribute.cs" />
+    <Compile Include="Tools\Markdown\FontAwesomeIcon.cs" />
     <Compile Include="Tools\Markdown\GitHubMarkdown.cs" />
     <Compile Include="Tools\CacheData.cs" />
     <Compile Include="Extensions\Language\CommentExt.cs" />
     <Compile Include="Interfaces\ICodeComment.cs" />
+    <Compile Include="Tools\Markdown\GlyphIcon.cs" />
     <Compile Include="Tools\Markdown\IExcludeFromMarkdownAttribute.cs" />
+    <Compile Include="Tools\Markdown\MarkdownGenerator.cs" />
     <Compile Include="Tools\MethodProfileData.cs" />
     <Compile Include="Tools\DoubleDictionary.cs" />
     <Compile Include="Tools\RegistryHelper.cs" />

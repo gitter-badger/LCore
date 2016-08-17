@@ -97,22 +97,22 @@ namespace L_Tests.LCore.Tools
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadObject) + "(String) => Object")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadString) + "(String) => String")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadInt) + "(String) => Nullable`1<Int32>")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadLong) + "(String) => Nullable`1<Int64>")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadFloat) + "(String) => Nullable`1<Single>")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadDouble) + "(String) => Nullable`1<Double>")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadChar) + "(String) => Nullable`1<Char>")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadBool) + "(String) => Nullable`1<Boolean>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadInt) + "(String) => Nullable<Int32>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadLong) + "(String) => Nullable<Int64>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadFloat) + "(String) => Nullable<Single>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadDouble) + "(String) => Nullable<Double>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadChar) + "(String) => Nullable<Char>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadBool) + "(String) => Nullable<Boolean>")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadBinary) + "(String) => Byte[]")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadList) + "(String) => List`1<Object>")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadAll) + "() => List`1<Set`2<String, Object>>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadList) + "(String) => List<Object>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.LoadAll) + "() => List<Set<String, Object>>")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.RemoveAll) + "()")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.Remove) + "(String[])")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.Save) + "(String, Object)")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.Save) + "(String, String)")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.Save) + "(String, IConvertible)")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.Save) + "(String, Byte[])")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.Save) + "(String, IEnumerable`1<Object>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper) + "." + nameof(RegistryHelper.Save) + "(String, IEnumerable<Object>)")]
         public void AllMethods()
             {
             /////////////////////////////
@@ -145,37 +145,37 @@ namespace L_Tests.LCore.Tools
             this.Reg.LoadLong("a").Should().NotHaveValue();
 
             this.Reg.Save("a", (object)"abc");
-            this.Reg.LoadString("a").Should().Be("abc");
-            this.Reg.LoadObject("a").Should().Be("abc");
+            this.Reg.LoadString("a").ShouldBe("abc");
+            this.Reg.LoadObject("a").ShouldBe("abc");
 
             this.Reg.Save("b", (object)55);
-            this.Reg.LoadInt("b").Should().Be(expected: 55);
-            this.Reg.LoadObject("b").Should().Be("55");
+            this.Reg.LoadInt("b").ShouldBe(Compare: 55);
+            this.Reg.LoadObject("b").ShouldBe("55");
 
             this.Reg.Save("c", (object)-5.5f);
-            this.Reg.LoadFloat("c").Should().Be(-5.5f);
-            this.Reg.LoadObject("c").Should().Be("-5.5");
+            this.Reg.LoadFloat("c").ShouldBe(-5.5f);
+            this.Reg.LoadObject("c").ShouldBe("-5.5");
 
             this.Reg.Save("d", (double)-5.5);
-            this.Reg.LoadDouble("d").Should().Be((double)-5.5);
-            this.Reg.LoadObject("d").Should().Be("-5.5");
+            this.Reg.LoadDouble("d").ShouldBe((double)-5.5);
+            this.Reg.LoadObject("d").ShouldBe("-5.5");
 
             this.Reg.Save("e", (object)new byte[] { 5, 243, 224, 21 });
             this.Reg.LoadBinary("e").Should().Equal(5, 243, 224, 21);
-            this.Reg.LoadObject("e").ToS().Should().Be(new byte[] { 5, 243, 224, 21 }.ToS());
+            this.Reg.LoadObject("e").ToS().ShouldBe(new byte[] { 5, 243, 224, 21 }.ToS());
 
             this.Reg.Save("f", (object)'c');
-            this.Reg.LoadChar("f").Should().Be(expected: 'c');
-            this.Reg.LoadObject("f").Should().Be("c");
+            this.Reg.LoadChar("f").ShouldBe(Compare: 'c');
+            this.Reg.LoadObject("f").ShouldBe("c");
 
             this.Reg.Save("g", (object)true);
-            this.Reg.LoadBool("g").Should().Be(expected: true);
-            this.Reg.LoadObject("g").Should().Be("True");
+            this.Reg.LoadBool("g").ShouldBe(Compare: true);
+            this.Reg.LoadObject("g").ShouldBe("True");
 
             this.Reg.Save("h", (object)new object[] { 5, -5.5f, "abc", (double)-55, (double)double.NaN });
 
             // ReSharper disable once ArgumentsStyleLiteral
-            this.Reg.LoadList("h").ToS().Should().Be(new List<object> { 5, -5.5f, "abc", (double)-55, (double)double.NaN }.ToS());
+            this.Reg.LoadList("h").ToS().ShouldBe(new List<object> { 5, -5.5f, "abc", (double)-55, (double)double.NaN }.ToS());
 
             this.Reg.LoadAll().ShouldBeEquivalentTo(new List<Set<string, object>>
                 {

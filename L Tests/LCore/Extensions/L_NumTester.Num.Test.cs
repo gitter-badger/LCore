@@ -1,8 +1,8 @@
 ﻿using System;
-using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -22,17 +22,17 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Num) + "." +
             nameof(L.Num.ScientificNotationToNumber) + "(String) => String")]
-        public void Test_ScientificNotationToNumber()
+        public void ScientificNotationToNumber()
             {
-            L.Num.ScientificNotationToNumber("nope not a number").Should().Be("nope not a number");
-            L.Num.ScientificNotationToNumber("553e10").Should().Be("5530000000000");
-            L.Num.ScientificNotationToNumber("553e0").Should().Be("553");
-            L.Num.ScientificNotationToNumber("553.1e1").Should().Be("5531");
-            L.Num.ScientificNotationToNumber("3.00053e10").Should().Be("30005300000");
-            L.Num.ScientificNotationToNumber("1.0e5").Should().Be("100000");
-            L.Num.ScientificNotationToNumber("1.0e-5").Should().Be("0.00001");
-            L.Num.ScientificNotationToNumber("1.0e0").Should().Be("1");
-            L.Num.ScientificNotationToNumber("5.0e-1").Should().Be("0.5");
+            L.Num.ScientificNotationToNumber("nope not a number").ShouldBe("nope not a number");
+            L.Num.ScientificNotationToNumber("553e10").ShouldBe("5530000000000");
+            L.Num.ScientificNotationToNumber("553e0").ShouldBe("553");
+            L.Num.ScientificNotationToNumber("553.1e1").ShouldBe("5531");
+            L.Num.ScientificNotationToNumber("3.00053e10").ShouldBe("30005300000");
+            L.Num.ScientificNotationToNumber("1.0e5").ShouldBe("100000");
+            L.Num.ScientificNotationToNumber("1.0e-5").ShouldBe("0.00001");
+            L.Num.ScientificNotationToNumber("1.0e0").ShouldBe("1");
+            L.Num.ScientificNotationToNumber("5.0e-1").ShouldBe("0.5");
             }
         }
     }

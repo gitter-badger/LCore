@@ -2,9 +2,8 @@ using LCore.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using JetBrains.Annotations;
+
 // ReSharper disable UnusedMember.Global
 // ReSharper disable CollectionNeverQueried.Global
 // ReSharper disable ClassNeverInstantiated.Global
@@ -18,10 +17,33 @@ namespace LCore.Tools
     public class GitHubMarkdown
         {
         /// <summary>
+        /// The path relative to the root repository folder that this markdown file will be saved
+        /// </summary>
+        public string FilePath { get; }
+
+        /// <summary>
+        /// The title of the markdown file
+        /// </summary>
+        public string Title { get; }
+
+        /// <summary>
+        /// Create a new GitHumMarkdown document without specifying a file title or location
+        /// </summary>
+        public GitHubMarkdown() {}
+
+        /// <summary>
+        /// Create a new GitHumMarkdown document specifying a file title and location
+        /// </summary>
+        public GitHubMarkdown([CanBeNull] string FilePath, [CanBeNull] string Title)
+            {
+            this.FilePath = (FilePath ?? "").Trim('/', '\\').ReplaceAll("\\", "/");
+            this.Title = Title ?? "";
+            }
+
+        /// <summary>
         /// List of all Markdown Lines added.
         /// </summary>
         protected List<string> MarkdownLines { get; } = new List<string>();
-
 
         /// <summary>
         /// Add a blank line:
@@ -81,7 +103,9 @@ namespace LCore.Tools
                 Size = 2;
 
             this.Line($"{Line}");
-            this.Line(Size == 1 ? "======" : "------");
+            this.Line(Size == 1
+                ? "======"
+                : "------");
             }
 
         /// <summary>
@@ -110,7 +134,7 @@ namespace LCore.Tools
         /// </summary>
         public void OrderedList([CanBeNull] params Tuple<uint, string>[] DepthLine)
             {
-            DepthLine.Each(Line => this.OrderedList((Set<uint, string>)Line));
+            DepthLine.Each(Line => this.OrderedList((Set<uint, string>) Line));
             }
 
         /// <summary>
@@ -131,13 +155,13 @@ namespace LCore.Tools
 
             DepthLine.Each(Line =>
                 {
-                    if (LastLevel == null || Line.Obj1 != LastLevel)
-                        CurrentNumber = 1;
+                if (LastLevel == null || Line.Obj1 != LastLevel)
+                    CurrentNumber = 1;
 
-                    this.Line($"{"  ".Times(Line.Obj1)}{CurrentNumber}{Line.Obj2}");
+                this.Line($"{"  ".Times(Line.Obj1)}{CurrentNumber}{Line.Obj2}");
 
-                    LastLevel = Line.Obj1;
-                    CurrentNumber++;
+                LastLevel = Line.Obj1;
+                CurrentNumber++;
                 });
             }
 
@@ -167,7 +191,7 @@ namespace LCore.Tools
         /// </summary>
         public void UnorderedList([CanBeNull] params Tuple<uint, string>[] DepthLine)
             {
-            DepthLine.Each(Line => this.UnorderedList((Set<uint, string>)Line));
+            DepthLine.Each(Line => this.UnorderedList((Set<uint, string>) Line));
             }
 
         /// <summary>
@@ -183,10 +207,7 @@ namespace LCore.Tools
         /// </summary>
         public void UnorderedList([CanBeNull] params Set<uint, string>[] DepthLine)
             {
-            DepthLine.Each(Line =>
-                {
-                    this.Line($"{"  ".Times(Line.Obj1)}*{Line.Obj2}");
-                });
+            DepthLine.Each(Line => { this.Line($"{"  ".Times(Line.Obj1)}*{Line.Obj2}"); });
             }
 
         /// <summary>
@@ -194,7 +215,7 @@ namespace LCore.Tools
         /// </summary>
         /// <param name="Lines"></param>
         /// <param name="Language"></param>
-        public void Code([CanBeNull] string[] Lines = null, [CanBeNull] string Language = "")
+        public void Code([CanBeNull] string[] Lines = null, [CanBeNull] string Language = MarkdownGenerator.CSharpLanguage)
             {
             this.Line($"```{Language}");
             Lines.Each(this.Line);
@@ -272,19 +293,19 @@ namespace LCore.Tools
             var Divider = new List<string>();
 
             Rows.Each((i, Row) =>
-            {
+                {
                 var Cells = new List<string>();
 
                 Row.Each((j, Column) =>
-                {
+                    {
                     Cells.Add(Column);
                     if (IncludeHeader && i == 0)
                         Divider.Add(" --- ");
-                });
+                    });
                 Table.Add(Cells.JoinLines(" | "));
                 if (IncludeHeader && i == 0)
                     Table.Add(Divider.JoinLines(" | "));
-            });
+                });
 
             Table.Each(this.Line);
             }
@@ -542,6 +563,12 @@ namespace LCore.Tools
         public void Load(MemberInfo Member)
             {
             this.MemberMarkdown.Add(Member, this.GenerateMarkdown(Member));
+        /// <summary>
+        /// Formats a glyphicon for display in a markdown document
+        /// </summary>
+        public string Glyph(GlyphIcon Glyph)
+            {
+            return $"<span class=\"glyphicon glyphicon-{Glyph.ToString().ToLower().Trim('_').ReplaceAll("_", "-")}\"></span>";
             }
         }
     }

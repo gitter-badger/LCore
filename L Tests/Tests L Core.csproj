@@ -184,13 +184,13 @@
     <Compile Include="LCore\Numbers\UIntNumberTester.cs" />
     <Compile Include="LCore\Numbers\ULongNumberTester.cs" />
     <Compile Include="LCore\Numbers\UShortNumberTester.cs" />
-    <Compile Include="LCore\Tests\Tools\ScheduleTester.cs" />
     <Compile Include="LCore\Tools\DateTimeConverterTester.cs" />
     <Compile Include="LCore\Tools\ProgressUpdaterTester.cs" />
     <Compile Include="LCore\Tools\CacheDataTester.cs" />
     <Compile Include="LCore\Tools\ExceptionListTester.cs" />
     <Compile Include="LCore\Tools\Lists_2Tester.cs" />
     <Compile Include="LCore\Tools\RegistryHelperTester.cs" />
+    <Compile Include="LCore\Tools\ScheduleTester.cs" />
     <Compile Include="LCore\Tools\Set_2Tester.cs" />
     <Compile Include="LCore\Tools\StatMonitorTest.cs" />
     <Compile Include="LCore\Tools\StopWatchTest.cs" />

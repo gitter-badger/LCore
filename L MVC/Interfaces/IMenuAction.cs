@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using LCore;
 using LMVC.Controllers;
 using LMVC.Extensions;
+
 // ReSharper disable RedundantArgumentDefaultValue
 
 namespace LMVC.Models
@@ -37,17 +39,15 @@ namespace LMVC.Models
         public string MethodName { get; set; }
 
         public MenuAction()
-            : this(ParentAction: null, Icon: FontAwesomeExt.Icon.question)
-            {
-            }
+            : this(ParentAction: null, Icon: FontAwesomeIcon.question) {}
 
-        public MenuAction(string ParentAction = null, FontAwesomeExt.Icon Icon = FontAwesomeExt.Icon.question, string ActionFriendlyTitle = null)
+        public MenuAction(string ParentAction = null, FontAwesomeIcon Icon = FontAwesomeIcon.question, string ActionFriendlyTitle = null)
             {
             this.ParentAction = ParentAction;
             this.Icon = FontAwesomeExt.FontAwesome(Html: null, Icon: Icon);
             }
 
-        public MenuAction(string ParentAction = null, GlyphIconExt.Icon Icon = GlyphIconExt.Icon.question_sign, string ActionFriendlyTitle = null)
+        public MenuAction(string ParentAction = null, GlyphIcon Icon = GlyphIcon.question_sign, string ActionFriendlyTitle = null)
             {
             this.ParentAction = ParentAction;
             this.Icon = GlyphIconExt.Glyph(Html: null, Icon: Icon);

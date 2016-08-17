@@ -1,5 +1,4 @@
 ﻿using System;
-using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
@@ -23,36 +22,36 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Date) + "." +
             nameof(L.Date.MonthNumberGetName) + "(Int32) => String")]
-        public void Test_MonthNumberGetName()
+        public void MonthNumberGetName()
             {
-            L.Date.MonthNumberGetName(Month: 1).Should().Be("January");
-            L.Date.MonthNumberGetName(Month: 2).Should().Be("February");
-            L.Date.MonthNumberGetName(Month: 3).Should().Be("March");
-            L.Date.MonthNumberGetName(Month: 4).Should().Be("April");
-            L.Date.MonthNumberGetName(Month: 5).Should().Be("May");
-            L.Date.MonthNumberGetName(Month: 6).Should().Be("June");
-            L.Date.MonthNumberGetName(Month: 7).Should().Be("July");
-            L.Date.MonthNumberGetName(Month: 8).Should().Be("August");
-            L.Date.MonthNumberGetName(Month: 9).Should().Be("September");
-            L.Date.MonthNumberGetName(Month: 10).Should().Be("October");
-            L.Date.MonthNumberGetName(Month: 11).Should().Be("November");
-            L.Date.MonthNumberGetName(Month: 12).Should().Be("December");
+            L.Date.MonthNumberGetName(Month: 1).ShouldBe("January");
+            L.Date.MonthNumberGetName(Month: 2).ShouldBe("February");
+            L.Date.MonthNumberGetName(Month: 3).ShouldBe("March");
+            L.Date.MonthNumberGetName(Month: 4).ShouldBe("April");
+            L.Date.MonthNumberGetName(Month: 5).ShouldBe("May");
+            L.Date.MonthNumberGetName(Month: 6).ShouldBe("June");
+            L.Date.MonthNumberGetName(Month: 7).ShouldBe("July");
+            L.Date.MonthNumberGetName(Month: 8).ShouldBe("August");
+            L.Date.MonthNumberGetName(Month: 9).ShouldBe("September");
+            L.Date.MonthNumberGetName(Month: 10).ShouldBe("October");
+            L.Date.MonthNumberGetName(Month: 11).ShouldBe("November");
+            L.Date.MonthNumberGetName(Month: 12).ShouldBe("December");
 
             L.A(() => L.Date.MonthNumberGetName(Month: 0)).ShouldFail();
             L.A(() => L.Date.MonthNumberGetName(Month: 13)).ShouldFail();
             }
 
         [Fact]
-        public void Test_DayOfWeek()
+        public void TestDayOfWeek()
             {
-            L.Date.GetDayNumber(DayOfWeek.Sunday).Should().Be(expected: 0);
-            L.Date.GetDayNumber(DayOfWeek.Monday).Should().Be(expected: 1);
-            L.Date.GetDayNumber(DayOfWeek.Tuesday).Should().Be(expected: 2);
-            L.Date.GetDayNumber(DayOfWeek.Wednesday).Should().Be(expected: 3);
-            L.Date.GetDayNumber(DayOfWeek.Thursday).Should().Be(expected: 4);
-            L.Date.GetDayNumber(DayOfWeek.Friday).Should().Be(expected: 5);
-            L.Date.GetDayNumber(DayOfWeek.Saturday).Should().Be(expected: 6);
-            L.Date.GetDayNumber(default(DayOfWeek)).Should().Be(expected: 0);
+            L.Date.GetDayNumber(DayOfWeek.Sunday).ShouldBe(Compare: 0);
+            L.Date.GetDayNumber(DayOfWeek.Monday).ShouldBe(Compare: 1);
+            L.Date.GetDayNumber(DayOfWeek.Tuesday).ShouldBe(Compare: 2);
+            L.Date.GetDayNumber(DayOfWeek.Wednesday).ShouldBe(Compare: 3);
+            L.Date.GetDayNumber(DayOfWeek.Thursday).ShouldBe(Compare: 4);
+            L.Date.GetDayNumber(DayOfWeek.Friday).ShouldBe(Compare: 5);
+            L.Date.GetDayNumber(DayOfWeek.Saturday).ShouldBe(Compare: 6);
+            L.Date.GetDayNumber(default(DayOfWeek)).ShouldBe(Compare: 0);
             }
         }
     }

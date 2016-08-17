@@ -3,6 +3,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -19,11 +20,11 @@ namespace L_Tests.LCore.Extensions
         public void Dispose() {}
         
         [Fact]
-        public void Test_CharConstants()
+        public void CharConstants()
             {
-            L.Char.LowerCaseChars.Length.Should().Be(expected: 26);
-            L.Char.UpperCaseChars.Length.Should().Be(expected: 26);
-            L.Char.NumberChars.Length.Should().Be(expected: 10);
+            L.Char.LowerCaseChars.Length.ShouldBe(Compare: 26);
+            L.Char.UpperCaseChars.Length.ShouldBe(Compare: 26);
+            L.Char.NumberChars.Length.ShouldBe(Compare: 10);
             L.Char.SpecialChars.Length.Should().BeGreaterOrEqualTo(expected: 10);
             }
 
@@ -36,8 +37,8 @@ namespace L_Tests.LCore.Extensions
             L.Str.CompareNumberString("-5", "10").Should().BeLessThan(expected: 0);
             L.Str.CompareNumberString("5", "-10").Should().BeGreaterThan(expected: 0);
             L.Str.CompareNumberString("-5", "-10").Should().BeGreaterThan(expected: 0);
-            L.Str.CompareNumberString("-5", "-5").Should().Be(expected: 0);
-            L.Str.CompareNumberString("-5000.00000", "-5000.000").Should().Be(expected: 0);
+            L.Str.CompareNumberString("-5", "-5").ShouldBe(Compare: 0);
+            L.Str.CompareNumberString("-5000.00000", "-5000.000").ShouldBe(Compare: 0);
 
             L.Str.CompareNumberString("-5000.000001", "-5000.000").Should().BeLessThan(expected: 0);
             L.Str.CompareNumberString("-5000.000001", "-5000.0001").Should().BeGreaterThan(expected: 0);

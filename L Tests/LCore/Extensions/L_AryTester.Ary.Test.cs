@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.Extensions.Optional;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -22,19 +23,19 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ary) + "." +
-            nameof(L.Ary.Array) + "() => Func`1<T[]>")]
+            nameof(L.Ary.Array) + "() => Func<T[]>")]
         public void Array_Func_1_T()
             {
-            L.Ary.Array<int>()().Should().BeOfType<int[]>().And.Subject.ToS().Should().Be("Int32[] {  }");
+            L.Ary.Array<int>()().Should().BeOfType<int[]>().And.Subject.ToS().ShouldBe("Int32[] {  }");
             }
 
         [Fact]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ary) + "." +
-            nameof(L.Ary.Array) + "(T[]) => Func`1<T[]>")]
+            nameof(L.Ary.Array) + "(T[]) => Func<T[]>")]
         public void Array_T_Func_1_T()
             {
-            L.Ary.Array<string>()().Should().BeOfType<string[]>().And.Subject.ToS().Should().Be("String[] {  }");
+            L.Ary.Array<string>()().Should().BeOfType<string[]>().And.Subject.ToS().ShouldBe("String[] {  }");
             }
 
         }

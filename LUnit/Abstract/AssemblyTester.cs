@@ -379,7 +379,7 @@ namespace LCore.LUnit
                                                        !(TargetMember is MethodInfo && ((MethodInfo)TargetMember).IsOperator());
 
                                 // ReSharper disable once UnusedVariable
-                                var TargetMemberTest = L.Ref.FindMember($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies).First();
+                                var TargetMemberTest = L.Ref.FindMembers($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies).First();
 
                                 string TraitKeyAttribute = StrongTypeTraitAttribute
                                 ? (TargetMember is MethodInfo

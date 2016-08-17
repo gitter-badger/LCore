@@ -1243,9 +1243,9 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Gets a method's parameter signature.
-        /// Ex: (Func`1&lt;String%gt;, Int32) => Action
+        /// Ex: (Func`1&lt;String%gt;, Int32) =&gt; Action
         ///     (String, String)
-        ///     (String, String) => Boolean
+        ///     (String, String) =&gt; Boolean
         /// </summary>
         public static string ToParameterSignature([CanBeNull] this MethodInfo In)
             {
@@ -1280,9 +1280,32 @@ namespace LCore.Extensions
 
             Type[] Generics = In.GenericTypeArguments;
 
-            return Generics.Length == 0
+            string Out = Generics.Length == 0
                 ? In.Name
                 : $"{In.Name}<{Generics.Convert(Type => Type.GetGenericName()).JoinLines(", ")}>";
+
+            Out = Out.ReplaceAll(new Dictionary<string, string>
+                {
+                ["`10"] = "",
+                ["`11"] = "",
+                ["`12"] = "",
+                ["`13"] = "",
+                ["`14"] = "",
+                ["`15"] = "",
+                ["`16"] = "",
+                ["`17"] = "",
+                ["`1"] = "",
+                ["`2"] = "",
+                ["`3"] = "",
+                ["`4"] = "",
+                ["`5"] = "",
+                ["`6"] = "",
+                ["`7"] = "",
+                ["`8"] = "",
+                ["`9"] = ""
+                });
+
+            return Out;
             }
 
 
@@ -1296,6 +1319,30 @@ namespace LCore.Extensions
                     Member.MemberType == MemberTypes.Property ||
                     (Member.IsSpecialName && Member.Name.StartsWith("get_")) ||
                     (Member.IsSpecialName && Member.Name.StartsWith("set_")));
+            }
+
+        /// <summary>
+        /// Returns true if a member is declared on the type it was retrieved from,
+        /// False if it was inherited from a base class.
+        /// 
+        /// <see cref="ReflectionExt.IsInheritedMember"/>
+        /// </summary>
+        public static bool IsDeclaredMember([CanBeNull] this MemberInfo Member)
+            {
+            return !Member.IsInheritedMember();
+            }
+
+        /// <summary>
+        /// Returns true if a member was inherited from a base class,
+        /// False if it is declared on the type it was retrieved from.
+        /// 
+        /// <see cref="ReflectionExt.IsDeclaredMember"/>
+        /// </summary>
+        public static bool IsInheritedMember([CanBeNull] this MemberInfo Member)
+            {
+            return Member?.DeclaringType != null &&
+                   Member.ReflectedType != null &&
+                   Member.DeclaringType != Member.ReflectedType;
             }
         }
 
@@ -1352,6 +1399,7 @@ namespace LCore.Extensions
                 if (Out != null)
                     return Out;
 
+                // will work for root types
                 foreach (var Assembly in Assemblies)
                     {
                     Out = Assembly.GetType(TypeName);
@@ -1360,7 +1408,20 @@ namespace LCore.Extensions
                         return Out;
                     }
 
-                return null;
+                // for nested types
+                return Assemblies.Convert(Assembly =>
+                    {
+                    try
+                        {
+                        return Assembly.GetExportedTypes();
+                        }
+                    catch
+                        {
+                        return null;
+                        }
+                    }).Flatten<Type>()
+                    .First(Type => TypeName == Type.GetNestedNames() ||
+                                   TypeName == Type.FullyQualifiedName());
                 }
 
             #endregion
@@ -1371,11 +1432,10 @@ namespace LCore.Extensions
             /// Returns members matching fully qualified name.
             /// Ex: "LCore.Extensions.L.Ref.FindMember"
             /// </summary>
-            [CanBeNull]
-            public static MemberInfo[] FindMember([CanBeNull] string MemberFullName, [CanBeNull] params Assembly[] Assemblies)
+            public static MemberInfo[] FindMembers([CanBeNull] string MemberFullName, [CanBeNull] params Assembly[] Assemblies)
                 {
                 if (MemberFullName == null || MemberFullName.Count(Obj: '.') < 1)
-                    return null;
+                    return new MemberInfo[] {};
 
                 string Type = MemberFullName.BeforeLast(".");
                 string MemberName = MemberFullName.AfterLast(".");
@@ -1443,9 +1503,9 @@ namespace LCore.Extensions
             /// Retrieve a MemberInfo using a lambda statement.
             /// Ex. L.Ref.Member`Class(t => t.Member);
             /// </summary>
-            public static MemberInfo Member<T>(Expression<Func<T, object>> Expr)
+            public static MemberInfo Member<T>([CanBeNull] Expression<Func<T, object>> Expr)
                 {
-                var Out = (Expr.Body as MemberExpression)?.Member;
+                var Out = (Expr?.Body as MemberExpression)?.Member;
 
                 if (Out != null)
                     {
@@ -1475,26 +1535,28 @@ namespace LCore.Extensions
             /// Retrieve a MethodInfo using a lambda statement.
             /// Ex. L.Ref.Method`Class(t => t.Method(""));
             /// </summary>
-            public static MethodInfo Method<T>(Expression<Action<T>> Expr)
+            public static MethodInfo Method<T>([CanBeNull] Expression<Action<T>> Expr)
                 {
-                var Out = ((MethodCallExpression) Expr.Body).Method;
+                var Out = ((MethodCallExpression) Expr?.Body)?.Method;
 
-                var TypeCursor = typeof(T);
-                while (TypeCursor != null)
+                if (Out != null)
                     {
-                    // Ambiguous match not possible here as parameters are present.
-                    // ReSharper disable once ExceptionNotDocumented
-                    var TopLevelMember = typeof(T).GetMethod(Out.Name, Out.GetParameters().Convert(Param => Param.ParameterType));
-
-                    if (TopLevelMember != null)
+                    var TypeCursor = typeof(T);
+                    while (TypeCursor != null)
                         {
-                        Out = TopLevelMember;
-                        break;
+                        // Ambiguous match not possible here as parameters are present.
+                        // ReSharper disable once ExceptionNotDocumented
+                        var TopLevelMember = typeof(T).GetMethod(Out.Name, Out.GetParameters().Convert(Param => Param.ParameterType));
+
+                        if (TopLevelMember != null)
+                            {
+                            Out = TopLevelMember;
+                            break;
+                            }
+
+                        TypeCursor = TypeCursor.BaseType;
                         }
-
-                    TypeCursor = TypeCursor.BaseType;
                     }
-
                 return Out;
                 }
 
@@ -1506,9 +1568,9 @@ namespace LCore.Extensions
             /// Retrieve a statically declared MethodInfo using a lambda statement.
             /// Ex. L.Ref.StaticMethod(() => Class.StaticMethod(""));
             /// </summary>
-            public static MethodInfo StaticMethod(Expression<Action> Expr)
+            public static MethodInfo StaticMethod([CanBeNull] Expression<Action> Expr)
                 {
-                return ((MethodCallExpression) Expr.Body).Method;
+                return ((MethodCallExpression) Expr?.Body)?.Method;
                 }
 
             #endregion

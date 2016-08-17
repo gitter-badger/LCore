@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions.Optional;
 using LCore.LUnit;
+using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
@@ -20,9 +20,9 @@ namespace L_Tests.LCore.Tools
         [Fact]
         [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit(ExceptionList) => Exception[]")]
         [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit(Exception[]) => ExceptionList")]
-        [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit(ExceptionList) => List`1<Exception>")]
-        [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit(List`1<Exception>) => ExceptionList")]
-        public void Test_ExceptionList()
+        [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit(ExceptionList) => List<Exception>")]
+        [Trait(Traits.TargetMember, "LCore.Tools.ExceptionList.op_Implicit(List<Exception>) => ExceptionList")]
+        public void ExceptionList()
             {
             var Ex = new ExceptionList(new[]
                 {
@@ -32,17 +32,16 @@ namespace L_Tests.LCore.Tools
                 new FormatException("3")
                 });
 
-            Ex.Exceptions.ToS().Should().Be(
-                "List`1<Exception> { System.Exception: 1, System.ArgumentNullException: Value cannot be null.\r\nParameter name: 2, System.FormatException: 3 }");
+            Ex.Exceptions.ToS().ShouldBe("List<Exception> { System.Exception: 1, System.ArgumentNullException: Value cannot be null.\r\nParameter name: 2, System.FormatException: 3 }");
 
-            Ex.StackTrace.Should().Be("");
+            Ex.StackTrace.ShouldBe("");
 
-            Ex.ToString().Should().Be("LCore.Tools.ExceptionList: 1\r\nValue cannot be null.\r\nParameter name: 2\r\n3");
+            Ex.ToString().ShouldBe("LCore.Tools.ExceptionList: 1\r\nValue cannot be null.\r\nParameter name: 2\r\n3");
 
             Exception[] TestImplicit = Ex;
             ExceptionList TestImplicit2 = TestImplicit;
 
-            Ex.Exceptions.ToS().Should().Be(TestImplicit2.Exceptions.ToS());
+            Ex.Exceptions.ToS().ShouldBe(TestImplicit2.Exceptions.ToS());
 
             // ReSharper disable once RedundantAssignment
             List<Exception> TestImplicit3 = Ex;
@@ -53,7 +52,7 @@ namespace L_Tests.LCore.Tools
 
             ExceptionList TestImplicit4 = TestImplicit3;
 
-            Ex.Exceptions.ToS().Should().Be(TestImplicit4.Exceptions.ToS());
+            Ex.Exceptions.ToS().ShouldBe(TestImplicit4.Exceptions.ToS());
             }
 
         }

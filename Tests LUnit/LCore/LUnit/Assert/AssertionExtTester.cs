@@ -1,5 +1,4 @@
 using System;
-using FluentAssertions;
 using LCore.Extensions;
 using LCore.LUnit;
 using LCore.LUnit.Assert;
@@ -19,31 +18,31 @@ namespace LUnit_Tests.LCore.LUnit.Assert
 
         private readonly Action<object> _TestFail2 = o =>
         {
-            o.Should().Be("abc");
+            o.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Action<object, object> _TestFail3 = (o1, o2) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Action<object, object, object> _TestFail4 = (o1, o2, o3) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Action<object, object, object, object> _TestFail5 = (o1, o2, o3, o4) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
-            o4.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
+            o4.ShouldBe("abc");
             throw new ArgumentException();
         };
 
@@ -51,87 +50,87 @@ namespace LUnit_Tests.LCore.LUnit.Assert
 
         private readonly Func<object, string> _TestFailFunc2 = o =>
         {
-            o.Should().Be("abc");
+            o.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Func<object, object, string> _TestFailFunc3 = (o1, o2) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Func<object, object, object, string> _TestFailFunc4 = (o1, o2, o3) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Func<object, object, object, object, string> _TestFailFunc5 = (o1, o2, o3, o4) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
-            o4.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
+            o4.ShouldBe("abc");
             throw new ArgumentException();
         };
 
         private readonly Action _Test = () => { };
-        private readonly Action<object> _Test2 = o => { o.Should().Be("abc"); };
+        private readonly Action<object> _Test2 = o => { o.ShouldBe("abc"); };
 
         private readonly Action<object, object> _Test3 = (o1, o2) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
         };
 
         private readonly Action<object, object, object> _Test4 = (o1, o2, o3) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
         };
 
         private readonly Action<object, object, object, object> _Test5 = (o1, o2, o3, o4) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
-            o4.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
+            o4.ShouldBe("abc");
         };
 
         private readonly Func<string> _TestFunc = () => "abc";
 
         private readonly Func<object, string> _TestFunc2 = o =>
         {
-            o.Should().Be("abc");
+            o.ShouldBe("abc");
             return "abc";
         };
 
         private readonly Func<object, object, string> _TestFunc3 = (o1, o2) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
             return "abc";
         };
 
         private readonly Func<object, object, object, string> _TestFunc4 = (o1, o2, o3) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
             return "abc";
         };
 
         private readonly Func<object, object, object, object, string> _TestFunc5 = (o1, o2, o3, o4) =>
         {
-            o1.Should().Be("abc");
-            o2.Should().Be("abc");
-            o3.Should().Be("abc");
-            o4.Should().Be("abc");
+            o1.ShouldBe("abc");
+            o2.ShouldBe("abc");
+            o3.ShouldBe("abc");
+            o4.ShouldBe("abc");
             return "abc";
         };
 
@@ -143,8 +142,8 @@ namespace LUnit_Tests.LCore.LUnit.Assert
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(MethodInfo, Object, Object[])")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(MethodInfo, Object, Object[], Func`1[])")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(MethodInfo, Object, Object[], Func`2[])")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(MethodInfo, Object, Object[], Func[])")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(MethodInfo, Object, Object[], Func[])")]
         public void AssertSucceedes_MethodInfo_Object_Object()
             {
             var Target = new Helper();
@@ -170,10 +169,10 @@ namespace LUnit_Tests.LCore.LUnit.Assert
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Action)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Action`1<T1>, T1)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Action`2<T1, T2>, T1, T2)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Action`3<T1, T2, T3>, T1, T2, T3)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Action`4<T1, T2, T3, T4>, T1, T2, T3, T4)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Action<T1>, T1)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Action<T1, T2>, T1, T2)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Action<T1, T2, T3>, T1, T2, T3)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Action<T1, T2, T3, T4>, T1, T2, T3, T4)")]
         public void AssertSucceedes_Action()
             {
             this._Test.AssertSucceedes();
@@ -191,11 +190,11 @@ namespace LUnit_Tests.LCore.LUnit.Assert
 
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Func`1<U>)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Func`2<T1, U>, T1)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Func`3<T1, T2, U>, T1, T2)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Func`4<T1, T2, T3, U>, T1, T2, T3)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Func`5<T1, T2, T3, T4, U>, T1, T2, T3, T4)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Func<U>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Func<T1, U>, T1)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Func<T1, T2, U>, T1, T2)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Func<T1, T2, T3, U>, T1, T2, T3)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(Func<T1, T2, T3, T4, U>, T1, T2, T3, T4)")]
         public void AssertSucceedes_Func_1_U()
             {
             this._TestFunc.AssertSucceedes();
@@ -213,10 +212,10 @@ namespace LUnit_Tests.LCore.LUnit.Assert
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Action)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Action`1<T1>, T1)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Action`2<T1, T2>, T1, T2)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Action`3<T1, T2, T3>, T1, T2, T3)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Action`4<T1, T2, T3, T4>, T1, T2, T3, T4)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Action<T1>, T1)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Action<T1, T2>, T1, T2)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Action<T1, T2, T3>, T1, T2, T3)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Action<T1, T2, T3, T4>, T1, T2, T3, T4)")]
         public void AssertFails_Action()
             {
             this._TestFail.AssertFails();
@@ -249,11 +248,11 @@ namespace LUnit_Tests.LCore.LUnit.Assert
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Func`1<U>)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Func`2<T1, U>, T1)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Func`3<T1, T2, U>, T1, T2)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Func`4<T1, T2, T3, U>, T1, T2, T3)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Func`5<T1, T2, T3, T4, U>, T1, T2, T3, T4)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Func<U>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Func<T1, U>, T1)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Func<T1, T2, U>, T1, T2)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Func<T1, T2, T3, U>, T1, T2, T3)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(Func<T1, T2, T3, T4, U>, T1, T2, T3, T4)")]
         public void AssertFails_Func_1_U()
             {
             this._TestFailFunc.AssertFails();
@@ -284,7 +283,7 @@ namespace LUnit_Tests.LCore.LUnit.Assert
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(MethodInfo, Object, Object[], Object, Func`2[])")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(MethodInfo, Object, Object[], Object, Func[])")]
         public void AssertResult_MethodInfo_Object_Object_Object_Func_2()
             {
             var Target = new TestExtTest.Helper();
@@ -298,11 +297,11 @@ namespace LUnit_Tests.LCore.LUnit.Assert
 
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(Func`1<U>, U)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(Func`2<T1, U>, T1, U)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(Func`3<T1, T2, U>, T1, T2, U)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(Func`4<T1, T2, T3, U>, T1, T2, T3, U)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(Func`5<T1, T2, T3, T4, U>, T1, T2, T3, T4, U)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(Func<U>, U)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(Func<T1, U>, T1, U)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(Func<T1, T2, U>, T1, T2, U)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(Func<T1, T2, T3, U>, T1, T2, T3, U)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(Func<T1, T2, T3, T4, U>, T1, T2, T3, T4, U)")]
         public void AssertResult_Func_1_U_U()
             {
             this._TestFunc.AssertResult("abc");
