@@ -438,7 +438,7 @@ namespace LCore.Extensions
         /// Concatenates a given String <paramref name="In" /> to length <paramref name="MaxLength" /> minus the length of <paramref name="ConcatenateString" />.
         /// You can specify a Concatenation String, which defaults to "..."
         /// </summary>
-        [TestFails(new object[] { null, 0, "..." }, typeof(ArgumentException))]
+        [TestResult(new object[] { null, 0, "..." }, "")]
         [TestResult(new object[] { null, 5, "..." }, "")]
         [TestResult(new object[] { null, -5, "..." }, "")]
         [TestResult(new object[] { "test string", -5, "..." }, "test string")]
@@ -618,7 +618,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (long)(1024 * 1024 * 1024 * (long)1024 * (float)1.5), 5 }, "1.50000 TB")]
         [TestResult(new object[] { (long)35572226, 5 }, "33.92432 MB")]
         [TestResult(new object[] { long.MaxValue, 0 }, "8 EB")]
-        public static string FormatFileSize(this long Size, int Decimals)
+        public static string FormatFileSize([TestBound(0, int.MaxValue)]this long Size, [TestBound(0, 5)]int Decimals)
             {
             if (Size < 0)
                 throw new ArgumentOutOfRangeException(nameof(Size));
@@ -699,7 +699,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 35572226, 5 }, "33.92432 MB")]
         [TestResult(new object[] { int.MaxValue, 0 }, "2 GB")]
         // ReSharper disable once MethodOverloadWithOptionalParameter
-        public static string FormatFileSize(this int Size, int Decimals = 0)
+        public static string FormatFileSize([TestBound(0, int.MaxValue)]this int Size, [TestBound(0, 5)]int Decimals = 0)
             {
             if (Decimals < 0)
                 throw new ArgumentOutOfRangeException(nameof(Decimals));
@@ -1321,12 +1321,12 @@ namespace LCore.Extensions
         /// Takes a String and returns a String[] split by the <paramref name="SplitStr" />
         /// This method will throw an Exception if <paramref name="SplitStr" /> is empty.
         /// </summary>
-        [TestFails(new object[] { null, null })]
-        [TestFails(new object[] { "", null })]
-        [TestFails(new object[] { "a", null })]
-        [TestFails(new object[] { null, "" })]
-        [TestFails(new object[] { "", "" })]
-        [TestFails(new object[] { "a", "" })]
+        [TestResult(new object[] { null, null }, new string[] { "" })]
+        [TestResult(new object[] { "", null }, new string[] { "" })]
+        [TestResult(new object[] { "a", null }, new string[] { "a" })]
+        [TestResult(new object[] { null, "" }, new string[] { "" })]
+        [TestResult(new object[] { "", "" }, new string[] { "" })]
+        [TestResult(new object[] { "a", "" }, new string[] { "a" })]
         [TestResult(new object[] { null, "a" }, new string[] { })]
         [TestResult(new object[] { "", "a" }, new string[] { })]
         [TestResult(new object[] { "a", "a" }, new string[] { })]
@@ -1338,7 +1338,7 @@ namespace LCore.Extensions
         public static string[] Split([CanBeNull]this string In, [CanBeNull] string SplitStr)
             {
             if (string.IsNullOrEmpty(SplitStr))
-                throw new ArgumentNullException(nameof(SplitStr));
+                return new string[] { In ?? "" };
 
             if (In == null || In.IsEmpty())
                 return new string[] { };

@@ -86,6 +86,9 @@ namespace LCore.LUnit
         /// </summary>
         protected virtual Assembly[] TestAssemblies => AppDomain.CurrentDomain.GetAssemblies();
 
+
+        protected virtual Type[] AllAssemblyTypes => this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(IncludeBaseTypes: false).Array();
+
         ////////////////////////////////////////////////////////
 
         /// <summary>
@@ -241,17 +244,12 @@ namespace LCore.LUnit
         [Fact]
         public void AssemblyMissingCoverage()
             {
-            // ReSharper disable FormatStringProblem
-            // ReSharper disable once UseObjectOrCollectionInitializer
             var WriteStack = new List<string>();
             var Using = new List<string>();
 
             const string Attribute = nameof(Attribute);
 
-            Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(IncludeBaseTypes: false).Array();
-
             uint NamespacesMissing = 0;
-
             uint TotalClassesMissing = 0;
             uint TotalMembersMissing = 0;
 
@@ -263,7 +261,7 @@ namespace LCore.LUnit
                 ? " partial "
                 : " ";
 
-            foreach (var Type in Types)
+            foreach (var Type in this.AllAssemblyTypes)
                 {
                 MemberAttributes.AddRange(Type.GetTestMembers());
 
