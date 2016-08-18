@@ -31,8 +31,8 @@ namespace L_Tests.LCore.Tools
 
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists.Add(T1, T2)")]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists.GetAt(Int32) => Set<T1, T2>")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists<T1, T2>.Add(T1, T2)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists<T1, T2>.GetAt(Int32) => Set<T1, T2>")]
         public void Add()
             {
             var Test = new Lists<string, int>();
@@ -44,9 +44,9 @@ namespace L_Tests.LCore.Tools
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists.Set(Int32, T1, T2)")]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists.Set1(Int32, T1)")]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists.Set2(Int32, T2)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists<T1, T2>.Set(Int32, T1, T2)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists<T1, T2>.Set1(Int32, T1)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists<T1, T2>.Set2(Int32, T2)")]
         public void Set()
             {
             var Test = new Lists<string, int>();
@@ -70,7 +70,7 @@ namespace L_Tests.LCore.Tools
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Lists.RemoveAt(Int32)")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Lists<T1, T2>.RemoveAt(Int32)")]
         public void RemoveAt()
             {
             var Test = new Lists<string, int>();

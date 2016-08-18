@@ -288,10 +288,10 @@ namespace LCore.LUnit
 
                         if (this.GeneratedCode_IncludeTraitTargetAttributes)
                             {
-                            bool StrongTypeTraitAttribute = !TargetClass.FullyQualifiedName().HasAny('`', '<', '>');
 
                             if (TargetClassTest != null)
                                 Partial = " partial ";
+                            bool StrongTypeTraitAttribute = !TargetClass.FullyQualifiedName().HasAny('`', '<', '>');
 /*
 
                             WriteStack3.Add(StrongTypeTraitAttribute
