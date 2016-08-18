@@ -1610,12 +1610,7 @@ namespace L_Tests.LCore.Extensions
             Result = 0;
             Test2.Enclose2(Test)(obj: 8);
             Result.ShouldBe(Expected: 13);
-
-            L.A(() => ((Func<int>)null).Enclose(Test)).ShouldFail();
-            L.A(() => ((Func<int>)null).Enclose2(Test)).ShouldFail();
-            L.A(() => Test2.Enclose((Action<int, int>)null)).ShouldFail();
-            L.A(() => Test2.Enclose2((Action<int, int>)null)).ShouldFail();
-
+            
             // Exceptions are not hidden.
             L.A(() => Test2.Enclose(BadTest)(obj: 5)).ShouldFail();
             L.A(() => Test2.Enclose2(BadTest)(obj: 5)).ShouldFail();
@@ -1642,12 +1637,7 @@ namespace L_Tests.LCore.Extensions
             Result = 0;
             Test2.Enclose2(Test)(arg1: 3, arg2: 8);
             Result.ShouldBe(Expected: 16);
-
-            L.A(() => ((Func<int, int>)null).Enclose(Test)).ShouldFail();
-            L.A(() => ((Func<int, int>)null).Enclose2(Test)).ShouldFail();
-            L.A(() => Test2.Enclose((Action<int, int>)null)).ShouldFail();
-            L.A(() => Test2.Enclose2((Action<int, int>)null)).ShouldFail();
-
+            
             // Exceptions are not hidden.
             L.A(() => Test2.Enclose(BadTest)(arg1: 0, arg2: 0)).ShouldFail();
             L.A(() => Test2.Enclose2(BadTest)(arg1: 0, arg2: 0)).ShouldFail();
@@ -1674,12 +1664,7 @@ namespace L_Tests.LCore.Extensions
             Result = 0;
             Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10);
             Result.ShouldBe(Expected: 88);
-
-            L.A(() => ((Func<int, int, int>)null).Enclose(Test)).ShouldFail();
-            L.A(() => ((Func<int, int, int>)null).Enclose2(Test)).ShouldFail();
-            L.A(() => Test2.Enclose((Action<int, int>)null)).ShouldFail();
-            L.A(() => Test2.Enclose2((Action<int, int>)null)).ShouldFail();
-
+            
             // Exceptions are not hidden.
             L.A(() => Test2.Enclose(BadTest)(arg1: 0, arg2: 0, arg3: 0)).ShouldFail();
             L.A(() => Test2.Enclose2(BadTest)(arg1: 0, arg2: 0, arg3: 0)).ShouldFail();
@@ -1706,11 +1691,6 @@ namespace L_Tests.LCore.Extensions
             Result = 0;
             Test2.Enclose2(Test)(arg1: 3, arg2: 8, arg3: 10, arg4: 12);
             Result.ShouldBe(Expected: 968);
-
-            L.A(() => ((Func<int, int, int, int>)null).Enclose(Test)).ShouldFail();
-            L.A(() => ((Func<int, int, int, int>)null).Enclose2(Test)).ShouldFail();
-            L.A(() => Test2.Enclose((Action<int, int>)null)).ShouldFail();
-            L.A(() => Test2.Enclose2((Action<int, int>)null)).ShouldFail();
 
             // Exceptions are not hidden.
             L.A(() => Test2.Enclose(BadTest)(arg1: 0, arg2: 0, arg3: 0, arg4: 0)).ShouldFail();

@@ -36,7 +36,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Creates a directory path if it doesn't already exist.
         /// </summary>
-        
         public static void EnsurePathExists([CanBeNull] this string Path)
             {
             if (Path == null)
@@ -236,10 +235,11 @@ namespace LCore.Extensions
         /// Returns the stream's hash, determined by the stream bytes and 
         /// L.HashAlgorithm (default to SHA256)
         /// </summary>
+        [CanBeNull]
         public static byte[] GetStreamHash([CanBeNull] this Stream InputStream)
             {
             if (InputStream == null)
-                throw new ArgumentNullException(nameof(InputStream));
+                return null;
 
             byte[] Hash = L.File.HashAlgorithm.ComputeHash(InputStream);
             InputStream.Close();

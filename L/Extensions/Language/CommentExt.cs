@@ -149,27 +149,30 @@ namespace LCore.Extensions
 
         #region Private Methods +
 
-        private static XmlNode GetCommentNode(this MemberInfo In)
+        private static XmlNode GetCommentNode([CanBeNull] this MemberInfo In)
             {
-            List<XmlNode> Nodes = In.GetCommentNodes();
-
-            string CommentName = GetCommentName(In);
-
-            if (_MemberCommentNodes.ContainsKey(CommentName))
-                return _MemberCommentNodes[CommentName];
-
-            while (Nodes.Count > 0)
+            if (In != null)
                 {
-                var MemberNode = Nodes[index: 0];
+                List<XmlNode> Nodes = In.GetCommentNodes();
 
-                string TagName = MemberNode.Attributes?[L.Comment.XmlTags.Name].Value;
+                string CommentName = GetCommentName(In);
 
-                _MemberCommentNodes.SafeAdd(TagName, MemberNode);
-                Nodes.RemoveAt(index: 0);
+                if (_MemberCommentNodes.ContainsKey(CommentName))
+                    return _MemberCommentNodes[CommentName];
 
-                if (string.Equals(MemberNode.Attributes?[L.Comment.XmlTags.Name].Value, CommentName))
+                while (Nodes.Count > 0)
                     {
-                    return MemberNode;
+                    var MemberNode = Nodes[index: 0];
+
+                    string TagName = MemberNode.Attributes?[L.Comment.XmlTags.Name].Value;
+
+                    _MemberCommentNodes.SafeAdd(TagName, MemberNode);
+                    Nodes.RemoveAt(index: 0);
+
+                    if (string.Equals(MemberNode.Attributes?[L.Comment.XmlTags.Name].Value, CommentName))
+                        {
+                        return MemberNode;
+                        }
                     }
                 }
 
@@ -225,16 +228,16 @@ namespace LCore.Extensions
 
             switch (Type?.Name)
                 {
-                case nameof(PropertyInfo):
-                    return ((PropertyInfo)In).GetCommentName();
-                case nameof(FieldInfo):
-                    return ((FieldInfo)In).GetCommentName();
-                case nameof(MethodInfo):
-                    return ((MethodInfo)In).GetCommentName();
-                case nameof(TypeInfo):
-                    return ((TypeInfo)In).GetCommentName();
-                default:
-                    return "";
+                    case nameof(PropertyInfo):
+                        return ((PropertyInfo) In).GetCommentName();
+                    case nameof(FieldInfo):
+                        return ((FieldInfo) In).GetCommentName();
+                    case nameof(MethodInfo):
+                        return ((MethodInfo) In).GetCommentName();
+                    case nameof(TypeInfo):
+                        return ((TypeInfo) In).GetCommentName();
+                    default:
+                        return "";
                 }
             }
 
@@ -258,32 +261,32 @@ namespace LCore.Extensions
             {
             return new Func<MemberInfo, List<XmlNode>>(Member =>
                 {
-                    var Type = Member is Type
-                        ? (Type)Member
-                        : Member.ReflectedType;
+                var Type = Member is Type
+                    ? (Type) Member
+                    : Member.ReflectedType;
 
-                    if (Type != null)
+                if (Type != null)
+                    {
+                    var Assem = Assembly.GetAssembly(Type);
+
+                    string ProjectFolder = AppDomain.CurrentDomain.BaseDirectory;
+                    string DocFile = ProjectFolder;
+
+                    DocFile = !DocFile.EndsWith("\\bin\\Debug") && !DocFile.EndsWith("\\bin\\Release")
+                        ? L.File.CombinePaths(ProjectFolder, $"bin\\{Assem.GetName().Name}.xml")
+                        : L.File.CombinePaths(ProjectFolder, $"\\{Assem.GetName().Name}.xml");
+
+                    if (File.Exists(DocFile))
                         {
-                        var Assem = Assembly.GetAssembly(Type);
+                        var Doc = new XmlDocument();
+                        Doc.Load(DocFile);
 
-                        string ProjectFolder = AppDomain.CurrentDomain.BaseDirectory;
-                        string DocFile = ProjectFolder;
+                        List<XmlNode> MemberNodes = Doc.SelectNodes("//member").List<XmlNode>();
 
-                        DocFile = !DocFile.EndsWith("\\bin\\Debug") && !DocFile.EndsWith("\\bin\\Release")
-                            ? L.File.CombinePaths(ProjectFolder, $"bin\\{Assem.GetName().Name}.xml")
-                            : L.File.CombinePaths(ProjectFolder, $"\\{Assem.GetName().Name}.xml");
-
-                        if (File.Exists(DocFile))
-                            {
-                            var Doc = new XmlDocument();
-                            Doc.Load(DocFile);
-
-                            List<XmlNode> MemberNodes = Doc.SelectNodes("//member").List<XmlNode>();
-
-                            return MemberNodes;
-                            }
+                        return MemberNodes;
                         }
-                    return new List<XmlNode>();
+                    }
+                return new List<XmlNode>();
                 }).Cache(nameof(CommentExt) + nameof(GetCommentNodes))(In);
             }
 

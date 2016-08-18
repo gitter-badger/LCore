@@ -129,7 +129,6 @@
     <Compile Include="Statistics\ISampleSet.cs" />
     <Compile Include="Statistics\StatsExt.cs" />
     <Compile Include="LUnit\Attributes\Interfaces\ITestedAttribute.cs" />
-    <Compile Include="Tools\Async\Threads\FakeThreadPool.cs" />
     <Compile Include="Tools\Markdown\ExcludeFromMarkdownAttribute.cs" />
     <Compile Include="Tools\Markdown\FontAwesomeIcon.cs" />
     <Compile Include="Tools\Markdown\GitHubMarkdown.cs" />

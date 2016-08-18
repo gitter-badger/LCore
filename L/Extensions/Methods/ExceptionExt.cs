@@ -2,6 +2,7 @@
 using System.Collections;
 using JetBrains.Annotations;
 using LCore.Interfaces;
+using LCore.LUnit;
 
 namespace LCore.Extensions
     {
@@ -18,7 +19,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        
         public static Func<bool> Try(this Action In)
             {
             return () =>
@@ -38,7 +38,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        
         public static Func<T1, bool> Try<T1>(this Action<T1> In)
             {
             return o =>
@@ -58,7 +57,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        
         public static Func<T1, T2, bool> Try<T1, T2>(this Action<T1, T2> In)
             {
             return (o1, o2) =>
@@ -78,7 +76,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        
         public static Func<T1, T2, T3, bool> Try<T1, T2, T3>(this Action<T1, T2, T3> In)
             {
             return (o1, o2, o3) =>
@@ -98,7 +95,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        
         public static Func<T1, T2, T3, T4, bool> Try<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In)
             {
             return (o1, o2, o3, o4) =>
@@ -215,7 +211,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        
         public static Func<U> Try<U>(this Func<U> In)
             {
             return () =>
@@ -234,7 +229,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        
         public static Func<T1, U> Try<T1, U>(this Func<T1, U> In)
             {
             return o1 =>
@@ -253,7 +247,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        
         public static Func<T1, T2, U> Try<T1, T2, U>(this Func<T1, T2, U> In)
             {
             return (o1, o2) =>
@@ -272,7 +265,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        
         public static Func<T1, T2, T3, U> Try<T1, T2, T3, U>(this Func<T1, T2, T3, U> In)
             {
             return (o1, o2, o3) =>
@@ -291,7 +283,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        
         public static Func<T1, T2, T3, T4, U> Try<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In)
             {
             return (o1, o2, o3, o4) =>
@@ -399,8 +390,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
-        
-        public static Action Catch([CanBeNull]this Action In, [CanBeNull]Action<Exception> Catch)
+        public static Action Catch([CanBeNull] this Action In, [CanBeNull] Action<Exception> Catch)
             {
             return In.Catch<Exception>(Catch);
             }
@@ -408,8 +398,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
-        
-        public static Action<T1> Catch<T1>([CanBeNull]this Action<T1> In, [CanBeNull]Action<Exception> Catch)
+        public static Action<T1> Catch<T1>([CanBeNull] this Action<T1> In, [CanBeNull] Action<Exception> Catch)
             {
             return In.Catch<T1, Exception>(Catch);
             }
@@ -417,8 +406,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
-        
-        public static Action<T1, T2> Catch<T1, T2>([CanBeNull]this Action<T1, T2> In, [CanBeNull]Action<Exception> Catch)
+        public static Action<T1, T2> Catch<T1, T2>([CanBeNull] this Action<T1, T2> In, [CanBeNull] Action<Exception> Catch)
             {
             return In.Catch<T1, T2, Exception>(Catch);
             }
@@ -426,8 +414,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
-        
-        public static Action<T1, T2, T3> Catch<T1, T2, T3>([CanBeNull]this Action<T1, T2, T3> In, [CanBeNull]Action<Exception> Catch)
+        public static Action<T1, T2, T3> Catch<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In, [CanBeNull] Action<Exception> Catch)
             {
             return In.Catch<T1, T2, T3, Exception>(Catch);
             }
@@ -435,8 +422,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
-        
-        public static Action<T1, T2, T3, T4> Catch<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In, [CanBeNull]Action<Exception> Catch)
+        public static Action<T1, T2, T3, T4> Catch<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3, T4> In, [CanBeNull] Action<Exception> Catch)
             {
             return In.Catch<T1, T2, T3, T4, Exception>(Catch);
             }
@@ -529,8 +515,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
-        
-        public static Func<U> Catch<U>([CanBeNull]this Func<U> In, [CanBeNull]Action<Exception> Catch)
+        public static Func<U> Catch<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<Exception> Catch)
             {
             return In.Catch<U, Exception>(Catch);
             }
@@ -538,8 +523,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
-        
-        public static Func<T1, U> Catch<T1, U>([CanBeNull]this Func<T1, U> In, [CanBeNull]Action<Exception> Catch)
+        public static Func<T1, U> Catch<T1, U>([CanBeNull] this Func<T1, U> In, [CanBeNull] Action<Exception> Catch)
             {
             return In.Catch<T1, U, Exception>(Catch);
             }
@@ -547,8 +531,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
-        
-        public static Func<T1, T2, U> Catch<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull]Action<Exception> Catch)
+        public static Func<T1, T2, U> Catch<T1, T2, U>([CanBeNull] this Func<T1, T2, U> In, [CanBeNull] Action<Exception> Catch)
             {
             return In.Catch<T1, T2, U, Exception>(Catch);
             }
@@ -556,8 +539,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
-        
-        public static Func<T1, T2, T3, U> Catch<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull]Action<Exception> Catch)
+        public static Func<T1, T2, T3, U> Catch<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, T3, U> In, [CanBeNull] Action<Exception> Catch)
             {
             return In.Catch<T1, T2, T3, U, Exception>(Catch);
             }
@@ -565,8 +547,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of all types, using Exception as the base type.
         /// </summary>
-        
-        public static Func<T1, T2, T3, T4, U> Catch<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In, [CanBeNull]Action<Exception> Catch)
+        public static Func<T1, T2, T3, T4, U> Catch<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In, [CanBeNull] Action<Exception> Catch)
             {
             return In.Catch<T1, T2, T3, T4, U, Exception>(Catch);
             }
@@ -663,7 +644,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Action Catch<E>(this Action In, Action<E> Catch) where E : Exception
             {
             return () =>
@@ -682,7 +662,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Action<T1> Catch<T1, E>(this Action<T1> In, Action<E> Catch) where E : Exception
             {
             return o =>
@@ -701,7 +680,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Action<T1, T2> Catch<T1, T2, E>(this Action<T1, T2> In, Action<E> Catch) where E : Exception
             {
             return (o1, o2) =>
@@ -723,7 +701,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Action<T1, T2, T3> Catch<T1, T2, T3, E>(this Action<T1, T2, T3> In, Action<E> Catch) where E : Exception
             {
             return (o1, o2, o3) =>
@@ -742,7 +719,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Action<T1, T2, T3, T4> Catch<T1, T2, T3, T4, E>(this Action<T1, T2, T3, T4> In, Action<E> Catch) where E : Exception
             {
             return (o1, o2, o3, o4) =>
@@ -846,7 +822,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Func<U> Catch<U, E>(this Func<U> In, Action<E> Catch) where E : Exception
             {
             return () =>
@@ -866,7 +841,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Func<T1, U> Catch<T1, U, E>(this Func<T1, U> In, Action<E> Catch) where E : Exception
             {
             return o =>
@@ -886,7 +860,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Func<T1, T2, U> Catch<T1, T2, U, E>(this Func<T1, T2, U> In, Action<E> Catch) where E : Exception
             {
             return (o1, o2) =>
@@ -906,7 +879,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Func<T1, T2, T3, U> Catch<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> In, Action<E> Catch) where E : Exception
             {
             return (o1, o2, o3) =>
@@ -926,7 +898,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Func<T1, T2, T3, T4, U> Catch<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> In, Action<E> Catch)
             where E : Exception
             {
@@ -1032,7 +1003,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Func<U> Catch<U, E>(this Func<U> In, Func<E, U> Catch) where E : Exception
             {
             return () =>
@@ -1051,7 +1021,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Func<T1, U> Catch<T1, U, E>(this Func<T1, U> In, Func<E, U> Catch) where E : Exception
             {
             return o =>
@@ -1070,7 +1039,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Func<T1, T2, U> Catch<T1, T2, U, E>(this Func<T1, T2, U> In, Func<E, U> Catch) where E : Exception
             {
             return (o1, o2) =>
@@ -1089,7 +1057,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Func<T1, T2, T3, U> Catch<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> In, Func<E, U> Catch) where E : Exception
             {
             return (o1, o2, o3) =>
@@ -1108,7 +1075,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        
         public static Func<T1, T2, T3, T4, U> Catch<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> In, Func<E, U> Catch)
             where E : Exception
             {
@@ -1217,7 +1183,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. No handler is passed, the error is ignored.
         /// </summary>
-        
         public static Action Catch<E>(this Action In) where E : Exception
             {
             return In.Catch(L.A<E>());
@@ -1226,7 +1191,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. No handler is passed, the error is ignored.
         /// </summary>
-        
         public static Action<T1> Catch<T1, E>(this Action<T1> In) where E : Exception
             {
             return In.Catch(L.A<E>());
@@ -1235,7 +1199,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. No handler is passed, the error is ignored.
         /// </summary>
-        
         public static Action<T1, T2> Catch<T1, T2, E>(this Action<T1, T2> In) where E : Exception
             {
             return In.Catch(L.A<E>());
@@ -1244,7 +1207,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. No handler is passed, the error is ignored.
         /// </summary>
-        
         public static Action<T1, T2, T3> Catch<T1, T2, T3, E>(this Action<T1, T2, T3> In) where E : Exception
             {
             return In.Catch(L.A<E>());
@@ -1253,7 +1215,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. No handler is passed, the error is ignored.
         /// </summary>
-        
         public static Action<T1, T2, T3, T4> Catch<T1, T2, T3, T4, E>(this Action<T1, T2, T3, T4> In) where E : Exception
             {
             return In.Catch(L.A<E>());
@@ -1347,7 +1308,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. No handler is passed, the error is ignored.
         /// </summary>
-        
         public static Func<U> Catch<U, E>(this Func<U> In) where E : Exception
             {
             return In.Catch(L.A<E>());
@@ -1356,7 +1316,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. No handler is passed, the error is ignored.
         /// </summary>
-        
         public static Func<T1, U> Catch<T1, U, E>(this Func<T1, U> In) where E : Exception
             {
             return In.Catch(L.A<E>());
@@ -1365,7 +1324,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. No handler is passed, the error is ignored.
         /// </summary>
-        
         public static Func<T1, T2, U> Catch<T1, T2, U, E>(this Func<T1, T2, U> In) where E : Exception
             {
             return In.Catch(L.A<E>());
@@ -1374,7 +1332,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. No handler is passed, the error is ignored.
         /// </summary>
-        
         public static Func<T1, T2, T3, U> Catch<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> In) where E : Exception
             {
             return In.Catch(L.A<E>());
@@ -1383,7 +1340,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. No handler is passed, the error is ignored.
         /// </summary>
-        
         public static Func<T1, T2, T3, T4, U> Catch<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> In) where E : Exception
             {
             return In.Catch(L.A<E>());
@@ -1485,9 +1441,10 @@ namespace LCore.Extensions
         /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
-        
-        public static Action Retry(this Action In, int Tries = 1)
+        public static Action Retry([CanBeNull] this Action In,
+            [TestBound(1, 100)] int Tries = 1)
             {
+            In = In ?? (() => { });
             if (Tries <= 0)
                 throw new ArgumentOutOfRangeException(nameof(Tries));
 
@@ -1520,9 +1477,10 @@ namespace LCore.Extensions
         /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
-        
-        public static Action<T> Retry<T>(this Action<T> In, int Tries = 1)
+        public static Action<T> Retry<T>([CanBeNull] this Action<T> In,
+            [TestBound(1, 100)]int Tries = 1)
             {
+            In = In ?? ((o1) => { });
             if (Tries <= 0)
                 throw new ArgumentOutOfRangeException(nameof(Tries));
 
@@ -1555,9 +1513,10 @@ namespace LCore.Extensions
         /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
-        
-        public static Action<T1, T2> Retry<T1, T2>(this Action<T1, T2> In, int Tries = 1)
+        public static Action<T1, T2> Retry<T1, T2>([CanBeNull] this Action<T1, T2> In,
+            [TestBound(1, 100)]int Tries = 1)
             {
+            In = In ?? ((o1, o2) => { });
             if (Tries <= 0)
                 throw new ArgumentOutOfRangeException(nameof(Tries));
 
@@ -1590,9 +1549,10 @@ namespace LCore.Extensions
         /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
-        
-        public static Action<T1, T2, T3> Retry<T1, T2, T3>(this Action<T1, T2, T3> In, int Tries = 1)
+        public static Action<T1, T2, T3> Retry<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In, 
+            [TestBound(1,100)]int Tries = 1)
             {
+            In = In ?? ((o1, o2, o3) => { });
             if (Tries <= 0)
                 throw new ArgumentOutOfRangeException(nameof(Tries));
 
@@ -1625,9 +1585,10 @@ namespace LCore.Extensions
         /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
-        
-        public static Action<T1, T2, T3, T4> Retry<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In, int Tries = 1)
+        public static Action<T1, T2, T3, T4> Retry<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3, T4> In,
+            [TestBound(1, 100)]int Tries = 1)
             {
+            In = In ?? ((o1, o2, o3, o4) => { });
             if (Tries <= 0)
                 throw new ArgumentOutOfRangeException(nameof(Tries));
 
@@ -1660,9 +1621,10 @@ namespace LCore.Extensions
         /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
-        
-        public static Func<U> Retry<U>(this Func<U> In, int Tries = 1)
+        public static Func<U> Retry<U>([CanBeNull] this Func<U> In,
+            [TestBound(1, 100)]int Tries = 1)
             {
+            In = In ?? (() => default(U));
             if (Tries <= 0)
                 throw new ArgumentOutOfRangeException(nameof(Tries));
 
@@ -1694,9 +1656,10 @@ namespace LCore.Extensions
         /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
-        
-        public static Func<T1, U> Retry<T1, U>(this Func<T1, U> In, int Tries = 1)
+        public static Func<T1, U> Retry<T1, U>([CanBeNull] this Func<T1, U> In,
+            [TestBound(1, 100)]int Tries = 1)
             {
+            In = In ?? ((o1) => default(U));
             if (Tries <= 0)
                 throw new ArgumentOutOfRangeException(nameof(Tries));
 
@@ -1728,9 +1691,11 @@ namespace LCore.Extensions
         /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
-        
-        public static Func<T1, T2, U> Retry<T1, T2, U>(this Func<T1, T2, U> In, int Tries = 1)
+        public static Func<T1, T2, U> Retry<T1, T2, U>([CanBeNull] this Func<T1, T2, U> In,
+            [TestBound(1, 100)]int Tries = 1)
             {
+            In = In ?? ((o1, o2) => default(U));
+
             if (Tries <= 0)
                 throw new ArgumentOutOfRangeException(nameof(Tries));
 
@@ -1762,9 +1727,11 @@ namespace LCore.Extensions
         /// will be executed at most <paramref name="Tries" /> + 1 times.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Tries" /> is less than 1.</exception>
-        
-        public static Func<T1, T2, T3, U> Retry<T1, T2, T3, U>(this Func<T1, T2, T3, U> In, int Tries = 1)
+        public static Func<T1, T2, T3, U> Retry<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, T3, U> In,
+            [TestBound(1, 100)]int Tries = 1)
             {
+            In = In ?? ((o1, o2, o3) => default(U));
+
             if (Tries <= 0)
                 throw new ArgumentOutOfRangeException(nameof(Tries));
 
@@ -1796,9 +1763,10 @@ namespace LCore.Extensions
         /// will be executed at most <paramref name="Tries" /> + 1 times.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Tries" /> is less than 1.</exception>
-        
-        public static Func<T1, T2, T3, T4, U> Retry<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In, int Tries = 1)
+        public static Func<T1, T2, T3, T4, U> Retry<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In, 
+            [TestBound(1,100)]int Tries = 1)
             {
+            In = In ?? ((o1, o2, o3, o4) => default(U));
             if (Tries <= 0)
                 throw new ArgumentOutOfRangeException(nameof(Tries));
 
@@ -1830,7 +1798,7 @@ namespace LCore.Extensions
         /// <summary>
         /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
-        public static Action<T1> Debug<T1>(this Action<T1> In)
+        public static Action<T1> Debug<T1>([CanBeNull] this Action<T1> In)
             {
             return o1 => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1})))(o1); };
             }
@@ -1838,7 +1806,7 @@ namespace LCore.Extensions
         /// <summary>
         /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
-        public static Action<T1, T2> Debug<T1, T2>(this Action<T1, T2> In)
+        public static Action<T1, T2> Debug<T1, T2>([CanBeNull] this Action<T1, T2> In)
             {
             return (o1, o2) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2})))(o1, o2); };
             }
@@ -1846,7 +1814,7 @@ namespace LCore.Extensions
         /// <summary>
         /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
-        public static Action<T1, T2, T3> Debug<T1, T2, T3>(this Action<T1, T2, T3> In)
+        public static Action<T1, T2, T3> Debug<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In)
             {
             return (o1, o2, o3) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3})))(o1, o2, o3); };
             }
@@ -1854,19 +1822,16 @@ namespace LCore.Extensions
         /// <summary>
         /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
-        public static Action<T1, T2, T3, T4> Debug<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In)
+        public static Action<T1, T2, T3, T4> Debug<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3, T4> In)
             {
             return
-                (o1, o2, o3, o4) =>
-                    {
-                    In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3, o4})))(o1, o2, o3, o4);
-                    };
+                (o1, o2, o3, o4) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3, o4})))(o1, o2, o3, o4); };
             }
 
         /// <summary>
         /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
-        public static Func<T1, U> Debug<T1, U>(this Func<T1, U> In)
+        public static Func<T1, U> Debug<T1, U>([CanBeNull] this Func<T1, U> In)
             {
             return o1 => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1})))(o1);
             }
@@ -1874,7 +1839,7 @@ namespace LCore.Extensions
         /// <summary>
         /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
-        public static Func<T1, T2, U> Debug<T1, T2, U>(this Func<T1, T2, U> In)
+        public static Func<T1, T2, U> Debug<T1, T2, U>([CanBeNull] this Func<T1, T2, U> In)
             {
             return (o1, o2) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2})))(o1, o2);
             }
@@ -1882,7 +1847,7 @@ namespace LCore.Extensions
         /// <summary>
         /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
-        public static Func<T1, T2, T3, U> Debug<T1, T2, T3, U>(this Func<T1, T2, T3, U> In)
+        public static Func<T1, T2, T3, U> Debug<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, T3, U> In)
             {
             return (o1, o2, o3) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3})))(o1, o2, o3);
             }
@@ -1890,7 +1855,7 @@ namespace LCore.Extensions
         /// <summary>
         /// If an exception occurs while executing <paramref name="In" />, an exception is rethrown that includes detailed parameter data
         /// </summary>
-        public static Func<T1, T2, T3, T4, U> Debug<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In)
+        public static Func<T1, T2, T3, T4, U> Debug<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In)
             {
             return (o1, o2, o3, o4) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3, o4})))(o1, o2, o3, o4);
             }
@@ -1902,7 +1867,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an empty exception to the current method.
         /// </summary>
-        
         public static Action Fail([CanBeNull] this Action In)
             {
             return In.Merge(L.Exc.Fail);
@@ -1911,7 +1875,6 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an empty exception to the current method.
         /// </summary>
-        
         public static Action<T> Fail<T>([CanBeNull] this Action<T> In)
             {
             return In.Merge(L.Exc.Fail);
@@ -1920,8 +1883,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an empty exception to the current method.
         /// </summary>
-        
-        public static Action<T1, T2> Fail<T1, T2>([CanBeNull]this Action<T1, T2> In)
+        public static Action<T1, T2> Fail<T1, T2>([CanBeNull] this Action<T1, T2> In)
             {
             return In.Merge(L.Exc.Fail);
             }
@@ -1929,8 +1891,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an empty exception to the current method.
         /// </summary>
-        
-        public static Action<T1, T2, T3> Fail<T1, T2, T3>([CanBeNull]this Action<T1, T2, T3> In)
+        public static Action<T1, T2, T3> Fail<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In)
             {
             return In.Merge(L.Exc.Fail);
             }
@@ -1938,8 +1899,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an empty exception to the current method.
         /// </summary>
-        
-        public static Action<T1, T2, T3, T4> Fail<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In)
+        public static Action<T1, T2, T3, T4> Fail<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3, T4> In)
             {
             return In.Merge(L.Exc.Fail);
             }
@@ -1947,8 +1907,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an empty exception to the current method.
         /// </summary>
-        
-        public static Func<U> Fail<U>([CanBeNull]this Func<U> In)
+        public static Func<U> Fail<U>([CanBeNull] this Func<U> In)
             {
             return In.Merge(L.Exc.Fail);
             }
@@ -1956,8 +1915,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an empty exception to the current method.
         /// </summary>
-        
-        public static Func<T, U> Fail<T, U>([CanBeNull]this Func<T, U> In)
+        public static Func<T, U> Fail<T, U>([CanBeNull] this Func<T, U> In)
             {
             return In.Merge(L.Exc.Fail);
             }
@@ -1965,8 +1923,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an empty exception to the current method.
         /// </summary>
-        
-        public static Func<T1, T2, U> Fail<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In)
+        public static Func<T1, T2, U> Fail<T1, T2, U>([CanBeNull] this Func<T1, T2, U> In)
             {
             return In.Merge(L.Exc.Fail);
             }
@@ -1974,8 +1931,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an empty exception to the current method.
         /// </summary>
-        
-        public static Func<T1, T2, T3, U> Fail<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In)
+        public static Func<T1, T2, T3, U> Fail<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, T3, U> In)
             {
             return In.Merge(L.Exc.Fail);
             }
@@ -1983,8 +1939,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an empty exception to the current method.
         /// </summary>
-        
-        public static Func<T1, T2, T3, T4, U> Fail<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In)
+        public static Func<T1, T2, T3, T4, U> Fail<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In)
             {
             return In.Merge(L.Exc.Fail);
             }
@@ -1996,8 +1951,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an exception to the current method, with a message.
         /// </summary>
-        
-        public static Action Throw([CanBeNull]this Action In, [CanBeNull]string Message)
+        public static Action Throw([CanBeNull] this Action In, [CanBeNull] string Message)
             {
             return In.Merge(L.Exc.Throw.Supply(Message));
             }
@@ -2005,8 +1959,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an exception to the current method, with a message.
         /// </summary>
-        
-        public static Action<T> Throw<T>([CanBeNull]this Action<T> In, [CanBeNull]string Message)
+        public static Action<T> Throw<T>([CanBeNull] this Action<T> In, [CanBeNull] string Message)
             {
             return In.Merge(L.Exc.Throw.Supply(Message));
             }
@@ -2014,8 +1967,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an exception to the current method, with a message.
         /// </summary>
-        
-        public static Action<T1, T2> Throw<T1, T2>([CanBeNull]this Action<T1, T2> In, [CanBeNull]string Message)
+        public static Action<T1, T2> Throw<T1, T2>([CanBeNull] this Action<T1, T2> In, [CanBeNull] string Message)
             {
             return In.Merge(L.Exc.Throw.Supply(Message));
             }
@@ -2023,8 +1975,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an exception to the current method, with a message.
         /// </summary>
-        
-        public static Action<T1, T2, T3> Throw<T1, T2, T3>([CanBeNull]this Action<T1, T2, T3> In, [CanBeNull]string Message)
+        public static Action<T1, T2, T3> Throw<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In, [CanBeNull] string Message)
             {
             return In.Merge(L.Exc.Throw.Supply(Message));
             }
@@ -2032,8 +1983,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an exception to the current method, with a message.
         /// </summary>
-        
-        public static Action<T1, T2, T3, T4> Throw<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In, [CanBeNull]string Message)
+        public static Action<T1, T2, T3, T4> Throw<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3, T4> In, [CanBeNull] string Message)
             {
             return In.Merge(L.Exc.Throw.Supply(Message));
             }
@@ -2041,8 +1991,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an exception to the current method, with a message.
         /// </summary>
-        
-        public static Func<U> Throw<U>([CanBeNull]this Func<U> In, [CanBeNull]string Message)
+        public static Func<U> Throw<U>([CanBeNull] this Func<U> In, [CanBeNull] string Message)
             {
             return In.Merge(L.Exc.Throw.Supply(Message));
             }
@@ -2050,8 +1999,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an exception to the current method, with a message.
         /// </summary>
-        
-        public static Func<T, U> Throw<T, U>([CanBeNull]this Func<T, U> In, [CanBeNull]string Message)
+        public static Func<T, U> Throw<T, U>([CanBeNull] this Func<T, U> In, [CanBeNull] string Message)
             {
             return In.Merge(L.Exc.Throw.Supply(Message));
             }
@@ -2059,8 +2007,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an exception to the current method, with a message.
         /// </summary>
-        
-        public static Func<T1, T2, U> Throw<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In, [CanBeNull] string Message)
+        public static Func<T1, T2, U> Throw<T1, T2, U>([CanBeNull] this Func<T1, T2, U> In, [CanBeNull] string Message)
             {
             return In.Merge(L.Exc.Throw.Supply(Message));
             }
@@ -2068,8 +2015,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an exception to the current method, with a message.
         /// </summary>
-        
-        public static Func<T1, T2, T3, U> Throw<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In, [CanBeNull]string Message)
+        public static Func<T1, T2, T3, U> Throw<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, T3, U> In, [CanBeNull] string Message)
             {
             return In.Merge(L.Exc.Throw.Supply(Message));
             }
@@ -2077,8 +2023,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Appends an exception to the current method, with a message.
         /// </summary>
-        
-        public static Func<T1, T2, T3, T4, U> Throw<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In, [CanBeNull]string Message)
+        public static Func<T1, T2, T3, T4, U> Throw<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In, [CanBeNull] string Message)
             {
             return In.Merge(L.Exc.Throw.Supply(Message));
             }
@@ -2091,7 +2036,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
-        
         public static Action Report<E>(this Action In, string Message, E Ex) where E : Exception
             {
             return In.Merge(() => L.Exc.Report(Message, Ex));
@@ -2101,7 +2045,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
-        
         public static Action<T> Report<T, E>(this Action<T> In, string Message, E Ex) where E : Exception
             {
             return In.Merge(() => L.Exc.Report(Message, Ex));
@@ -2111,7 +2054,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
-        
         public static Action<T1, T2> Report<T1, T2, E>(this Action<T1, T2> In, string Message, E Ex) where E : Exception
             {
             return In.Merge(() => L.Exc.Report(Message, Ex));
@@ -2121,7 +2063,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
-        
         public static Action<T1, T2, T3> Report<T1, T2, T3, E>(this Action<T1, T2, T3> In, string Message, E Ex) where E : Exception
             {
             return In.Merge(() => L.Exc.Report(Message, Ex));
@@ -2131,7 +2072,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
-        
         public static Action<T1, T2, T3, T4> Report<T1, T2, T3, T4, E>(this Action<T1, T2, T3, T4> In, string Message, E Ex)
             where E : Exception
             {
@@ -2142,7 +2082,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
-        
         public static Func<U> Report<U, E>(this Func<U> In, string Message, E Ex) where E : Exception
             {
             return In.Merge(() => L.Exc.Report(Message, Ex));
@@ -2152,7 +2091,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
-        
         public static Func<T, U> Report<T, U, E>(this Func<T, U> In, string Message, E Ex) where E : Exception
             {
             return In.Merge(() => L.Exc.Report(Message, Ex));
@@ -2162,7 +2100,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
-        
         public static Func<T1, T2, U> Report<T1, T2, U, E>(this Func<T1, T2, U> In, string Message, E Ex) where E : Exception
             {
             return In.Merge(() => L.Exc.Report(Message, Ex));
@@ -2172,7 +2109,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
-        
         public static Func<T1, T2, T3, U> Report<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> In, string Message, E Ex) where E : Exception
             {
             return In.Merge(() => L.Exc.Report(Message, Ex));
@@ -2182,7 +2118,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerException <paramref name="Ex" /> and Message <paramref name="Message" />
         /// </summary>
-        
         public static Func<T1, T2, T3, T4, U> Report<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> In, string Message, E Ex)
             where E : Exception
             {
@@ -2197,7 +2132,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
-        
         public static Action Report<E>(this Action In, E Ex) where E : Exception
             {
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
@@ -2207,7 +2141,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
-        
         public static Action<T> Report<T, E>(this Action<T> In, E Ex) where E : Exception
             {
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
@@ -2217,7 +2150,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
-        
         public static Action<T1, T2> Report<T1, T2, E>(this Action<T1, T2> In, E Ex) where E : Exception
             {
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
@@ -2227,7 +2159,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
-        
         public static Action<T1, T2, T3> Report<T1, T2, T3, E>(this Action<T1, T2, T3> In, E Ex) where E : Exception
             {
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
@@ -2237,7 +2168,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
-        
         public static Action<T1, T2, T3, T4> Report<T1, T2, T3, T4, E>(this Action<T1, T2, T3, T4> In, E Ex) where E : Exception
             {
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
@@ -2247,7 +2177,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
-        
         public static Func<U> Report<U, E>(this Func<U> In, E Ex) where E : Exception
             {
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
@@ -2257,7 +2186,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
-        
         public static Func<T, U> Report<T, U, E>(this Func<T, U> In, E Ex) where E : Exception
             {
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
@@ -2267,7 +2195,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
-        
         public static Func<T1, T2, U> Report<T1, T2, U, E>(this Func<T1, T2, U> In, E Ex) where E : Exception
             {
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
@@ -2277,7 +2204,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
-        
         public static Func<T1, T2, T3, U> Report<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> In, E Ex) where E : Exception
             {
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
@@ -2287,7 +2213,6 @@ namespace LCore.Extensions
         /// The returned action executes action <paramref name="In" /> and then throws an
         /// Exception with InnerrException <paramref name="Ex" />
         /// </summary>
-        
         public static Func<T1, T2, T3, T4, U> Report<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> In, E Ex) where E : Exception
             {
             return In.Merge(L.Exc.ReportEmpty.Supply(Ex));
@@ -2301,7 +2226,6 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        
         public static Action Handle(this Action In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
@@ -2311,7 +2235,6 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        
         public static Action<T1> Handle<T1>(this Action<T1> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
@@ -2321,7 +2244,6 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        
         public static Action<T1, T2> Handle<T1, T2>(this Action<T1, T2> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
@@ -2331,7 +2253,6 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        
         public static Action<T1, T2, T3> Handle<T1, T2, T3>(this Action<T1, T2, T3> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
@@ -2341,7 +2262,6 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        
         public static Action<T1, T2, T3, T4> Handle<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
@@ -2351,7 +2271,6 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        
         public static Func<U> Handle<U>(this Func<U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
@@ -2361,7 +2280,6 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        
         public static Func<T1, U> Handle<T1, U>(this Func<T1, U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
@@ -2371,7 +2289,6 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        
         public static Func<T1, T2, U> Handle<T1, T2, U>(this Func<T1, T2, U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
@@ -2381,7 +2298,6 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        
         public static Func<T1, T2, T3, U> Handle<T1, T2, T3, U>(this Func<T1, T2, T3, U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
@@ -2391,7 +2307,6 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        
         public static Func<T1, T2, T3, T4, U> Handle<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);

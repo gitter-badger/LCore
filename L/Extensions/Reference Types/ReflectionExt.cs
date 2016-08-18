@@ -33,7 +33,8 @@ namespace LCore.Extensions
         public static List<Type> AlsoBaseTypes([CanBeNull] this Type In)
             {
             List<Type> Out = In.BaseTypes();
-            Out.Insert(index: 0, item: In);
+            if (In != null)
+                Out.Insert(index: 0, item: In);
             return Out;
             }
 
@@ -460,6 +461,7 @@ namespace LCore.Extensions
         /// Gets a subclass from a type <paramref name="In" /> or any of its base classes.
         /// Subclass from a descendant will be used before an ancestor subclasses.
         /// </summary>
+        [CanBeNull]
         public static Type GetSubClass([CanBeNull] this Type In, [CanBeNull] string SubClassName)
             {
             return In.AlsoBaseTypes().Collect(Type =>
@@ -1019,7 +1021,7 @@ namespace LCore.Extensions
         [CanBeNull]
         public static T New<T>([CanBeNull] this Type In, [CanBeNull] object[] Arguments = null)
             {
-            return (T) In.New(Arguments, typeof(T));
+            return (T) In?.New(Arguments, typeof(T));
             }
 
         /// <summary>

@@ -87,7 +87,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="LCore\Extensions\ThreadExtTester.cs" />
-    <Compile Include="LCore\Threads\FakeThreadPoolTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generated\" />
+    <Folder Include="LCore\Threads\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

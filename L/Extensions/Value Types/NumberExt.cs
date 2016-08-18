@@ -596,7 +596,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {(float) 1.9999999, 2}, (float) 1.99)]
         [TestResult(new object[] {(float) -1.9999999, 2}, (float) -2.00)]
         [TestResult(new object[] {(float) -1.0000001, 2}, (float) -1.01)]
-        public static float Floor(this float In, int Decimals)
+        public static float Floor(this float In, [TestBound(Minimum: 0, Maximum: 5)]int Decimals)
             {
             if (Decimals < 0)
                 throw new ArgumentOutOfRangeException(nameof(Decimals));
@@ -645,7 +645,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {(double) 1.9999999, 2}, (double) 1.99)]
         [TestResult(new object[] {(double) -1.9999999, 2}, (double) -2.00)]
         [TestResult(new object[] {(double) -1.0000001, 2}, (double) -1.01)]
-        public static double Floor(this double In, int Decimals)
+        public static double Floor(this double In, [TestBound(Minimum: 0, Maximum: 5)]int Decimals)
             {
             if (Decimals < 0)
                 throw new ArgumentOutOfRangeException(nameof(Decimals));
@@ -794,7 +794,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {5, 100}, ExpectedResult: 5)]
         [TestResult(new object[] {22, 5}, ExpectedResult: 440)]
         [TestResult(new object[] {-22, 5}, -440)]
-        public static int PercentageOf(this float In, float Total)
+        public static int PercentageOf(this float In, [TestBound(Minimum: 1f, Maximum: 100f)] float Total)
             {
             if (Total == 0)
                 throw new ArgumentOutOfRangeException(nameof(Total));
@@ -811,7 +811,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {5d, 100d}, ExpectedResult: 5)]
         [TestResult(new object[] {22d, 5d}, ExpectedResult: 440)]
         [TestResult(new object[] {-22d, 5d}, -440)]
-        public static int PercentageOf(this double In, double Total)
+        public static int PercentageOf(this double In, [TestBound(Minimum: 1d, Maximum: 100d)] double Total)
             {
             if (Total == 0)
                 throw new ArgumentOutOfRangeException(nameof(Total));
@@ -828,7 +828,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {5, 100}, ExpectedResult: 5)]
         [TestResult(new object[] {22, 5}, ExpectedResult: 440)]
         [TestResult(new object[] {-22, 5}, -440)]
-        public static int PercentageOf(this int In, int Total)
+        public static int PercentageOf(this int In, [TestBound(Minimum: 1, Maximum: 100)] int Total)
             {
             if (Total == 0)
                 throw new ArgumentOutOfRangeException(nameof(Total));
@@ -844,7 +844,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {(uint) 5, (uint) 1}, ExpectedResult: 500)]
         [TestResult(new object[] {(uint) 5, (uint) 100}, ExpectedResult: 5)]
         [TestResult(new object[] {(uint) 22, (uint) 5}, ExpectedResult: 440)]
-        public static int PercentageOf(this uint In, uint Total)
+        public static int PercentageOf(this uint In, [TestBound(Minimum: 1u, Maximum: 100u)] uint Total)
             {
             if (Total == 0)
                 throw new ArgumentOutOfRangeException(nameof(Total));
@@ -861,7 +861,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {(short) 5, (short) 100}, ExpectedResult: 5)]
         [TestResult(new object[] {(short) 22, (short) 5}, ExpectedResult: 440)]
         [TestResult(new object[] {(short) -22, (short) 5}, -440)]
-        public static int PercentageOf(this short In, short Total)
+        public static int PercentageOf(this short In, [TestBound(Minimum: (short) 1, Maximum: (short) 100)] short Total)
             {
             if (Total == 0)
                 throw new ArgumentOutOfRangeException(nameof(Total));
@@ -878,7 +878,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {5L, 100L}, ExpectedResult: 5)]
         [TestResult(new object[] {22L, 5L}, ExpectedResult: 440)]
         [TestResult(new object[] {-22L, 5L}, -440)]
-        public static int PercentageOf(this long In, long Total)
+        public static int PercentageOf(this long In, [TestBound(Minimum: (long) 1, Maximum: (long) 100)] long Total)
             {
             if (Total == 0)
                 throw new ArgumentOutOfRangeException(nameof(Total));
@@ -1072,7 +1072,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {(float) 1.9999999, 2}, (float) 2)]
         [TestResult(new object[] {(float) -1.9999999, 2}, (float) -2.00)]
         [TestResult(new object[] {(float) -1.0000001, 2}, (float) -1.0)]
-        public static float Round(this float In, int Decimals)
+        public static float Round(this float In, [TestBound(Minimum: 0, Maximum: 5)]int Decimals)
             {
             if (Decimals < 0)
                 throw new ArgumentOutOfRangeException(nameof(Decimals));
@@ -1121,7 +1121,7 @@ namespace LCore.Extensions
         [TestResult(new object[] {(double) 1.9999999, 2}, (double) 2)]
         [TestResult(new object[] {(double) -1.9999999, 2}, (double) -2.00)]
         [TestResult(new object[] {(double) -1.0000001, 2}, (double) -1)]
-        public static double Round(this double In, int Decimals)
+        public static double Round(this double In, [TestBound(Minimum: 0, Maximum: 5)]int Decimals)
             {
             if (Decimals < 0)
                 throw new ArgumentOutOfRangeException(nameof(Decimals));
@@ -1145,7 +1145,7 @@ namespace LCore.Extensions
         /// Returns the rounded integer of the float <paramref name="In" />
         /// <paramref name="DecimalPlaces" /> must be at least 0.
         /// </summary>
-        public static double Round(this decimal In, int DecimalPlaces)
+        public static double Round(this decimal In, [TestBound(Minimum: 0, Maximum: 5)]int DecimalPlaces)
             {
             double Power = Math.Pow(x: 10, y: DecimalPlaces);
             double Out = (int) Math.Round((double) In*Power);
@@ -1498,7 +1498,10 @@ namespace LCore.Extensions
                 IEquatable<T>,
                 IFormattable
             {
-            return Number?.Wrap();
+            // ReSharper disable once MergeConditionalExpression
+            return Number == null
+                ? null
+                : ((T) Number).Wrap();
             }
 
         /// <summary>
@@ -1516,8 +1519,6 @@ namespace LCore.Extensions
                 IFormattable
             {
             Dictionary<Type, Number> Types = L.Num.NumberTypes;
-
-            // TODO: Add support for Nullable types
 
             return (Types.Values.First(Type => Type.NumberType == Number.GetType())
                     ?? Types.Values.First(Type => Number.CanConvertTo(Type.NumberType)))?

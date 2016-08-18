@@ -361,6 +361,7 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             var Test = new Helper();
 
             Method.ShouldBe(Test, new object[] {}, ExpectedResult: 5);
+            L.A(() => Method.ShouldBe(Test, new object[] { }, ExpectedResult: 6)).ShouldFail();
             }
 
         [Fact]
@@ -428,7 +429,7 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldNotBeNull) + "(Nullable<T>, String, Object[]) => AndConstraint<ObjectAssertions>")]
         public void ShouldNotBeNull_Nullable_T_String_Object_AndConstraint_ObjectAssertions()
             {
-            string s = "";
+            const string s = "";
 
             s.ShouldNotBeNull();
 

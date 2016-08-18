@@ -451,7 +451,7 @@ namespace LCore.Extensions
             if (MaxLength < 0)
                 return In ?? "";
             if (MaxLength < ConcatenateString.Length)
-                throw new ArgumentException(nameof(MaxLength));
+                MaxLength = ConcatenateString.Length;
 
             In = In ?? "";
             In = In.Trim();
