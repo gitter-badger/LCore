@@ -301,7 +301,7 @@ namespace LCore.Extensions
         public static Action<T2, T3, T4> Surround<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3> In, [CanBeNull] Func<T4, T1> Func)
             {
             In = In ?? ((o1, o2, o3) => { });
-            Func = Func ?? ((o) => default(T1));
+            Func = Func ?? (o => default(T1));
             return (o1, o2, o3) => { In(Func(o3), o1, o2); };
             }
 
@@ -318,7 +318,7 @@ namespace LCore.Extensions
         public static Action<T1, T3, T4> Surround2<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3> In, [CanBeNull] Func<T4, T2> Func)
             {
             In = In ?? ((o1, o2, o3) => { });
-            Func = Func ?? ((o) => default(T2));
+            Func = Func ?? (o => default(T2));
             return (o1, o2, o3) => { In(o1, Func(o3), o2); };
             }
 
@@ -335,7 +335,7 @@ namespace LCore.Extensions
         public static Action<T1, T2, T4> Surround3<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3> In, [CanBeNull] Func<T4, T3> Func)
             {
             In = In ?? ((o1, o2, o3) => { });
-            Func = Func ?? ((o) => default(T3));
+            Func = Func ?? (o => default(T3));
             return (o1, o2, o3) => { In(o1, o2, Func(o3)); };
             }
 
@@ -481,7 +481,7 @@ namespace LCore.Extensions
         public static Action<T2, T3, T4, T5> Surround<T1, T2, T3, T4, T5>([CanBeNull] this Action<T1, T2, T3, T4> In, [CanBeNull] Func<T5, T1> Func)
             {
             In = In ?? ((o1, o2, o3, o4) => { });
-            Func = Func ?? ((o) => default(T1));
+            Func = Func ?? (o => default(T1));
             return (o1, o2, o3, o4) => { In(Func(o4), o1, o2, o3); };
             }
 
@@ -499,7 +499,7 @@ namespace LCore.Extensions
         public static Action<T1, T3, T4, T5> Surround2<T1, T2, T3, T4, T5>([CanBeNull] this Action<T1, T2, T3, T4> In, [CanBeNull] Func<T5, T2> Func)
             {
             In = In ?? ((o1, o2, o3, o4) => { });
-            Func = Func ?? ((o) => default(T2));
+            Func = Func ?? (o => default(T2));
             return (o1, o2, o3, o4) => { In(o1, Func(o4), o2, o3); };
             }
 
@@ -517,7 +517,7 @@ namespace LCore.Extensions
         public static Action<T1, T2, T4, T5> Surround3<T1, T2, T3, T4, T5>([CanBeNull] this Action<T1, T2, T3, T4> In, [CanBeNull] Func<T5, T3> Func)
             {
             In = In ?? ((o1, o2, o3, o4) => { });
-            Func = Func ?? ((o) => default(T3));
+            Func = Func ?? (o => default(T3));
             return (o1, o2, o3, o4) => { In(o1, o2, Func(o4), o3); };
             }
 
@@ -535,7 +535,7 @@ namespace LCore.Extensions
         public static Action<T1, T2, T3, T5> Surround4<T1, T2, T3, T4, T5>([CanBeNull] this Action<T1, T2, T3, T4> In, [CanBeNull] Func<T5, T4> Func)
             {
             In = In ?? ((o1, o2, o3, o4) => { });
-            Func = Func ?? ((o) => default(T4));
+            Func = Func ?? (o => default(T4));
             return (o1, o2, o3, o4) => { In(o1, o2, o3, Func(o4)); };
             }
 
@@ -672,7 +672,7 @@ namespace LCore.Extensions
         public static Func<T2, T3, U> Surround<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, U> In, [CanBeNull] Func<T3, T1> Func)
             {
             In = In ?? ((o1, o2) => default(U));
-            Func = Func ?? ((o) => default(T1));
+            Func = Func ?? (o => default(T1));
             return (o1, o2) => In(Func(o2), o1);
             }
 
@@ -689,7 +689,7 @@ namespace LCore.Extensions
         public static Func<T1, T3, U> Surround2<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, U> In, [CanBeNull] Func<T3, T2> Func)
             {
             In = In ?? ((o1, o2) => default(U));
-            Func = Func ?? ((o) => default(T2));
+            Func = Func ?? (o => default(T2));
             return (o1, o2) => In(o1, Func(o2));
             }
 
@@ -836,7 +836,7 @@ namespace LCore.Extensions
         public static Func<T2, T3, T4, U> Surround<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, U> In, [CanBeNull] Func<T4, T1> Func)
             {
             In = In ?? ((o1, o2, o3) => default(U));
-            Func = Func ?? ((o) => default(T1));
+            Func = Func ?? (o => default(T1));
             return (o1, o2, o3) => In(Func(o3), o1, o2);
             }
 
@@ -854,7 +854,7 @@ namespace LCore.Extensions
         public static Func<T1, T3, T4, U> Surround2<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, U> In, [CanBeNull] Func<T4, T2> Func)
             {
             In = In ?? ((o1, o2, o3) => default(U));
-            Func = Func ?? ((o) => default(T2));
+            Func = Func ?? (o => default(T2));
             return (o1, o2, o3) => In(o1, Func(o3), o2);
             }
 
@@ -872,7 +872,7 @@ namespace LCore.Extensions
         public static Func<T1, T2, T4, U> Surround3<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, U> In, [CanBeNull] Func<T4, T3> Func)
             {
             In = In ?? ((o1, o2, o3) => default(U));
-            Func = Func ?? ((o) => default(T3));
+            Func = Func ?? (o => default(T3));
             return (o1, o2, o3) => In(o1, o2, Func(o3));
             }
 
@@ -1024,7 +1024,7 @@ namespace LCore.Extensions
         public static Func<T2, T3, T4, T5, U> Surround<T1, T2, T3, T4, T5, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<T5, T1> Func)
             {
             In = In ?? ((o1, o2, o3, o4) => default(U));
-            Func = Func ?? ((o) => default(T1));
+            Func = Func ?? (o => default(T1));
             return (o1, o2, o3, o4) => In(Func(o4), o1, o2, o3);
             }
 
@@ -1043,7 +1043,7 @@ namespace LCore.Extensions
         public static Func<T1, T3, T4, T5, U> Surround2<T1, T2, T3, T4, T5, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<T5, T2> Func)
             {
             In = In ?? ((o1, o2, o3, o4) => default(U));
-            Func = Func ?? ((o) => default(T2));
+            Func = Func ?? (o => default(T2));
             return (o1, o2, o3, o4) => In(o1, Func(o4), o2, o3);
             }
 
@@ -1062,7 +1062,7 @@ namespace LCore.Extensions
         public static Func<T1, T2, T4, T5, U> Surround3<T1, T2, T3, T4, T5, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<T5, T3> Func)
             {
             In = In ?? ((o1, o2, o3, o4) => default(U));
-            Func = Func ?? ((o) => default(T3));
+            Func = Func ?? (o => default(T3));
             return (o1, o2, o3, o4) => In(o1, o2, Func(o4), o3);
             }
 
@@ -1081,7 +1081,7 @@ namespace LCore.Extensions
         public static Func<T1, T2, T3, T5, U> Surround4<T1, T2, T3, T4, T5, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<T5, T4> Func)
             {
             In = In ?? ((o1, o2, o3, o4) => default(U));
-            Func = Func ?? ((o) => default(T4));
+            Func = Func ?? (o => default(T4));
             return (o1, o2, o3, o4) => In(o1, o2, o3, Func(o4));
             }
 

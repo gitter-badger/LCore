@@ -87,7 +87,7 @@ namespace LCore.Extensions
             {
             Name = Name ?? "";
 
-            Arguments = Arguments ?? new Type[] {};
+            Arguments = Arguments ?? new Type[] { };
 
             var Type = In;
 
@@ -114,7 +114,7 @@ namespace LCore.Extensions
         [CanBeNull]
         public static MethodInfo FindMethod<T>([CanBeNull] this Type In, [CanBeNull] string Name)
             {
-            return In.FindMethod(Name, new[] {typeof(T)});
+            return In.FindMethod(Name, new[] { typeof(T) });
             }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace LCore.Extensions
         [CanBeNull]
         public static MethodInfo FindMethod<T1, T2>([CanBeNull] this Type In, [CanBeNull] string Name)
             {
-            return In.FindMethod(Name, new[] {typeof(T1), typeof(T2)});
+            return In.FindMethod(Name, new[] { typeof(T1), typeof(T2) });
             }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace LCore.Extensions
         [CanBeNull]
         public static MethodInfo FindMethod<T1, T2, T3>([CanBeNull] this Type In, [CanBeNull] string Name)
             {
-            return In.FindMethod(Name, new[] {typeof(T1), typeof(T2), typeof(T3)});
+            return In.FindMethod(Name, new[] { typeof(T1), typeof(T2), typeof(T3) });
             }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace LCore.Extensions
         [CanBeNull]
         public static MethodInfo FindMethod<T1, T2, T3, T4>([CanBeNull] this Type In, [CanBeNull] string Name)
             {
-            return In.FindMethod(Name, new[] {typeof(T1), typeof(T2), typeof(T3), typeof(T4)});
+            return In.FindMethod(Name, new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
             }
 
         #endregion
@@ -164,7 +164,7 @@ namespace LCore.Extensions
             {
             if (In is Type)
                 {
-                return $"{((Type) In).Namespace}.{((Type) In).GetClassHierarchy()}".ReplaceAll("+", ".");
+                return $"{((Type)In).Namespace}.{((Type)In).GetClassHierarchy()}".ReplaceAll("+", ".");
                 }
             if (In is PropertyInfo || In is FieldInfo || In is EventInfo || In is MethodInfo)
                 {
@@ -200,7 +200,7 @@ namespace LCore.Extensions
                 return null;
 
             if (Member is Type)
-                return Assembly.GetAssembly((Type) Member);
+                return Assembly.GetAssembly((Type)Member);
 
             return Member.DeclaringType != null
                 ? Assembly.GetAssembly(Member.DeclaringType)
@@ -240,7 +240,7 @@ namespace LCore.Extensions
             var Attribute = L.Ref.GetAttribute(AttributeProvider.GetAttributeTypeName(), AttributeProvider, typeof(T), IncludeBaseTypes);
 
             if (Attribute is T)
-                return (T) Attribute;
+                return (T)Attribute;
 
             return default(T);
             }
@@ -344,7 +344,7 @@ namespace LCore.Extensions
 
             if (Type != null && typeof(T) != typeof(object))
                 {
-                return (IComparer<T>) new ComparableComparer();
+                return (IComparer<T>)new ComparableComparer();
                 }
 
             return null;
@@ -360,7 +360,7 @@ namespace LCore.Extensions
         public static MethodInfo[] GetExtensionMethods([CanBeNull] this Type In)
             {
             if (In == null)
-                return new MethodInfo[] {};
+                return new MethodInfo[] { };
 
             return In.GetMethods()
                 .Select(Method => Method.IsStatic &&
@@ -417,7 +417,7 @@ namespace LCore.Extensions
                 return "";
 
             if (Member is Type)
-                return ((Type) Member).Namespace;
+                return ((Type)Member).Namespace;
 
             return Member.DeclaringType?.Namespace ?? "";
             }
@@ -466,8 +466,8 @@ namespace LCore.Extensions
             {
             return In.AlsoBaseTypes().Collect(Type =>
                 {
-                var Out = Type.GetNestedTypes().First(NestedType => NestedType.Name == SubClassName);
-                return Out;
+                    var Out = Type.GetNestedTypes().First(NestedType => NestedType.Name == SubClassName);
+                    return Out;
                 }).First();
             }
 
@@ -510,11 +510,11 @@ namespace LCore.Extensions
 
                 Arguments.Each((i, Argument) =>
                     {
-                    Out += Argument.Name;
-                    if (i < Arguments.Length - 1)
-                        {
-                        Out += ", ";
-                        }
+                        Out += Argument.Name;
+                        if (i < Arguments.Length - 1)
+                            {
+                            Out += ", ";
+                            }
                     });
                 Out += ">";
                 return Out;
@@ -579,19 +579,19 @@ namespace LCore.Extensions
 
             Out = In.Convert(o =>
                 {
-                var Obj2 = o.GetValue(Obj);
-                if (Instantiate && Obj2 == null)
-                    {
-                    Obj2 = o.MemberType().New();
-                    o.SetValue(Obj, Obj2);
-                    }
+                    var Obj2 = o.GetValue(Obj);
+                    if (Instantiate && Obj2 == null)
+                        {
+                        Obj2 = o.MemberType().New();
+                        o.SetValue(Obj, Obj2);
+                        }
 
-                if (Obj2?.GetType().IsType(typeof(T)) == true &&
-                    !Out.Contains((T) Obj2))
-                    {
-                    return (T) Obj2;
-                    }
-                return default(T);
+                    if (Obj2?.GetType().IsType(typeof(T)) == true &&
+                        !Out.Contains((T)Obj2))
+                        {
+                        return (T)Obj2;
+                        }
+                    return default(T);
                 });
 
             return Out;
@@ -973,9 +973,9 @@ namespace LCore.Extensions
                 : In.GetMembers(BindingFlags.DeclaredOnly))
                 .List().Select(Member =>
                     {
-                    var MemberType = Member.GetMemberType();
-                    return MemberType.IsType(Type) &&
-                           (!(Member is MethodInfo) || !((MethodInfo) Member).IsSpecialName);
+                        var MemberType = Member.GetMemberType();
+                        return MemberType.IsType(Type) &&
+                               (!(Member is MethodInfo) || !((MethodInfo)Member).IsSpecialName);
                     });
             }
 
@@ -997,13 +997,13 @@ namespace LCore.Extensions
                 Type = Type.BaseType;
 
             if (Type == typeof(PropertyInfo))
-                return ((PropertyInfo) In).PropertyType;
+                return ((PropertyInfo)In).PropertyType;
             if (Type == typeof(FieldInfo))
-                return ((FieldInfo) In).FieldType;
+                return ((FieldInfo)In).FieldType;
             if (Type == typeof(MethodInfo))
-                return ((MethodInfo) In).ReturnType;
+                return ((MethodInfo)In).ReturnType;
             if (Type == typeof(EventInfo))
-                return ((EventInfo) In).EventHandlerType;
+                return ((EventInfo)In).EventHandlerType;
             // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Type == typeof(ConstructorInfo))
                 return Type.DeclaringType;
@@ -1019,9 +1019,12 @@ namespace LCore.Extensions
         /// Creates a new <typeparamref name="T" /> object. Optionally, pass in <paramref name="Arguments" /> to the constructor.
         /// </summary>
         [CanBeNull]
-        public static T New<T>([CanBeNull] this Type In, [CanBeNull] object[] Arguments = null)
+        public static T New<T>([CanBeNull] this Type In, [CanBeNull] params object[] Arguments)
             {
-            return (T) In?.New(Arguments, typeof(T));
+            if (In == null || In == typeof(void))
+                return default(T);
+
+            return In.New<T>(Arguments, typeof(T));
             }
 
         /// <summary>
@@ -1043,7 +1046,7 @@ namespace LCore.Extensions
                 if (In.IsValueType)
                     return Activator.CreateInstance(In);
 
-                Arguments = Arguments ?? new object[] {};
+                Arguments = Arguments ?? new object[] { };
 
                 if (In.ContainsGenericParameters && GenericType != null)
                     {
@@ -1051,25 +1054,25 @@ namespace LCore.Extensions
 
                     GenericType.Traverse(Type =>
                         {
-                        if (Type.IsGenericType)
-                            TypeArgs_Base.Add(Type.GetGenericArguments());
+                            if (Type.IsGenericType)
+                                TypeArgs_Base.Add(Type.GetGenericArguments());
 
-                        return Type.BaseType;
+                            return Type.BaseType;
                         });
 
                     TypeArgs_Base.Reverse();
-                    TypeArgs_Base.Add(new[] {GenericType});
+                    TypeArgs_Base.Add(new[] { GenericType });
 
                     int InGenericArgs = In.GetGenericArguments().Length;
 
                     TypeArgs_Base.While(Types =>
                         {
-                        return InGenericArgs != Types.Length ||
-                               L.F(() =>
-                                   {
-                                   In = In.MakeGenericType(Types);
-                                   return false;
-                                   }).Try()();
+                            return InGenericArgs != Types.Length ||
+                                   L.F(() =>
+                                       {
+                                           In = In.MakeGenericType(Types);
+                                           return false;
+                                       }).Try()();
                         });
                     }
 
@@ -1121,7 +1124,7 @@ namespace LCore.Extensions
                 var PropertyInfo = In as PropertyInfo;
                 if (PropertyInfo != null && PropertyInfo.CanWrite)
                     {
-                    PropertyInfo.SetValue(Obj, Value, new object[] {});
+                    PropertyInfo.SetValue(Obj, Value, new object[] { });
                     return;
                     }
 
@@ -1365,7 +1368,7 @@ namespace LCore.Extensions
             /// </summary>
             public static FieldInfo Constant<T>(string ConstantName)
                 {
-                return (FieldInfo) typeof(T).GetMember(ConstantName,
+                return (FieldInfo)typeof(T).GetMember(ConstantName,
                     BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Static)
                     .First();
                 }
@@ -1380,7 +1383,7 @@ namespace LCore.Extensions
             /// </summary>
             public static ConstructorInfo Constructor<T>(Expression<Func<T>> Expr)
                 {
-                return ((NewExpression) Expr.Body).Constructor;
+                return ((NewExpression)Expr.Body).Constructor;
                 }
 
             #endregion
@@ -1413,14 +1416,14 @@ namespace LCore.Extensions
                 // for nested types
                 return Assemblies.Convert(Assembly =>
                     {
-                    try
-                        {
-                        return Assembly.GetExportedTypes();
-                        }
-                    catch
-                        {
-                        return null;
-                        }
+                        try
+                            {
+                            return Assembly.GetExportedTypes();
+                            }
+                        catch
+                            {
+                            return null;
+                            }
                     }).Flatten<Type>()
                     .First(Type => TypeName == Type.GetNestedNames() ||
                                    TypeName == Type.FullyQualifiedName());
@@ -1437,7 +1440,7 @@ namespace LCore.Extensions
             public static MemberInfo[] FindMembers([CanBeNull] string MemberFullName, [CanBeNull] params Assembly[] Assemblies)
                 {
                 if (MemberFullName == null || MemberFullName.Count(Obj: '.') < 1)
-                    return new MemberInfo[] {};
+                    return new MemberInfo[] { };
 
                 string Type = MemberFullName.BeforeLast(".");
                 string MemberName = MemberFullName.AfterLast(".");
@@ -1457,7 +1460,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Type[] GetNamespaceTypes(string Namespace, [CanBeNull] params Type[] AttributeTypes)
                 {
-                AttributeTypes = AttributeTypes ?? new Type[] {};
+                AttributeTypes = AttributeTypes ?? new Type[] { };
 
                 IEnumerable<Type> Types =
                     Assembly.GetCallingAssembly()
@@ -1539,7 +1542,7 @@ namespace LCore.Extensions
             /// </summary>
             public static MethodInfo Method<T>([CanBeNull] Expression<Action<T>> Expr)
                 {
-                var Out = ((MethodCallExpression) Expr?.Body)?.Method;
+                var Out = ((MethodCallExpression)Expr?.Body)?.Method;
 
                 if (Out != null)
                     {
@@ -1572,7 +1575,7 @@ namespace LCore.Extensions
             /// </summary>
             public static MethodInfo StaticMethod([CanBeNull] Expression<Action> Expr)
                 {
-                return ((MethodCallExpression) Expr?.Body)?.Method;
+                return ((MethodCallExpression)Expr?.Body)?.Method;
                 }
 
             #endregion
@@ -1587,7 +1590,7 @@ namespace LCore.Extensions
             /// </summary>
             public static EventInfo Event<T>(string EventName)
                 {
-                var Out = (EventInfo) typeof(T).GetMember(EventName).First();
+                var Out = (EventInfo)typeof(T).GetMember(EventName).First();
 
                 if (Out != null)
                     {
@@ -1648,66 +1651,66 @@ namespace LCore.Extensions
             private static readonly Func<string, ICustomAttributeProvider, Type, bool, object> _GetAttribute =
                 (DeclaringTypeName, Prop, Attr, IncludeBaseTypes) =>
                     {
-                    bool HasAttribute;
-                    object[] Objs;
-                    do
-                        {
-                        Objs = Prop.GetCustomAttributes(Attr, inherit: false);
-                        HasAttribute = Objs.Length != 0;
-
-                        if (HasAttribute)
-                            return Objs[0];
-
-                        var Type = Prop as Type;
-                        if (Type != null)
+                        bool HasAttribute;
+                        object[] Objs;
+                        do
                             {
-                            if (Type.BaseType == null)
+                            Objs = Prop.GetCustomAttributes(Attr, inherit: false);
+                            HasAttribute = Objs.Length != 0;
+
+                            if (HasAttribute)
+                                return Objs[0];
+
+                            var Type = Prop as Type;
+                            if (Type != null)
                                 {
-                                Prop = null;
-                                }
-                            else
-                                {
-                                try
-                                    {
-                                    Prop = Type.BaseType;
-                                    }
-                                catch
+                                if (Type.BaseType == null)
                                     {
                                     Prop = null;
                                     }
-                                }
-                            continue;
-                            }
-
-                        var MemberInfo = Prop as MemberInfo;
-                        if (MemberInfo != null)
-                            {
-                            if (MemberInfo.DeclaringType?.BaseType == null)
-                                {
-                                Prop = null;
-                                }
-                            else
-                                {
-                                try
+                                else
                                     {
-                                    Prop = ((MemberInfo) Prop).DeclaringType?.BaseType?.GetProperty(((MemberInfo) Prop).Name);
+                                    try
+                                        {
+                                        Prop = Type.BaseType;
+                                        }
+                                    catch
+                                        {
+                                        Prop = null;
+                                        }
                                     }
-                                catch
+                                continue;
+                                }
+
+                            var MemberInfo = Prop as MemberInfo;
+                            if (MemberInfo != null)
+                                {
+                                if (MemberInfo.DeclaringType?.BaseType == null)
                                     {
                                     Prop = null;
                                     }
+                                else
+                                    {
+                                    try
+                                        {
+                                        Prop = ((MemberInfo)Prop).DeclaringType?.BaseType?.GetProperty(((MemberInfo)Prop).Name);
+                                        }
+                                    catch
+                                        {
+                                        Prop = null;
+                                        }
+                                    }
                                 }
                             }
-                        }
                         // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-                    while (IncludeBaseTypes && !HasAttribute && Prop != null);
+                        while (IncludeBaseTypes && !HasAttribute && Prop != null);
 
-                    object Out2 = null;
+                        object Out2 = null;
 
-                    if (!Objs.IsEmpty())
-                        Out2 = Objs[0];
+                        if (!Objs.IsEmpty())
+                            Out2 = Objs[0];
 
-                    return Out2;
+                        return Out2;
                     };
 
             internal static readonly Func<string, ICustomAttributeProvider, Type, bool, object> GetAttribute = _GetAttribute

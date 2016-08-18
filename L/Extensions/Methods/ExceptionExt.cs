@@ -1442,7 +1442,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Action Retry([CanBeNull] this Action In,
-            [TestBound(1, 100)] int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)] int Tries = 1)
             {
             In = In ?? (() => { });
             if (Tries <= 0)
@@ -1478,9 +1478,9 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Action<T> Retry<T>([CanBeNull] this Action<T> In,
-            [TestBound(1, 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
             {
-            In = In ?? ((o1) => { });
+            In = In ?? (o1 => { });
             if (Tries <= 0)
                 throw new ArgumentOutOfRangeException(nameof(Tries));
 
@@ -1514,7 +1514,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Action<T1, T2> Retry<T1, T2>([CanBeNull] this Action<T1, T2> In,
-            [TestBound(1, 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
             {
             In = In ?? ((o1, o2) => { });
             if (Tries <= 0)
@@ -1550,7 +1550,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Action<T1, T2, T3> Retry<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In, 
-            [TestBound(1,100)]int Tries = 1)
+            [TestBound(Minimum: 1,Maximum: 100)]int Tries = 1)
             {
             In = In ?? ((o1, o2, o3) => { });
             if (Tries <= 0)
@@ -1586,7 +1586,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Action<T1, T2, T3, T4> Retry<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3, T4> In,
-            [TestBound(1, 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
             {
             In = In ?? ((o1, o2, o3, o4) => { });
             if (Tries <= 0)
@@ -1622,7 +1622,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Func<U> Retry<U>([CanBeNull] this Func<U> In,
-            [TestBound(1, 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
             {
             In = In ?? (() => default(U));
             if (Tries <= 0)
@@ -1657,9 +1657,9 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Func<T1, U> Retry<T1, U>([CanBeNull] this Func<T1, U> In,
-            [TestBound(1, 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
             {
-            In = In ?? ((o1) => default(U));
+            In = In ?? (o1 => default(U));
             if (Tries <= 0)
                 throw new ArgumentOutOfRangeException(nameof(Tries));
 
@@ -1692,7 +1692,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Func<T1, T2, U> Retry<T1, T2, U>([CanBeNull] this Func<T1, T2, U> In,
-            [TestBound(1, 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
             {
             In = In ?? ((o1, o2) => default(U));
 
@@ -1728,7 +1728,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Tries" /> is less than 1.</exception>
         public static Func<T1, T2, T3, U> Retry<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, T3, U> In,
-            [TestBound(1, 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
             {
             In = In ?? ((o1, o2, o3) => default(U));
 
@@ -1764,7 +1764,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Tries" /> is less than 1.</exception>
         public static Func<T1, T2, T3, T4, U> Retry<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In, 
-            [TestBound(1,100)]int Tries = 1)
+            [TestBound(Minimum: 1,Maximum: 100)]int Tries = 1)
             {
             In = In ?? ((o1, o2, o3, o4) => default(U));
             if (Tries <= 0)

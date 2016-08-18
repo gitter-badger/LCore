@@ -75,6 +75,8 @@
     <Compile Include="Interfaces\IPersistAttribute.cs" />
     <Compile Include="Interfaces\ISubclassPersistentAttribute.cs" />
     <Compile Include="Interfaces\ITopLevelAttribute.cs" />
+    <Compile Include="LUnit\Attributes\Interfaces\DisableNullabilityTestingAttribute.cs" />
+    <Compile Include="LUnit\Attributes\Interfaces\IDisableNullabilityTestingAttribute.cs" />
     <Compile Include="LUnit\Attributes\Interfaces\IValidateAttribute.cs" />
     <Compile Include="LUnit\Attributes\Interfaces\ITestParameters.cs" />
     <Compile Include="LUnit\Attributes\Interfaces\ILUnitAttribute.cs" />

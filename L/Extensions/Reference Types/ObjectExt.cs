@@ -213,7 +213,9 @@ namespace LCore.Extensions
             public static T NewRandom<T>(T? Minimum = null, T? Maximum = null)
                 where T : struct
                 {
-                return (T)NewRandom(typeof(T), Minimum, Maximum);
+                var Out = (T?)NewRandom(typeof(T), Minimum, Maximum);
+
+                return Out ?? default(T);
                 }
 
             #region NewRandom_ArrayTypes
@@ -252,6 +254,7 @@ namespace LCore.Extensions
 
                             var RandomItems = new List<object>();
 
+                        // ReSharper disable once PossibleNullReferenceException
                             int RandomCount = (int)NewRandom(typeof(int), Minimum: 1, Maximum: 50);
 
                             A(() => { RandomItems.Add(NewRandom(SelectedType, Min, Max)); }).Repeat(RandomCount)();
@@ -275,6 +278,7 @@ namespace LCore.Extensions
 
                                 var RandomItems = new List<object>();
 
+                                // ReSharper disable once PossibleNullReferenceException
                                 int RandomCount = (int)NewRandom(typeof(int), Minimum: 1, Maximum: 50);
 
                                 A(() => { RandomItems.Add(NewRandom(EnumerableType, Min, Max)); }).Repeat(RandomCount)();
@@ -731,7 +735,7 @@ namespace LCore.Extensions.Optional
         /// Returns a function that creates a new Array containing <paramref name="Count" /> instances of <paramref name="In" />
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">If <paramref name="Count" /> is less than 0.</exception>
-        public static Func<T[]> FN_CreateArray<T>(this T In, [TestBound(0, 10)] int Count)
+        public static Func<T[]> FN_CreateArray<T>(this T In, [TestBound(Minimum: 0, Maximum: 10)] int Count)
             {
             if (Count < 0)
                 throw new ArgumentOutOfRangeException(nameof(Count));

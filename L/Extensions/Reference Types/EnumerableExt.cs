@@ -2855,7 +2855,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Sets the item in the collection at <paramref name="Index" /> to <paramref name="Value" />.
         /// </summary>
-        public static void SetAt<T>([CanBeNull] this IEnumerable In, int Index, [CanBeNull] T Value)
+        [DisableNullabilityTesting]
+        public static void SetAt<T>([CanBeNull] this IEnumerable In, [TestBound(Minimum: 0, Maximum: 10)]int Index, [CanBeNull] T Value)
             {
             if (Index < 0)
                 return;
@@ -2866,7 +2867,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Sets the item in the collection at <paramref name="Index" /> to <paramref name="Value" />.
         /// </summary>
-        public static void SetAt<T>([CanBeNull] this IEnumerable In, uint Index, [CanBeNull] T Value)
+        [DisableNullabilityTesting]
+        public static void SetAt<T>([CanBeNull] this IEnumerable In, [TestBound(Minimum: 0u,Maximum: 10u)]uint Index, [CanBeNull] T Value)
             {
             if (In == null)
                 return;
@@ -2897,6 +2899,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Sets the item in the collection at <paramref name="Index" /> to <paramref name="Value" />.
         /// </summary>
+        [DisableNullabilityTesting]
         public static void SetAt<T>([CanBeNull] this IEnumerable<T> In, int Index, [CanBeNull] T Value)
             {
             if (Index < 0)
@@ -2908,6 +2911,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Sets the item in the collection at <paramref name="Index" /> to <paramref name="Value" />.
         /// </summary>
+        [DisableNullabilityTesting]
         public static void SetAt<T>([CanBeNull] this IEnumerable<T> In, uint Index, [CanBeNull] T Value)
             {
             if (In == null)

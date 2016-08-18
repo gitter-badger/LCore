@@ -618,7 +618,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (long)(1024 * 1024 * 1024 * (long)1024 * (float)1.5), 5 }, "1.50000 TB")]
         [TestResult(new object[] { (long)35572226, 5 }, "33.92432 MB")]
         [TestResult(new object[] { long.MaxValue, 0 }, "8 EB")]
-        public static string FormatFileSize([TestBound(0, int.MaxValue)]this long Size, [TestBound(0, 5)]int Decimals)
+        public static string FormatFileSize([TestBound(Minimum: 0, Maximum: int.MaxValue)]this long Size, [TestBound(Minimum: 0, Maximum: 5)]int Decimals)
             {
             if (Size < 0)
                 throw new ArgumentOutOfRangeException(nameof(Size));
@@ -699,7 +699,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 35572226, 5 }, "33.92432 MB")]
         [TestResult(new object[] { int.MaxValue, 0 }, "2 GB")]
         // ReSharper disable once MethodOverloadWithOptionalParameter
-        public static string FormatFileSize([TestBound(0, int.MaxValue)]this int Size, [TestBound(0, 5)]int Decimals = 0)
+        public static string FormatFileSize([TestBound(Minimum: 0, Maximum: int.MaxValue)]this int Size, [TestBound(Minimum: 0, Maximum: 5)]int Decimals = 0)
             {
             if (Decimals < 0)
                 throw new ArgumentOutOfRangeException(nameof(Decimals));
@@ -1321,12 +1321,12 @@ namespace LCore.Extensions
         /// Takes a String and returns a String[] split by the <paramref name="SplitStr" />
         /// This method will throw an Exception if <paramref name="SplitStr" /> is empty.
         /// </summary>
-        [TestResult(new object[] { null, null }, new string[] { "" })]
-        [TestResult(new object[] { "", null }, new string[] { "" })]
-        [TestResult(new object[] { "a", null }, new string[] { "a" })]
-        [TestResult(new object[] { null, "" }, new string[] { "" })]
-        [TestResult(new object[] { "", "" }, new string[] { "" })]
-        [TestResult(new object[] { "a", "" }, new string[] { "a" })]
+        [TestResult(new object[] { null, null }, new[] { "" })]
+        [TestResult(new object[] { "", null }, new[] { "" })]
+        [TestResult(new object[] { "a", null }, new[] { "a" })]
+        [TestResult(new object[] { null, "" }, new[] { "" })]
+        [TestResult(new object[] { "", "" }, new[] { "" })]
+        [TestResult(new object[] { "a", "" }, new[] { "a" })]
         [TestResult(new object[] { null, "a" }, new string[] { })]
         [TestResult(new object[] { "", "a" }, new string[] { })]
         [TestResult(new object[] { "a", "a" }, new string[] { })]
@@ -1338,7 +1338,7 @@ namespace LCore.Extensions
         public static string[] Split([CanBeNull]this string In, [CanBeNull] string SplitStr)
             {
             if (string.IsNullOrEmpty(SplitStr))
-                return new string[] { In ?? "" };
+                return new[] { In ?? "" };
 
             if (In == null || In.IsEmpty())
                 return new string[] { };
