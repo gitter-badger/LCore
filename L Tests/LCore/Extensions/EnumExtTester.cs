@@ -13,7 +13,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Extensions
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(EnumExt))]
     public partial class EnumExtTester : XUnitOutputTester
         {
         public EnumExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}

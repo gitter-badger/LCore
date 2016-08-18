@@ -18,7 +18,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Tools
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(RegistryHelper))]
     public partial class RegistryHelperTester : XUnitOutputTester, IDisposable
         {
         [ExcludeFromCodeCoverage]

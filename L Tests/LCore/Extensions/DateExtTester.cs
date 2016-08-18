@@ -11,7 +11,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Extensions
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt))]
     public partial class DateExtTester : XUnitOutputTester
         {
         public DateExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}

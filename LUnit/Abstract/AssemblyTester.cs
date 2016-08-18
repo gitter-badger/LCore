@@ -87,9 +87,11 @@ namespace LCore.LUnit
         protected virtual Assembly[] TestAssemblies => AppDomain.CurrentDomain.GetAssemblies();
 
         /// <summary>
-        /// All types in covered Assemblies
+        /// All included types in covered Assemblies
         /// </summary>
-        protected virtual Type[] AllAssemblyTypes => this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(IncludeBaseTypes: false).Array();
+        protected virtual Type[] AssemblyTypes => this.Assembly.GetExportedTypes()
+            .WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(IncludeBaseTypes: false)
+            .Select(Type => !Type.IsInterface).Array();
 
         ////////////////////////////////////////////////////////
 
@@ -97,11 +99,6 @@ namespace LCore.LUnit
         /// Reference to the assembly being tested.
         /// </summary>
         protected Assembly Assembly => Assembly.GetAssembly(this.AssemblyType);
-
-        /// <summary>
-        /// All types exposed by the targeted Assembly.
-        /// </summary>
-        protected Type[] AssemblyTypes => this.Assembly.GetExportedTypes();
 
         /// <summary>
         /// Returns the root directory of the Test Assembly project.
@@ -232,7 +229,7 @@ namespace LCore.LUnit
                 ? " partial "
                 : " ";
 
-            foreach (var Type in this.AllAssemblyTypes)
+            foreach (var Type in this.AssemblyTypes)
                 {
                 MemberAttributes.AddRange(Type.GetTestMembers());
 
@@ -295,10 +292,12 @@ namespace LCore.LUnit
 
                             if (TargetClassTest != null)
                                 Partial = " partial ";
+/*
 
                             WriteStack3.Add(StrongTypeTraitAttribute
                                 ? $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
                                 : $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},\"{TargetClass.FullyQualifiedName()}\")]");
+*/
 
                             if (TargetClassTest == null)
                                 {

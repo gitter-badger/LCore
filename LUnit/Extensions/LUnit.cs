@@ -309,11 +309,6 @@ namespace LCore.LUnit
     public static class Traits
         {
         /// <summary>
-        /// TargetClass trait key
-        /// </summary>
-        public const string TargetClass = "LUnit_TestTargetClass";
-
-        /// <summary>
         /// TargetMember trait key
         /// </summary>
         public const string TargetMember = "LUnit_TestTargetMember";

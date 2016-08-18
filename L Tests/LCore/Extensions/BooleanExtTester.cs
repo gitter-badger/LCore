@@ -15,7 +15,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Extensions
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt))]
     public partial class BooleanExtTester : XUnitOutputTester
         {
         private static readonly string _TestString = Guid.NewGuid().ToString();

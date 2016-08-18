@@ -15,7 +15,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Tools
     {
-    [Trait(Traits.TargetClass, "LCore.Tools.Set")]
     public partial class Set_2Tester : XUnitOutputTester, IDisposable
         {
         public Set_2Tester([NotNull] ITestOutputHelper Output) : base(Output) { }

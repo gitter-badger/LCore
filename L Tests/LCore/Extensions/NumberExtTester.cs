@@ -14,7 +14,6 @@ using LCore.LUnit.Fluent;
 
 namespace L_Tests.LCore.Extensions
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(NumberExt))]
     public partial class NumberExtTester : XUnitOutputTester, IDisposable
         {
         public NumberExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}

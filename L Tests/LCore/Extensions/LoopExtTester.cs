@@ -12,7 +12,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Extensions
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LoopExt))]
     public partial class LoopExtTester : XUnitOutputTester, IDisposable
         {
         public LoopExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }

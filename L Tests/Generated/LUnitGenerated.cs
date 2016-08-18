@@ -16,7 +16,6 @@ using LCore.Tools;
 
 namespace L_Tests.LCore.Tools
 {
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Tools)+ "." + nameof(GitHubMarkdown))]
     public partial class GitHubMarkdownTester : XUnitOutputTester, IDisposable
     {
         public GitHubMarkdownTester([NotNull] ITestOutputHelper Output) : base(Output) { }
@@ -192,7 +191,6 @@ namespace L_Tests.LCore.Tools
          }
          
     }
-    [Trait(Traits.TargetClass,"LCore.Tools.Lists<T1, T2>")]
     public partial class Lists_T1_T2_Tester : XUnitOutputTester, IDisposable
     {
         public Lists_T1_T2_Tester([NotNull] ITestOutputHelper Output) : base(Output) { }
@@ -242,7 +240,6 @@ namespace L_Tests.LCore.Tools
          }
          
     }
-    [Trait(Traits.TargetClass,"LCore.Tools.Set<T1, T2>")]
     public partial class Set_T1_T2_Tester : XUnitOutputTester, IDisposable
     {
         public Set_T1_T2_Tester([NotNull] ITestOutputHelper Output) : base(Output) { }
@@ -310,7 +307,6 @@ namespace L_Tests.LCore.Tools
 
 namespace L_Tests.LCore.Numbers
 {
-    [Trait(Traits.TargetClass,"LCore.Numbers.Number<T, U>")]
     public partial class Number_T_U_Tester : XUnitOutputTester, IDisposable
     {
         public Number_T_U_Tester([NotNull] ITestOutputHelper Output) : base(Output) { }
@@ -325,7 +321,6 @@ namespace L_Tests.LCore.Numbers
          }
          
     }
-    [Trait(Traits.TargetClass,"LCore.Numbers.Number<T>")]
     public partial class Number_T_Tester : XUnitOutputTester, IDisposable
     {
         public Number_T_Tester([NotNull] ITestOutputHelper Output) : base(Output) { }
@@ -484,7 +479,6 @@ namespace L_Tests.LCore.Numbers
 
 namespace L_Tests.LCore.Extensions
 {
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L))]
    public partial class L_RefTester
     {
         [Fact]
@@ -502,7 +496,6 @@ namespace L_Tests.LCore.Extensions
          }
          
     }
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L))]
     public partial class L_LoopTester : XUnitOutputTester, IDisposable
     {
         public L_LoopTester([NotNull] ITestOutputHelper Output) : base(Output) { }
@@ -762,7 +755,6 @@ namespace L_Tests.LCore.Extensions
          }
          
     }
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L))]
     public partial class L_BoolTester : XUnitOutputTester, IDisposable
     {
         public L_BoolTester([NotNull] ITestOutputHelper Output) : base(Output) { }
@@ -875,7 +867,6 @@ namespace L_Tests.LCore.Extensions
          }
          
     }
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L))]
     public partial class L_FileTester : XUnitOutputTester, IDisposable
     {
         public L_FileTester([NotNull] ITestOutputHelper Output) : base(Output) { }
@@ -932,7 +923,6 @@ namespace L_Tests.LCore.Extensions
          }
          
     }
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L))]
    public partial class L_StrTester
     {
         [Fact]
@@ -943,7 +933,6 @@ namespace L_Tests.LCore.Extensions
          }
          
     }
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L))]
     public partial class L_LogicTester : XUnitOutputTester, IDisposable
     {
         public L_LogicTester([NotNull] ITestOutputHelper Output) : base(Output) { }
@@ -2869,7 +2858,6 @@ namespace L_Tests.LCore.Extensions
          }
          
     }
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(ReflectionExt))]
    public partial class ReflectionExtTester
     {
         [Fact]
@@ -2922,7 +2910,6 @@ namespace L_Tests.LCore.Extensions
          }
          
     }
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(NumberExt))]
    public partial class NumberExtTester
     {
         [Fact]
@@ -2947,7 +2934,6 @@ namespace L_Tests.LCore.Extensions
          }
          
     }
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt))]
    public partial class BooleanExtTester
     {
         [Fact]
@@ -3021,7 +3007,6 @@ namespace L_Tests.LCore.Extensions
          }
          
     }
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(DictionaryExt))]
    public partial class DictionaryExtTester
     {
         [Fact]
@@ -3186,7 +3171,6 @@ namespace L_Tests.LCore.Extensions
          }
          
     }
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(FileExt))]
    public partial class FileExtTester
     {
         [Fact]
@@ -3225,7 +3209,6 @@ namespace L_Tests.LCore.Extensions
          }
          
     }
-    [Trait(Traits.TargetClass,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(EnumerableExt))]
    public partial class EnumerableExtTester
     {
         [Fact]

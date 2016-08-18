@@ -15,7 +15,6 @@ using Xunit.Abstractions;
 
 namespace LUnit_Tests.LCore.LUnit.Assert
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt))]
     public partial class AssertionExtTester : XUnitOutputTester, IDisposable
         {
         #region Test Variables
@@ -324,7 +323,8 @@ namespace LUnit_Tests.LCore.LUnit.Assert
 
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(MethodInfo, Object[], Object, Func[])")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(MethodInfo, Object[], Object, Func[]<Boolean>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(MethodInfo, Object[], Object, Type, Func[]<Boolean>)")]
         public void AssertFails_MethodInfo_Object_Object_Func()
             {
             var Method = typeof(Helper).GetMethod(nameof(Helper.Fail));
@@ -335,7 +335,9 @@ namespace LUnit_Tests.LCore.LUnit.Assert
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertFails) + "(MethodInfo, Object[], Object, Type, Func[])")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(MethodInfo, Object, Object[], Func[]<Boolean>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(MethodInfo, Object, Object[], Func[]<Object, Boolean>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSucceedes) + "(MethodInfo, Object, Object[], Func[]<U, Boolean>)")]
         public void AssertFails_MethodInfo_Object_Object_Type_Func()
             {
             var Method = typeof(Helper).GetMethod(nameof(Helper.Fail));
@@ -348,7 +350,8 @@ namespace LUnit_Tests.LCore.LUnit.Assert
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(MethodInfo, Object, Object[], U, Func[])")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(MethodInfo, Object, Object[], Object, Func[]<Object, Boolean>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertResult) + "(MethodInfo, Object, Object[], U, Func[]<Object, Boolean>)")]
         public void AssertResult_MethodInfo_Object_Object_U_Func()
             {
             var Method = typeof(Helper).GetMethod(nameof(Helper.Test), new Type[] {});
@@ -360,8 +363,8 @@ namespace LUnit_Tests.LCore.LUnit.Assert
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSource) + "(MethodInfo, Object, Object[], Object, Func[])")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSource) + "(MethodInfo, Object, Object[], U, Func[])")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSource) + "(MethodInfo, Object, Object[], Object, Func[]<Object, Boolean>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Assert) + "." + nameof(AssertionExt) + "." + nameof(AssertionExt.AssertSource) + "(MethodInfo, Object, Object[], U, Func[]<Object, Boolean>)")]
         public void AssertSource_MethodInfo_Object_Object_Object_Func()
             {
             var Test = new List<int> {1, 2, 3, 4, 5, 1, 5, 2};

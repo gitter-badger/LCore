@@ -26,7 +26,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Extensions
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt))]
     public partial class ReflectionExtTester : XUnitOutputTester, IDisposable
         {
         public ReflectionExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}

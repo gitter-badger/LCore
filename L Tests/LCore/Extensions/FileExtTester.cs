@@ -12,7 +12,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Extensions
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(FileExt))]
     public partial class FileExtTester : XUnitOutputTester, IDisposable
         {
         private const string Str = @"c:\temporary_testEnsurePathExists\test\file.txt";

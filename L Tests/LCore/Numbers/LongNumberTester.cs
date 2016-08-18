@@ -10,7 +10,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Numbers
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(LongNumber))]
     public partial class LongNumberTester : XUnitOutputTester, IDisposable
         {
         public LongNumberTester([NotNull] ITestOutputHelper Output) : base(Output) { }

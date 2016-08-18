@@ -10,7 +10,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Numbers
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(FloatNumber))]
     public partial class FloatNumberTester : XUnitOutputTester, IDisposable
         {
         public FloatNumberTester([NotNull] ITestOutputHelper Output) : base(Output) { }

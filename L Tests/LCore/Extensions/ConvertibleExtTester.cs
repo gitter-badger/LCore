@@ -17,7 +17,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Extensions
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt))]
     public partial class ConvertibleExtTester : XUnitOutputTester, IDisposable
         {
         public ConvertibleExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}

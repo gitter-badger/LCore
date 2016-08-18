@@ -11,7 +11,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Tools
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ProgressUpdater))]
     public partial class ProgressUpdaterTester : XUnitOutputTester, IDisposable
         {
         public ProgressUpdaterTester([NotNull] ITestOutputHelper Output) : base(Output) { }

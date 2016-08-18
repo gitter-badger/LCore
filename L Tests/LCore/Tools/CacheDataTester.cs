@@ -12,7 +12,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Tools
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(CacheData))]
     public partial class CacheDataTester : XUnitOutputTester, IDisposable
         {
         public CacheDataTester([NotNull] ITestOutputHelper Output) : base(Output) { }

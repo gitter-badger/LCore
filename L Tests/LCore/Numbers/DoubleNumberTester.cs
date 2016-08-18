@@ -10,7 +10,6 @@ using LCore.LUnit.Fluent;
 
 namespace L_Tests.LCore.Numbers
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Numbers) + "." + nameof(DoubleNumber))]
     public partial class DoubleNumberTester : XUnitOutputTester, IDisposable
         {
         public DoubleNumberTester([NotNull] ITestOutputHelper Output) : base(Output) { }

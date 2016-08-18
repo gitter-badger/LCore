@@ -13,7 +13,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Extensions
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(StringExt))]
     public partial class StringExtTester : XUnitOutputTester, IDisposable
         {
         public StringExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}

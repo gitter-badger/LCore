@@ -14,7 +14,6 @@ using Xunit.Abstractions;
 
 namespace L_Tests.LCore.Tools
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(DateTimeConverter))]
     public partial class DateTimeConverterTester : XUnitOutputTester, IDisposable
         {
         public DateTimeConverterTester([NotNull] ITestOutputHelper Output) : base(Output) { }

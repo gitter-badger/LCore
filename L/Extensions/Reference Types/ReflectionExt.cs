@@ -1293,7 +1293,7 @@ namespace LCore.Extensions
             Type[] Generics = In.GenericTypeArguments;
             Type[] GenericArgs = In.GetGenericArguments();
 
-            string Out = "";
+            string Out;
 
             if (Generics.Length != 0)
                 {

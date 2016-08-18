@@ -15,7 +15,6 @@ using Xunit.Abstractions;
 
 namespace L_Thread_Tests.LCore.Extensions
     {
-    [Trait(Traits.TargetClass, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt))]
     public partial class ThreadExtTester : XUnitOutputTester, IDisposable
         {
         public ThreadExtTester([NotNull] ITestOutputHelper Output) : base(Output)
