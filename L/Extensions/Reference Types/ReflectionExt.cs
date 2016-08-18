@@ -1291,10 +1291,23 @@ namespace LCore.Extensions
                 return "";
 
             Type[] Generics = In.GenericTypeArguments;
+            Type[] GenericArgs = In.GetGenericArguments();
 
-            string Out = Generics.Length == 0
-                ? In.Name
-                : $"{In.Name}<{Generics.Convert(Type => Type.GetGenericName()).JoinLines(", ")}>";
+            string Out = "";
+
+            if (Generics.Length != 0)
+                {
+                Out = $"{In.Name}<{Generics.Convert(Type => Type.GetGenericName()).JoinLines(", ")}>";
+                }
+            else if (GenericArgs.Length != 0)
+                {
+                Out = $"{In.Name}<{GenericArgs.Convert(Type => Type.Name).JoinLines(", ")}>";
+                }
+            else
+                {
+                Out = $"{In.Name}";
+                }
+
 
             Out = Out.ReplaceAll(new Dictionary<string, string>
                 {

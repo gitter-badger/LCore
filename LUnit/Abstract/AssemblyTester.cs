@@ -143,7 +143,7 @@ namespace LCore.LUnit
         /// <summary>
         /// Create a new AssemblyTester
         /// </summary>
-        protected AssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        protected AssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) {}
 
         ////////////////////////////////////////////////////////
 
@@ -167,44 +167,44 @@ namespace LCore.LUnit
 
             Namespaces.Each(Namespace =>
                 {
+                List<Type> TypeGroup = NamespaceTypes[Namespace].List();
+                TypeGroup.Sort(Type => Type.GetNestedNames());
 
-                    List<Type> TypeGroup = NamespaceTypes[Namespace].List();
-                    TypeGroup.Sort(Type => Type.Name);
+                uint TotalMembers = 0;
+                uint TotalTests = 0;
 
-                    uint TotalMembers = 0;
-                    uint TotalTests = 0;
+                var AllCoverage = new List<uint>();
+                // Out.Add($"Classes:                        Total Coverage: {TotalCoverage}");
+                foreach (var Type in TypeGroup)
+                    {
+                    var TestData = new TypeCoverage(Type, this.TestAssemblies);
+                    //Type.GetTestData(this.TestAssemblies);
 
-                    var AllCoverage = new List<uint>();
-                    // Out.Add($"Classes:                        Total Coverage: {TotalCoverage}");
-                    foreach (var Type in TypeGroup)
+
+                    if (TestData.MemberCoverage.Count > 0)
                         {
-                        var TestData = new TypeCoverage(Type, this.TestAssemblies);
-                        //Type.GetTestData(this.TestAssemblies);
+                        uint Coverage = TestData.CoveragePercent;
+                        AllCoverage.Add(Coverage);
 
+                        TotalMembers += (uint) TestData.MemberCoverage.Count;
+                        uint Covered = TestData.MemberCoverage.Count(Member => Member.IsCovered);
+                        TotalTests += Covered;
 
-                        if (TestData.MemberCoverage.Count > 0)
-                            {
-                            uint Coverage = TestData.CoveragePercent;
-                            AllCoverage.Add(Coverage);
+                        Out.Add($"{Type.FullyQualifiedName().Pad(Length: 48)}({$"{Coverage}".AlignRight(Length: 3)}%) ({Covered}/{TestData.MemberCoverage.Count})");
 
-                            TotalMembers += (uint)TestData.MemberCoverage.Count;
-                            uint Covered = TestData.MemberCoverage.Count(Member => Member.IsCovered);
-                            TotalTests += Covered;
-
-                            Out.Add($"{Type.FullyQualifiedName().Pad(Length: 48)}({$"{Coverage}".AlignRight(Length: 3)}%) ({Covered}/{TestData.MemberCoverage.Count})");
-
-                            //TestData.MissingMemberInvocations.Each(Member => MissingMembers.Add($"-{Member}"));
-                            }
+                        //TestData.MissingMemberInvocations.Each(Member => MissingMembers.Add($"-{Member}"));
                         }
+                    }
 
-                    Out.Insert(index: 0, item: $"{$"{Namespace} Classes:".Pad(Length: 20)}            Total Coverage: ({$"{AllCoverage.Average().Round()}".AlignRight(Length: 3)}%)  ({TotalTests}/{TotalMembers})");
+                if (TotalMembers > 0)
+                    {
+                    Out.Insert(index: 0, item: $"{$"{Namespace} Classes:".Pad(Length: 31)} Total Coverage: ({$"{AllCoverage.Average().Round()}".AlignRight(Length: 3)}%) ({TotalTests}/{TotalMembers})");
                     Out.Insert(index: 1, item: "--------------------------------------------------------------");
                     Out.Add("");
                     Out.Add("");
                     Out.Each(this._Output.WriteLine);
                     Out.Clear();
-
-
+                    }
                 });
             }
 
@@ -245,13 +245,13 @@ namespace LCore.LUnit
                 var Removals = new List<MemberInfo>();
                 MemberNaming.Keys.Each(Key =>
                     {
-                        if (Key is MethodInfo && ((MethodInfo)Key).IsPropertyGetterOrSetter())
-                            Removals.Add(Key);
+                    if (Key is MethodInfo && ((MethodInfo) Key).IsPropertyGetterOrSetter())
+                        Removals.Add(Key);
 
-                        if (Key is PropertyInfo
-                            && ((PropertyInfo)Key).GetMethod?.IsStatic != true
-                            && ((PropertyInfo)Key).SetMethod?.IsStatic != true)
-                            Removals.Add(Key);
+                    if (Key is PropertyInfo
+                        && ((PropertyInfo) Key).GetMethod?.IsStatic != true
+                        && ((PropertyInfo) Key).SetMethod?.IsStatic != true)
+                        Removals.Add(Key);
                     });
 
                 Removals.Each(Remove => MemberNaming.Remove(Remove));
@@ -263,163 +263,163 @@ namespace LCore.LUnit
 
             MemberTable.Keys.Each((Index, Namespace) =>
                 {
-                    // ReSharper disable once UseObjectOrCollectionInitializer
-                    var WriteStack2 = new List<string>();
-                    WriteStack2.Add("");
-                    WriteStack2.Add($"namespace {Namespace}");
-                    WriteStack2.Add("{");
+                // ReSharper disable once UseObjectOrCollectionInitializer
+                var WriteStack2 = new List<string>();
+                WriteStack2.Add("");
+                WriteStack2.Add($"namespace {Namespace}");
+                WriteStack2.Add("{");
 
-                    Dictionary<string, List<string>> Classes = MemberTable[Namespace];
+                Dictionary<string, List<string>> Classes = MemberTable[Namespace];
 
-                    uint ClassesMissing = 0;
+                uint ClassesMissing = 0;
 
-                    Classes.Keys.Each(Class =>
+                Classes.Keys.Each(Class =>
+                    {
+                    var TargetClass =
+                        MemberNaming.First(Member => Member.Value.Item1 == Namespace && Member.Value.Item2 == Class).Key.DeclaringType;
+
+                    var TargetClassTest = L.Ref.FindType($"{Namespace}.{Class}", this.TestAssemblies);
+
+                    if (TargetClass != null)
                         {
-                            var TargetClass =
-                            MemberNaming.First(Member => Member.Value.Item1 == Namespace && Member.Value.Item2 == Class).Key.DeclaringType;
+                        bool FullyQualifyWithNamespace =
+                            MemberNaming.Values.Count(Naming => Naming.Item2 == Class && Naming.Item1 != Namespace) > 0;
 
-                            var TargetClassTest = L.Ref.FindType($"{Namespace}.{Class}", this.TestAssemblies);
 
-                            if (TargetClass != null)
+                        // ReSharper disable once UseObjectOrCollectionInitializer
+                        var WriteStack3 = new List<string>();
+
+                        if (this.GeneratedCode_IncludeTraitTargetAttributes)
+                            {
+                            bool StrongTypeTraitAttribute = !TargetClass.FullyQualifiedName().HasAny('`', '<', '>');
+
+                            if (TargetClassTest != null)
+                                Partial = " partial ";
+
+                            WriteStack3.Add(StrongTypeTraitAttribute
+                                ? $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
+                                : $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},\"{TargetClass.FullyQualifiedName()}\")]");
+
+                            if (TargetClassTest == null)
                                 {
-                                bool FullyQualifyWithNamespace =
-                                MemberNaming.Values.Count(Naming => Naming.Item2 == Class && Naming.Item1 != Namespace) > 0;
-
-
-                                // ReSharper disable once UseObjectOrCollectionInitializer
-                                var WriteStack3 = new List<string>();
-
-                                if (this.GeneratedCode_IncludeTraitTargetAttributes)
-                                    {
-                                    bool StrongTypeTraitAttribute = !TargetClass.FullyQualifiedName().HasAny('`', '<', '>');
-
-                                    if (TargetClassTest != null)
-                                        Partial = " partial ";
-
-                                    WriteStack3.Add(StrongTypeTraitAttribute
-                                    ? $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
-                                    : $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},\"{TargetClass.FullyQualifiedName()}\")]");
-
-                                    if (TargetClassTest == null)
-                                        {
-                                        WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
-                                        ? $"    public{Partial}class {Class} : {nameof(XUnitOutputTester)}, {nameof(IDisposable)}"
-                                        : $"    public{Partial}class {Class} : {nameof(IDisposable)}");
-                                        }
-                                    else
-                                        {
-                                        WriteStack3.Add($"   public{Partial}class {Class}");
-                                        }
-
-                                    WriteStack3.Add("    {");
-
-                                    // Don't re-declare constructor and destructor if the target class exists
-                                    if (TargetClassTest == null)
-                                        {
-                                        WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
-                                        ? $"        public {Class}([{nameof(NotNullAttribute).Before(Attribute)}] {nameof(ITestOutputHelper)} Output) : base(Output) {{ }}"
-                                        : $"        public {Class}() {{ }}");
-
-                                        WriteStack3.Add("");
-
-                                        WriteStack3.Add("        public void Dispose() { }");
-                                        WriteStack3.Add("");
-                                        }
-
-                                    List<string> MemberNames = Classes[Class];
-
-
-                                    uint MembersMissing = 0;
-
-                                    MemberNames.Each(MemberName =>
-                                    {
-                                        var TargetMember =
-                                        MemberNaming.First(
-                                            Member =>
-                                                Member.Value.Item1 == Namespace && Member.Value.Item2 == Class &&
-                                                Member.Value.Item3 == MemberName).Key;
-
-                                        if (TargetMember.HasAttribute<ITestedAttribute>() ||
-                                        TargetMember?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true ||
-                                        TargetMember?.DeclaringType?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true)
-                                            return;
-
-                                        StrongTypeTraitAttribute = !TargetMember.FullyQualifiedName().HasAny('`', '<', '>') &&
-                                                               !(TargetMember is MethodInfo && ((MethodInfo)TargetMember).IsOperator());
-
-                                        // ReSharper disable once UnusedVariable
-                                        var TargetMemberTest = L.Ref.FindMembers($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies).First();
-
-                                        string TraitKeyAttribute = StrongTypeTraitAttribute
-                                        ? (TargetMember is MethodInfo
-                                            ? $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)} + \"{((MethodInfo)TargetMember).ToParameterSignature()}\""
-                                            : $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)}")
-                                        : (TargetMember is MethodInfo
-                                            ? $"\"{((MethodInfo)TargetMember).ToInvocationSignature(FullyQualify: true)}\""
-                                            : $"\"{TargetMember.FullyQualifiedName()}\"");
-
-                                        string TraitKeyLookup = TargetMember is MethodInfo
-                                        ? $"{((MethodInfo)TargetMember).ToInvocationSignature(FullyQualify: true)}"
-                                        : $"{TargetMember.FullyQualifiedName()}";
-
-                                        if (!MemberTraits.Has(TraitKeyLookup) &&
-                                        //(TargetMemberTest == null) &&
-                                        !string.IsNullOrEmpty(MemberName))
-                                            {
-                                            // ReSharper disable RedundantNameQualifier
-                                            string New = MemberName == nameof(object.GetHashCode) ||
-                                                         MemberName == nameof(object.ToString)
-                                                // ReSharper restore RedundantNameQualifier
-                                                ? " new "
-                                                : " ";
-
-                                            MembersMissing++;
-                                            TotalMembersMissing++;
-
-                                            WriteStack3.Add($"        [{nameof(FactAttribute).Before(Attribute)}]");
-                                            if (this.GeneratedCode_IncludeTraitTargetAttributes)
-                                                {
-                                                WriteStack3.Add($"        [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},{TraitKeyAttribute})]");
-
-                                                if (!Using.Contains(TargetClass.Namespace))
-                                                    Using.Add(TargetClass.Namespace);
-                                                }
-
-                                            WriteStack3.Add($"        public{New}void {MemberName}()");
-                                            WriteStack3.Add("         {");
-
-                                            WriteStack3.Add(TargetMember != null && MemberAttributes[TargetMember].Count > 0
-                                            ? "            // Attribute Tests Implemented"
-                                            : $"            // TODO: Implement method test {TargetMember.FullyQualifiedName()}");
-
-                                            WriteStack3.Add("         }");
-                                            WriteStack3.Add("         ");
-                                            }
-                                    });
-
-                                    WriteStack3.Add("    }");
-
-                                    if (MembersMissing == 0)
-                                        WriteStack3.Clear();
-                                    else
-                                        {
-                                        ClassesMissing++;
-                                        TotalClassesMissing++;
-                                        WriteStack2.AddRange(WriteStack3);
-                                        }
-                                    }
+                                WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
+                                    ? $"    public{Partial}class {Class} : {nameof(XUnitOutputTester)}, {nameof(IDisposable)}"
+                                    : $"    public{Partial}class {Class} : {nameof(IDisposable)}");
                                 }
-                        });
+                            else
+                                {
+                                WriteStack3.Add($"   public{Partial}class {Class}");
+                                }
 
-                    WriteStack2.Add("}");
+                            WriteStack3.Add("    {");
 
-                    if (ClassesMissing == 0)
-                        WriteStack2.Clear();
-                    else
-                        {
-                        NamespacesMissing++;
-                        WriteStack.AddRange(WriteStack2);
+                            // Don't re-declare constructor and destructor if the target class exists
+                            if (TargetClassTest == null)
+                                {
+                                WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
+                                    ? $"        public {Class}([{nameof(NotNullAttribute).Before(Attribute)}] {nameof(ITestOutputHelper)} Output) : base(Output) {{ }}"
+                                    : $"        public {Class}() {{ }}");
+
+                                WriteStack3.Add("");
+
+                                WriteStack3.Add("        public void Dispose() { }");
+                                WriteStack3.Add("");
+                                }
+
+                            List<string> MemberNames = Classes[Class];
+
+
+                            uint MembersMissing = 0;
+
+                            MemberNames.Each(MemberName =>
+                                {
+                                var TargetMember =
+                                    MemberNaming.First(
+                                        Member =>
+                                            Member.Value.Item1 == Namespace && Member.Value.Item2 == Class &&
+                                            Member.Value.Item3 == MemberName).Key;
+
+                                if (TargetMember.HasAttribute<ITestedAttribute>() ||
+                                    TargetMember?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true ||
+                                    TargetMember?.DeclaringType?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true)
+                                    return;
+
+                                StrongTypeTraitAttribute = !TargetMember.FullyQualifiedName().HasAny('`', '<', '>') &&
+                                                           !(TargetMember is MethodInfo && ((MethodInfo) TargetMember).IsOperator());
+
+                                // ReSharper disable once UnusedVariable
+                                var TargetMemberTest = L.Ref.FindMembers($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies).First();
+
+                                string TraitKeyAttribute = StrongTypeTraitAttribute
+                                    ? (TargetMember is MethodInfo
+                                        ? $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)} + \"{((MethodInfo) TargetMember).ToParameterSignature()}\""
+                                        : $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)}")
+                                    : (TargetMember is MethodInfo
+                                        ? $"\"{((MethodInfo) TargetMember).ToInvocationSignature(FullyQualify: true)}\""
+                                        : $"\"{TargetMember.FullyQualifiedName()}\"");
+
+                                string TraitKeyLookup = TargetMember is MethodInfo
+                                    ? $"{((MethodInfo) TargetMember).ToInvocationSignature(FullyQualify: true)}"
+                                    : $"{TargetMember.FullyQualifiedName()}";
+
+                                if (!MemberTraits.Has(TraitKeyLookup) &&
+                                    //(TargetMemberTest == null) &&
+                                    !string.IsNullOrEmpty(MemberName))
+                                    {
+                                    // ReSharper disable RedundantNameQualifier
+                                    string New = MemberName == nameof(object.GetHashCode) ||
+                                                 MemberName == nameof(object.ToString)
+                                        // ReSharper restore RedundantNameQualifier
+                                        ? " new "
+                                        : " ";
+
+                                    MembersMissing++;
+                                    TotalMembersMissing++;
+
+                                    WriteStack3.Add($"        [{nameof(FactAttribute).Before(Attribute)}]");
+                                    if (this.GeneratedCode_IncludeTraitTargetAttributes)
+                                        {
+                                        WriteStack3.Add($"        [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},{TraitKeyAttribute})]");
+
+                                        if (!Using.Contains(TargetClass.Namespace))
+                                            Using.Add(TargetClass.Namespace);
+                                        }
+
+                                    WriteStack3.Add($"        public{New}void {MemberName}()");
+                                    WriteStack3.Add("         {");
+
+                                    WriteStack3.Add(TargetMember != null && MemberAttributes[TargetMember].Count > 0
+                                        ? "            // Attribute Tests Implemented"
+                                        : $"            // TODO: Implement method test {TargetMember.FullyQualifiedName()}");
+
+                                    WriteStack3.Add("         }");
+                                    WriteStack3.Add("         ");
+                                    }
+                                });
+
+                            WriteStack3.Add("    }");
+
+                            if (MembersMissing == 0)
+                                WriteStack3.Clear();
+                            else
+                                {
+                                ClassesMissing++;
+                                TotalClassesMissing++;
+                                WriteStack2.AddRange(WriteStack3);
+                                }
+                            }
                         }
+                    });
+
+                WriteStack2.Add("}");
+
+                if (ClassesMissing == 0)
+                    WriteStack2.Clear();
+                else
+                    {
+                    NamespacesMissing++;
+                    WriteStack.AddRange(WriteStack2);
+                    }
                 });
 
             if (NamespacesMissing == 0u)
@@ -479,7 +479,7 @@ namespace LCore.LUnit
 
 
         ////////////////////////////////////////////////////////
-        /// 
+
         private void RunTests()
             {
             Type[] Types = this.AssemblyTypes.WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(IncludeBaseTypes: false).Array();
@@ -509,24 +509,24 @@ namespace LCore.LUnit
 
             Tests.Each(Test =>
                 {
-                    var Member = Test.Key;
+                var Member = Test.Key;
 
-                    this.TestAllMemberAssertions(Member);
+                this.TestAllMemberAssertions(Member);
 
-                    if (Member is MethodInfo)
-                        this.TestMethodAssertions((MethodInfo)Member);
-                    if (Member is PropertyInfo)
-                        this.TestPropertyAssertions((PropertyInfo)Member);
-                    if (Member is FieldInfo)
-                        this.TestFieldAssertions((FieldInfo)Member);
-                    if (Member is EventInfo)
-                        this.TestEventAssertions((EventInfo)Member);
+                if (Member is MethodInfo)
+                    this.TestMethodAssertions((MethodInfo) Member);
+                if (Member is PropertyInfo)
+                    this.TestPropertyAssertions((PropertyInfo) Member);
+                if (Member is FieldInfo)
+                    this.TestFieldAssertions((FieldInfo) Member);
+                if (Member is EventInfo)
+                    this.TestEventAssertions((EventInfo) Member);
 
-                    List<ILUnitAttribute> ValueList = Test.Value.Select(Attr => !(Attr is ITestedAttribute));
+                List<ILUnitAttribute> ValueList = Test.Value.Select(Attr => !(Attr is ITestedAttribute));
 
-                    ValueList.Reverse();
+                ValueList.Reverse();
 
-                    ValueList.Each((i, AttrTest) => this.TestAttribute(AttrTest, Member, i + 1));
+                ValueList.Each((i, AttrTest) => this.TestAttribute(AttrTest, Member, i + 1));
                 });
             }
 
@@ -538,7 +538,7 @@ namespace LCore.LUnit
                 {
                 // ReSharper disable UseNullPropagation
                 if (AttrTest is IValidateAttribute)
-                    ((IValidateAttribute)AttrTest).RunTest(Member);
+                    ((IValidateAttribute) AttrTest).RunTest(Member);
                 // ReSharper restore UseNullPropagation
                 }
             catch (Exception Ex)
@@ -559,9 +559,9 @@ namespace LCore.LUnit
 
                     // Generics from current attribute take 1st priority
                     if (AttrTest is ITestMethodGenericsAttribute &&
-                        !((ITestMethodGenericsAttribute)AttrTest).GenericTypes.IsEmpty())
+                        !((ITestMethodGenericsAttribute) AttrTest).GenericTypes.IsEmpty())
                         {
-                        Method = Method.MakeGenericMethod(((ITestMethodGenericsAttribute)AttrTest).GenericTypes);
+                        Method = Method.MakeGenericMethod(((ITestMethodGenericsAttribute) AttrTest).GenericTypes);
                         }
                     // Then declared generics from other attributes
                     else if (Generics != null)
@@ -569,7 +569,7 @@ namespace LCore.LUnit
                         Method = Method.MakeGenericMethod(Generics.GenericTypes);
                         }
                     // Ignore tested attributes
-                    else if (AttrTest is ITestedAttribute) { }
+                    else if (AttrTest is ITestedAttribute) {}
                     else
                         {
                         try
@@ -588,16 +588,16 @@ namespace LCore.LUnit
                     {
                     // ReSharper disable UseNullPropagation
                     if (AttrTest is ITestResultAttribute)
-                        ((ITestResultAttribute)AttrTest).RunTest(Method);
+                        ((ITestResultAttribute) AttrTest).RunTest(Method);
 
                     if (AttrTest is ITestFailsAttribute)
-                        ((ITestFailsAttribute)AttrTest).RunTest(Method);
+                        ((ITestFailsAttribute) AttrTest).RunTest(Method);
 
                     if (AttrTest is ITestSucceedsAttribute)
-                        ((ITestSucceedsAttribute)AttrTest).RunTest(Method);
+                        ((ITestSucceedsAttribute) AttrTest).RunTest(Method);
 
                     if (AttrTest is ITestSourceAttribute)
-                        ((ITestSourceAttribute)AttrTest).RunTest(Method);
+                        ((ITestSourceAttribute) AttrTest).RunTest(Method);
                     // ReSharper restore UseNullPropagation
                     }
                 catch (Exception Ex)
@@ -671,7 +671,7 @@ namespace LCore.LUnit
                                             {
                                             TheMethod = Method.MakeGenericMethod(typeof(string), typeof(string), typeof(string));
                                             }
-                                        catch { }
+                                        catch {}
                                         }
                                     }
                                 }
@@ -734,54 +734,54 @@ namespace LCore.LUnit
                         bool Finished = false;
                         L.A(() =>
                             {
-                                try
+                            try
+                                {
+                                var Result = TheMethod.Invoke(obj: null, parameters: Params);
+
+                                if (!NullsAllowedForParameter && ParameterIsNullable)
                                     {
-                                    var Result = TheMethod.Invoke(obj: null, parameters: Params);
+                                    Finished = true;
+                                    this.AddException(new InternalTestFailureException(
+                                        $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed, but it passed." +
+                                        $"\n\n Resolve this by adding [{typeof(CanBeNullAttribute).FullyQualifiedName().BeforeLast("Attribute")}] to the parameter, " +
+                                        $"\n Or adding: if ({Parameters[i].Name} == null) throw new ArgumentNullException(\"{Parameters[i].Name}\");"));
+                                    }
 
-                                    if (!NullsAllowedForParameter && ParameterIsNullable)
+                                if (!MethodCanBeNull
+                                    && TheMethod.ReturnType != typeof(void)
+                                    && !TheMethod.ReturnType.IsNullable()
+                                    && Result.IsNull())
+                                    {
+                                    Finished = true;
+                                    this.AddException(new InternalTestFailureException(
+                                        $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should not have returned null, but it did." +
+                                        $"\n\n Resolve this by adding [{typeof(CanBeNullAttribute).FullyQualifiedName().BeforeLast("Attribute")}] to the method, " +
+                                        "\n Or adding a non-null return value."));
+                                    }
+                                }
+                            catch (Exception Ex)
+                                {
+                                if (!NullsAllowedForParameter && ParameterIsNullable)
+                                    {
+                                    Finished = true;
+                                    // Enforces use of ArgumentNullException on any field marked [NotNull]
+                                    if (!(Ex is ArgumentNullException) ||
+                                        ((ArgumentNullException) Ex).ParamName != Parameters[i].Name)
                                         {
-                                        Finished = true;
                                         this.AddException(new InternalTestFailureException(
-                                            $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed, but it passed." +
-                                            $"\n\n Resolve this by adding [{typeof(CanBeNullAttribute).FullyQualifiedName().BeforeLast("Attribute")}] to the parameter, " +
-                                            $"\n Or adding: if ({Parameters[i].Name} == null) throw new ArgumentNullException(\"{Parameters[i].Name}\");"));
-                                        }
-
-                                    if (!MethodCanBeNull
-                                        && TheMethod.ReturnType != typeof(void)
-                                        && !TheMethod.ReturnType.IsNullable()
-                                        && Result.IsNull())
-                                        {
-                                        Finished = true;
-                                        this.AddException(new InternalTestFailureException(
-                                            $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should not have returned null, but it did." +
-                                            $"\n\n Resolve this by adding [{typeof(CanBeNullAttribute).FullyQualifiedName().BeforeLast("Attribute")}] to the method, " +
-                                            "\n Or adding a non-null return value."));
+                                            $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed with an ArgumentNullException matching the parameter name, but it threw an {Ex.GetType()}: {Ex}. " +
+                                            $"\n\n Resolve this by adding: if ({Parameters[i].Name} == null) throw new ArgumentNullException(\"{Parameters[i].Name}\");"));
                                         }
                                     }
-                                catch (Exception Ex)
+                                else
                                     {
-                                    if (!NullsAllowedForParameter && ParameterIsNullable)
-                                        {
-                                        Finished = true;
-                                        // Enforces use of ArgumentNullException on any field marked [NotNull]
-                                        if (!(Ex is ArgumentNullException) ||
-                                            ((ArgumentNullException)Ex).ParamName != Parameters[i].Name)
-                                            {
-                                            this.AddException(new InternalTestFailureException(
-                                                $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should have failed with an ArgumentNullException matching the parameter name, but it threw an {Ex.GetType()}: {Ex}. " +
-                                                $"\n\n Resolve this by adding: if ({Parameters[i].Name} == null) throw new ArgumentNullException(\"{Parameters[i].Name}\");"));
-                                            }
-                                        }
-                                    else
-                                        {
-                                        Finished = true;
-                                        this.AddException(new InternalTestFailureException(
+                                    Finished = true;
+                                    this.AddException(new InternalTestFailureException(
                                         $"Method {Method.FullyQualifiedName()} was passed null for parameter {i + 1}, should not have failed, but it threw an {Ex.GetType()}: {Ex}. "));
-                                        }
                                     }
+                                }
 
-                                Finished = true;
+                            Finished = true;
                             }).Async(TimeLimitMilliseconds: 300)();
 
 
@@ -914,49 +914,49 @@ namespace LCore.LUnit
         /// This method will get called many times and all Exceptions and failed 
         /// assertions will be added to the list.
         /// </summary>
-        protected virtual void TypeAssertions(Type Type) { }
+        protected virtual void TypeAssertions(Type Type) {}
 
         /// <summary>
         /// Override this method to make assertions on every exposed MemberInfo in the assembly. 
         /// This method will get called many times and all Exceptions and failed 
         /// assertions will be added to the list.
         /// </summary>
-        protected virtual void AllMemberAssertions(MemberInfo Member) { }
+        protected virtual void AllMemberAssertions(MemberInfo Member) {}
 
         /// <summary>
         /// Override this method to make assertions on every exposed MethodInfo in the assembly. 
         /// This method will get called many times and all Exceptions and failed 
         /// assertions will be added to the list.
         /// </summary>
-        protected virtual void MethodAssertions(MethodInfo Method) { }
+        protected virtual void MethodAssertions(MethodInfo Method) {}
 
         /// <summary>
         /// Override this method to make assertions on every exposed ParameterInfo in the assembly. 
         /// This method will get called many times and all Exceptions and failed 
         /// assertions will be added to the list.
         /// </summary>
-        protected virtual void ParameterAssertions(ParameterInfo Parameter) { }
+        protected virtual void ParameterAssertions(ParameterInfo Parameter) {}
 
         /// <summary>
         /// Override this method to make assertions on every exposed PropertyInfo in the assembly. 
         /// This method will get called many times and all Exceptions and failed 
         /// assertions will be added to the list.
         /// </summary>
-        protected virtual void PropertyAssertions(PropertyInfo Prop) { }
+        protected virtual void PropertyAssertions(PropertyInfo Prop) {}
 
         /// <summary>
         /// Override this method to make assertions on every exposed EventInfo in the assembly. 
         /// This method will get called many times and all Exceptions and failed 
         /// assertions will be added to the list.
         /// </summary>
-        protected virtual void EventAssertions(EventInfo Event) { }
+        protected virtual void EventAssertions(EventInfo Event) {}
 
         /// <summary>
         /// Override this method to make assertions on every exposed FieldInfo in the assembly. 
         /// This method will get called many times and all Exceptions and failed 
         /// assertions will be added to the list.
         /// </summary>
-        protected virtual void FieldAssertions(FieldInfo Field) { }
+        protected virtual void FieldAssertions(FieldInfo Field) {}
 
         #endregion
 
