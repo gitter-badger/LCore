@@ -164,7 +164,7 @@ namespace LCore.LUnit
         public MethodCoverage(MethodInfo CoveringMember, [CanBeNull] params Assembly[] TestAssemblies)
             {
             this.CoveringMember = CoveringMember;
-            this._TestAssemblies = (TestAssemblies ?? new Assembly[] {}).List().AsReadOnly();
+            this._TestAssemblies = (TestAssemblies ?? L.Ref.GetAvailableTestAssemblies()).List().AsReadOnly();
 
             this.TestResultAttributes = this.CoveringMember.GetAttributes<ITestResultAttribute>(IncludeBaseTypes: false)
                 .List().AsReadOnly();

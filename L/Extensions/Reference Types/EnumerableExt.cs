@@ -3373,6 +3373,7 @@ namespace LCore.Extensions
             /// Creates a new list of the specified type.
             /// Types supported: U[], List`<typeparamref name="U" />, String
             /// </summary>
+            [DebuggerStepThrough]
             public static T NewList<T, U>()
                 {
                 object Out;

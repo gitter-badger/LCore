@@ -27,9 +27,9 @@ namespace LCore.LUnit
         /// The total coverage percent, a uint value from 0 to 100.
         /// </summary>
         public uint CoveragePercent =>
-            (uint) (this.MemberCoverage.Convert(Member => Member.IsCovered
-                ? 1
-                : 0).Average()*100).Round();
+            (uint)(this.MemberCoverage.Convert(Member => Member.IsCovered
+               ? 1
+               : 0).Average() * 100).Round();
 
         /// <summary>
         /// Information about the Member Coverage for all methods on the Type.
@@ -120,14 +120,14 @@ namespace LCore.LUnit
 
             this.MemberCoverage.Each(Member =>
                 {
-                string[] Stub = Member.GetTestStub(ref Usings);
+                    string[] Stub = Member.GetTestStub(ref Usings);
 
-                if (!Stub.IsEmpty())
-                    {
-                    MembersAdded++;
-                    Out.AddRange(Stub);
-                    Out.Add("");
-                    }
+                    if (!Stub.IsEmpty())
+                        {
+                        MembersAdded++;
+                        Out.AddRange(Stub);
+                        Out.Add("");
+                        }
                 });
 
             Out.Add("    }");
@@ -170,7 +170,7 @@ namespace LCore.LUnit
         public TypeCoverage(Type CoveringType, [CanBeNull] params Assembly[] TestAssemblies)
             {
             this.CoveringType = CoveringType;
-            this._TestAssemblies = (TestAssemblies ?? new Assembly[] {}).List().AsReadOnly();
+            this._TestAssemblies = (TestAssemblies ?? L.Ref.GetAvailableTestAssemblies()).List().AsReadOnly();
 
             List<MethodInfo> TestMembers = this.CoveringType.GetMembers().Select<MethodInfo>(
                 Member => Member.DeclaringType == CoveringType &&

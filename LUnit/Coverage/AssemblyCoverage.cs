@@ -40,7 +40,7 @@ namespace LCore.LUnit
         public AssemblyCoverage(Assembly CoveringAssembly, [CanBeNull]params Assembly[] TestAssemblies)
             {
             this.CoveringAssembly = CoveringAssembly;
-            this._TestAssemblies = (TestAssemblies ?? new Assembly[] { }).List().AsReadOnly();
+            this._TestAssemblies = (TestAssemblies ?? L.Ref.GetAvailableTestAssemblies()).List().AsReadOnly();
 
             this.TypeCoverage = CoveringAssembly.GetExportedTypes().List()
                 .WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>()
