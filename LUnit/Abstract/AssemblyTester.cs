@@ -160,6 +160,8 @@ namespace LCore.LUnit
             List<string> Namespaces = NamespaceTypes.Keys.List();
             Namespaces.Sort();
 
+            var Missing = new List<string>();
+
             var Out = new List<string>();
 
             Namespaces.Each(Namespace =>
@@ -185,6 +187,9 @@ namespace LCore.LUnit
 
                         TotalMembers += (uint) TestData.MemberCoverage.Count;
                         uint Covered = TestData.MemberCoverage.Count(Member => Member.IsCovered);
+
+                        Missing.AddRange(TestData.MemberCoverage.Select(Member => !Member.IsCovered).Convert(Member => Member.MemberTraitValue));
+
                         TotalTests += Covered;
 
                         Out.Add($"{Type.FullyQualifiedName().Pad(Length: 48)}({$"{Coverage}".AlignRight(Length: 3)}%) ({Covered}/{TestData.MemberCoverage.Count})");
@@ -203,6 +208,11 @@ namespace LCore.LUnit
                     Out.Clear();
                     }
                 });
+
+            Out.Add("");
+            Out.Add("");
+            Out.Add("");
+            Missing.Each(this._Output.WriteLine);
             }
 
         /// <summary>
@@ -211,7 +221,17 @@ namespace LCore.LUnit
         /// </summary>
         [Fact]
         public void AssemblyMissingCoverage()
+        {
+            foreach (var Type in this.AssemblyTypes)
             {
+                var Coverage = new TypeCoverage(Type);
+
+                Coverage.GenerateTestStub($"{this.GeneratedCodeFolderPath}\\{Coverage.TestMember_Class}.cs");
+
+            }
+
+
+            /*
             var WriteStack = new List<string>();
             var Using = new List<string>();
 
@@ -286,126 +306,126 @@ namespace LCore.LUnit
                         // ReSharper disable once UseObjectOrCollectionInitializer
                         var WriteStack3 = new List<string>();
 
-                        if (this.GeneratedCode_IncludeTraitTargetAttributes)
-                            {
 
-                            if (TargetClassTest != null)
-                                Partial = " partial ";
+                        if (TargetClassTest != null)
+                            Partial = " partial ";
 /*
                             bool StrongTypeTraitAttribute = !TargetClass.FullyQualifiedName().HasAny('`', '<', '>');
 
+                        if (this.GeneratedCode_IncludeTraitTargetAttributes)
+                            {
                             WriteStack3.Add(StrongTypeTraitAttribute
                                 ? $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
                                 : $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},\"{TargetClass.FullyQualifiedName()}\")]");
-*/
+}
+#1#
 
-                            if (TargetClassTest == null)
+                        if (TargetClassTest == null)
+                            {
+                            WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
+                                ? $"    public{Partial}class {Class} : {nameof(XUnitOutputTester)}, {nameof(IDisposable)}"
+                                : $"    public{Partial}class {Class} : {nameof(IDisposable)}");
+                            }
+                        else
+                            {
+                            WriteStack3.Add($"   public{Partial}class {Class}");
+                            }
+
+                        WriteStack3.Add("    {");
+
+                        // Don't re-declare constructor and destructor if the target class exists
+                        if (TargetClassTest == null)
+                            {
+                            WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
+                                ? $"        public {Class}([{nameof(NotNullAttribute).Before(Attribute)}] {nameof(ITestOutputHelper)} Output) : base(Output) {{ }}"
+                                : $"        public {Class}() {{ }}");
+
+                            WriteStack3.Add("");
+
+                            WriteStack3.Add("        public void Dispose() { }");
+                            WriteStack3.Add("");
+                            }
+
+                        List<string> MemberNames = Classes[Class];
+
+
+                        uint MembersMissing = 0;
+
+                        MemberNames.Each(MemberName =>
+                            {
+                            var TargetMember =
+                                MemberNaming.First(
+                                    Member =>
+                                        Member.Value.Item1 == Namespace && Member.Value.Item2 == Class &&
+                                        Member.Value.Item3 == MemberName).Key;
+
+                            if (TargetMember.HasAttribute<ITestedAttribute>() ||
+                                TargetMember?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true ||
+                                TargetMember?.DeclaringType?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true)
+                                return;
+
+                            bool StrongTypeTraitAttribute = !TargetMember.FullyQualifiedName().HasAny('`', '<', '>') &&
+                                                            !(TargetMember is MethodInfo && ((MethodInfo) TargetMember).IsOperator());
+
+                            // ReSharper disable once UnusedVariable
+                            var TargetMemberTest = L.Ref.FindMembers($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies).First();
+
+                            string TraitKeyAttribute = StrongTypeTraitAttribute
+                                ? (TargetMember is MethodInfo
+                                    ? $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)} + \"{((MethodInfo) TargetMember).ToParameterSignature()}\""
+                                    : $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)}")
+                                : (TargetMember is MethodInfo
+                                    ? $"\"{((MethodInfo) TargetMember).ToInvocationSignature(FullyQualify: true)}\""
+                                    : $"\"{TargetMember.FullyQualifiedName()}\"");
+
+                            string TraitKeyLookup = TargetMember is MethodInfo
+                                ? $"{((MethodInfo) TargetMember).ToInvocationSignature(FullyQualify: true)}"
+                                : $"{TargetMember.FullyQualifiedName()}";
+
+                            if (!MemberTraits.Has(TraitKeyLookup) &&
+                                //(TargetMemberTest == null) &&
+                                !string.IsNullOrEmpty(MemberName))
                                 {
-                                WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
-                                    ? $"    public{Partial}class {Class} : {nameof(XUnitOutputTester)}, {nameof(IDisposable)}"
-                                    : $"    public{Partial}class {Class} : {nameof(IDisposable)}");
-                                }
-                            else
-                                {
-                                WriteStack3.Add($"   public{Partial}class {Class}");
-                                }
+                                // ReSharper disable RedundantNameQualifier
+                                string New = MemberName == nameof(object.GetHashCode) ||
+                                             MemberName == nameof(object.ToString)
+                                    // ReSharper restore RedundantNameQualifier
+                                    ? " new "
+                                    : " ";
 
-                            WriteStack3.Add("    {");
+                                MembersMissing++;
+                                TotalMembersMissing++;
 
-                            // Don't re-declare constructor and destructor if the target class exists
-                            if (TargetClassTest == null)
-                                {
-                                WriteStack3.Add(this.GeneratedCode_UseXunitOutputBase
-                                    ? $"        public {Class}([{nameof(NotNullAttribute).Before(Attribute)}] {nameof(ITestOutputHelper)} Output) : base(Output) {{ }}"
-                                    : $"        public {Class}() {{ }}");
-
-                                WriteStack3.Add("");
-
-                                WriteStack3.Add("        public void Dispose() { }");
-                                WriteStack3.Add("");
-                                }
-
-                            List<string> MemberNames = Classes[Class];
-
-
-                            uint MembersMissing = 0;
-
-                            MemberNames.Each(MemberName =>
-                                {
-                                var TargetMember =
-                                    MemberNaming.First(
-                                        Member =>
-                                            Member.Value.Item1 == Namespace && Member.Value.Item2 == Class &&
-                                            Member.Value.Item3 == MemberName).Key;
-
-                                if (TargetMember.HasAttribute<ITestedAttribute>() ||
-                                    TargetMember?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true ||
-                                    TargetMember?.DeclaringType?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true)
-                                    return;
-
-                                bool StrongTypeTraitAttribute = !TargetMember.FullyQualifiedName().HasAny('`', '<', '>') &&
-                                                           !(TargetMember is MethodInfo && ((MethodInfo) TargetMember).IsOperator());
-
-                                // ReSharper disable once UnusedVariable
-                                var TargetMemberTest = L.Ref.FindMembers($"{Namespace}.{Class}.{MemberName}", this.TestAssemblies).First();
-
-                                string TraitKeyAttribute = StrongTypeTraitAttribute
-                                    ? (TargetMember is MethodInfo
-                                        ? $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)} + \"{((MethodInfo) TargetMember).ToParameterSignature()}\""
-                                        : $"{TargetMember.FullyQualifiedName().NameofParts(TargetMember, TargetClass.Namespace, FullyQualifyWithNamespace)}")
-                                    : (TargetMember is MethodInfo
-                                        ? $"\"{((MethodInfo) TargetMember).ToInvocationSignature(FullyQualify: true)}\""
-                                        : $"\"{TargetMember.FullyQualifiedName()}\"");
-
-                                string TraitKeyLookup = TargetMember is MethodInfo
-                                    ? $"{((MethodInfo) TargetMember).ToInvocationSignature(FullyQualify: true)}"
-                                    : $"{TargetMember.FullyQualifiedName()}";
-
-                                if (!MemberTraits.Has(TraitKeyLookup) &&
-                                    //(TargetMemberTest == null) &&
-                                    !string.IsNullOrEmpty(MemberName))
+                                WriteStack3.Add($"        [{nameof(FactAttribute).Before(Attribute)}]");
+                                if (this.GeneratedCode_IncludeTraitTargetAttributes)
                                     {
-                                    // ReSharper disable RedundantNameQualifier
-                                    string New = MemberName == nameof(object.GetHashCode) ||
-                                                 MemberName == nameof(object.ToString)
-                                        // ReSharper restore RedundantNameQualifier
-                                        ? " new "
-                                        : " ";
+                                    WriteStack3.Add($"        [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},{TraitKeyAttribute})]");
 
-                                    MembersMissing++;
-                                    TotalMembersMissing++;
-
-                                    WriteStack3.Add($"        [{nameof(FactAttribute).Before(Attribute)}]");
-                                    if (this.GeneratedCode_IncludeTraitTargetAttributes)
-                                        {
-                                        WriteStack3.Add($"        [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetMember)},{TraitKeyAttribute})]");
-
-                                        if (!Using.Contains(TargetClass.Namespace))
-                                            Using.Add(TargetClass.Namespace);
-                                        }
-
-                                    WriteStack3.Add($"        public{New}void {MemberName}()");
-                                    WriteStack3.Add("         {");
-
-                                    WriteStack3.Add(TargetMember != null && MemberAttributes[TargetMember].Count > 0
-                                        ? "            // Attribute Tests Implemented"
-                                        : $"            // TODO: Implement method test {TargetMember.FullyQualifiedName()}");
-
-                                    WriteStack3.Add("         }");
-                                    WriteStack3.Add("         ");
+                                    if (!Using.Contains(TargetClass.Namespace))
+                                        Using.Add(TargetClass.Namespace);
                                     }
-                                });
 
-                            WriteStack3.Add("    }");
+                                WriteStack3.Add($"        public{New}void {MemberName}()");
+                                WriteStack3.Add("         {");
 
-                            if (MembersMissing == 0)
-                                WriteStack3.Clear();
-                            else
-                                {
-                                ClassesMissing++;
-                                TotalClassesMissing++;
-                                WriteStack2.AddRange(WriteStack3);
+                                WriteStack3.Add(TargetMember != null && MemberAttributes[TargetMember].Count > 0
+                                    ? "            // Attribute Tests Implemented"
+                                    : $"            // TODO: Implement method test {TargetMember.FullyQualifiedName()}");
+
+                                WriteStack3.Add("         }");
+                                WriteStack3.Add("         ");
                                 }
+                            });
+
+                        WriteStack3.Add("    }");
+
+                        if (MembersMissing == 0)
+                            WriteStack3.Clear();
+                        else
+                            {
+                            ClassesMissing++;
+                            TotalClassesMissing++;
+                            WriteStack2.AddRange(WriteStack3);
                             }
                         }
                     });
@@ -439,7 +459,7 @@ namespace LCore.LUnit
                     "Cover application using naming conventions.",
                     "",
                     $"{nameof(LUnit)} has Autogenerated {TotalClassesMissing} Classes and {TotalMembersMissing} Methods:",
-                    "*/"
+                    "#1#"
                     };
 
 
@@ -472,9 +492,9 @@ namespace LCore.LUnit
                     }
                 }
 
-
+*/
             // ReSharper restore FormatStringProblem
-            }
+        }
 
 
         ////////////////////////////////////////////////////////
