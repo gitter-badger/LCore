@@ -282,7 +282,7 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBe) + "(MethodInfo, Object, Object[], Object, Func[]<Object, Boolean>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBe) + "(MethodInfo, Object, Object[], Object, Func<Object, Boolean>[])")]
         public void ShouldBe_MethodInfo_Object_Object_Object_Func_2()
             {
             var Target = new Helper();
@@ -317,9 +317,9 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
 
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldSucceed) + "(MethodInfo, Object, Object[], Func[]<Boolean>)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldSucceed) + "(MethodInfo, Object, Object[], Func[]<Object, Boolean>)")]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldSucceed) + "(MethodInfo, Object, Object[], Func[]<U, Boolean>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldSucceed) + "(MethodInfo, Object, Object[], Func<Boolean>[])")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldSucceed) + "(MethodInfo, Object, Object[], Func<Object, Boolean>[])")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldSucceed) + "(MethodInfo, Object, Object[], Func<U, Boolean>[])")]
         public void ShouldSucceed_MethodInfo_Object_Object_Func()
             {
             var Method = typeof(Helper).GetMethod(nameof(Helper.Test), new Type[] {});
@@ -330,7 +330,7 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldFail) + "(MethodInfo, Object[], Object, Func[]<Boolean>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldFail) + "(MethodInfo, Object[], Object, Func<Boolean>[])")]
         public void ShouldFail_MethodInfo_Object_Object_Func()
             {
             var Method = typeof(Helper).GetMethod(nameof(Helper.Fail));
@@ -341,7 +341,7 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldFail) + "(MethodInfo, Object[], Object, Type, Func[]<Boolean>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldFail) + "(MethodInfo, Object[], Object, Type, Func<Boolean>[])")]
         public void ShouldFail_MethodInfo_Object_Object_Type_Func()
             {
             var Method = typeof(Helper).GetMethod(nameof(Helper.Fail));
@@ -354,7 +354,7 @@ namespace LUnit_Tests.LCore.LUnit.Fluent
             }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBe) + "(MethodInfo, Object, Object[], U, Func[]<Object, Boolean>)")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.LUnit) + "." + nameof(global::LCore.LUnit.Fluent) + "." + nameof(FluentExt) + "." + nameof(FluentExt.ShouldBe) + "(MethodInfo, Object, Object[], U, Func<Object, Boolean>[])")]
         public void ShouldBe_MethodInfo_Object_Object_U_Func()
             {
             var Method = typeof(Helper).GetMethod(nameof(Helper.Test), new Type[] {});

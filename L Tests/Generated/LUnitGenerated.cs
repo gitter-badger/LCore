@@ -57,14 +57,14 @@ namespace L_Tests.LCore.Tools
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Tools)+ "." + nameof(GitHubMarkdown)+ "." + nameof(GitHubMarkdown.OrderedList) + "(Tuple[]<UInt32, String>)")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Tools)+ "." + nameof(GitHubMarkdown)+ "." + nameof(GitHubMarkdown.OrderedList) + "(Tuple<UInt32, String>[])")]
         public void OrderedList_Tuple_UInt32_String()
          {
             // TODO: Implement method test LCore.Tools.GitHubMarkdown.OrderedList
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Tools)+ "." + nameof(GitHubMarkdown)+ "." + nameof(GitHubMarkdown.OrderedList) + "(Set[]<UInt32, String>)")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Tools)+ "." + nameof(GitHubMarkdown)+ "." + nameof(GitHubMarkdown.OrderedList) + "(Set<UInt32, String>[])")]
         public void OrderedList_Set_UInt32_String()
          {
             // TODO: Implement method test LCore.Tools.GitHubMarkdown.OrderedList
@@ -78,14 +78,14 @@ namespace L_Tests.LCore.Tools
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Tools)+ "." + nameof(GitHubMarkdown)+ "." + nameof(GitHubMarkdown.UnorderedList) + "(Tuple[]<UInt32, String>)")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Tools)+ "." + nameof(GitHubMarkdown)+ "." + nameof(GitHubMarkdown.UnorderedList) + "(Tuple<UInt32, String>[])")]
         public void UnorderedList_Tuple_UInt32_String()
          {
             // TODO: Implement method test LCore.Tools.GitHubMarkdown.UnorderedList
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Tools)+ "." + nameof(GitHubMarkdown)+ "." + nameof(GitHubMarkdown.UnorderedList) + "(Set[]<UInt32, String>)")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Tools)+ "." + nameof(GitHubMarkdown)+ "." + nameof(GitHubMarkdown.UnorderedList) + "(Set<UInt32, String>[])")]
         public void UnorderedList_Set_UInt32_String()
          {
             // TODO: Implement method test LCore.Tools.GitHubMarkdown.UnorderedList
@@ -837,21 +837,21 @@ namespace L_Tests.LCore.Extensions
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F2) + "() => Func<Func<T1, T2, T3, T4, U>, Func[]<T1, T2, U>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F2) + "() => Func<Func<T1, T2, T3, T4, U>, Func<T1, T2, U>[], Func<T1, T2, T3, T4, U>>")]
         public void L_ThenMissing_F_F2_Func_Func_T1_T2_T3_T4_U_Func_T1_T2_U_Func_T1_T2_T3_T4_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_F2
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F3) + "() => Func<Func<T1, T2, T3, T4, U>, Func[]<T1, U>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F3) + "() => Func<Func<T1, T2, T3, T4, U>, Func<T1, U>[], Func<T1, T2, T3, T4, U>>")]
         public void L_ThenMissing_F_F3_Func_Func_T1_T2_T3_T4_U_Func_T1_U_Func_T1_T2_T3_T4_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_F3
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F4) + "() => Func<Func<T1, T2, T3, T4, U>, Func[]<U>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F4) + "() => Func<Func<T1, T2, T3, T4, U>, Func<U>[], Func<T1, T2, T3, T4, U>>")]
         public void L_ThenMissing_F_F4()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_F4
@@ -1278,63 +1278,63 @@ namespace L_Tests.LCore.Extensions
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A) + "() => Func<Action<T1>, Action[]<T1>, Action<T1>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A) + "() => Func<Action<T1>, Action<T1>[], Action<T1>>")]
         public void Then_A_Func_Action_T1_Action_T1_Action_T1()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_A
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A) + "() => Func<Action<T1, T2>, Action[]<T1, T2>, Action<T1, T2>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A) + "() => Func<Action<T1, T2>, Action<T1, T2>[], Action<T1, T2>>")]
         public void Then_A_Func_Action_T1_T2_Action_T1_T2_Action_T1_T2()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_A
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A) + "() => Func<Action<T1, T2, T3>, Action[]<T1, T2, T3>, Action<T1, T2, T3>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A) + "() => Func<Action<T1, T2, T3>, Action<T1, T2, T3>[], Action<T1, T2, T3>>")]
         public void Then_A_Func_Action_T1_T2_T3_Action_T1_T2_T3_Action_T1_T2_T3()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_A
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A) + "() => Func<Action<T1, T2, T3, T4>, Action[]<T1, T2, T3, T4>, Action<T1, T2, T3, T4>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A) + "() => Func<Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>[], Action<T1, T2, T3, T4>>")]
         public void Then_A_Func_Action_T1_T2_T3_T4_Action_T1_T2_T3_T4_Action_T1_T2_T3_T4()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_A
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A_F) + "() => Func<Action, Func[]<U>, Func<U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A_F) + "() => Func<Action, Func<U>[], Func<U>>")]
         public void Then_A_F_Func_Action_Func_U_Func_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_A_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A_F) + "() => Func<Action<T1>, Func[]<T1, U>, Func<T1, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A_F) + "() => Func<Action<T1>, Func<T1, U>[], Func<T1, U>>")]
         public void Then_A_F_Func_Action_T1_Func_T1_U_Func_T1_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_A_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A_F) + "() => Func<Action<T1, T2>, Func[]<T1, T2, U>, Func<T1, T2, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A_F) + "() => Func<Action<T1, T2>, Func<T1, T2, U>[], Func<T1, T2, U>>")]
         public void Then_A_F_Func_Action_T1_T2_Func_T1_T2_U_Func_T1_T2_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_A_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A_F) + "() => Func<Action<T1, T2, T3>, Func[]<T1, T2, T3, U>, Func<T1, T2, T3, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A_F) + "() => Func<Action<T1, T2, T3>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, U>>")]
         public void Then_A_F_Func_Action_T1_T2_T3_Func_T1_T2_T3_U_Func_T1_T2_T3_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_A_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A_F) + "() => Func<Action<T1, T2, T3, T4>, Func[]<T1, T2, T3, T4, U>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_A_F) + "() => Func<Action<T1, T2, T3, T4>, Func<T1, T2, T3, T4, U>[], Func<T1, T2, T3, T4, U>>")]
         public void Then_A_F_Func_Action_T1_T2_T3_T4_Func_T1_T2_T3_T4_U_Func_T1_T2_T3_T4_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_A_F
@@ -1348,63 +1348,63 @@ namespace L_Tests.LCore.Extensions
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_F) + "() => Func<Func<T1, U>, Action[]<T1>, Func<T1, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_F) + "() => Func<Func<T1, U>, Action<T1>[], Func<T1, U>>")]
         public void Then_F_Func_Func_T1_U_Action_T1_Func_T1_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_F) + "() => Func<Func<T1, T2, U>, Action[]<T1, T2>, Func<T1, T2, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_F) + "() => Func<Func<T1, T2, U>, Action<T1, T2>[], Func<T1, T2, U>>")]
         public void Then_F_Func_Func_T1_T2_U_Action_T1_T2_Func_T1_T2_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_F) + "() => Func<Func<T1, T2, T3, U>, Action[]<T1, T2, T3>, Func<T1, T2, T3, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_F) + "() => Func<Func<T1, T2, T3, U>, Action<T1, T2, T3>[], Func<T1, T2, T3, U>>")]
         public void Then_F_Func_Func_T1_T2_T3_U_Action_T1_T2_T3_Func_T1_T2_T3_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_F) + "() => Func<Func<T1, T2, T3, T4, U>, Action[]<T1, T2, T3, T4>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.Then_F) + "() => Func<Func<T1, T2, T3, T4, U>, Action<T1, T2, T3, T4>[], Func<T1, T2, T3, T4, U>>")]
         public void Then_F_Func_Func_T1_T2_T3_T4_U_Action_T1_T2_T3_T4_Func_T1_T2_T3_T4_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.Then_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_Then_F_F) + "() => Func<Func<U>, Func[]<U>, Func<U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_Then_F_F) + "() => Func<Func<U>, Func<U>[], Func<U>>")]
         public void L_Then_F_F_Func_Func_U_Func_U_Func_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_Then_F_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_Then_F_F) + "() => Func<Func<T1, U>, Func[]<T1, U>, Func<T1, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_Then_F_F) + "() => Func<Func<T1, U>, Func<T1, U>[], Func<T1, U>>")]
         public void L_Then_F_F_Func_Func_T1_U_Func_T1_U_Func_T1_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_Then_F_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_Then_F_F) + "() => Func<Func<T1, T2, U>, Func[]<T1, T2, U>, Func<T1, T2, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_Then_F_F) + "() => Func<Func<T1, T2, U>, Func<T1, T2, U>[], Func<T1, T2, U>>")]
         public void L_Then_F_F_Func_Func_T1_T2_U_Func_T1_T2_U_Func_T1_T2_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_Then_F_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_Then_F_F) + "() => Func<Func<T1, T2, T3, U>, Func[]<T1, T2, T3, U>, Func<T1, T2, T3, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_Then_F_F) + "() => Func<Func<T1, T2, T3, U>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, U>>")]
         public void L_Then_F_F_Func_Func_T1_T2_T3_U_Func_T1_T2_T3_U_Func_T1_T2_T3_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_Then_F_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_Then_F_F) + "() => Func<Func<T1, T2, T3, T4, U>, Func[]<T1, T2, T3, T4, U>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_Then_F_F) + "() => Func<Func<T1, T2, T3, T4, U>, Func<T1, T2, T3, T4, U>[], Func<T1, T2, T3, T4, U>>")]
         public void L_Then_F_F_Func_Func_T1_T2_T3_T4_U_Func_T1_T2_T3_T4_U_Func_T1_T2_T3_T4_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_Then_F_F
@@ -1418,7 +1418,7 @@ namespace L_Tests.LCore.Extensions
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A) + "() => Func<Action<T1, T2>, Action[]<T1>, Action<T1, T2>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A) + "() => Func<Action<T1, T2>, Action<T1>[], Action<T1, T2>>")]
         public void L_ThenMissing_A_Func_Action_T1_T2_Action_T1_Action_T1_T2()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A
@@ -1432,14 +1432,14 @@ namespace L_Tests.LCore.Extensions
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A) + "() => Func<Action<T1, T2, T3>, Action[]<T1, T2>, Action<T1, T2, T3>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A) + "() => Func<Action<T1, T2, T3>, Action<T1, T2>[], Action<T1, T2, T3>>")]
         public void L_ThenMissing_A_Func_Action_T1_T2_T3_Action_T1_T2_Action_T1_T2_T3()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A2) + "() => Func<Action<T1, T2, T3>, Action[]<T1>, Action<T1, T2, T3>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A2) + "() => Func<Action<T1, T2, T3>, Action<T1>[], Action<T1, T2, T3>>")]
         public void L_ThenMissing_A2_Func_Action_T1_T2_T3_Action_T1_Action_T1_T2_T3()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A2
@@ -1453,21 +1453,21 @@ namespace L_Tests.LCore.Extensions
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A) + "() => Func<Action<T1, T2, T3, T4>, Action[]<T1, T2, T3>, Action<T1, T2, T3, T4>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A) + "() => Func<Action<T1, T2, T3, T4>, Action<T1, T2, T3>[], Action<T1, T2, T3, T4>>")]
         public void L_ThenMissing_A_Func_Action_T1_T2_T3_T4_Action_T1_T2_T3_Action_T1_T2_T3_T4()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A2) + "() => Func<Action<T1, T2, T3, T4>, Action[]<T1, T2>, Action<T1, T2, T3, T4>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A2) + "() => Func<Action<T1, T2, T3, T4>, Action<T1, T2>[], Action<T1, T2, T3, T4>>")]
         public void L_ThenMissing_A2_Func_Action_T1_T2_T3_T4_Action_T1_T2_Action_T1_T2_T3_T4()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A2
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A3) + "() => Func<Action<T1, T2, T3, T4>, Action[]<T1>, Action<T1, T2, T3, T4>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A3) + "() => Func<Action<T1, T2, T3, T4>, Action<T1>[], Action<T1, T2, T3, T4>>")]
         public void L_ThenMissing_A3_Func_Action_T1_T2_T3_T4_Action_T1_Action_T1_T2_T3_T4()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A3
@@ -1481,70 +1481,70 @@ namespace L_Tests.LCore.Extensions
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F) + "() => Func<Action<T1>, Func[]<U>, Func<T1, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F) + "() => Func<Action<T1>, Func<U>[], Func<T1, U>>")]
         public void L_ThenMissing_A_F_Func_Action_T1_Func_U_Func_T1_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F) + "() => Func<Action<T1, T2>, Func[]<T1, U>, Func<T1, T2, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F) + "() => Func<Action<T1, T2>, Func<T1, U>[], Func<T1, T2, U>>")]
         public void L_ThenMissing_A_F_Func_Action_T1_T2_Func_T1_U_Func_T1_T2_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F) + "() => Func<Action<T1, T2, T3>, Func[]<T1, T2, U>, Func<T1, T2, T3, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F) + "() => Func<Action<T1, T2, T3>, Func<T1, T2, U>[], Func<T1, T2, T3, U>>")]
         public void L_ThenMissing_A_F_Func_Action_T1_T2_T3_Func_T1_T2_U_Func_T1_T2_T3_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F2) + "() => Func<Action<T1, T2>, Func[]<U>, Func<T1, T2, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F2) + "() => Func<Action<T1, T2>, Func<U>[], Func<T1, T2, U>>")]
         public void L_ThenMissing_A_F2_Func_Action_T1_T2_Func_U_Func_T1_T2_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A_F2
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F3) + "() => Func<Action<T1, T2, T3>, Func[]<U>, Func<T1, T2, T3, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F3) + "() => Func<Action<T1, T2, T3>, Func<U>[], Func<T1, T2, T3, U>>")]
         public void L_ThenMissing_A_F3_Func_Action_T1_T2_T3_Func_U_Func_T1_T2_T3_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A_F3
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F2) + "() => Func<Action<T1, T2, T3>, Func[]<T1, U>, Func<T1, T2, T3, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F2) + "() => Func<Action<T1, T2, T3>, Func<T1, U>[], Func<T1, T2, T3, U>>")]
         public void L_ThenMissing_A_F2_Func_Action_T1_T2_T3_Func_T1_U_Func_T1_T2_T3_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A_F2
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F) + "() => Func<Action<T1, T2, T3, T4>, Func[]<T1, T2, T3, U>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F) + "() => Func<Action<T1, T2, T3, T4>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, T4, U>>")]
         public void L_ThenMissing_A_F_Func_Action_T1_T2_T3_T4_Func_T1_T2_T3_U_Func_T1_T2_T3_T4_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F2) + "() => Func<Action<T1, T2, T3, T4>, Func[]<T1, T2, U>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F2) + "() => Func<Action<T1, T2, T3, T4>, Func<T1, T2, U>[], Func<T1, T2, T3, T4, U>>")]
         public void L_ThenMissing_A_F2_Func_Action_T1_T2_T3_T4_Func_T1_T2_U_Func_T1_T2_T3_T4_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A_F2
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F3) + "() => Func<Action<T1, T2, T3, T4>, Func[]<T1, U>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F3) + "() => Func<Action<T1, T2, T3, T4>, Func<T1, U>[], Func<T1, T2, T3, T4, U>>")]
         public void L_ThenMissing_A_F3_Func_Action_T1_T2_T3_T4_Func_T1_U_Func_T1_T2_T3_T4_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A_F3
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F4) + "() => Func<Action<T1, T2, T3, T4>, Func[]<U>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_A_F4) + "() => Func<Action<T1, T2, T3, T4>, Func<U>[], Func<T1, T2, T3, T4, U>>")]
         public void L_ThenMissing_A_F4()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_A_F4
@@ -1558,7 +1558,7 @@ namespace L_Tests.LCore.Extensions
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_A) + "() => Func<Func<T1, T2, U>, Action[]<T1>, Func<T1, T2, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_A) + "() => Func<Func<T1, T2, U>, Action<T1>[], Func<T1, T2, U>>")]
         public void L_ThenMissing_F_A_Func_Func_T1_T2_U_Action_T1_Func_T1_T2_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_A
@@ -1572,14 +1572,14 @@ namespace L_Tests.LCore.Extensions
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_A) + "() => Func<Func<T1, T2, T3, U>, Action[]<T1, T2>, Func<T1, T2, T3, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_A) + "() => Func<Func<T1, T2, T3, U>, Action<T1, T2>[], Func<T1, T2, T3, U>>")]
         public void L_ThenMissing_F_A_Func_Func_T1_T2_T3_U_Action_T1_T2_Func_T1_T2_T3_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_A
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_A2) + "() => Func<Func<T1, T2, T3, U>, Action[]<T1>, Func<T1, T2, T3, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_A2) + "() => Func<Func<T1, T2, T3, U>, Action<T1>[], Func<T1, T2, T3, U>>")]
         public void L_ThenMissing_F_A2_Func_Func_T1_T2_T3_U_Action_T1_Func_T1_T2_T3_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_A2
@@ -1593,21 +1593,21 @@ namespace L_Tests.LCore.Extensions
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_A) + "() => Func<Func<T1, T2, T3, T4, U>, Action[]<T1, T2, T3>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_A) + "() => Func<Func<T1, T2, T3, T4, U>, Action<T1, T2, T3>[], Func<T1, T2, T3, T4, U>>")]
         public void L_ThenMissing_F_A_Func_Func_T1_T2_T3_T4_U_Action_T1_T2_T3_Func_T1_T2_T3_T4_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_A
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_A2) + "() => Func<Func<T1, T2, T3, T4, U>, Action[]<T1, T2>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_A2) + "() => Func<Func<T1, T2, T3, T4, U>, Action<T1, T2>[], Func<T1, T2, T3, T4, U>>")]
         public void L_ThenMissing_F_A2_Func_Func_T1_T2_T3_T4_U_Action_T1_T2_Func_T1_T2_T3_T4_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_A2
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_A3) + "() => Func<Func<T1, T2, T3, T4, U>, Action[]<T1>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_A3) + "() => Func<Func<T1, T2, T3, T4, U>, Action<T1>[], Func<T1, T2, T3, T4, U>>")]
         public void L_ThenMissing_F_A3_Func_Func_T1_T2_T3_T4_U_Action_T1_Func_T1_T2_T3_T4_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_A3
@@ -1621,49 +1621,49 @@ namespace L_Tests.LCore.Extensions
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F) + "() => Func<Func<T1, U>, Func[]<U>, Func<T1, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F) + "() => Func<Func<T1, U>, Func<U>[], Func<T1, U>>")]
         public void L_ThenMissing_F_F_Func_Func_T1_U_Func_U_Func_T1_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F) + "() => Func<Func<T1, T2, U>, Func[]<T1, U>, Func<T1, T2, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F) + "() => Func<Func<T1, T2, U>, Func<T1, U>[], Func<T1, T2, U>>")]
         public void L_ThenMissing_F_F_Func_Func_T1_T2_U_Func_T1_U_Func_T1_T2_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F2) + "() => Func<Func<T1, T2, U>, Func[]<U>, Func<T1, T2, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F2) + "() => Func<Func<T1, T2, U>, Func<U>[], Func<T1, T2, U>>")]
         public void L_ThenMissing_F_F2_Func_Func_T1_T2_U_Func_U_Func_T1_T2_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_F2
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F2) + "() => Func<Func<T1, T2, T3, U>, Func[]<T1, U>, Func<T1, T2, T3, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F2) + "() => Func<Func<T1, T2, T3, U>, Func<T1, U>[], Func<T1, T2, T3, U>>")]
         public void L_ThenMissing_F_F2_Func_Func_T1_T2_T3_U_Func_T1_U_Func_T1_T2_T3_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_F2
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F3) + "() => Func<Func<T1, T2, T3, U>, Func[]<U>, Func<T1, T2, T3, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F3) + "() => Func<Func<T1, T2, T3, U>, Func<U>[], Func<T1, T2, T3, U>>")]
         public void L_ThenMissing_F_F3_Func_Func_T1_T2_T3_U_Func_U_Func_T1_T2_T3_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_F3
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F) + "() => Func<Func<T1, T2, T3, U>, Func[]<T1, T2, U>, Func<T1, T2, T3, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F) + "() => Func<Func<T1, T2, T3, U>, Func<T1, T2, U>[], Func<T1, T2, T3, U>>")]
         public void L_ThenMissing_F_F_Func_Func_T1_T2_T3_U_Func_T1_T2_U_Func_T1_T2_T3_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_F
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F) + "() => Func<Func<T1, T2, T3, T4, U>, Func[]<T1, T2, T3, U>, Func<T1, T2, T3, T4, U>>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(L)+ "." + nameof(L.Logic)+ "." + nameof(L.Logic.L_ThenMissing_F_F) + "() => Func<Func<T1, T2, T3, T4, U>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, T4, U>>")]
         public void L_ThenMissing_F_F_Func_Func_T1_T2_T3_T4_U_Func_T1_T2_T3_U_Func_T1_T2_T3_T4_U()
          {
             // TODO: Implement method test LCore.Extensions.L.Logic.L_ThenMissing_F_F
@@ -2652,70 +2652,70 @@ namespace L_Tests.LCore.Extensions
    public partial class BooleanExtTester
     {
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Action, Func[]<Boolean>) => Func<Boolean>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Action, Func<Boolean>[]) => Func<Boolean>")]
         public void Unless_Action_Func_Boolean_Func_Boolean()
          {
             // TODO: Implement method test LCore.Extensions.BooleanExt.Unless
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Action, Func[]<T, Boolean>) => Func<T, Boolean>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Action, Func<T, Boolean>[]) => Func<T, Boolean>")]
         public void Unless_Action_Func_T_Boolean_Func_T_Boolean()
          {
             // TODO: Implement method test LCore.Extensions.BooleanExt.Unless
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Action, Func[]<T1, T2, Boolean>) => Func<T1, T2, Boolean>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Action, Func<T1, T2, Boolean>[]) => Func<T1, T2, Boolean>")]
         public void Unless_Action_Func_T1_T2_Boolean_Func_T1_T2_Boolean()
          {
             // TODO: Implement method test LCore.Extensions.BooleanExt.Unless
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Action, Func[]<T1, T2, T3, Boolean>) => Func<T1, T2, T3, Boolean>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Action, Func<T1, T2, T3, Boolean>[]) => Func<T1, T2, T3, Boolean>")]
         public void Unless_Action_Func_T1_T2_T3_Boolean_Func_T1_T2_T3_Boolean()
          {
             // TODO: Implement method test LCore.Extensions.BooleanExt.Unless
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Action, Func[]<T1, T2, T3, T4, Boolean>) => Func<T1, T2, T3, T4, Boolean>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Action, Func<T1, T2, T3, T4, Boolean>[]) => Func<T1, T2, T3, T4, Boolean>")]
         public void Unless_Action_Func_T1_T2_T3_T4_Boolean_Func_T1_T2_T3_T4_Boolean()
          {
             // TODO: Implement method test LCore.Extensions.BooleanExt.Unless
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Func<T>, Func[]<Boolean>) => Func<T>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Func<T>, Func<Boolean>[]) => Func<T>")]
         public void Unless_Func_T_Func_Boolean_Func_T()
          {
             // TODO: Implement method test LCore.Extensions.BooleanExt.Unless
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Func<T1>, Func[]<T2, Boolean>) => Func<T2, T1>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Func<T1>, Func<T2, Boolean>[]) => Func<T2, T1>")]
         public void Unless_Func_T1_Func_T2_Boolean_Func_T2_T1()
          {
             // TODO: Implement method test LCore.Extensions.BooleanExt.Unless
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Func<T1>, Func[]<T2, T3, Boolean>) => Func<T2, T3, T1>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Func<T1>, Func<T2, T3, Boolean>[]) => Func<T2, T3, T1>")]
         public void Unless_Func_T1_Func_T2_T3_Boolean_Func_T2_T3_T1()
          {
             // TODO: Implement method test LCore.Extensions.BooleanExt.Unless
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Func<T1>, Func[]<T2, T3, T4, Boolean>) => Func<T2, T3, T4, T1>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Func<T1>, Func<T2, T3, T4, Boolean>[]) => Func<T2, T3, T4, T1>")]
         public void Unless_Func_T1_Func_T2_T3_T4_Boolean_Func_T2_T3_T4_T1()
          {
             // TODO: Implement method test LCore.Extensions.BooleanExt.Unless
          }
          
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Func<T1>, Func[]<T2, T3, T4, T5, Boolean>) => Func<T2, T3, T4, T5, T1>")]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(BooleanExt)+ "." + nameof(BooleanExt.Unless) + "(Func<T1>, Func<T2, T3, T4, T5, Boolean>[]) => Func<T2, T3, T4, T5, T1>")]
         public void Unless_Func_T1_Func_T2_T3_T4_T5_Boolean_Func_T2_T3_T4_T5_T1()
          {
             // TODO: Implement method test LCore.Extensions.BooleanExt.Unless

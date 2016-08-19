@@ -1330,6 +1330,10 @@ namespace LCore.Extensions
                 ["`9"] = ""
                 });
 
+            // Array braces should be displayed at the end not before the generics
+            if (Out.Contains("[]<"))
+                Out = $"{Out.Replace("[]<", "<")}[]";
+
             return Out;
             }
 
