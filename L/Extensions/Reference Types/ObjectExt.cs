@@ -37,21 +37,50 @@ namespace LCore.Extensions
 
         #endregion
 
-        #region Objects To String
+        #region GetPropertyValues
 
-        /// <summary>
-        /// Returns a string representation of a set of objects.
-        /// </summary>
-        /// <param name="In">The set of objects</param>
-        /// <returns></returns>
-        [TestResult(new object[] { null }, "")]
-        [TestResult(new object[] { new object[] { } }, "")]
-        [TestResult(new object[] { new object[] { null } }, "NULL")]
-        [TestResult(new object[] { new object[] { "" } }, "System.String:")]
-        [TestResult(new object[] { new object[] { "a", 1, 2, 3.6f } }, "System.String:a, System.Int32:1, System.Int32:2, System.Single:3.6")]
-        public static string Objects_ToString([CanBeNull] this IEnumerable<object> In)
+        [CanBeNull]
+        public static Dictionary<string, object> GetPropertyValues<T>([CanBeNull] this T In)
             {
-            return L.Obj.Objects_ToString(In.Array());
+            var Out = new Dictionary<string, object>();
+
+            List<string> Properties = In.GetPropertyNames();
+
+            Properties.Each(Prop =>
+                {
+                    var Member = typeof(T).GetMember(Prop).First();
+
+                    if (In == null)
+                        {
+                        Out.Add(Prop, value: null);
+                        }
+                    else if (Member is PropertyInfo && ((PropertyInfo)Member).CanRead)
+                        {
+                        try
+                            {
+                            Out.Add(Prop, ((PropertyInfo)Member).GetValue(In));
+                            }
+                        catch (Exception Ex)
+                            {
+                            Out.Add(Prop, Ex);
+                            }
+                        }
+                    else if (Member is FieldInfo)
+                        {
+                        try
+                            {
+                            Out.Add(Prop, ((FieldInfo)Member).GetValue(In));
+                            }
+                        catch (Exception Ex)
+                            {
+                            Out.Add(Prop, Ex);
+                            }
+                        }
+
+                });
+
+
+            return Out;
             }
 
         #endregion
@@ -66,6 +95,24 @@ namespace LCore.Extensions
         public static object GetProperty([CanBeNull] this object In, [CanBeNull] string PropertyName)
             {
             return L.Obj.GetProperty()(In, PropertyName);
+            }
+
+        #endregion
+
+        #region GetPropertyNames
+
+        [CanBeNull]
+        public static List<string> GetPropertyNames<T>([CanBeNull] this T In)
+            {
+            var Out = new List<string>();
+
+            typeof(T).GetMembers().Each(Member =>
+                {
+                    if (Member is PropertyInfo || Member is FieldInfo)
+                        Out.Add(Member.Name);
+                });
+
+            return Out;
             }
 
         #endregion
@@ -254,7 +301,7 @@ namespace LCore.Extensions
 
                             var RandomItems = new List<object>();
 
-                        // ReSharper disable once PossibleNullReferenceException
+                            // ReSharper disable once PossibleNullReferenceException
                             int RandomCount = (int)NewRandom(typeof(int), Minimum: 1, Maximum: 50);
 
                             A(() => { RandomItems.Add(NewRandom(SelectedType, Min, Max)); }).Repeat(RandomCount)();
@@ -878,6 +925,25 @@ namespace LCore.Extensions.Optional
         public static bool IsNull<T>(this T In)
             {
             return L.Obj.IsNull<T>()(In);
+            }
+
+        #endregion
+
+        #region Objects To String
+
+        /// <summary>
+        /// Returns a string representation of a set of objects.
+        /// </summary>
+        /// <param name="In">The set of objects</param>
+        /// <returns></returns>
+        [TestResult(new object[] { null }, "")]
+        [TestResult(new object[] { new object[] { } }, "")]
+        [TestResult(new object[] { new object[] { null } }, "NULL")]
+        [TestResult(new object[] { new object[] { "" } }, "System.String:")]
+        [TestResult(new object[] { new object[] { "a", 1, 2, 3.6f } }, "System.String:a, System.Int32:1, System.Int32:2, System.Single:3.6")]
+        public static string Objects_ToString([CanBeNull] this IEnumerable<object> In)
+            {
+            return L.Obj.Objects_ToString(In.Array());
             }
 
         #endregion

@@ -19,9 +19,9 @@ namespace L_Tests.LCore.Extensions
     {
     public partial class ObjectExtTester : XUnitOutputTester, IDisposable
         {
-        public ObjectExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}
+        public ObjectExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        public void Dispose() {}
+        public void Dispose() { }
 
         #region LCore.Extensions.ObjectExt
 
@@ -37,7 +37,7 @@ namespace L_Tests.LCore.Extensions
             Test.HasProperty("no i dont").ShouldBeFalse();
             Test.HasProperty("").ShouldBeFalse();
             Test.HasProperty(PropertyName: null).ShouldBeFalse();
-            ((string) null).HasProperty(nameof(string.Length)).ShouldBeFalse();
+            ((string)null).HasProperty(nameof(string.Length)).ShouldBeFalse();
             }
 
 
@@ -139,12 +139,6 @@ namespace L_Tests.LCore.Extensions
         #endregion
 
         // Attribute Tested //////////////////////////////////////////////////////////////////////////////
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt) + "." + nameof(global::LCore.Extensions.ObjectExt.Objects_ToString) + "(IEnumerable<Object>) => String")]
-        public void Objects_ToString()
-            {
-            // Attribute Tests Implemented
-            }
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(global::LCore.Extensions.ObjectExt) + "." + nameof(global::LCore.Extensions.ObjectExt.Type) + "(T) => Type")]
