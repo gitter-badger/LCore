@@ -226,7 +226,7 @@ namespace LCore.LUnit
                 {
                 var Coverage = new TypeCoverage(Type, this.TestAssemblies);
 
-                Coverage.GenerateTestStub($"{this.GeneratedCodeFolderPath}\\{Coverage.TestMember_Class}.cs");
+                Coverage.GenerateTestStubs($"{this.GeneratedCodeFolderPath}\\{Coverage.TestMember_Class}.cs");
 
                 }
 

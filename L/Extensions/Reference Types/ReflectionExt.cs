@@ -1376,12 +1376,17 @@ namespace LCore.Extensions
                    Member.DeclaringType != Member.ReflectedType;
             }
 
+        /// <summary>
+        /// Determines if an Assembly is a test assembly, 
+        /// by checking if the assembly has the word "test" or "tests" in the name.
+        /// </summary>
         public static bool IsTestAssembly([CanBeNull] this Assembly Assembly)
             {
             string Name = Assembly?.GetName().Name.ToLower();
 
             return Assembly != null &&
-                   (Name.Contains(" test") || Name.Contains("test "));
+                   (Name.Contains(" test") || Name.Contains("test ") ||
+                   Name.Contains(" tests") || Name.Contains("tests "));
             }
         }
 
@@ -1865,6 +1870,9 @@ namespace LCore.Extensions
             #endregion
             */
 
+            /// <summary>
+            /// Returns all test assemblies available in the current context.
+            /// </summary>
             public static Assembly[] GetAvailableTestAssemblies()
                 {
                 return AppDomain.CurrentDomain.GetAssemblies().Select(ReflectionExt.IsTestAssembly);

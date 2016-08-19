@@ -114,7 +114,7 @@ namespace LCore.LUnit
 
             if (this.TestedFlag || this.MemberTraitFound)
                 {
-                return new string[] {};
+                return new string[] { };
                 }
 
             string Content = this.AttributeCoverage > 0
@@ -125,7 +125,7 @@ namespace LCore.LUnit
             bool StrongTypeTraitAttribute = !this.CoveringMember.FullyQualifiedName().HasAny('`', '<', '>') &&
                                             !this.CoveringMember.IsOperator();
 
-            bool FullyQualifyWithNamespace = false;
+            const bool FullyQualifyWithNamespace = false;
 
             // ReSharper disable once UnusedVariable
             var TargetMemberTest = L.Ref.FindMembers($"{this.TestMember_Namespace}.{this.TestMember_Class}.{this.TestMember_Member}", this._TestAssemblies.Array()).First();
@@ -187,10 +187,10 @@ namespace LCore.LUnit
             this.MemberTraitFound = this._TestAssemblies.GetAssemblyMemberTraits().Has(this.MemberTraitValue);
 
             this.AttributeCoverage =
-                (uint) this.TestResultAttributes.Count +
-                (uint) this.TestSourceAttributes.Count +
-                (uint) this.TestSucceedsAttributes.Count +
-                (uint) this.TestFailsAttributes.Count;
+                (uint)this.TestResultAttributes.Count +
+                (uint)this.TestSourceAttributes.Count +
+                (uint)this.TestSucceedsAttributes.Count +
+                (uint)this.TestFailsAttributes.Count;
             }
         }
     }

@@ -1234,6 +1234,7 @@ namespace L_Tests.LCore.Extensions
 
 
         [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Action, Func<Boolean>) => Func<Boolean>")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Action, Func[]) => Func<Boolean>")]
         public void If_Action_Func_1Array_Func_1()
             {
@@ -1269,6 +1270,7 @@ namespace L_Tests.LCore.Extensions
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Action, Func[]) => Func<T, Boolean>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Action, Func<T, Boolean>) => Func<T, Boolean>")]
         public void If_Action_Func_2Array_Func_2()
             {
             var True = new Func<object, bool>(o =>
@@ -1317,6 +1319,7 @@ namespace L_Tests.LCore.Extensions
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Action, Func[]) => Func<T1, T2, Boolean>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Action, Func<T1, T2, Boolean>) => Func<T1, T2, Boolean>")]
         public void If_Action_Func_3Array_Func_3()
             {
             var True = new Func<object, object, bool>((o1, o2) =>
@@ -1367,6 +1370,7 @@ namespace L_Tests.LCore.Extensions
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Action, Func[]) => Func<T1, T2, T3, Boolean>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Action, Func<T1, T2, T3, Boolean>) => Func<T1, T2, T3, Boolean>")]
         public void If_Action_Func_4Array_Func_4()
             {
             var True = new Func<object, object, object, bool>((o1, o2, o3) =>
@@ -1419,6 +1423,7 @@ namespace L_Tests.LCore.Extensions
 
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Action, Func[]) => Func<T1, T2, T3, T4, Boolean>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Action, Func<T1, T2, T3, T4, Boolean>) => Func<T1, T2, T3, T4, Boolean>")]
         public void If_Action_Func_5Array_Func_5()
             {
             var True = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
@@ -1476,6 +1481,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." +
             nameof(BooleanExt.If) + "(Func<T>, Func[]) => Func<T>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Func<T>, Func<Boolean>) => Func<T>")]
         public void If_Func_1_Func_1Array_Func_1()
             {
             // False works - AND is applied
@@ -1518,6 +1524,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." +
             nameof(BooleanExt.If) + "(Func<T1>, Func[]) => Func<T2, T1>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Func<T1>, Func<T2, Boolean>) => Func<T2, T1>")]
         public void If_Func_1_Func_2Array_Func_2()
             {
             var True = new Func<object, bool>(o =>
@@ -1574,6 +1581,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." +
             nameof(BooleanExt.If) + "(Func<T1>, Func[]) => Func<T2, T3, T1>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Func<T1>, Func<T2, T3, Boolean>) => Func<T2, T3, T1>")]
         public void If_Func_1_Func_3Array_Func_3()
             {
             var True = new Func<object, object, bool>((o1, o2) =>
@@ -1632,6 +1640,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." +
             nameof(BooleanExt.If) + "(Func<T1>, Func[]) => Func<T2, T3, T4, T1>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Func<T1>, Func<T2, T3, T4, Boolean>) => Func<T2, T3, T4, T1>")]
         public void If_Func_1_Func_4Array_Func_4()
             {
             var True = new Func<object, object, object, bool>((o1, o2, o3) =>
@@ -1692,6 +1701,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." +
             nameof(BooleanExt.If) + "(Func<T1>, Func[]) => Func<T2, T3, T4, T5, T1>")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(BooleanExt) + "." + nameof(BooleanExt.If) + "(Func<T1>, Func<T2, T3, T4, T5, Boolean>) => Func<T2, T3, T4, T5, T1>")]
         public void If_Func_1_Func_5Array_Func_5()
             {
             var True = new Func<object, object, object, object, bool>((o1, o2, o3, o4) =>
