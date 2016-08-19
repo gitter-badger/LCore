@@ -27,9 +27,9 @@ namespace LCore.LUnit
         /// The total coverage percent, a uint value from 0 to 100.
         /// </summary>
         public uint CoveragePercent =>
-            (uint)(this.MemberCoverage.Convert(Member => Member.IsCovered
-               ? 1
-               : 0).Average() * 100).Round();
+            (uint) (this.MemberCoverage.Convert(Member => Member.IsCovered
+                ? 1
+                : 0).Average()*100).Round();
 
         /// <summary>
         /// Information about the Member Coverage for all methods on the Type.
@@ -67,6 +67,15 @@ namespace LCore.LUnit
 
                 GeneratedCodeFolderPath.EnsurePathExists();
 
+                if (File.Exists(GeneratedCodeFullPath))
+                    {
+                    string[] Lines = File.ReadAllLines(GeneratedCodeFullPath);
+
+                    // Do not overwrite files if the warning message was removed.
+                    if (Lines[0].Trim() != LUnit.GeneratedCodeWarning.Trim())
+                        return;
+                    }
+
                 File.WriteAllLines(GeneratedCodeFullPath, Stub);
                 }
             }
@@ -89,19 +98,18 @@ namespace LCore.LUnit
             var TargetClassTest = L.Ref.FindType($"{this.TestMember_Namespace}.{this.TestMember_Class}", this._TestAssemblies.Array());
 
 
-
             uint MembersAdded = 0;
 
             this.MemberCoverage.Each(Member =>
                 {
-                    string[] Stub = Member.GetTestStub(ref Usings);
+                string[] Stub = Member.GetTestStub(ref Usings);
 
-                    if (Stub != null && Stub.Length > 0)
-                        {
-                        MembersAdded++;
-                        Members.AddRange(Stub);
-                        Members.Add("");
-                        }
+                if (Stub.Length > 0)
+                    {
+                    MembersAdded++;
+                    Members.AddRange(Stub);
+                    Members.Add("");
+                    }
                 });
 
 
@@ -161,7 +169,10 @@ namespace LCore.LUnit
                 Usings.Each(Namespace => Header.Insert(index: 0, item: $"using {Namespace};"));
 
                 Out = Header.Array().Add(Out).List();
+
+                Out.Insert(index: 0, item: LUnit.GeneratedCodeWarning);
                 }
+
 
             return Out.Array();
             }
