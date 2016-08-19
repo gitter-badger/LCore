@@ -291,8 +291,8 @@ namespace LCore.LUnit
 
                             if (TargetClassTest != null)
                                 Partial = " partial ";
-                            bool StrongTypeTraitAttribute = !TargetClass.FullyQualifiedName().HasAny('`', '<', '>');
 /*
+                            bool StrongTypeTraitAttribute = !TargetClass.FullyQualifiedName().HasAny('`', '<', '>');
 
                             WriteStack3.Add(StrongTypeTraitAttribute
                                 ? $"    [{nameof(TraitAttribute).Before(Attribute)}({nameof(Traits)}.{nameof(Traits.TargetClass)},{TargetClass.FullyQualifiedName().NameofParts(TargetClass, TargetClass.Namespace, FullyQualifyWithNamespace)})]"
@@ -343,7 +343,7 @@ namespace LCore.LUnit
                                     TargetMember?.DeclaringType?.HasAttribute<ExcludeFromCodeCoverageAttribute>(IncludeBaseClasses: true) == true)
                                     return;
 
-                                StrongTypeTraitAttribute = !TargetMember.FullyQualifiedName().HasAny('`', '<', '>') &&
+                                bool StrongTypeTraitAttribute = !TargetMember.FullyQualifiedName().HasAny('`', '<', '>') &&
                                                            !(TargetMember is MethodInfo && ((MethodInfo) TargetMember).IsOperator());
 
                                 // ReSharper disable once UnusedVariable
