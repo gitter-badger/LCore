@@ -92,6 +92,7 @@
     <Compile Include="Coverage\MethodCoverage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="LUnit.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
