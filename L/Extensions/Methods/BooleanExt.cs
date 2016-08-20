@@ -1148,7 +1148,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        public static Func<T> Unless<T>(this Func<T> In, params Func<bool>[] Conditions)
+        public static Func<T> Unless<T>([CanBeNull]this Func<T> In, [CanBeNull]params Func<bool>[] Conditions)
             {
             return In.If(Conditions.Or().Not());
             }
@@ -1157,7 +1157,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        public static Func<T2, T1> Unless<T1, T2>(this Func<T1> In, params Func<T2, bool>[] Conditions)
+        public static Func<T2, T1> Unless<T1, T2>([CanBeNull]this Func<T1> In, [CanBeNull]params Func<T2, bool>[] Conditions)
             {
             return In.If(Conditions.Or().Not());
             }
@@ -1166,7 +1166,7 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        public static Func<T2, T3, T1> Unless<T1, T2, T3>(this Func<T1> In, params Func<T2, T3, bool>[] Conditions)
+        public static Func<T2, T3, T1> Unless<T1, T2, T3>([CanBeNull]this Func<T1> In, [CanBeNull] params Func<T2, T3, bool>[] Conditions)
             {
             return In.If(Conditions.Or().Not());
             }
@@ -1175,8 +1175,8 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        public static Func<T2, T3, T4, T1> Unless<T1, T2, T3, T4>(this Func<T1> In,
-            params Func<T2, T3, T4, bool>[] Conditions)
+        public static Func<T2, T3, T4, T1> Unless<T1, T2, T3, T4>([CanBeNull]this Func<T1> In,
+            [CanBeNull]params Func<T2, T3, T4, bool>[] Conditions)
             {
             return In.If(Conditions.Or().Not());
             }
@@ -1185,8 +1185,8 @@ namespace LCore.Extensions
         /// Surrounds the method with multiple condition methods.
         /// OR operation is applied if multiple conditions are passed.
         /// </summary>
-        public static Func<T2, T3, T4, T5, T1> Unless<T1, T2, T3, T4, T5>(this Func<T1> In,
-            params Func<T2, T3, T4, T5, bool>[] Conditions)
+        public static Func<T2, T3, T4, T5, T1> Unless<T1, T2, T3, T4, T5>([CanBeNull]this Func<T1> In,
+            [CanBeNull]params Func<T2, T3, T4, T5, bool>[] Conditions)
             {
             return In.If(Conditions.Or().Not());
             }

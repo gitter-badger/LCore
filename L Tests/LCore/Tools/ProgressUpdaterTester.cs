@@ -17,6 +17,8 @@ namespace L_Tests.LCore.Tools
 
         public void Dispose() { }
 
+#if DEBUG
+
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ProgressUpdater) + "." + nameof(ProgressUpdater.Status) + "(String)")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(ProgressUpdater) + "." + nameof(ProgressUpdater.Log) + "(String)")]
@@ -72,5 +74,7 @@ namespace L_Tests.LCore.Tools
                     }
             })();
             }
+#endif
+
         }
     }

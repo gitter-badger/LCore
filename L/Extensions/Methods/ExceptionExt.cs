@@ -19,7 +19,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<bool> Try(this Action In)
+        public static Func<bool> Try([CanBeNull]this Action In)
             {
             return () =>
                 {
@@ -38,7 +38,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, bool> Try<T1>(this Action<T1> In)
+        public static Func<T1, bool> Try<T1>([CanBeNull]this Action<T1> In)
             {
             return o =>
                 {
@@ -57,7 +57,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, T2, bool> Try<T1, T2>(this Action<T1, T2> In)
+        public static Func<T1, T2, bool> Try<T1, T2>([CanBeNull]this Action<T1, T2> In)
             {
             return (o1, o2) =>
                 {
@@ -76,7 +76,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, T2, T3, bool> Try<T1, T2, T3>(this Action<T1, T2, T3> In)
+        public static Func<T1, T2, T3, bool> Try<T1, T2, T3>([CanBeNull]this Action<T1, T2, T3> In)
             {
             return (o1, o2, o3) =>
                 {
@@ -95,7 +95,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, T2, T3, T4, bool> Try<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In)
+        public static Func<T1, T2, T3, T4, bool> Try<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In)
             {
             return (o1, o2, o3, o4) =>
                 {
@@ -211,7 +211,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<U> Try<U>(this Func<U> In)
+        public static Func<U> Try<U>([CanBeNull]this Func<U> In)
             {
             return () =>
                 {
@@ -229,7 +229,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, U> Try<T1, U>(this Func<T1, U> In)
+        public static Func<T1, U> Try<T1, U>([CanBeNull]this Func<T1, U> In)
             {
             return o1 =>
                 {
@@ -247,7 +247,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, T2, U> Try<T1, T2, U>(this Func<T1, T2, U> In)
+        public static Func<T1, T2, U> Try<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In)
             {
             return (o1, o2) =>
                 {
@@ -265,7 +265,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, T2, T3, U> Try<T1, T2, T3, U>(this Func<T1, T2, T3, U> In)
+        public static Func<T1, T2, T3, U> Try<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In)
             {
             return (o1, o2, o3) =>
                 {
@@ -283,7 +283,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, T2, T3, T4, U> Try<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In)
+        public static Func<T1, T2, T3, T4, U> Try<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In)
             {
             return (o1, o2, o3, o4) =>
                 {
@@ -2226,7 +2226,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Action Handle(this Action In)
+        public static Action Handle([CanBeNull]this Action In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2235,7 +2235,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Action<T1> Handle<T1>(this Action<T1> In)
+        public static Action<T1> Handle<T1>([CanBeNull]this Action<T1> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2244,7 +2244,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Action<T1, T2> Handle<T1, T2>(this Action<T1, T2> In)
+        public static Action<T1, T2> Handle<T1, T2>([CanBeNull]this Action<T1, T2> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2253,7 +2253,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Action<T1, T2, T3> Handle<T1, T2, T3>(this Action<T1, T2, T3> In)
+        public static Action<T1, T2, T3> Handle<T1, T2, T3>([CanBeNull]this Action<T1, T2, T3> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2262,7 +2262,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Action<T1, T2, T3, T4> Handle<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> In)
+        public static Action<T1, T2, T3, T4> Handle<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2271,7 +2271,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Func<U> Handle<U>(this Func<U> In)
+        public static Func<U> Handle<U>([CanBeNull]this Func<U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2280,7 +2280,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Func<T1, U> Handle<T1, U>(this Func<T1, U> In)
+        public static Func<T1, U> Handle<T1, U>([CanBeNull]this Func<T1, U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2289,7 +2289,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Func<T1, T2, U> Handle<T1, T2, U>(this Func<T1, T2, U> In)
+        public static Func<T1, T2, U> Handle<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2298,7 +2298,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Func<T1, T2, T3, U> Handle<T1, T2, T3, U>(this Func<T1, T2, T3, U> In)
+        public static Func<T1, T2, T3, U> Handle<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2307,7 +2307,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Func<T1, T2, T3, T4, U> Handle<T1, T2, T3, T4, U>(this Func<T1, T2, T3, T4, U> In)
+        public static Func<T1, T2, T3, T4, U> Handle<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }

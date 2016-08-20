@@ -68,8 +68,7 @@ namespace L_Tests.LCore.Tools
         [Trait(Traits.TargetMember, "LCore.Tools.Set<T1, T2>.GetHashCode() => Int32")]
         public new void GetHashCode()
             {
-            this._Test.GetHashCode().ShouldBe(Expected: 372027467);
-            this._Test2.GetHashCode().ShouldBe(Expected: 372027467);
+            this._Test.GetHashCode().ShouldBe(this._Test2.GetHashCode());
             }
 
         [Fact]

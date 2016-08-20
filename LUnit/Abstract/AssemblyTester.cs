@@ -92,7 +92,7 @@ namespace LCore.LUnit
         protected virtual Type[] AssemblyTypes => this.Assembly.GetExportedTypes()
             .WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(IncludeBaseTypes: false)
             .Select(Type => !Type.IsInterface).Array();
-        
+
         ////////////////////////////////////////////////////////
 
         /// <summary>
@@ -222,12 +222,15 @@ namespace LCore.LUnit
         [Fact]
         public void AssemblyMissingCoverage()
             {
-            foreach (var Type in this.AssemblyTypes)
+            if (this.EnableCodeAutoGeneration)
                 {
-                var Coverage = new TypeCoverage(Type, this.TestAssemblies);
+                foreach (var Type in this.AssemblyTypes)
+                    {
+                    var Coverage = new TypeCoverage(Type, this.TestAssemblies);
 
-                Coverage.GenerateTestStubs($"{this.GeneratedCodeFolderPath}\\{Coverage.TestMember_Class}.cs");
+                    Coverage.GenerateTestStubs($"{this.GeneratedCodeFolderPath}\\{Coverage.TestMember_Class}.cs");
 
+                    }
                 }
 
 
