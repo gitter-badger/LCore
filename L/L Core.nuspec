@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
+    <id>83f391e7-7d76-4a20-8fbb-b40d85734be7</id>
+    <version>0.9.0.9</version>
     <title>L Core</title>
     <authors>Ben Hamel</authors>
     <owners>Ben Hamel</owners>
-<!--    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>-->
-    <projectUrl>http://codesingularity.info</projectUrl>
+    <licenseUrl>https://github.com/CodeSingularity/LCore/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/CodeSingularity/LCore</projectUrl>
     <iconUrl>http://codesingularity.info/Content/Icon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>C# Extensions Method Library</description>
