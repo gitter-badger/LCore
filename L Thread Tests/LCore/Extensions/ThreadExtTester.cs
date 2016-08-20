@@ -26,7 +26,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         public void Dispose() {}
-
+#if DEBUG
         [Fact]
         [TestCategory(Category)]
         [Trait(Traits.TargetMember,
@@ -902,5 +902,6 @@ namespace L_Thread_Tests.LCore.Extensions
 
             Act.CountExecutions(Milliseconds: 100).Should().BeInRange(minimumValue: 30, maximumValue: 50);
             }
+#endif
         }
     }
