@@ -18,7 +18,17 @@ namespace LCore.Tests
 
         protected override bool EnforceNullabilityAttributes => true;
 
-        protected override bool EnableCodeAutoGeneration => true;
+        protected override bool EnableCodeAutoGeneration
+            {
+            get
+                {
+#if DEBUG
+                return true;
+#else
+                return false;
+#endif
+                }
+            }
 
         protected override Assembly[] TestAssemblies => new[]
             {

@@ -92,7 +92,7 @@ namespace LCore.LUnit
         protected virtual Type[] AssemblyTypes => this.Assembly.GetExportedTypes()
             .WithoutAttribute<ExcludeFromCodeCoverageAttribute, Type>(IncludeBaseTypes: false)
             .Select(Type => !Type.IsInterface).Array();
-
+        
         ////////////////////////////////////////////////////////
 
         /// <summary>

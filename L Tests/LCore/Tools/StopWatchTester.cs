@@ -19,6 +19,7 @@ namespace L_Tests.LCore.Tools
 
         public void Dispose() { }
 
+#if DEBUG
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(StopWatch) + "." + nameof(StopWatch.Start) + "()")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Tools) + "." + nameof(StopWatch) + "." + nameof(StopWatch.Stop) + "() => Double")]
@@ -38,5 +39,6 @@ namespace L_Tests.LCore.Tools
                 Test.Stop().Should().BeInRange(minimumValue: 15, maximumValue: 25);
                 }
             }
+#endif
         }
     }

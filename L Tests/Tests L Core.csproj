@@ -192,7 +192,7 @@
     <Compile Include="LCore\Tools\ScheduleTester.cs" />
     <Compile Include="LCore\Tools\Set_2Tester.cs" />
     <Compile Include="LCore\Tools\StatMonitorTest.cs" />
-    <Compile Include="LCore\Tools\StopWatchTest.cs" />
+    <Compile Include="LCore\Tools\StopWatchTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LCoreAssemblyTester.cs" />
   </ItemGroup>
