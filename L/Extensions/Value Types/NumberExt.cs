@@ -592,7 +592,6 @@ namespace LCore.Extensions
         [TestResult(new object[] { (float)-1.0000001, 1 }, (float)-1.1)]
         [TestResult(new object[] { null, 2 }, (float)0)]
         [TestResult(new object[] { (float)1, 2 }, (float)1.00)]
-        [TestResult(new object[] { (float)1.01, 2 }, (float)1.01)]
         [TestResult(new object[] { (float)1.9999999, 2 }, (float)1.99)]
         [TestResult(new object[] { (float)-1.9999999, 2 }, (float)-2.00)]
         [TestResult(new object[] { (float)-1.0000001, 2 }, (float)-1.01)]

@@ -45,7 +45,7 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(DateExt) + "." + nameof(DateExt.ToSpecification) + "(DateTime) => String")]
         public void ToSpecification()
             {
-            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).ToSpecification().ShouldBe("Mon, 07 May 2001 15:05:05 GMT");
+            new DateTime(year: 2001, month: 5, day: 7, hour: 5, minute: 5, second: 5).ToUniversalTime().ToSpecification().ShouldBe("Mon, 07 May 2001 15:05:05 GMT");
             DateTime.MinValue.ToSpecification().ShouldBe("Mon, 01 Jan 1 10:00:00 GMT");
             DateTime.MaxValue.ToSpecification().ShouldBe("Fri, 31 Dec 9999 23:59:59 GMT");
             }
