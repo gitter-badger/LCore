@@ -49,6 +49,10 @@
       <HintPath>..\packages\JetBrains.Annotations.10.1.5\lib\net\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="LUnit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LUnit.0.9.0.9\lib\net451\LUnit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Moq, Version=4.5.19.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.5.19\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
@@ -94,10 +98,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LUnit\LUnit.csproj">
-      <Project>{0275fcea-4312-4003-8447-5cad2e333616}</Project>
-      <Name>LUnit</Name>
-    </ProjectReference>
     <ProjectReference Include="..\L\L Core.csproj">
       <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
       <Name>L Core</Name>
