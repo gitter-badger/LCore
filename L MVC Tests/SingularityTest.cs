@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using LCore;
 using LCore.Extensions;
 using LCore.Interfaces;
 using LMVC;
@@ -46,10 +47,10 @@ namespace L_MVC_Tests.Layouts
         public void Singularity_GetTypeIcon()
             {
             Singularity.Icons.GetTypeIcon(Type: null).Should().BeNull();
-            Singularity.Icons.GetTypeIcon(typeof(L)).Should().NotBeNull().And.NotBe(FontAwesomeExt.Icon.question);
-            Singularity.Icons.GetTypeIcon(typeof(UrlExt)).Should().NotBeNull().And.NotBe(FontAwesomeExt.Icon.question);
-            Singularity.Icons.GetTypeIcon(typeof(string)).Should().NotBeNull().And.NotBe(FontAwesomeExt.Icon.question);
-            Singularity.Icons.GetTypeIcon(typeof(SourceInformation)).Should().Be(FontAwesomeExt.Icon.question);
+            Singularity.Icons.GetTypeIcon(typeof(L)).Should().NotBeNull().And.NotBe(FontAwesomeIcon.question);
+            Singularity.Icons.GetTypeIcon(typeof(UrlExt)).Should().NotBeNull().And.NotBe(FontAwesomeIcon.question);
+            Singularity.Icons.GetTypeIcon(typeof(string)).Should().NotBeNull().And.NotBe(FontAwesomeIcon.question);
+            Singularity.Icons.GetTypeIcon(typeof(SourceInformation)).Should().Be(FontAwesomeIcon.question);
             }
         }
     }
