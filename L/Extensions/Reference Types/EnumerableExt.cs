@@ -1034,7 +1034,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the number of items in the collection that cause <paramref name="Condition"/> to return true.
         /// </summary>
-        public static uint Count<T>([CanBeNull] this IEnumerable<T> In, [CanBeNull] Func<T, bool> Condition)
+        public static uint Count<T>([CanBeNull] this IEnumerable<T> In, [CanBeNull] Func< T, bool> Condition)
             {
             In = In ?? new T[] { };
 

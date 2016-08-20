@@ -199,7 +199,7 @@ namespace LCore.LUnit
         /// </summary>
         public static Func<bool> GetCheckMethod(MethodInfo SourceMethod, string MethodName)
             {
-            var Result = GetMethodDelegate(SourceMethod, ObjectType: null, MethodName: MethodName);
+            var Result = GetMethodDelegate(SourceMethod, ObjectType: null, MethodName: MethodName) ;
             if (Result == null)
                 throw new Exception($"Could not find Method: {MethodName}");
 
