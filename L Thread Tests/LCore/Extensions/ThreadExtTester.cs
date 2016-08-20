@@ -6,6 +6,7 @@ using LCore.Extensions;
 using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using LCore.Tools;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -17,6 +18,8 @@ namespace L_Thread_Tests.LCore.Extensions
     {
     public partial class ThreadExtTester : XUnitOutputTester, IDisposable
         {
+        public const string Category = "Threading";
+
         public ThreadExtTester([NotNull] ITestOutputHelper Output) : base(Output)
             {
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
@@ -25,6 +28,7 @@ namespace L_Thread_Tests.LCore.Extensions
         public void Dispose() {}
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.Async) + "(Action) => Action")]
@@ -52,6 +56,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.Async) + "(Action, TimeSpan, ThreadPriority) => Action")]
@@ -181,6 +186,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.Async) + "(Action<T>) => Action<T>")]
@@ -219,6 +225,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.Async) + "(Action<T>, TimeSpan, ThreadPriority) => Action<T>")]
@@ -353,6 +360,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.AsyncResult) + "(Func<U>, Action<U>) => Action")]
@@ -376,6 +384,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.AsyncResult) + "(Func<T1, U>, Action<U>) => Action<T1>")]
@@ -413,6 +422,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.AsyncResult) + "(Func<U>, Action<U>, TimeSpan, ThreadPriority) => Action")]
@@ -546,6 +556,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.AsyncResult) + "(Func<T1, U>, Action<U>, TimeSpan, ThreadPriority) => Action<T1>")]
@@ -680,6 +691,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Thread) + "." + nameof(L.Thread.MethodProfileData_Get) + "(String) => MethodProfileData")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Thread) + "." + nameof(L.Thread.MethodProfileData_Remove) + "(String)")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Thread) + "." + nameof(L.Thread.MethodProfileData_Add) + "(String, MethodProfileData)")]
@@ -712,6 +724,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.Profile) + "(Action, UInt32) => TimeSpan")]
@@ -734,6 +747,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.Profile) + "(Action<T1>, String) => Action<T1>")]
@@ -771,6 +785,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.Profile) + "(Func<U>, UInt32) => MethodProfileData<U>")]
@@ -802,6 +817,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.Profile) + "(Func<U>, String) => Func<U>")]
@@ -839,6 +855,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.Profile) + "(Func<T1, U>, String) => Func<T1, U>")]
@@ -875,6 +892,7 @@ namespace L_Thread_Tests.LCore.Extensions
             }
 
         [Fact]
+        [TestCategory(Category)]
         [Trait(Traits.TargetMember,
             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ThreadExt) + "." +
             nameof(ThreadExt.CountExecutions) + "(Action, UInt32) => UInt32")]
