@@ -6,7 +6,7 @@
     <title>L Core</title>
     <authors>Ben Hamel</authors>
     <owners>Ben Hamel</owners>
-    <licenseUrl>https://github.com/CodeSingularity/LCore/LICENSE</licenseUrl>
+    <licenseUrl>https://raw.githubusercontent.com/CodeSingularity/LCore/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/CodeSingularity/LCore</projectUrl>
     <iconUrl>http://codesingularity.info/Content/Icon.ico</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
