@@ -1034,7 +1034,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the number of items in the collection that cause <paramref name="Condition"/> to return true.
         /// </summary>
-        public static uint Count<T>([CanBeNull] this IEnumerable<T> In, [CanBeNull] Func< T, bool> Condition)
+        public static uint Count<T>([CanBeNull] this IEnumerable<T> In, [CanBeNull] Func<T, bool> Condition)
             {
             In = In ?? new T[] { };
 
@@ -2868,7 +2868,7 @@ namespace LCore.Extensions
         /// Sets the item in the collection at <paramref name="Index" /> to <paramref name="Value" />.
         /// </summary>
         [DisableNullabilityTesting]
-        public static void SetAt<T>([CanBeNull] this IEnumerable In, [TestBound(Minimum: 0u,Maximum: 10u)]uint Index, [CanBeNull] T Value)
+        public static void SetAt<T>([CanBeNull] this IEnumerable In, [TestBound(Minimum: 0u, Maximum: 10u)]uint Index, [CanBeNull] T Value)
             {
             if (In == null)
                 return;
@@ -3124,6 +3124,140 @@ namespace LCore.Extensions
                 });
 
             return Out;
+            }
+
+        #endregion
+
+        #region ToNestedArrays
+
+        /// <summary>
+        /// Converts a multidimensional array to nested arrays.
+        /// </summary>
+        public static T[][] ToNestedArrays<T>([CanBeNull] this T[,] In)
+            {
+            if (In == null)
+                return new T[][] { };
+
+            var Out = new List<List<T>>();
+
+            int ColumnCount = In.GetLength(dimension: 0);
+            int RowCount = In.GetLength(dimension: 1);
+
+            for (int i = 0; i < RowCount; i++)
+                {
+                var OutRow = new List<T>();
+                Out.Add(OutRow);
+
+                for (int j = 0; j < ColumnCount; j++)
+                    {
+                    OutRow.Add(In[i, j]);
+                    }
+                }
+
+            return Out.ToNestedArrays();
+            }
+
+        /// <summary>
+        /// Converts a multidimensional array to nested arrays.
+        /// </summary>
+        public static T[][][] ToNestedArrays<T>([CanBeNull] this T[,,] In)
+            {
+            if (In == null)
+                return new T[][][] { };
+
+            var Out = new List<List<List<T>>>();
+
+            int Dim1Count = In.GetLength(dimension: 0);
+            int Dim2Count = In.GetLength(dimension: 1);
+            int Dim3Count = In.GetLength(dimension: 2);
+
+            for (int i = 0; i < Dim1Count; i++)
+                {
+                var OutRow = new List<List<T>>();
+                Out.Add(OutRow);
+
+                for (int j = 0; j < Dim2Count; j++)
+                    {
+                    var OutRow2 = new List<T>();
+                    OutRow.Add(OutRow2);
+
+                    // ReSharper disable once InconsistentNaming
+                    for (int k = 0; k < Dim3Count; k++)
+                        {
+                        OutRow2.Add(In[i, j, k]);
+                        }
+                    }
+                }
+
+            return ((IEnumerable<IEnumerable<IEnumerable<T>>>)Out).ToNestedArrays();
+            }
+
+        /// <summary>
+        /// Converts a multidimensional array to nested arrays.
+        /// </summary>
+        public static T[][][][] ToNestedArrays<T>([CanBeNull] this T[,,,] In)
+            {
+            if (In == null)
+                return new T[][][][] { };
+
+            var Out = new List<List<List<List<T>>>>();
+
+            int Dim1Count = In.GetLength(dimension: 0);
+            int Dim2Count = In.GetLength(dimension: 1);
+            int Dim3Count = In.GetLength(dimension: 2);
+            int Dim4Count = In.GetLength(dimension: 3);
+
+            for (int i = 0; i < Dim1Count; i++)
+                {
+                var OutRow = new List<List<List<T>>>();
+                Out.Add(OutRow);
+
+                for (int j = 0; j < Dim2Count; j++)
+                    {
+                    var OutRow2 = new List<List<T>>();
+                    OutRow.Add(OutRow2);
+
+                    // ReSharper disable once InconsistentNaming
+                    for (int k = 0; k < Dim3Count; k++)
+                        {
+                        var OutRow3 = new List<T>();
+                        OutRow2.Add(OutRow3);
+
+                        // ReSharper disable once InconsistentNaming
+                        for (int l = 0; l < Dim4Count; l++)
+                            {
+                            OutRow3.Add(In[i, j, k, l]);
+                            }
+                        }
+                    }
+                }
+
+            return ((IEnumerable<IEnumerable<IEnumerable<IEnumerable<T>>>>)Out).ToNestedArrays();
+            }
+
+        /// <summary>
+        /// Converts a nested IEnumerable into a nested T[][]
+        /// </summary>
+        public static T[][] ToNestedArrays<T>([CanBeNull] this IEnumerable<IEnumerable<T>> In)
+            {
+            return In.Convert(Array).Array();
+            }
+
+        /// <summary>
+        /// Converts a nested IEnumerable into a nested T[][][]
+        /// </summary>
+        public static T[][][] ToNestedArrays<T>([CanBeNull] this IEnumerable<IEnumerable<IEnumerable<T>>> In)
+            {
+            return In.Convert(ToNestedArrays).Array();
+            }
+
+        /// <summary>
+        /// Converts a nested IEnumerable into a nested T[][][][]
+        /// </summary>
+        public static T[][][][] ToNestedArrays<T>(
+            [CanBeNull] this IEnumerable<IEnumerable<IEnumerable<IEnumerable<T>>>> In)
+            {
+            return In.Convert(ToNestedArrays).Array();
             }
 
         #endregion
