@@ -1398,19 +1398,18 @@ namespace LCore.Extensions
             {
             if (Assembly != null)
                 {
-                string CodeBase = Assembly.CodeBase;
-                var URI = new UriBuilder(CodeBase);
-                string FullPath = Path.GetDirectoryName(Uri.UnescapeDataString(URI.Path));
+                string Root = L.Ref.GetSolutionRootPath();
 
-                while (Directory.Exists(FullPath))
+                if (Directory.Exists(Root) && Directory.Exists($"{Root}\\{Assembly.GetName().Name.CleanFileName()}"))
+                    return $"{Root}\\{Assembly.GetName().Name.CleanFileName()}";
+
+                string File = Directory.GetFiles(Root, "*.*", SearchOption.AllDirectories).First(
+                Str => Str.EndsWith($"{Assembly.GetName().Name.CleanFileName()}.csproj"));
+
+                if (System.IO.File.Exists(File))
                     {
-                    if (Directory.GetFiles(FullPath).Has(File => File.EndsWith(".csproj")))
-                        return FullPath;
-
-                    FullPath = new DirectoryInfo(FullPath).Parent?.FullName ?? "";
+                    return new FileInfo(File).DirectoryName;
                     }
-
-                return FullPath;
                 }
 
             return null;
