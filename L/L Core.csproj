@@ -71,6 +71,7 @@
     <Compile Include="Extensions\Reference Types\ComparableExt.cs" />
     <Compile Include="Extensions\Reference Types\ReflectionExt.cs" />
     <Compile Include="Extensions\Value Types\NumberExt.cs" />
+    <Compile Include="Interfaces\CodeComment.cs" />
     <Compile Include="Interfaces\IExtensionProvider.cs" />
     <Compile Include="Interfaces\IPersistAttribute.cs" />
     <Compile Include="Interfaces\ISubclassPersistentAttribute.cs" />

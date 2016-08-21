@@ -50,6 +50,10 @@ namespace LCore.Extensions
                 var PermissionNodes = MemberNode.SelectNodes(L.Comment.XmlTags.Permission);
                 var IncludesNodes = MemberNode.SelectNodes(L.Comment.XmlTags.Include);
 
+                var FeatureNodes = MemberNode.SelectNodes(L.Comment.XmlTags.Feature);
+                var ClassFeatureNodes = MemberNode.SelectNodes(L.Comment.XmlTags.ClassFeature);
+                var ProjectFeatureNodes = MemberNode.SelectNodes(L.Comment.XmlTags.ProjectFeature);
+
                 string Summary = SummaryNode?.InnerText ?? "";
                 //string Returns = ReturnsNode?.InnerText ?? "";
 
@@ -58,6 +62,10 @@ namespace LCore.Extensions
                 var Exceptions = new List<Set<string, string>>();
                 var Permissions = new List<Set<string, string>>();
                 var Includes = new List<Set<string, string>>();
+
+                var Features = new List<string>();
+                var ClassFeatures = new List<string>();
+                var ProjectFeatures = new List<string>();
 
                 // ReSharper disable LoopCanBeConvertedToQuery
                 if (TypeParamNodes != null)
@@ -124,20 +132,40 @@ namespace LCore.Extensions
                             Permissions.Add(new Set<string, string>(PermissionCref, PermissionDescription));
                             }
                         }
+
+                if (FeatureNodes != null)
+                    foreach (XmlNode Node in FeatureNodes)
+                        {
+                        Features.Add(Node.InnerText);
+                        }
+                if (ClassFeatureNodes != null)
+                    foreach (XmlNode Node in ClassFeatureNodes)
+                        {
+                        ClassFeatures.Add(Node.InnerText);
+                        }
+                if (ProjectFeatureNodes != null)
+                    foreach (XmlNode Node in ProjectFeatureNodes)
+                        {
+                        ProjectFeatures.Add(Node.InnerText);
+                        }
+
                 // ReSharper restore LoopCanBeConvertedToQuery
 
                 var Out = new CodeComment
                     {
                     Summary = Summary,
                     Returns = Returns,
-                    Examples = Examples.ToArray(),
-                    Parameters = Params.ToArray(),
+                    Examples = Examples.Array(),
+                    Parameters = Params.Array(),
                     Exceptions = Exceptions.ToArray(),
-                    Permissions = Permissions.ToArray(),
+                    Permissions = Permissions.Array(),
                     TypeParameters = TypeParameters.ToArray(),
-                    Includes = Includes.ToArray(),
+                    Includes = Includes.Array(),
                     Remarks = RemarksNode?.InnerText,
-                    Value = ValueNode?.InnerText
+                    Value = ValueNode?.InnerText,
+                    Features = Features.Array(),
+                    ClassFeatures = ClassFeatures.Array(),
+                    ProjectFeatures = ProjectFeatures.Array()
                     };
 
                 return Out;
@@ -228,16 +256,16 @@ namespace LCore.Extensions
 
             switch (Type?.Name)
                 {
-                    case nameof(PropertyInfo):
-                        return ((PropertyInfo) In).GetCommentName();
-                    case nameof(FieldInfo):
-                        return ((FieldInfo) In).GetCommentName();
-                    case nameof(MethodInfo):
-                        return ((MethodInfo) In).GetCommentName();
-                    case nameof(TypeInfo):
-                        return ((TypeInfo) In).GetCommentName();
-                    default:
-                        return "";
+                case nameof(PropertyInfo):
+                    return ((PropertyInfo)In).GetCommentName();
+                case nameof(FieldInfo):
+                    return ((FieldInfo)In).GetCommentName();
+                case nameof(MethodInfo):
+                    return ((MethodInfo)In).GetCommentName();
+                case nameof(TypeInfo):
+                    return ((TypeInfo)In).GetCommentName();
+                default:
+                    return "";
                 }
             }
 
@@ -261,32 +289,32 @@ namespace LCore.Extensions
             {
             return new Func<MemberInfo, List<XmlNode>>(Member =>
                 {
-                var Type = Member is Type
-                    ? (Type) Member
-                    : Member.ReflectedType;
+                    var Type = Member is Type
+                        ? (Type)Member
+                        : Member.ReflectedType;
 
-                if (Type != null)
-                    {
-                    var Assem = Assembly.GetAssembly(Type);
-
-                    string ProjectFolder = AppDomain.CurrentDomain.BaseDirectory;
-                    string DocFile = ProjectFolder;
-
-                    DocFile = !DocFile.EndsWith("\\bin\\Debug") && !DocFile.EndsWith("\\bin\\Release")
-                        ? L.File.CombinePaths(ProjectFolder, $"bin\\{Assem.GetName().Name}.xml")
-                        : L.File.CombinePaths(ProjectFolder, $"\\{Assem.GetName().Name}.xml");
-
-                    if (File.Exists(DocFile))
+                    if (Type != null)
                         {
-                        var Doc = new XmlDocument();
-                        Doc.Load(DocFile);
+                        var Assem = Assembly.GetAssembly(Type);
 
-                        List<XmlNode> MemberNodes = Doc.SelectNodes("//member").List<XmlNode>();
+                        string ProjectFolder = AppDomain.CurrentDomain.BaseDirectory;
+                        string DocFile = ProjectFolder;
 
-                        return MemberNodes;
+                        DocFile = !DocFile.EndsWith("\\bin\\Debug") && !DocFile.EndsWith("\\bin\\Release")
+                            ? L.File.CombinePaths(ProjectFolder, $"bin\\{Assem.GetName().Name}.xml")
+                            : L.File.CombinePaths(ProjectFolder, $"\\{Assem.GetName().Name}.xml");
+
+                        if (File.Exists(DocFile))
+                            {
+                            var Doc = new XmlDocument();
+                            Doc.Load(DocFile);
+
+                            List<XmlNode> MemberNodes = Doc.SelectNodes("//member").List<XmlNode>();
+
+                            return MemberNodes;
+                            }
                         }
-                    }
-                return new List<XmlNode>();
+                    return new List<XmlNode>();
                 }).Cache(nameof(CommentExt) + nameof(GetCommentNodes))(In);
             }
 
@@ -365,6 +393,10 @@ namespace LCore.Extensions
                 internal static readonly string Include = nameof(Include).ToLower();
                 internal static readonly string File = nameof(File).ToLower();
                 internal static readonly string Path = nameof(Path).ToLower();
+
+                internal static readonly string Feature = nameof(Feature).ToLower();
+                internal static readonly string ClassFeature = "classFeature";
+                internal static readonly string ProjectFeature = "projectFeature";
                 }
 
             #endregion
