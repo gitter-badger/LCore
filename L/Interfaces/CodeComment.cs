@@ -85,5 +85,10 @@ namespace LCore.Interfaces
         /// Project feature comments
         /// </summary>
         public string[] ProjectFeatures { get; set; }
+
+        /// <summary>
+        /// Tested feature comments
+        /// </summary>
+        public string[] TestedFeatures { get; set; }
         }
     }

@@ -69,18 +69,22 @@ namespace L_Tests.LCore.Extensions
             Comments.Features.Should().Equal("1", "a");
             Comments.ClassFeatures.Should().Equal("2");
             Comments.ProjectFeatures.Should().Equal("3");
+            Comments.TestedFeatures.Should().Equal("4");
 
             Comments2.Features.Should().Equal("1", "a");
             Comments2.ClassFeatures.Should().Equal("2");
             Comments2.ProjectFeatures.Should().Equal("3");
+            Comments2.TestedFeatures.Should().Equal("4");
 
             Comments3.Features.Should().Equal("1", "a");
             Comments3.ClassFeatures.Should().Equal("2");
             Comments3.ProjectFeatures.Should().Equal("3");
+            Comments3.TestedFeatures.Should().Equal("4");
 
             Comments4.Features.Should().Equal("1", "a");
             Comments4.ClassFeatures.Should().Equal("2");
             Comments4.ProjectFeatures.Should().Equal("3");
+            Comments4.TestedFeatures.Should().Equal("4");
 
             typeof(CommentExtTester).GetComments().Should().BeNull();
 

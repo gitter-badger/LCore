@@ -53,6 +53,7 @@ namespace LCore.Extensions
                 var FeatureNodes = MemberNode.SelectNodes(L.Comment.XmlTags.Feature);
                 var ClassFeatureNodes = MemberNode.SelectNodes(L.Comment.XmlTags.ClassFeature);
                 var ProjectFeatureNodes = MemberNode.SelectNodes(L.Comment.XmlTags.ProjectFeature);
+                var TestedFeatureNodes = MemberNode.SelectNodes(L.Comment.XmlTags.TestedFeature);
 
                 string Summary = SummaryNode?.InnerText ?? "";
                 //string Returns = ReturnsNode?.InnerText ?? "";
@@ -66,6 +67,8 @@ namespace LCore.Extensions
                 var Features = new List<string>();
                 var ClassFeatures = new List<string>();
                 var ProjectFeatures = new List<string>();
+                var TestedFeatures = new List<string>();
+
 
                 // ReSharper disable LoopCanBeConvertedToQuery
                 if (TypeParamNodes != null)
@@ -148,6 +151,11 @@ namespace LCore.Extensions
                         {
                         ProjectFeatures.Add(Node.InnerText);
                         }
+                if (TestedFeatureNodes != null)
+                    foreach (XmlNode Node in TestedFeatureNodes)
+                        {
+                        TestedFeatures.Add(Node.InnerText);
+                        }
 
                 // ReSharper restore LoopCanBeConvertedToQuery
 
@@ -165,7 +173,8 @@ namespace LCore.Extensions
                     Value = ValueNode?.InnerText,
                     Features = Features.Array(),
                     ClassFeatures = ClassFeatures.Array(),
-                    ProjectFeatures = ProjectFeatures.Array()
+                    ProjectFeatures = ProjectFeatures.Array(),
+                    TestedFeatures = TestedFeatures.Array()
                     };
 
                 return Out;
@@ -330,6 +339,7 @@ namespace LCore.Extensions
         /// <feature>a</feature>
         /// <classFeature>2</classFeature>
         /// <projectFeature>3</projectFeature>
+        /// <testedFeature>4</testedFeature>
         public static class Comment
             {
             /// <summary>
@@ -357,6 +367,7 @@ namespace LCore.Extensions
                 /// <feature>a</feature>
                 /// <classFeature>2</classFeature>
                 /// <projectFeature>3</projectFeature>
+                /// <testedFeature>4</testedFeature>
                 // ReSharper disable once UnusedTypeParameter
                 public static string TestMethod<T>(int A, string B)
                     {
@@ -378,6 +389,7 @@ namespace LCore.Extensions
                 /// <feature>a</feature>
                 /// <classFeature>2</classFeature>
                 /// <projectFeature>3</projectFeature>
+                /// <testedFeature>4</testedFeature>
                 public static string TestProperty { get; set; }
 
                 /// <summary>
@@ -387,6 +399,7 @@ namespace LCore.Extensions
                 /// <feature>a</feature>
                 /// <classFeature>2</classFeature>
                 /// <projectFeature>3</projectFeature>
+                /// <testedFeature>4</testedFeature>
                 // ReSharper disable once UnassignedField.Global
                 public static string TestField;
                 }
@@ -413,6 +426,7 @@ namespace LCore.Extensions
                 internal static readonly string Feature = nameof(Feature).ToLower();
                 internal static readonly string ClassFeature = "classFeature";
                 internal static readonly string ProjectFeature = "projectFeature";
+                internal static readonly string TestedFeature = "testedFeature";
                 }
 
             #endregion
