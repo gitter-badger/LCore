@@ -29,7 +29,7 @@ namespace LCore.Tools
         /// <summary>
         /// Create a new GitHumMarkdown document without specifying a file title or location
         /// </summary>
-        public GitHubMarkdown() {}
+        public GitHubMarkdown() { }
 
         /// <summary>
         /// Create a new GitHumMarkdown document specifying a file title and location
@@ -134,7 +134,7 @@ namespace LCore.Tools
         /// </summary>
         public void OrderedList([CanBeNull] params Tuple<uint, string>[] DepthLine)
             {
-            DepthLine.Each(Line => this.OrderedList((Set<uint, string>) Line));
+            DepthLine.Each(Line => this.OrderedList((Set<uint, string>)Line));
             }
 
         /// <summary>
@@ -155,13 +155,13 @@ namespace LCore.Tools
 
             DepthLine.Each(Line =>
                 {
-                if (LastLevel == null || Line.Obj1 != LastLevel)
-                    CurrentNumber = 1;
+                    if (LastLevel == null || Line.Obj1 != LastLevel)
+                        CurrentNumber = 1;
 
-                this.Line($"{"  ".Times(Line.Obj1)}{CurrentNumber}{Line.Obj2}");
+                    this.Line($"{"  ".Times(Line.Obj1)}{CurrentNumber}{Line.Obj2}");
 
-                LastLevel = Line.Obj1;
-                CurrentNumber++;
+                    LastLevel = Line.Obj1;
+                    CurrentNumber++;
                 });
             }
 
@@ -191,7 +191,7 @@ namespace LCore.Tools
         /// </summary>
         public void UnorderedList([CanBeNull] params Tuple<uint, string>[] DepthLine)
             {
-            DepthLine.Each(Line => this.UnorderedList((Set<uint, string>) Line));
+            DepthLine.Each(Line => this.UnorderedList((Set<uint, string>)Line));
             }
 
         /// <summary>
@@ -294,17 +294,17 @@ namespace LCore.Tools
 
             Rows.Each((i, Row) =>
                 {
-                var Cells = new List<string>();
+                    var Cells = new List<string>();
 
-                Row.Each((j, Column) =>
-                    {
-                    Cells.Add(Column);
+                    Row.Each((j, Column) =>
+                        {
+                            Cells.Add(Column);
+                            if (IncludeHeader && i == 0)
+                                Divider.Add(" --- ");
+                        });
+                    Table.Add(Cells.JoinLines(" | "));
                     if (IncludeHeader && i == 0)
-                        Divider.Add(" --- ");
-                    });
-                Table.Add(Cells.JoinLines(" | "));
-                if (IncludeHeader && i == 0)
-                    Table.Add(Divider.JoinLines(" | "));
+                        Table.Add(Divider.JoinLines(" | "));
                 });
 
             Table.Each(this.Line);
@@ -444,6 +444,34 @@ namespace LCore.Tools
             {
             return $"<span class=\"glyphicon glyphicon-{Glyph.ToString().ToLower().Trim('_').ReplaceAll("_", "-")}\"></span>";
             }
+
+        /// <summary>
+        /// Adds a Buckler badge, hosted on http://b.repl.ca/
+        /// </summary>
+        public string Badge(string Left, string Right, string HexColor)
+            {
+            return $"![{Left} {Right}](http://b.repl.ca/v1/" +
+                   $"{Left.UriEncode()}-{Right.UriEncode()}-{HexColor}.png)";
+            }
+
+        /// <summary>
+        /// Adds a Buckler badge, hosted on http://b.repl.ca/
+        /// </summary>
+        public string Badge(string Left, string Right, BadgeColor Color)
+            {
+            return $"![{Left} {Right}](http://b.repl.ca/v1/" +
+                   $"{Left.UriEncode()}-{Right.UriEncode()}-{Color.ToString().ToLower()}.png)";
+            }
+
+        /// <summary>
+        /// Pre-defined Buckler badge colors (http://b.repl.ca/)
+        /// </summary>
+        public enum BadgeColor
+            {
+#pragma warning disable 1591
+            BrightGreen, Green, YellowGreen, Yellow, Orange, Red, Blue, LightGrey, Grey
+#pragma warning restore 1591
+            }
         }
-    
+
     }

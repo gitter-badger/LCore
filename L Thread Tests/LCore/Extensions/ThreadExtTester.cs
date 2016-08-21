@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Threading;
-using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
-using LCore.LUnit.Fluent;
-using LCore.Tools;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Xunit;
 using Xunit.Abstractions;
+#if DEBUG
+using LCore.LUnit.Fluent;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using LCore.Tools;
+using Xunit;
+#endif
 
 // ReSharper disable PartialTypeWithSinglePart
 

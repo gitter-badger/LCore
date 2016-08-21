@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit;
+using Xunit.Abstractions;
+#if DEBUG
 using LCore.LUnit.Fluent;
+using System.Threading;
 using LCore.Tools;
 using Xunit;
-using Xunit.Abstractions;
+#endif
 
 namespace L_Tests.LCore.Tools
     {

@@ -36,7 +36,7 @@ namespace LCore.Tools
 
             if (Member is MethodInfo)
                 {
-                var Method = (MethodInfo) Member;
+                var Method = (MethodInfo)Member;
 
                 var Comments = Method.GetComments();
 
@@ -77,8 +77,8 @@ namespace LCore.Tools
                     // TODO: Add parameter type link
                     Method.GetParameters().Each((ParamIndex, Param) =>
                         {
-                        Table.Add(new[]
-                            {
+                            Table.Add(new[]
+                                {
                             Param.Name,
                             Param.IsOptional
                                 ? "Yes"
@@ -103,7 +103,7 @@ namespace LCore.Tools
                 if (Comments?.Examples.Length > 0)
                     {
                     MD.Header("Examples", Size: 4);
-                    Comments.Examples.Each(Example => MD.Code(new[] {Example}));
+                    Comments.Examples.Each(Example => MD.Code(new[] { Example }));
                     }
 
                 // TODO: Add source link

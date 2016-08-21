@@ -21,17 +21,19 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<bool> Try([CanBeNull]this Action In)
             {
+            In = In ?? (() => { });
+
             return () =>
                 {
-                try
-                    {
-                    In();
-                    return true;
-                    }
-                catch
-                    {
-                    return false;
-                    }
+                    try
+                        {
+                        In();
+                        return true;
+                        }
+                    catch
+                        {
+                        return false;
+                        }
                 };
             }
 
@@ -40,17 +42,18 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, bool> Try<T1>([CanBeNull]this Action<T1> In)
             {
+            In = In ?? (o => { });
             return o =>
                 {
-                try
-                    {
-                    In(o);
-                    return true;
-                    }
-                catch
-                    {
-                    return false;
-                    }
+                    try
+                        {
+                        In(o);
+                        return true;
+                        }
+                    catch
+                        {
+                        return false;
+                        }
                 };
             }
 
@@ -59,17 +62,18 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, T2, bool> Try<T1, T2>([CanBeNull]this Action<T1, T2> In)
             {
+            In = In ?? ((o1, o2) => { });
             return (o1, o2) =>
                 {
-                try
-                    {
-                    In(o1, o2);
-                    return true;
-                    }
-                catch
-                    {
-                    return false;
-                    }
+                    try
+                        {
+                        In(o1, o2);
+                        return true;
+                        }
+                    catch
+                        {
+                        return false;
+                        }
                 };
             }
 
@@ -78,17 +82,18 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, T2, T3, bool> Try<T1, T2, T3>([CanBeNull]this Action<T1, T2, T3> In)
             {
+            In = In ?? ((o1, o2, o3) => { });
             return (o1, o2, o3) =>
                 {
-                try
-                    {
-                    In(o1, o2, o3);
-                    return true;
-                    }
-                catch
-                    {
-                    return false;
-                    }
+                    try
+                        {
+                        In(o1, o2, o3);
+                        return true;
+                        }
+                    catch
+                        {
+                        return false;
+                        }
                 };
             }
 
@@ -97,17 +102,18 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, T2, T3, T4, bool> Try<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In)
             {
+            In = In ?? ((o1, o2, o3, o4) => { });
             return (o1, o2, o3, o4) =>
                 {
-                try
-                    {
-                    In(o1, o2, o3, o4);
-                    return true;
-                    }
-                catch
-                    {
-                    return false;
-                    }
+                    try
+                        {
+                        In(o1, o2, o3, o4);
+                        return true;
+                        }
+                    catch
+                        {
+                        return false;
+                        }
                 };
             }
 
@@ -213,16 +219,17 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<U> Try<U>([CanBeNull]this Func<U> In)
             {
+            In = In ?? (() => default(U));
             return () =>
                 {
-                try
-                    {
-                    return In();
-                    }
-                catch
-                    {
-                    return default(U);
-                    }
+                    try
+                        {
+                        return In();
+                        }
+                    catch
+                        {
+                        return default(U);
+                        }
                 };
             }
 
@@ -231,16 +238,17 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, U> Try<T1, U>([CanBeNull]this Func<T1, U> In)
             {
+            In = In ?? (o1 => default(U));
             return o1 =>
                 {
-                try
-                    {
-                    return In(o1);
-                    }
-                catch
-                    {
-                    return default(U);
-                    }
+                    try
+                        {
+                        return In(o1);
+                        }
+                    catch
+                        {
+                        return default(U);
+                        }
                 };
             }
 
@@ -249,16 +257,17 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, T2, U> Try<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In)
             {
+            In = In ?? ((o1,o2) => default(U));
             return (o1, o2) =>
                 {
-                try
-                    {
-                    return In(o1, o2);
-                    }
-                catch
-                    {
-                    return default(U);
-                    }
+                    try
+                        {
+                        return In(o1, o2);
+                        }
+                    catch
+                        {
+                        return default(U);
+                        }
                 };
             }
 
@@ -267,16 +276,17 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, T2, T3, U> Try<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In)
             {
+            In = In ?? ((o1, o2, o3) => default(U));
             return (o1, o2, o3) =>
                 {
-                try
-                    {
-                    return In(o1, o2, o3);
-                    }
-                catch
-                    {
-                    return default(U);
-                    }
+                    try
+                        {
+                        return In(o1, o2, o3);
+                        }
+                    catch
+                        {
+                        return default(U);
+                        }
                 };
             }
 
@@ -285,16 +295,17 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, T2, T3, T4, U> Try<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In)
             {
+            In = In ?? ((o1, o2, o3, o4) => default(U));
             return (o1, o2, o3, o4) =>
                 {
-                try
-                    {
-                    return In(o1, o2, o3, o4);
-                    }
-                catch
-                    {
-                    return default(U);
-                    }
+                    try
+                        {
+                        return In(o1, o2, o3, o4);
+                        }
+                    catch
+                        {
+                        return default(U);
+                        }
                 };
             }
 
@@ -648,14 +659,14 @@ namespace LCore.Extensions
             {
             return () =>
                 {
-                try
-                    {
-                    In();
-                    }
-                catch (E Ex)
-                    {
-                    Catch(Ex);
-                    }
+                    try
+                        {
+                        In();
+                        }
+                    catch (E Ex)
+                        {
+                        Catch(Ex);
+                        }
                 };
             }
 
@@ -666,14 +677,14 @@ namespace LCore.Extensions
             {
             return o =>
                 {
-                try
-                    {
-                    In(o);
-                    }
-                catch (E Ex)
-                    {
-                    Catch(Ex);
-                    }
+                    try
+                        {
+                        In(o);
+                        }
+                    catch (E Ex)
+                        {
+                        Catch(Ex);
+                        }
                 };
             }
 
@@ -684,14 +695,14 @@ namespace LCore.Extensions
             {
             return (o1, o2) =>
                 {
-                try
-                    {
-                    In(o1, o2);
-                    }
-                catch (E Ex)
-                    {
-                    Catch(Ex);
-                    }
+                    try
+                        {
+                        In(o1, o2);
+                        }
+                    catch (E Ex)
+                        {
+                        Catch(Ex);
+                        }
                 };
             }
 
@@ -705,14 +716,14 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3) =>
                 {
-                try
-                    {
-                    In(o1, o2, o3);
-                    }
-                catch (E Ex)
-                    {
-                    Catch(Ex);
-                    }
+                    try
+                        {
+                        In(o1, o2, o3);
+                        }
+                    catch (E Ex)
+                        {
+                        Catch(Ex);
+                        }
                 };
             }
 
@@ -723,14 +734,14 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3, o4) =>
                 {
-                try
-                    {
-                    In(o1, o2, o3, o4);
-                    }
-                catch (E Ex)
-                    {
-                    Catch(Ex);
-                    }
+                    try
+                        {
+                        In(o1, o2, o3, o4);
+                        }
+                    catch (E Ex)
+                        {
+                        Catch(Ex);
+                        }
                 };
             }
 
@@ -826,15 +837,15 @@ namespace LCore.Extensions
             {
             return () =>
                 {
-                try
-                    {
-                    return In();
-                    }
-                catch (E Ex)
-                    {
-                    Catch(Ex);
-                    return default(U);
-                    }
+                    try
+                        {
+                        return In();
+                        }
+                    catch (E Ex)
+                        {
+                        Catch(Ex);
+                        return default(U);
+                        }
                 };
             }
 
@@ -845,15 +856,15 @@ namespace LCore.Extensions
             {
             return o =>
                 {
-                try
-                    {
-                    return In(o);
-                    }
-                catch (E Ex)
-                    {
-                    Catch(Ex);
-                    return default(U);
-                    }
+                    try
+                        {
+                        return In(o);
+                        }
+                    catch (E Ex)
+                        {
+                        Catch(Ex);
+                        return default(U);
+                        }
                 };
             }
 
@@ -864,15 +875,15 @@ namespace LCore.Extensions
             {
             return (o1, o2) =>
                 {
-                try
-                    {
-                    return In(o1, o2);
-                    }
-                catch (E Ex)
-                    {
-                    Catch(Ex);
-                    return default(U);
-                    }
+                    try
+                        {
+                        return In(o1, o2);
+                        }
+                    catch (E Ex)
+                        {
+                        Catch(Ex);
+                        return default(U);
+                        }
                 };
             }
 
@@ -883,15 +894,15 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3) =>
                 {
-                try
-                    {
-                    return In(o1, o2, o3);
-                    }
-                catch (E Ex)
-                    {
-                    Catch(Ex);
-                    return default(U);
-                    }
+                    try
+                        {
+                        return In(o1, o2, o3);
+                        }
+                    catch (E Ex)
+                        {
+                        Catch(Ex);
+                        return default(U);
+                        }
                 };
             }
 
@@ -903,15 +914,15 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3, o4) =>
                 {
-                try
-                    {
-                    return In(o1, o2, o3, o4);
-                    }
-                catch (E Ex)
-                    {
-                    Catch(Ex);
-                    return default(U);
-                    }
+                    try
+                        {
+                        return In(o1, o2, o3, o4);
+                        }
+                    catch (E Ex)
+                        {
+                        Catch(Ex);
+                        return default(U);
+                        }
                 };
             }
 
@@ -1007,14 +1018,14 @@ namespace LCore.Extensions
             {
             return () =>
                 {
-                try
-                    {
-                    return In();
-                    }
-                catch (E Ex)
-                    {
-                    return Catch(Ex);
-                    }
+                    try
+                        {
+                        return In();
+                        }
+                    catch (E Ex)
+                        {
+                        return Catch(Ex);
+                        }
                 };
             }
 
@@ -1025,14 +1036,14 @@ namespace LCore.Extensions
             {
             return o =>
                 {
-                try
-                    {
-                    return In(o);
-                    }
-                catch (E Ex)
-                    {
-                    return Catch(Ex);
-                    }
+                    try
+                        {
+                        return In(o);
+                        }
+                    catch (E Ex)
+                        {
+                        return Catch(Ex);
+                        }
                 };
             }
 
@@ -1043,14 +1054,14 @@ namespace LCore.Extensions
             {
             return (o1, o2) =>
                 {
-                try
-                    {
-                    return In(o1, o2);
-                    }
-                catch (E Ex)
-                    {
-                    return Catch(Ex);
-                    }
+                    try
+                        {
+                        return In(o1, o2);
+                        }
+                    catch (E Ex)
+                        {
+                        return Catch(Ex);
+                        }
                 };
             }
 
@@ -1061,14 +1072,14 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3) =>
                 {
-                try
-                    {
-                    return In(o1, o2, o3);
-                    }
-                catch (E Ex)
-                    {
-                    return Catch(Ex);
-                    }
+                    try
+                        {
+                        return In(o1, o2, o3);
+                        }
+                    catch (E Ex)
+                        {
+                        return Catch(Ex);
+                        }
                 };
             }
 
@@ -1080,14 +1091,14 @@ namespace LCore.Extensions
             {
             return (o1, o2, o3, o4) =>
                 {
-                try
-                    {
-                    return In(o1, o2, o3, o4);
-                    }
-                catch (E Ex)
-                    {
-                    return Catch(Ex);
-                    }
+                    try
+                        {
+                        return In(o1, o2, o3, o4);
+                        }
+                    catch (E Ex)
+                        {
+                        return Catch(Ex);
+                        }
                 };
             }
 
@@ -1450,23 +1461,23 @@ namespace LCore.Extensions
 
             return () =>
                 {
-                while (true)
-                    {
-                    try
+                    while (true)
                         {
-                        In();
-                        return;
-                        }
-                    catch (Exception)
-                        {
-                        if (Tries > 0)
+                        try
                             {
-                            Tries--;
-                            continue;
+                            In();
+                            return;
                             }
-                        throw;
+                        catch (Exception)
+                            {
+                            if (Tries > 0)
+                                {
+                                Tries--;
+                                continue;
+                                }
+                            throw;
+                            }
                         }
-                    }
                 };
             }
 
@@ -1486,23 +1497,23 @@ namespace LCore.Extensions
 
             return o =>
                 {
-                while (true)
-                    {
-                    try
+                    while (true)
                         {
-                        In(o);
-                        return;
-                        }
-                    catch (Exception)
-                        {
-                        if (Tries > 0)
+                        try
                             {
-                            Tries--;
-                            continue;
+                            In(o);
+                            return;
                             }
-                        throw;
+                        catch (Exception)
+                            {
+                            if (Tries > 0)
+                                {
+                                Tries--;
+                                continue;
+                                }
+                            throw;
+                            }
                         }
-                    }
                 };
             }
 
@@ -1522,23 +1533,23 @@ namespace LCore.Extensions
 
             return (o1, o2) =>
                 {
-                while (true)
-                    {
-                    try
+                    while (true)
                         {
-                        In(o1, o2);
-                        return;
-                        }
-                    catch (Exception)
-                        {
-                        if (Tries > 0)
+                        try
                             {
-                            Tries--;
-                            continue;
+                            In(o1, o2);
+                            return;
                             }
-                        throw;
+                        catch (Exception)
+                            {
+                            if (Tries > 0)
+                                {
+                                Tries--;
+                                continue;
+                                }
+                            throw;
+                            }
                         }
-                    }
                 };
             }
 
@@ -1549,8 +1560,8 @@ namespace LCore.Extensions
         /// will be executed at most  <paramref name="Tries" /> + 1 times.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
-        public static Action<T1, T2, T3> Retry<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In, 
-            [TestBound(Minimum: 1,Maximum: 100)]int Tries = 1)
+        public static Action<T1, T2, T3> Retry<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In,
+            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
             {
             In = In ?? ((o1, o2, o3) => { });
             if (Tries <= 0)
@@ -1558,23 +1569,23 @@ namespace LCore.Extensions
 
             return (o1, o2, o3) =>
                 {
-                while (true)
-                    {
-                    try
+                    while (true)
                         {
-                        In(o1, o2, o3);
-                        return;
-                        }
-                    catch (Exception)
-                        {
-                        if (Tries > 0)
+                        try
                             {
-                            Tries--;
-                            continue;
+                            In(o1, o2, o3);
+                            return;
                             }
-                        throw;
+                        catch (Exception)
+                            {
+                            if (Tries > 0)
+                                {
+                                Tries--;
+                                continue;
+                                }
+                            throw;
+                            }
                         }
-                    }
                 };
             }
 
@@ -1594,23 +1605,23 @@ namespace LCore.Extensions
 
             return (o1, o2, o3, o4) =>
                 {
-                while (true)
-                    {
-                    try
+                    while (true)
                         {
-                        In(o1, o2, o3, o4);
-                        return;
-                        }
-                    catch (Exception)
-                        {
-                        if (Tries > 0)
+                        try
                             {
-                            Tries--;
-                            continue;
+                            In(o1, o2, o3, o4);
+                            return;
                             }
-                        throw;
+                        catch (Exception)
+                            {
+                            if (Tries > 0)
+                                {
+                                Tries--;
+                                continue;
+                                }
+                            throw;
+                            }
                         }
-                    }
                 };
             }
 
@@ -1630,22 +1641,22 @@ namespace LCore.Extensions
 
             return () =>
                 {
-                while (true)
-                    {
-                    try
+                    while (true)
                         {
-                        return In();
-                        }
-                    catch (Exception)
-                        {
-                        if (Tries > 0)
+                        try
                             {
-                            Tries--;
-                            continue;
+                            return In();
                             }
-                        throw;
+                        catch (Exception)
+                            {
+                            if (Tries > 0)
+                                {
+                                Tries--;
+                                continue;
+                                }
+                            throw;
+                            }
                         }
-                    }
                 };
             }
 
@@ -1665,22 +1676,22 @@ namespace LCore.Extensions
 
             return o =>
                 {
-                while (true)
-                    {
-                    try
+                    while (true)
                         {
-                        return In(o);
-                        }
-                    catch (Exception)
-                        {
-                        if (Tries > 0)
+                        try
                             {
-                            Tries--;
-                            continue;
+                            return In(o);
                             }
-                        throw;
+                        catch (Exception)
+                            {
+                            if (Tries > 0)
+                                {
+                                Tries--;
+                                continue;
+                                }
+                            throw;
+                            }
                         }
-                    }
                 };
             }
 
@@ -1701,22 +1712,22 @@ namespace LCore.Extensions
 
             return (o1, o2) =>
                 {
-                while (true)
-                    {
-                    try
+                    while (true)
                         {
-                        return In(o1, o2);
-                        }
-                    catch (Exception)
-                        {
-                        if (Tries > 0)
+                        try
                             {
-                            Tries--;
-                            continue;
+                            return In(o1, o2);
                             }
-                        throw;
+                        catch (Exception)
+                            {
+                            if (Tries > 0)
+                                {
+                                Tries--;
+                                continue;
+                                }
+                            throw;
+                            }
                         }
-                    }
                 };
             }
 
@@ -1737,22 +1748,22 @@ namespace LCore.Extensions
 
             return (o1, o2, o3) =>
                 {
-                while (true)
-                    {
-                    try
+                    while (true)
                         {
-                        return In(o1, o2, o3);
-                        }
-                    catch (Exception)
-                        {
-                        if (Tries > 0)
+                        try
                             {
-                            Tries--;
-                            continue;
+                            return In(o1, o2, o3);
                             }
-                        throw;
+                        catch (Exception)
+                            {
+                            if (Tries > 0)
+                                {
+                                Tries--;
+                                continue;
+                                }
+                            throw;
+                            }
                         }
-                    }
                 };
             }
 
@@ -1763,8 +1774,8 @@ namespace LCore.Extensions
         /// will be executed at most <paramref name="Tries" /> + 1 times.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Tries" /> is less than 1.</exception>
-        public static Func<T1, T2, T3, T4, U> Retry<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In, 
-            [TestBound(Minimum: 1,Maximum: 100)]int Tries = 1)
+        public static Func<T1, T2, T3, T4, U> Retry<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In,
+            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
             {
             In = In ?? ((o1, o2, o3, o4) => default(U));
             if (Tries <= 0)
@@ -1772,22 +1783,22 @@ namespace LCore.Extensions
 
             return (o1, o2, o3, o4) =>
                 {
-                while (true)
-                    {
-                    try
+                    while (true)
                         {
-                        return In(o1, o2, o3, o4);
-                        }
-                    catch (Exception)
-                        {
-                        if (Tries > 0)
+                        try
                             {
-                            Tries--;
-                            continue;
+                            return In(o1, o2, o3, o4);
                             }
-                        throw;
+                        catch (Exception)
+                            {
+                            if (Tries > 0)
+                                {
+                                Tries--;
+                                continue;
+                                }
+                            throw;
+                            }
                         }
-                    }
                 };
             }
 
@@ -1800,7 +1811,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Action<T1> Debug<T1>([CanBeNull] this Action<T1> In)
             {
-            return o1 => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1})))(o1); };
+            return o1 => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1 })))(o1); };
             }
 
         /// <summary>
@@ -1808,7 +1819,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Action<T1, T2> Debug<T1, T2>([CanBeNull] this Action<T1, T2> In)
             {
-            return (o1, o2) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2})))(o1, o2); };
+            return (o1, o2) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2 })))(o1, o2); };
             }
 
         /// <summary>
@@ -1816,7 +1827,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Action<T1, T2, T3> Debug<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In)
             {
-            return (o1, o2, o3) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3})))(o1, o2, o3); };
+            return (o1, o2, o3) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3 })))(o1, o2, o3); };
             }
 
         /// <summary>
@@ -1825,7 +1836,7 @@ namespace LCore.Extensions
         public static Action<T1, T2, T3, T4> Debug<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3, T4> In)
             {
             return
-                (o1, o2, o3, o4) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3, o4})))(o1, o2, o3, o4); };
+                (o1, o2, o3, o4) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3, o4 })))(o1, o2, o3, o4); };
             }
 
         /// <summary>
@@ -1833,7 +1844,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, U> Debug<T1, U>([CanBeNull] this Func<T1, U> In)
             {
-            return o1 => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1})))(o1);
+            return o1 => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1 })))(o1);
             }
 
         /// <summary>
@@ -1841,7 +1852,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, T2, U> Debug<T1, T2, U>([CanBeNull] this Func<T1, T2, U> In)
             {
-            return (o1, o2) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2})))(o1, o2);
+            return (o1, o2) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2 })))(o1, o2);
             }
 
         /// <summary>
@@ -1849,7 +1860,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, T2, T3, U> Debug<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, T3, U> In)
             {
-            return (o1, o2, o3) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3})))(o1, o2, o3);
+            return (o1, o2, o3) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3 })))(o1, o2, o3);
             }
 
         /// <summary>
@@ -1857,7 +1868,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, T2, T3, T4, U> Debug<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In)
             {
-            return (o1, o2, o3, o4) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3, o4})))(o1, o2, o3, o4);
+            return (o1, o2, o3, o4) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3, o4 })))(o1, o2, o3, o4);
             }
 
         #endregion

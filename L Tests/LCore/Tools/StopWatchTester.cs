@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Threading;
-using FluentAssertions;
 using JetBrains.Annotations;
 using LCore.LUnit;
+using Xunit.Abstractions;
+#if DEBUG
+using System.Threading;
+using FluentAssertions;
 using LCore.Tools;
 using Xunit;
-using Xunit.Abstractions;
+#endif
 
 // ReSharper disable PartialTypeWithSinglePart
 

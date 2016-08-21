@@ -1958,6 +1958,22 @@ namespace LCore.Extensions
         #endregion
 
         #endregion
+
+        /// <summary>
+        /// Encode a string, shorthand for Uri.EscapeUriString
+        /// </summary>
+        public static string UriEncode([CanBeNull]this string In)
+            {
+            return Uri.EscapeUriString(In);
+            }
+
+        /// <summary>
+        /// Encode a string, shorthand for Uri.UnescapeDataString
+        /// </summary>
+        public static string UriDecode([CanBeNull]this string In)
+            {
+            return Uri.UnescapeDataString(In);
+            }
         }
 
     public static partial class L

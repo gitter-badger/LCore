@@ -887,7 +887,7 @@ namespace L_Tests.LCore.Extensions
             nameof(ReflectionExt.WithAttribute) + "(IEnumerable<MemberInfo>, Type, Boolean) => List<MemberInfo>")]
         public void WithAttribute()
             {
-            typeof(TestClass).GetMembers().WithAttribute<NotMappedAttribute>().ShouldBeEquivalentTo(new List<MemberInfo>() {
+            typeof(TestClass).GetMembers().WithAttribute<NotMappedAttribute>().ShouldBeEquivalentTo(new List<MemberInfo> {
                 L.Ref.Member<TestClass>(Test => Test.Test),
                 L.Ref.Member<TestClass>(Test => Test.Test2)}
                 );
