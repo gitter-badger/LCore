@@ -1414,6 +1414,28 @@ namespace LCore.Extensions
 
             return null;
             }
+
+        /// <summary>
+        /// Finds a class's source file, if the file name matches the Type name
+        /// </summary>
+        [CanBeNull]
+        public static string FindClassFile([CanBeNull] this Type Type)
+            {
+            if (Type == null)
+                return null;
+
+            string Path = Type.GetAssembly().GetRootPath();
+
+            if (Directory.Exists(Path))
+                {
+                string Out = Directory.GetFiles(Path).First(File => File.ToLower().EndsWith($"{Type.Name.CleanFileName().ToLower()}.cs"));
+
+                if (Out != null)
+                    return Out;
+                }
+
+            return null;
+            }
         }
 
     public static partial class L

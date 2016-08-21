@@ -68,5 +68,13 @@ namespace L_Tests.LCore.Extensions
         {
             // TODO: Implement method test LCore.Extensions.ReflectionExt.IsTestAssembly
         }
+
+        [Fact]
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(ReflectionExt)+ "." + nameof(ReflectionExt.FindClassFile) + "(Type) => String")]
+        public void FindClassFile()
+        {
+            // TODO: Implement method test LCore.Extensions.ReflectionExt.FindClassFile
+        }
+
     }
 }
