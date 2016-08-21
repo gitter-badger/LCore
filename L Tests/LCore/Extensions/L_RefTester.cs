@@ -10,6 +10,7 @@ using LCore.Tests;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
+using System.IO;
 
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
 // ReSharper disable ArgumentsStyleLiteral
@@ -23,9 +24,9 @@ namespace L_Tests.LCore.Extensions
     {
     public partial class L_RefTester : XUnitOutputTester, IDisposable
         {
-        public L_RefTester([NotNull] ITestOutputHelper Output) : base(Output) {}
+        public L_RefTester([NotNull] ITestOutputHelper Output) : base(Output) { }
 
-        public void Dispose() {}
+        public void Dispose() { }
 
         [Fact]
         [Trait(Traits.TargetMember,
@@ -63,7 +64,7 @@ namespace L_Tests.LCore.Extensions
             {
             var Constructor = L.Ref.Constructor(() => new Set<string, string>("", ""));
 
-            var Test = Constructor.Invoke(new object[] {"a", "b"});
+            var Test = Constructor.Invoke(new object[] { "a", "b" });
 
             Test.ShouldBe(new Set<string, string>("a", "b"));
             }
@@ -95,7 +96,7 @@ namespace L_Tests.LCore.Extensions
 
             Member.ShouldNotBeNull();
 
-            var Members = (MemberInfo[]) ((MethodInfo) Member)?.Invoke(obj: null, parameters: new object[] {$"{typeof(L).Namespace}.{nameof(L)}.{nameof(L.Ref)}.{nameof(L.Ref.FindMembers)}", null});
+            var Members = (MemberInfo[])((MethodInfo)Member)?.Invoke(obj: null, parameters: new object[] { $"{typeof(L).Namespace}.{nameof(L)}.{nameof(L.Ref)}.{nameof(L.Ref.FindMembers)}", null });
 
             Members.First().ShouldBe(Member);
             }
@@ -111,8 +112,8 @@ namespace L_Tests.LCore.Extensions
             var Member = L.Ref.Member<ReflectionExtTester.TestClass>(o => o.Test);
 
             Member.ShouldNotBeNull();
-            
-            var Test = new ReflectionExtTester.TestClass {Test = "a"};
+
+            var Test = new ReflectionExtTester.TestClass { Test = "a" };
 
             (Member as PropertyInfo)?.GetValue(Test).ShouldBe("a");
             }
@@ -134,5 +135,30 @@ namespace L_Tests.LCore.Extensions
 
             L.Ref.StaticMethod(Expr: null).ShouldBeNull();
             }
+
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.GetProjectRootPath) + "() => String")]
+        public void GetProjectRootPath()
+            {
+            string Path = L.Ref.GetProjectRootPath();
+            this._Output.WriteLine(Path);
+
+            Directory.Exists(Path).ShouldBeTrue();
+
+            Directory.GetFiles(Path).Has(File => File.EndsWith(".csproj")).ShouldBeTrue();
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Ref) + "." + nameof(L.Ref.GetSolutionRootPath) + "() => String")]
+        public void GetSolutionRootPath()
+            {
+            string Path = L.Ref.GetSolutionRootPath();
+            this._Output.WriteLine(Path);
+            Directory.Exists(Path).ShouldBeTrue();
+
+            Directory.GetFiles(Path).Has(File => File.EndsWith(".sln")).ShouldBeTrue();
+            }
+
         }
     }

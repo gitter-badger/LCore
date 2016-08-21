@@ -1964,6 +1964,8 @@ namespace LCore.Extensions
         /// </summary>
         public static string UriEncode([CanBeNull]this string In)
             {
+            In = In ?? "";
+
             return Uri.EscapeUriString(In);
             }
 
@@ -1972,6 +1974,8 @@ namespace LCore.Extensions
         /// </summary>
         public static string UriDecode([CanBeNull]this string In)
             {
+            In = In ?? "";
+
             return Uri.UnescapeDataString(In);
             }
         }

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Reflection;
 using FluentAssertions;
 using JetBrains.Annotations;
+using JetBrains.dotMemoryUnit.Util;
 using LCore.Dynamic;
 using LCore.Extensions;
 using LCore.LUnit;
@@ -1142,6 +1144,17 @@ namespace L_Tests.LCore.Extensions
             typeof(L).IsStatic().ShouldBeTrue();
             typeof(object).IsStatic().ShouldBeFalse();
             }
+
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." + nameof(ReflectionExt.GetRootPath) + "(Assembly) => String")]
+        public void GetRootPath()
+            {
+            _Output.WriteLine(typeof(L).GetAssembly().GetRootPath());
+            Directory.GetFiles(typeof(L).GetAssembly().GetRootPath()).Has(File => File.EndsWith(".csproj")).ShouldBeTrue();
+            Directory.GetFiles(typeof(ReflectionExtTester).GetAssembly().GetRootPath()).Has(File => File.EndsWith(".csproj")).ShouldBeTrue();
+            }
+
 
         #region Helpers
 

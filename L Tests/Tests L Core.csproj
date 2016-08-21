@@ -74,14 +74,6 @@
       <HintPath>..\packages\JetBrains.Annotations.10.1.5\lib\net\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="L Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LCore.0.9.0.10\lib\net451\L Utilities.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="L, Version=0.9.0.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LCore.0.9.0.10\lib\net451\L.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="LUnit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LUnit.0.9.0.9\lib\net451\LUnit.dll</HintPath>
       <Private>True</Private>
@@ -217,6 +209,10 @@
     <ProjectReference Include="..\L Thread Tests\Tests L Core Threads.csproj">
       <Project>{ff977727-0141-4001-a70f-bf3044da035c}</Project>
       <Name>Tests L Core Threads</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\L\L Core.csproj">
+      <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
+      <Name>L Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
