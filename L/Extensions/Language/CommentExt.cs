@@ -326,6 +326,10 @@ namespace LCore.Extensions
         /// <summary>
         /// Contains values and test members for CommentExt
         /// </summary>
+        /// <feature>1</feature>
+        /// <feature>a</feature>
+        /// <classFeature>2</classFeature>
+        /// <projectFeature>3</projectFeature>
         public static class Comment
             {
             /// <summary>
@@ -349,6 +353,10 @@ namespace LCore.Extensions
                 /// <permission cref="CodeAccessPermission">permission 2</permission>
                 /// <typeparam name="T">Type</typeparam>
                 /// <value>value</value>
+                /// <feature>1</feature>
+                /// <feature>a</feature>
+                /// <classFeature>2</classFeature>
+                /// <projectFeature>3</projectFeature>
                 // ReSharper disable once UnusedTypeParameter
                 public static string TestMethod<T>(int A, string B)
                     {
@@ -366,11 +374,19 @@ namespace LCore.Extensions
                 /// <summary>
                 /// TestProperty 
                 /// </summary>
+                /// <feature>1</feature>
+                /// <feature>a</feature>
+                /// <classFeature>2</classFeature>
+                /// <projectFeature>3</projectFeature>
                 public static string TestProperty { get; set; }
 
                 /// <summary>
                 /// TestField
                 /// </summary>
+                /// <feature>1</feature>
+                /// <feature>a</feature>
+                /// <classFeature>2</classFeature>
+                /// <projectFeature>3</projectFeature>
                 // ReSharper disable once UnassignedField.Global
                 public static string TestField;
                 }

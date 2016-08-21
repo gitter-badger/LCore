@@ -66,6 +66,22 @@ namespace L_Tests.LCore.Extensions
             TestField
             ");
 
+            Comments.Features.Should().Equal("1", "a");
+            Comments.ClassFeatures.Should().Equal("2");
+            Comments.ProjectFeatures.Should().Equal("3");
+
+            Comments2.Features.Should().Equal("1", "a");
+            Comments2.ClassFeatures.Should().Equal("2");
+            Comments2.ProjectFeatures.Should().Equal("3");
+
+            Comments3.Features.Should().Equal("1", "a");
+            Comments3.ClassFeatures.Should().Equal("2");
+            Comments3.ProjectFeatures.Should().Equal("3");
+
+            Comments4.Features.Should().Equal("1", "a");
+            Comments4.ClassFeatures.Should().Equal("2");
+            Comments4.ProjectFeatures.Should().Equal("3");
+
             typeof(CommentExtTester).GetComments().Should().BeNull();
 
             var Test = new TestInvalidMemberInfo();
