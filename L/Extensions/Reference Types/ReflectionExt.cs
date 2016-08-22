@@ -1387,7 +1387,9 @@ namespace LCore.Extensions
 
             return Assembly != null &&
                    (Name.Contains(" test") || Name.Contains("test ") ||
-                    Name.Contains(" tests") || Name.Contains("tests "));
+                    Name.Contains(" tests") || Name.Contains("tests ") ||
+                    Name.Contains("_tests") || Name.Contains("tests_") ||
+                    Name.Contains("_test") || Name.Contains("test_"));
             }
 
         /// <summary>
