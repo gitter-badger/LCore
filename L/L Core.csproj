@@ -139,6 +139,7 @@
     <Compile Include="Tools\GlyphIcon.cs" />
     <Compile Include="Tools\MethodProfileData.cs" />
     <Compile Include="Tools\DoubleDictionary.cs" />
+    <Compile Include="Tools\Octicon.cs" />
     <Compile Include="Tools\RegistryHelper.cs" />
     <Compile Include="Tools\ExceptionList.cs" />
     <Compile Include="Naming\INamed.cs" />
