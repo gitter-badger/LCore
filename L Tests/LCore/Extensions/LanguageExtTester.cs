@@ -24,7 +24,7 @@ namespace L_Tests.LCore.Extensions
             {
             // super meta test
             typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode().ShouldBe(FindSourceCodeTestCode);
-            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode(IncludeAttributes: false).ShouldBe(FindSourceCodeTestCode_NoAttributes);
+            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode(IncludeMarkup: false).ShouldBe(FindSourceCodeTestCode_NoAttributes);
             }
 
         public const string FindSourceCodeTestCode =
@@ -34,7 +34,7 @@ namespace L_Tests.LCore.Extensions
             {
             // super meta test
             typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode().ShouldBe(FindSourceCodeTestCode);
-            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode(IncludeAttributes: false).ShouldBe(FindSourceCodeTestCode_NoAttributes);
+            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode(IncludeMarkup: false).ShouldBe(FindSourceCodeTestCode_NoAttributes);
             }";
 
         public const string FindSourceCodeTestCode_NoAttributes =
@@ -42,7 +42,7 @@ namespace L_Tests.LCore.Extensions
             {
             // super meta test
             typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode().ShouldBe(FindSourceCodeTestCode);
-            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode(IncludeAttributes: false).ShouldBe(FindSourceCodeTestCode_NoAttributes);
+            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode(IncludeMarkup: false).ShouldBe(FindSourceCodeTestCode_NoAttributes);
             }";
         }
     }
