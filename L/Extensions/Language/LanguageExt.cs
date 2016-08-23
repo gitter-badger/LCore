@@ -132,6 +132,10 @@ namespace LCore.Extensions
 
         #region FindSourceCodeLineNumber
 
+        /// <summary>
+        /// Determines the starting line of code for the given member,
+        /// if source code is available.
+        /// </summary>
         [CanBeNull]
         public static uint? FindSourceCodeLineNumber([CanBeNull] this MemberInfo Member)
             {
