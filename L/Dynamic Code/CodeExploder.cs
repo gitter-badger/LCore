@@ -40,118 +40,7 @@ namespace LCore.Extensions
 
             #endregion
 
-            #region MemberInfoGetCode
 
-            public static readonly Func<MemberInfo, string> MemberInfoGetCode = Member =>
-                {
-                string CodeLocation = CodeExploder.CodeRootLocation;
-                if (CodeLocation.IsEmpty())
-                    throw new Exception("CodeExploder.CodeRootLocation has not been set");
-                return MemberInfoGetCodeFromPath(CodeLocation, Member);
-                };
-
-            #endregion
-
-            #region MemberInfoGetCodeFromPath
-
-            public static readonly Func<string, MemberInfo, string> MemberInfoGetCodeFromPath = (Path, Member) =>
-                {
-                List<FileInfo> Files = LanguageGetCodeFiles(Path);
-                string SearchStr = $"{Lang.CleanGenericTypeName(Member?.GetMemberType()?.ToString())} {Member?.Name}";
-                string SearchStr2 = Lang.ReplaceNativeTypes(SearchStr);
-                string SearchStr3 = Member?.Name + CodeExplodeGenerics.MethodActionToken;
-                string SearchStr4 = Member?.Name + CodeExplodeGenerics.MethodFuncToken;
-                SearchStr = SearchStr.Replace(",", ", ");
-                string Code = "";
-                int Index = -1;
-
-                var File = Files.First(FileInfo =>
-                    {
-                    string FileContents = LanguageGetCodeString(FileInfo.FullName);
-
-                    if (FileContents.Contains(SearchStr4))
-                        {
-                        SearchStr = SearchStr4;
-                        Code = FileContents;
-                        Index = Code.IndexOf(SearchStr);
-                        return true;
-                        }
-                    if (FileContents.Contains(SearchStr3))
-                        {
-                        SearchStr = SearchStr3;
-                        Code = FileContents;
-                        Index = Code.IndexOf(SearchStr);
-                        return true;
-                        }
-                    if (FileContents.Contains(SearchStr2))
-                        {
-                        SearchStr = SearchStr2;
-                        Code = FileContents;
-                        Index = Code.IndexOf(SearchStr);
-                        return true;
-                        }
-                    if (FileContents.Contains(SearchStr))
-                        {
-                        Code = FileContents;
-                        Index = Code.IndexOf(SearchStr);
-                        return true;
-                        }
-                    return false;
-                    });
-                if (File == null)
-                    {
-                    return "";
-                    }
-                string Temp = Code.Sub(Start: 0, Length: Index);
-                Index = Temp.LastIndexOf("\r\n", StringComparison.Ordinal);
-                Code = Code.Substring(Index + 2);
-                int OpenBraceIndex = Code.IndexOf(value: '{');
-                int EndIndex = LanguageFindMate(Code, OpenBraceIndex) + 1;
-
-                string Out = $"{Code.Sub(Start: 0, Length: EndIndex)}\r\n";
-
-                if (Out.IsEmpty()) {}
-                return Out;
-                };
-
-            #endregion
-
-            #region LanguageFindMate
-
-            public static readonly Func<string, int, int> LanguageFindMate = (Str, Start) =>
-                {
-                char Open = Str[Start];
-                char Close = Lang.CloseSequences[Lang.OpenSequences.List().IndexOf(Str[Start].ToString())][index: 0];
-                int Depth = 0;
-                int Index = Start + 1;
-                int Out = -1;
-                Index.For(Str.Length - 1, i =>
-                    {
-                    if (Str[i] == Open)
-                        Depth++;
-                    if (Str[i] == Close)
-                        {
-                        if (Depth == 0)
-                            {
-                            Out = i;
-                            return false;
-                            }
-                        Depth--;
-                        }
-                    return true;
-                    });
-
-                return Out;
-                };
-
-            #endregion
-
-            #region LanguageGetCodeString
-
-            public static readonly Func<string, string> LanguageGetCodeString = F<string, string>(
-                File => L.File.GetFileContents(File).ByteArrayToString()).Cache("Language_GetCodeString");
-
-            #endregion
 
             #region MemberInfoExplode
 
@@ -172,7 +61,7 @@ namespace LCore.Extensions
                         }
                     }
                 string Out = "";
-                string MethodCode = MemberInfoGetCode(Member);
+                string MethodCode = Member.FindSourceCode();
                 string FunctionNameSearch = $" {Member.Name}";
                 bool Level2_Tokens = CodeExplodeGenerics.ContainsMultiLevelTokens(MethodCode);
 
@@ -295,7 +184,7 @@ namespace LCore.Extensions
                             {
                             string Str = "";
                             if (!LastAddition.Contains(Comments) && !Comments.IsEmpty())
-                                Str += Lang.CommentSummary(Comments);
+                                Str += _Lang.CommentSummary(Comments);
                             Str += LastAddition;
                             Out.Add(Str);
                             }
@@ -432,7 +321,7 @@ namespace LCore.Extensions
                         ParamTypes.Each((i, Param) => { Params.Add(ParamNames[i], Param); });
                         }
 
-                    string Declaration = Lang.GetExtensionMethodDeclaration(FunctionName, Params, ReturnType, Comment, Member.MemberType,
+                    string Declaration = _Lang.GetExtensionMethodDeclaration(FunctionName, Params, ReturnType, Comment, Member.MemberType,
                         ExecuteResult);
                     if (CodeExploder.DeclaredExtensionCache.Contains(Declaration))
                         {
@@ -448,21 +337,10 @@ namespace LCore.Extensions
                         if (!Constraints.IsEmpty()) {}
                         });
 
-                    Out += Lang.GetExtensionMethodBody(Member.DeclaringType, Member.Name, Params, ReturnType, Member.MemberType,
+                    Out += _Lang.GetExtensionMethodBody(Member.DeclaringType, Member.Name, Params, ReturnType, Member.MemberType,
                         ExecuteResult);
                     return Out;
                     };
-
-            #endregion
-
-            #region LanguageGetCodeFiles
-
-            public static readonly Func<string, List<FileInfo>> LanguageGetCodeFiles = F<string, List<FileInfo>>(Str =>
-                {
-                return Directory.GetFiles(Str, $"*{Dynamic.CodeExplode.ExplodeFileType}", SearchOption.AllDirectories).List().Select(
-                    Str2 => !Str2.ToLower().Contains(CodeExploder.CodeExplodeLocation?.ToLower() ?? "#"))
-                    .Convert(Str3 => new FileInfo(Str3));
-                }).Cache("CodeExplode_FileInfoCache");
 
             #endregion
 
@@ -502,7 +380,7 @@ namespace LCore.Dynamic
 
         private const string FileExtension = ".cs";
 
-        private static readonly Func<List<Type>> _ExplodeTypeFunc = L.Lang.GetAssemblyTypesWithAttribute.Supply(typeof(CodeExplode))
+        private static readonly Func<List<Type>> _ExplodeTypeFunc = L._Lang.GetAssemblyTypesWithAttribute.Supply(typeof(CodeExplode))
             .Cache("CodeExplode_ExplodeTypes");
 
         private static Lists<string, string> _GlobalFindReplace;
@@ -628,10 +506,10 @@ namespace LCore.Dynamic
                     Member => Member.GetAttribute<CodeExplodeMember>()?.MethodName), Temp);
 
                 string Out =
-                    L.Lang.Using(this.UsingLibraries,
-                        L.Lang.Namespace(
-                            L.Lang.Class(
-                                L.Lang.Region(
+                    L._Lang.Using(this.UsingLibraries,
+                        L._Lang.Namespace(
+                            L._Lang.Class(
+                                L._Lang.Region(
                                     Attr.ExplodeCode(Members2),
                                     Attr.CodeRegionTitle),
                                 Attr.ClassName, arg3: true),

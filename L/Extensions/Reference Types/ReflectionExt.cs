@@ -1285,8 +1285,8 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Gets a Type's name formatted properly with generic parameters.
-        /// Ex: List`1&lt;String&gt;
-        ///     Func`2&lt;Action`1&lt;Int32&gt;, IEnumerable`1&lt;Object&gt;&gt;
+        /// Ex: List&lt;String&gt;
+        ///     Func&lt;Action&lt;Int32&gt;, IEnumerable&lt;Object&gt;&gt;
         /// </summary>
         public static string GetGenericName([CanBeNull] this Type In)
             {
@@ -1336,6 +1336,9 @@ namespace LCore.Extensions
             // Array braces should be displayed at the end not before the generics
             if (Out.Contains("[]<"))
                 Out = $"{Out.Replace("[]<", "<")}[]";
+
+            if (Out == "Void")
+                return "void";
 
             return Out;
             }
@@ -1430,7 +1433,7 @@ namespace LCore.Extensions
 
             if (Directory.Exists(Path))
                 {
-                string Out = Directory.GetFiles(Path).First(File => File.ToLower().EndsWith($"{Type.Name.CleanFileName().ToLower()}.cs"));
+                string Out = Directory.GetFiles(Path, $"{Type.Name.CleanFileName().ToLower()}.*", SearchOption.AllDirectories).First();
 
                 if (Out != null)
                     return Out;

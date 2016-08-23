@@ -3,14 +3,209 @@
 using LCore.Tools;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Reflection;
+using JetBrains.Annotations;
+using LCore.Dynamic;
 
 namespace LCore.Extensions
     {
+    public static class LanguageExt
+        {
+        #region FindSourceCode
+        [CanBeNull]
+        public static string FindSourceCode([CanBeNull]this MemberInfo Member, bool IncludeAttributes = true)
+            {
+            string CodeLocation = Member?.DeclaringType.FindClassFile(); //CodeExploder.CodeRootLocation;
+
+
+            string[] CodeLines = File.ReadAllLines(CodeLocation);
+
+            string SearchStr = $"{Member.GetMemberType().GetGenericName()} {Member?.Name}";
+            string SearchStr2 = L._Lang.ReplaceNativeTypes(SearchStr);
+
+            int? Index = CodeLines.IndexOf(Line => Line.Contains(SearchStr)) ??
+                         CodeLines.IndexOf(Line => Line.Contains(SearchStr2));
+
+            if (Index != null)
+                {
+                string StartBraceLine = CodeLines[(int)Index + 1];
+                string EndBraceLine = StartBraceLine.Replace("{", "}");
+
+                int StartIndex = (int)Index;
+                int EndIndex = (int)Index + 2;
+
+                while (StartIndex > 0)
+                    {
+                    StartIndex--;
+
+                    string Line = CodeLines[StartIndex].Trim();
+
+                    if (IncludeAttributes && Line.StartsWith("[") && Line.EndsWith("]"))
+                        continue;
+
+                    StartIndex++;
+                    break;
+                    }
+
+                while (EndIndex < CodeLines.Length - 1)
+                    {
+                    EndIndex++;
+
+                    string Line = CodeLines[EndIndex];
+
+                    if (!Line.StartsWith(EndBraceLine) && Line != EndBraceLine)
+                        continue;
+
+                    break;
+                    }
+
+                if (EndIndex != CodeLines.Length - 1)
+                    return CodeLines.Select((i, Line) => i >= StartIndex && i <= EndIndex).JoinLines();
+                }
+
+            return null;
+            }
+
+        #endregion
+
+        }
+
     public static partial class L
         {
+        public static class Lang
+            {
+            public static readonly string[] GenericInputTypes = { "T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16" };
+            public static readonly string[] GenericOutputTypes = { "U" };
+            public static readonly string[] GenericTypes = { "T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16", "U" };
+            public static readonly string[] OpenSequences = { "[", "{", "(", "<", "\'", "\"", "/*", "//" };
+            public static readonly string[] CloseSequences = { "]", "}", ")", ">", "\'", "\"", "*/", "\r\n" };
+            public static readonly char[] SeparatorChars = { ' ', ',', '<', '>', '(', ')', '{', '}', '[', ']', '-', '+', '.', '/', '*', '-', '&', '^', '%', '=', '?' };
+
+
+            #region LanguageGetCodeString
+
+            public static string LanguageGetCodeString(string File)
+                {
+                Func<string, string> Function = F<string, string>(
+                    FileName => L.File.GetFileContents(FileName).ByteArrayToString())
+                    .Cache(nameof(LanguageGetCodeString));
+
+                return Function(File);
+                }
+
+            #endregion
+
+            #region LanguageGetCodeFiles
+
+            public static readonly Func<string, List<FileInfo>> LanguageGetCodeFiles = F<string, List<FileInfo>>(Str =>
+            {
+                return Directory.GetFiles(Str, $"*{CodeExplode.ExplodeFileType}", SearchOption.AllDirectories).List().Select(
+                    Str2 => !Str2.ToLower().Contains(CodeExploder.CodeExplodeLocation?.ToLower() ?? "#"))
+                    .Convert(Str3 => new FileInfo(Str3));
+            }).Cache("CodeExplode_FileInfoCache");
+
+            #endregion
+
+            #region MemberInfoGetCodeFromPath
+
+            public static readonly Func<string, MemberInfo, string> MemberInfoGetCodeFromPath = (Path, Member) =>
+            {
+                List<FileInfo> Files = LanguageGetCodeFiles(Path);
+                string SearchStr = $"{_Lang.CleanGenericTypeName(Member?.GetMemberType()?.ToString())} {Member?.Name}";
+                string SearchStr2 = _Lang.ReplaceNativeTypes(SearchStr);
+                string SearchStr3 = Member?.Name + CodeExplodeGenerics.MethodActionToken;
+                string SearchStr4 = Member?.Name + CodeExplodeGenerics.MethodFuncToken;
+                SearchStr = SearchStr.Replace(",", ", ");
+                string Code = "";
+                int Index = -1;
+
+                var File = Files.First(FileInfo =>
+                {
+                    string FileContents = LanguageGetCodeString(FileInfo.FullName);
+
+                    if (FileContents.Contains(SearchStr4))
+                        {
+                        SearchStr = SearchStr4;
+                        Code = FileContents;
+                        Index = Code.IndexOf(SearchStr);
+                        return true;
+                        }
+                    if (FileContents.Contains(SearchStr3))
+                        {
+                        SearchStr = SearchStr3;
+                        Code = FileContents;
+                        Index = Code.IndexOf(SearchStr);
+                        return true;
+                        }
+                    if (FileContents.Contains(SearchStr2))
+                        {
+                        SearchStr = SearchStr2;
+                        Code = FileContents;
+                        Index = Code.IndexOf(SearchStr);
+                        return true;
+                        }
+                    if (FileContents.Contains(SearchStr))
+                        {
+                        Code = FileContents;
+                        Index = Code.IndexOf(SearchStr);
+                        return true;
+                        }
+                    return false;
+                });
+                if (File == null)
+                    {
+                    return "";
+                    }
+                string Temp = Code.Sub(Start: 0, Length: Index);
+                Index = Temp.LastIndexOf("\r\n", StringComparison.Ordinal);
+                Code = Code.Substring(Index + 2);
+                int OpenBraceIndex = Code.IndexOf(value: '{');
+                int EndIndex = LanguageFindMate(Code, OpenBraceIndex) + 1;
+
+                string Out = $"{Code.Sub(Start: 0, Length: EndIndex)}\r\n";
+
+                if (Out.IsEmpty()) { }
+                return Out;
+            };
+
+            #endregion
+
+            #region LanguageFindMate
+
+            public static readonly Func<string, int, int> LanguageFindMate = (Str, Start) =>
+                {
+                    char Open = Str[Start];
+                    char Close = CloseSequences[OpenSequences.List().IndexOf(Str[Start].ToString())][index: 0];
+                    int Depth = 0;
+                    int Index = Start + 1;
+                    int Out = -1;
+                    Index.For(Str.Length - 1, i =>
+                        {
+                            if (Str[i] == Open)
+                                Depth++;
+                            if (Str[i] == Close)
+                                {
+                                if (Depth == 0)
+                                    {
+                                    Out = i;
+                                    return false;
+                                    }
+                                Depth--;
+                                }
+                            return true;
+                        });
+
+                    return Out;
+                };
+
+            #endregion
+            }
+
+
         [ExcludeFromCodeCoverage]
-        internal static class Lang
+        // ReSharper disable once InconsistentNaming
+        internal static class _Lang
             {
             #region RemoveTypeNamespaces
             internal static readonly Func<string, string> RemoveTypeNamespaces = Str =>
@@ -19,7 +214,7 @@ namespace LCore.Extensions
                     {
                     int Index = Str.IndexOf(value: '.');
                     string Temp = Str.Sub(Start: 0, Length: Index);
-                    int IndexSpace = Temp.LastIndexOfAny(SeparatorChars);
+                    int IndexSpace = Temp.LastIndexOfAny(Lang.SeparatorChars);
                     if (IndexSpace < 0)
                         {
                         Str = Str.Sub(Index + 1);
@@ -93,12 +288,6 @@ namespace LCore.Extensions
             };
             #endregion
 
-            internal static readonly string[] GenericInputTypes = { "T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16" };
-            internal static readonly string[] GenericOutputTypes = { "U" };
-            internal static readonly string[] GenericTypes = { "T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16", "U" };
-            internal static readonly string[] OpenSequences = { "[", "{", "(", "<", "\'", "\"", "/*", "//" };
-            internal static readonly string[] CloseSequences = { "]", "}", ")", ">", "\'", "\"", "*/", "\r\n" };
-            internal static readonly char[] SeparatorChars = { ' ', ',', '<', '>', '(', ')', '{', '}', '[', ']', '-', '+', '.', '/', '*', '-', '&', '^', '%', '=', '?' };
 
             #region GetAssemblyTypesWithAttribute
             internal static readonly Func<Type, List<Type>> GetAssemblyTypesWithAttribute = Attr =>
@@ -120,16 +309,14 @@ namespace LCore.Extensions
             #region ReplaceNativeTypes
             internal static readonly Func<string, string> ReplaceNativeTypes = Str =>
             {
-                Str = Str.Replace("System.Double", "double");
-                Str = Str.Replace("System.UInt32", "uint");
-                Str = Str.Replace("System.Int32", "int");
-                Str = Str.Replace("System.Single", "float");
-                Str = Str.Replace("System.Boolean", "bool");
                 Str = Str.Replace("Double", "double");
+                Str = Str.Replace("UInt64", "ulong");
+                Str = Str.Replace("Int64", "long");
                 Str = Str.Replace("UInt32", "uint");
                 Str = Str.Replace("Int32", "int");
                 Str = Str.Replace("Single", "float");
                 Str = Str.Replace("Boolean", "bool");
+                Str = Str.Replace("String", "string");
                 return Str;
             };
             #endregion
@@ -179,7 +366,7 @@ namespace LCore.Extensions
                     });
 
                     Out = Out.RemoveDuplicates();
-                    Out = Out.Select(Str => GenericTypes.Has(Str)).List();
+                    Out = Out.Select(Str => Lang.GenericTypes.Has(Str)).List();
                     Out.Sort(Str.NumericalCompare);
                     return Out;
                 };

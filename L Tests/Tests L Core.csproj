@@ -75,7 +75,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="LUnit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LUnit.0.9.0.9\lib\net451\LUnit.dll</HintPath>
+      <HintPath>..\packages\LUnit.2016.8.23.1\lib\net451\LUnit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -114,8 +114,8 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Moq, Version=4.5.16.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.5.16\lib\net45\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.5.21.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.5.21\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -165,6 +165,7 @@
     <Compile Include="LCore\Extensions\EnumExtTester.cs" />
     <Compile Include="LCore\Extensions\ExceptionExtTester.cs" />
     <Compile Include="LCore\Extensions\FileExtTester.cs" />
+    <Compile Include="LCore\Extensions\LanguageExtTester.cs" />
     <Compile Include="LCore\Extensions\LogicExtTester.cs" />
     <Compile Include="LCore\Extensions\LoopExtTester.cs" />
     <Compile Include="LCore\Extensions\LTester.cs" />
@@ -217,10 +218,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Content\LCore-banner.pdn" />
+    <None Include="Content\LUnit-banner.pdn" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generated\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\L Banner original.png" />
+    <Content Include="Content\LCore-banner-large.png" />
+    <Content Include="Content\LCore-banner-small.png" />
+    <Content Include="Content\LUnit banner original.png" />
+    <Content Include="Content\LUnit-banner-large.png" />
+    <Content Include="Content\LUnit-banner-small.png" />
+    <Content Include="Content\LUnit-logo-large.png" />
+    <Content Include="Content\LUnit-logo-small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

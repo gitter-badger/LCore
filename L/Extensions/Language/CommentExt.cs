@@ -185,7 +185,7 @@ namespace LCore.Extensions
         #endregion
 
         #region Private Methods +
-
+        [CanBeNull]
         private static XmlNode GetCommentNode([CanBeNull] this MemberInfo In)
             {
             if (In != null)
