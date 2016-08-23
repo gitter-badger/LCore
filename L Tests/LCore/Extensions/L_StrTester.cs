@@ -127,19 +127,5 @@ namespace L_Tests.LCore.Extensions
             L.Str.Singularize("apples").ShouldBe("apple");
             L.Str.Singularize("entities").ShouldBe("entity");
             }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Str) + "." + nameof(L.Str.Surround) + "(String, String, String) => String")]
-        public void Surround()
-            {
-            // TODO: Implement method test LCore.Extensions.L.Str.Surround
-            }
-
-        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(L) + "." + nameof(L.Str) + "." + nameof(L.Str.ToS) + "(Object) => String")]
-        public void ToS()
-            {
-            // TODO: Implement method test LCore.Extensions.L.Str.ToS
-            }
         }
     }

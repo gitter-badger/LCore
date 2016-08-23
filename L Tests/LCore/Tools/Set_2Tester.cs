@@ -73,6 +73,7 @@ namespace L_Tests.LCore.Tools
 
         [Fact]
         [Trait(Traits.TargetMember, "LCore.Tools.Set<T1, T2>.op_Implicit(Set<T1, T2>) => Tuple<T1, T2>")]
+        [Trait(Traits.TargetMember, "LCore.Tools.Set<T1, T2>.op_Implicit(Tuple<T1, T2>) => Set<T1, T2>")]
         public void op_Implicit_Set_2_Tuple_2_T1_T2()
             {
             var Tuple = (Tuple<int, string>) this._Test;
@@ -80,16 +81,8 @@ namespace L_Tests.LCore.Tools
             var Set = (Set<int, string>) Tuple;
 
             (Set == this._Test).ShouldBeTrue();
-            // TODO: Implement method test LCore.Tools.Set.op_Implicit
             }
-
-        [Fact]
-        [Trait(Traits.TargetMember, "LCore.Tools.Set<T1, T2>.op_Implicit(Tuple<T1, T2>) => Set<T1, T2>")]
-        public void op_Implicit_Tuple_2_T1_T2_Set_2()
-            {
-            // TODO: Implement method test LCore.Tools.Set.op_Implicit
-            }
-
+        
         [Fact]
         public void TestSets()
             {
