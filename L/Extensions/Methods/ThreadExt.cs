@@ -373,7 +373,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         public static Action AsyncResult<U>([CanBeNull] this Func<U> In, [CanBeNull] Action<U> Callback,
-            [TestBound(-1, Maximum: 5000)] int TimeLimitMilliseconds = 0,
+            [TestBound(Minimum: -1, Maximum: 5000)] int TimeLimitMilliseconds = 0,
             ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
@@ -386,7 +386,7 @@ namespace LCore.Extensions
         /// complete within the time period.
         /// </summary>
         public static Action<T1> AsyncResult<T1, U>([CanBeNull] this Func<T1, U> In, [CanBeNull] Action<U> Callback,
-            [TestBound(-1, Maximum: 5000)] int TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
+            [TestBound(Minimum: -1, Maximum: 5000)] int TimeLimitMilliseconds = 0, ThreadPriority Priority = ThreadPriority.Normal)
             {
             return In.AsyncResult(Callback, TimeSpan.FromMilliseconds(TimeLimitMilliseconds), Priority);
             }

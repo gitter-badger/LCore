@@ -1312,6 +1312,7 @@ namespace LCore.Extensions
             if (Out.Contains("[]<"))
                 Out = $"{Out.Replace("[]<", "<")}[]";
 
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (Out == "Void")
                 return "void";
 

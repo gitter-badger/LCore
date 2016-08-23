@@ -204,8 +204,8 @@ namespace ICSharpCode.SharpZipLib.Zip
             this.WriteLEInt((int)entry.Crc);
             if (entry.LocalHeaderRequiresZip64)
                 {
-                this.WriteLEInt(-1);
-                this.WriteLEInt(-1);
+                this.WriteLEInt(value: -1);
+                this.WriteLEInt(value: -1);
                 }
             else
                 {

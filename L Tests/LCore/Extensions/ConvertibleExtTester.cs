@@ -87,7 +87,7 @@ namespace L_Tests.LCore.Extensions
             double? Result1 = Test.ConvertTo<double>();
             float? Result2 = Test.ConvertTo<float>();
 
-            Result1.ShouldBe(-5.5555);
+            Result1.ShouldBe(Expected: -5.5555);
             Result2.ShouldBe((float) -5.5555);
 
 
@@ -475,7 +475,7 @@ namespace L_Tests.LCore.Extensions
             Test.TryConvertTo<uint>().ShouldBe("-5.5");
             Test.TryConvertTo<char>().ShouldBe("-5.5");
             Test.TryConvertToString().ShouldBe("-5.5");
-            Test.TryConvertTo<float>().ShouldBe(-5.5f);
+            Test.TryConvertTo<float>().ShouldBe(Expected: -5.5f);
             Test.TryConvertTo<double>().ShouldBe((double) -5.5);
 
             Test = null;

@@ -335,7 +335,7 @@ namespace L_Tests.LCore.Extensions
             I.ShouldBe(Expected: 5);
 
             L.A(() => Test.Retry(Tries: 0)).ShouldFail();
-            L.A(() => Test.Retry(-1)).ShouldFail();
+            L.A(() => Test.Retry(Tries: -1)).ShouldFail();
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -364,7 +364,7 @@ namespace L_Tests.LCore.Extensions
             I.ShouldBe(Expected: 5);
 
             L.A(() => Test.Retry(Tries: 0)).ShouldFail();
-            L.A(() => Test.Retry(-1)).ShouldFail();
+            L.A(() => Test.Retry(Tries: -1)).ShouldFail();
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -394,7 +394,7 @@ namespace L_Tests.LCore.Extensions
             I.ShouldBe(Expected: 5);
 
             L.A(() => Test.Retry(Tries: 0)).ShouldFail();
-            L.A(() => Test.Retry(-1)).ShouldFail();
+            L.A(() => Test.Retry(Tries: -1)).ShouldFail();
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -425,7 +425,7 @@ namespace L_Tests.LCore.Extensions
             I.ShouldBe(Expected: 5);
 
             L.A(() => Test.Retry(Tries: 0)).ShouldFail();
-            L.A(() => Test.Retry(-1)).ShouldFail();
+            L.A(() => Test.Retry(Tries: -1)).ShouldFail();
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -457,7 +457,7 @@ namespace L_Tests.LCore.Extensions
             I.ShouldBe(Expected: 5);
 
             L.A(() => Test.Retry(Tries: 0)).ShouldFail();
-            L.A(() => Test.Retry(-1)).ShouldFail();
+            L.A(() => Test.Retry(Tries: -1)).ShouldFail();
             }
 
 
@@ -487,7 +487,7 @@ namespace L_Tests.LCore.Extensions
             I.ShouldBe(Expected: 5);
 
             L.F(() => Test.Retry(Tries: 0)).ShouldFail();
-            L.F(() => Test.Retry(-1)).ShouldFail();
+            L.F(() => Test.Retry(Tries: -1)).ShouldFail();
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -518,7 +518,7 @@ namespace L_Tests.LCore.Extensions
             I.ShouldBe(Expected: 5);
 
             L.F(() => Test.Retry(Tries: 0)).ShouldFail();
-            L.F(() => Test.Retry(-1)).ShouldFail();
+            L.F(() => Test.Retry(Tries: -1)).ShouldFail();
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -550,7 +550,7 @@ namespace L_Tests.LCore.Extensions
             I.ShouldBe(Expected: 5);
 
             L.F(() => Test.Retry(Tries: 0)).ShouldFail();
-            L.F(() => Test.Retry(-1)).ShouldFail();
+            L.F(() => Test.Retry(Tries: -1)).ShouldFail();
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -583,7 +583,7 @@ namespace L_Tests.LCore.Extensions
             I.ShouldBe(Expected: 5);
 
             L.F(() => Test.Retry(Tries: 0)).ShouldFail();
-            L.F(() => Test.Retry(-1)).ShouldFail();
+            L.F(() => Test.Retry(Tries: -1)).ShouldFail();
             }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
@@ -618,7 +618,7 @@ namespace L_Tests.LCore.Extensions
             I.ShouldBe(Expected: 5);
 
             L.F(() => Test.Retry(Tries: 0)).ShouldFail();
-            L.F(() => Test.Retry(-1)).ShouldFail();
+            L.F(() => Test.Retry(Tries: -1)).ShouldFail();
             }
 
 

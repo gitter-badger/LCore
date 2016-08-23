@@ -52,10 +52,10 @@ namespace L_Tests.LCore.Extensions
             ((IComparable) null).Min(1, 2, 3, 14, 5, 6, 7).ShouldBe(Expected: 1);
 
             50.Min(1, 2, 3, 14, 5, 6, 7).ShouldBe(Expected: 1);
-            (-5).Min(1, 2, 3, 14, 5, 6, 7).ShouldBe(-5);
+            (-5).Min(1, 2, 3, 14, 5, 6, 7).ShouldBe(Expected: -5);
 
             50.55.Min(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(Expected: 1);
-            (-5.55).Min(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(-5.55);
+            (-5.55).Min(1, 2, 3, 14.55, 5, 6, 7).ShouldBe(Expected: -5.55);
 
             "_aaa".Min("baa", "caff", "acl", "aegeg", "grgg", "ttt").ShouldBe("_aaa");
             "ccc".Min("baa", "caff", "acl", "aegeg", "grgg", "ttt").ShouldBe("acl");

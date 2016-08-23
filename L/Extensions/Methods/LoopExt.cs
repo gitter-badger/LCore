@@ -29,8 +29,8 @@ namespace LCore.Extensions
         /// <returns></returns>
         
         public static List<U> To<U>(
-            [TestBound(-50, Maximum: 50)]this int In,
-            [TestBound(-50, Maximum: 50)]int To,
+            [TestBound(Minimum: -50, Maximum: 50)]this int In,
+            [TestBound(Minimum: -50, Maximum: 50)]int To,
             [CanBeNull] Func<U> Func)
             {
             Func = Func ?? (() => default(U));
@@ -49,8 +49,8 @@ namespace LCore.Extensions
         /// <returns></returns>
         
         public static List<T> To<T>(
-            [TestBound(-50, Maximum: 50)]this int In,
-            [TestBound(-50, Maximum: 50)]int To,
+            [TestBound(Minimum: -50, Maximum: 50)]this int In,
+            [TestBound(Minimum: -50, Maximum: 50)]int To,
             [CanBeNull] Func<int, T> Func)
             {
             Func = Func ?? (i => default(T));

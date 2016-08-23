@@ -220,8 +220,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the float <paramref name="In" />, multiplied by 100 and converted to an int.
         /// </summary>
-        [TestResult(new object[] { float.MinValue }, -2147483648)]
-        [TestResult(new object[] { float.MaxValue }, -2147483648)]
+        [TestResult(new object[] { float.MinValue }, ExpectedResult: -2147483648)]
+        [TestResult(new object[] { float.MaxValue }, ExpectedResult: -2147483648)]
         [TestResult(new object[] { (float)0.0011 }, ExpectedResult: 0)]
         [TestResult(new object[] { (float)0.011 }, ExpectedResult: 1)]
         [TestResult(new object[] { (float)0.444 }, ExpectedResult: 44)]
@@ -236,8 +236,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the double <paramref name="In" />, multiplied by 100 and converted to an int.
         /// </summary>
-        [TestResult(new object[] { double.MinValue }, -2147483648)]
-        [TestResult(new object[] { double.MaxValue }, -2147483648)]
+        [TestResult(new object[] { double.MinValue }, ExpectedResult: -2147483648)]
+        [TestResult(new object[] { double.MaxValue }, ExpectedResult: -2147483648)]
         [TestResult(new object[] { (double)0.0011 }, ExpectedResult: 0)]
         [TestResult(new object[] { (double).011 }, ExpectedResult: 1)]
         [TestResult(new object[] { (double).444 }, ExpectedResult: 44)]
@@ -792,7 +792,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 5, 1 }, ExpectedResult: 500)]
         [TestResult(new object[] { 5, 100 }, ExpectedResult: 5)]
         [TestResult(new object[] { 22, 5 }, ExpectedResult: 440)]
-        [TestResult(new object[] { -22, 5 }, -440)]
+        [TestResult(new object[] { -22, 5 }, ExpectedResult: -440)]
         public static int PercentageOf(this float In, [TestBound(Minimum: 1f, Maximum: 100f)] float Total)
             {
             if (Total == 0)
@@ -809,7 +809,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 5d, 1d }, ExpectedResult: 500)]
         [TestResult(new object[] { 5d, 100d }, ExpectedResult: 5)]
         [TestResult(new object[] { 22d, 5d }, ExpectedResult: 440)]
-        [TestResult(new object[] { -22d, 5d }, -440)]
+        [TestResult(new object[] { -22d, 5d }, ExpectedResult: -440)]
         public static int PercentageOf(this double In, [TestBound(Minimum: 1d, Maximum: 100d)] double Total)
             {
             if (Total == 0)
@@ -826,7 +826,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 5, 1 }, ExpectedResult: 500)]
         [TestResult(new object[] { 5, 100 }, ExpectedResult: 5)]
         [TestResult(new object[] { 22, 5 }, ExpectedResult: 440)]
-        [TestResult(new object[] { -22, 5 }, -440)]
+        [TestResult(new object[] { -22, 5 }, ExpectedResult: -440)]
         public static int PercentageOf(this int In, [TestBound(Minimum: 1, Maximum: 100)] int Total)
             {
             if (Total == 0)
@@ -859,7 +859,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (short)5, (short)1 }, ExpectedResult: 500)]
         [TestResult(new object[] { (short)5, (short)100 }, ExpectedResult: 5)]
         [TestResult(new object[] { (short)22, (short)5 }, ExpectedResult: 440)]
-        [TestResult(new object[] { (short)-22, (short)5 }, -440)]
+        [TestResult(new object[] { (short)-22, (short)5 }, ExpectedResult: -440)]
         public static int PercentageOf(this short In, [TestBound((short)1, (short)100)] short Total)
             {
             if (Total == 0)
@@ -876,7 +876,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 5L, 1L }, ExpectedResult: 500)]
         [TestResult(new object[] { 5L, 100L }, ExpectedResult: 5)]
         [TestResult(new object[] { 22L, 5L }, ExpectedResult: 440)]
-        [TestResult(new object[] { -22L, 5L }, -440)]
+        [TestResult(new object[] { -22L, 5L }, ExpectedResult: -440)]
         public static int PercentageOf(this long In, [TestBound((long)1, (long)100)] long Total)
             {
             if (Total == 0)
@@ -901,7 +901,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 5d, 2d }, ExpectedResult: 25d)]
         [TestResult(new object[] { 5d, 5d }, ExpectedResult: 3125d)]
         [TestResult(new object[] { -5d, 2d }, ExpectedResult: 25d)]
-        [TestResult(new object[] { -5d, 5d }, -3125d)]
+        [TestResult(new object[] { -5d, 5d }, ExpectedResult: -3125d)]
         [TestResult(new object[] { -2.32552d, 2.12421d }, double.NaN)]
         [TestResult(new object[] { -2.32552d, -1.12421d }, double.NaN)]
         public static double Pow(this double Double, double Power)
@@ -919,7 +919,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 5, 2 }, ExpectedResult: 25d)]
         [TestResult(new object[] { 5, 5d }, ExpectedResult: 3125d)]
         [TestResult(new object[] { -5, 2d }, ExpectedResult: 25d)]
-        [TestResult(new object[] { -5, 5d }, -3125d)]
+        [TestResult(new object[] { -5, 5d }, ExpectedResult: -3125d)]
         public static double Pow(this int Int, double Power)
             {
             return Math.Pow(Int, Power);
@@ -948,7 +948,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (short)2, -1d }, ExpectedResult: 0.5d)]
         [TestResult(new object[] { (short)5, 2d }, ExpectedResult: 25d)]
         [TestResult(new object[] { (short)5, 5d }, ExpectedResult: 3125d)]
-        [TestResult(new object[] { (short)-5, 5d }, -3125d)]
+        [TestResult(new object[] { (short)-5, 5d }, ExpectedResult: -3125d)]
         public static double Pow(this short Short, double Power)
             {
             return Math.Pow(Short, Power);
@@ -978,7 +978,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { 2L, -1d }, ExpectedResult: 0.5d)]
         [TestResult(new object[] { 5L, 2d }, ExpectedResult: 25d)]
         [TestResult(new object[] { 5L, 5d }, ExpectedResult: 3125d)]
-        [TestResult(new object[] { -5L, 5d }, -3125d)]
+        [TestResult(new object[] { -5L, 5d }, ExpectedResult: -3125d)]
         public static double Pow(this long Long, double Power)
             {
             return Math.Pow(Long, Power);
@@ -1008,7 +1008,7 @@ namespace LCore.Extensions
         [TestResult(new object[] { (sbyte)2, -1d }, ExpectedResult: 0.5d)]
         [TestResult(new object[] { (sbyte)5, 2d }, ExpectedResult: 25d)]
         [TestResult(new object[] { (sbyte)5, 5d }, ExpectedResult: 3125d)]
-        [TestResult(new object[] { (sbyte)-5, 5d }, -3125d)]
+        [TestResult(new object[] { (sbyte)-5, 5d }, ExpectedResult: -3125d)]
         // ReSharper disable once UnusedParameter.Global
         public static double Pow(this sbyte Long, double Power)
             {
@@ -1427,8 +1427,8 @@ namespace LCore.Extensions
         [TestResult(new object[] { 10, 0 }, new int[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 })]
         [TestResult(new object[] { 10, -5 }, new int[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5 })]
         public static int[] To(
-            [TestBound(-500, Maximum: 500)] this int From,
-            [TestBound(-500, Maximum: 500)] int To)
+            [TestBound(Minimum: -500, Maximum: 500)] this int From,
+            [TestBound(Minimum: -500, Maximum: 500)] int To)
             {
             var Out = new int[(From - To).Abs() + 1];
 

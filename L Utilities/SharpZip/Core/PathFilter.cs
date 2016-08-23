@@ -199,7 +199,7 @@ namespace ICSharpCode.SharpZipLib.Core
         ///         <name>TResult</name>
         ///     </paramref>
         ///     .</exception>
-        public override bool IsMatch([CanBeNull]string name)
+        public override bool IsMatch(string name)
             {
             bool result = base.IsMatch(name);
 
@@ -370,7 +370,7 @@ namespace ICSharpCode.SharpZipLib.Core
         ///         <name>TResult</name>
         ///     </paramref>
         ///     .</exception>
-        public override bool IsMatch([CanBeNull]string name)
+        public override bool IsMatch(string name)
             {
             bool result = base.IsMatch(name);
 

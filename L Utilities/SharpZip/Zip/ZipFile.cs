@@ -1984,8 +1984,8 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             if (entry.LocalHeaderRequiresZip64)
                 {
-                this.WriteLEInt(-1);
-                this.WriteLEInt(-1);
+                this.WriteLEInt(value: -1);
+                this.WriteLEInt(value: -1);
                 }
             else
                 {
@@ -2085,7 +2085,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             if (entry.IsZip64Forced() || (entry.CompressedSize >= 0xffffffff))
                 {
-                this.WriteLEInt(-1);
+                this.WriteLEInt(value: -1);
                 }
             else
                 {
@@ -2094,7 +2094,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
             if (entry.IsZip64Forced() || (entry.Size >= 0xffffffff))
                 {
-                this.WriteLEInt(-1);
+                this.WriteLEInt(value: -1);
                 }
             else
                 {

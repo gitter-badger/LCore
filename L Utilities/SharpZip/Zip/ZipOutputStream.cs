@@ -358,8 +358,8 @@ namespace ICSharpCode.SharpZipLib.Zip
                 this.WriteLeInt((int)entry.Crc);
                 if (entry.LocalHeaderRequiresZip64)
                     {
-                    this.WriteLeInt(-1);
-                    this.WriteLeInt(-1);
+                    this.WriteLeInt(value: -1);
+                    this.WriteLeInt(value: -1);
                     }
                 else
                     {
@@ -383,8 +383,8 @@ namespace ICSharpCode.SharpZipLib.Zip
                 // For local header both sizes appear in Zip64 Extended Information
                 if (entry.LocalHeaderRequiresZip64 || this.patchEntryHeader)
                     {
-                    this.WriteLeInt(-1);
-                    this.WriteLeInt(-1);
+                    this.WriteLeInt(value: -1);
+                    this.WriteLeInt(value: -1);
                     }
                 else
                     {
@@ -412,8 +412,8 @@ namespace ICSharpCode.SharpZipLib.Zip
                     }
                 else
                     {
-                    ed.AddLeLong(-1);
-                    ed.AddLeLong(-1);
+                    ed.AddLeLong(toAdd: -1);
+                    ed.AddLeLong(toAdd: -1);
                     }
                 ed.AddNewEntry(headerID: 1);
 
@@ -734,7 +734,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 if (entry.IsZip64Forced() ||
                     (entry.CompressedSize >= uint.MaxValue))
                     {
-                    this.WriteLeInt(-1);
+                    this.WriteLeInt(value: -1);
                     }
                 else
                     {
@@ -744,7 +744,7 @@ namespace ICSharpCode.SharpZipLib.Zip
                 if (entry.IsZip64Forced() ||
                     (entry.Size >= uint.MaxValue))
                     {
-                    this.WriteLeInt(-1);
+                    this.WriteLeInt(value: -1);
                     }
                 else
                     {
@@ -817,7 +817,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 
                 if (entry.Offset >= uint.MaxValue)
                     {
-                    this.WriteLeInt(-1);
+                    this.WriteLeInt(value: -1);
                     }
                 else
                     {

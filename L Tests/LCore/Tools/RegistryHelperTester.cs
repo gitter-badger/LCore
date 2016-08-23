@@ -152,7 +152,7 @@ namespace L_Tests.LCore.Tools
             this.Reg.LoadObject("b").ShouldBe("55");
 
             this.Reg.Save("c", (object)-5.5f);
-            this.Reg.LoadFloat("c").ShouldBe(-5.5f);
+            this.Reg.LoadFloat("c").ShouldBe(Expected: -5.5f);
             this.Reg.LoadObject("c").ShouldBe("-5.5");
 
             this.Reg.Save("d", (double)-5.5);

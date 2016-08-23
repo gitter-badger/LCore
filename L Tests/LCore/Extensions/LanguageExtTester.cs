@@ -3,7 +3,6 @@ using LCore.LUnit;
 using Xunit;
 using System;
 using JetBrains.Annotations;
-using JetBrains.dotMemoryUnit.Util;
 using LCore.Extensions;
 using LCore.LUnit.Fluent;
 
@@ -24,7 +23,8 @@ namespace L_Tests.LCore.Extensions
             {
             // super meta test
             typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode().ShouldBe(FindSourceCodeTestCode);
-            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode(IncludeMarkup: false).ShouldBe(FindSourceCodeTestCode_NoAttributes);
+            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode(IncludeAttributes: false).ShouldBe(FindSourceCodeTestCode_NoAttributes);
+            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCode(IncludeAttributes: false).ShouldBe(FindSourceCodeTestCode_NoAttributes);
             }
 
         public const string FindSourceCodeTestCode =

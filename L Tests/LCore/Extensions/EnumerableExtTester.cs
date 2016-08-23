@@ -160,7 +160,7 @@ namespace L_Tests.LCore.Extensions
             Func.Collect(Count: 1).Should().Equal(1);
             Func.Collect(Count: 5).Should().Equal(2, 3, 4, 5, 6);
 
-            L.A(() => Func.Collect(-1)).ShouldFail();
+            L.A(() => Func.Collect(Count: -1)).ShouldFail();
 
             Counter = 0;
 
@@ -174,7 +174,7 @@ namespace L_Tests.LCore.Extensions
             Func2.Collect(Count: 1).Should().Equal(0);
             Func2.Collect(Count: 5).Should().Equal(0, 1, 3, 6, 10);
 
-            L.A(() => Func2.Collect(-1)).ShouldFail();
+            L.A(() => Func2.Collect(Count: -1)).ShouldFail();
             }
 
         [Fact]
@@ -651,7 +651,7 @@ namespace L_Tests.LCore.Extensions
             Func<int, bool> False = i => false;
 
             Test.First(Count: 2).Should().Equal(5, 21436);
-            Test.First(-5, True).Should().Equal();
+            Test.First(Count: -5, Condition: True).Should().Equal();
             Test.First(Count: 0, Condition: True).Should().Equal();
             Test.First(Count: 2, Condition: False).Should().Equal();
             Test.First(Count: 2, Condition: True).Should().Equal(5, 21436);
@@ -670,7 +670,7 @@ namespace L_Tests.LCore.Extensions
             Test.First(Count: 2u, Condition: i => i > 1000).Should().Equal(21436);
 
             Test.List().First(Count: 2).Should().Equal(5, 21436);
-            Test.List().First(-5, True).Should().Equal();
+            Test.List().First(Count: -5, Condition: True).Should().Equal();
             Test.List().First(Count: 0, Condition: True).Should().Equal();
             Test.List().First(Count: 2, Condition: False).Should().Equal();
             Test.List().First(Count: 2, Condition: True).Should().Equal(5, 21436);
@@ -689,7 +689,7 @@ namespace L_Tests.LCore.Extensions
             Test.List().First(Count: 2u, Condition: i => i > 1000).Should().Equal(21436);
 
             ((IEnumerable)Test).First<int>(Count: 2, Condition: null).Should().Equal(5, 21436);
-            ((IEnumerable)Test).First<int>(-5, True).Should().Equal();
+            ((IEnumerable)Test).First<int>(Count: -5, Condition: True).Should().Equal();
             ((IEnumerable)Test).First<int>(Count: 0, Condition: True).Should().Equal();
             ((IEnumerable)Test).First<int>(Count: 2, Condition: False).Should().Equal();
             ((IEnumerable)Test).First<int>(Count: 2, Condition: True).Should().Equal(5, 21436);
@@ -765,7 +765,7 @@ namespace L_Tests.LCore.Extensions
             int[] Test = { 5, 32, 46, 43, 13, 26531, 15315 };
 
 
-            Test.GetAt(-1).ShouldBe(Expected: 0);
+            Test.GetAt(Index: -1).ShouldBe(Expected: 0);
             Test.GetAt(Index: 0).ShouldBe(Expected: 5);
             Test.GetAt(Index: 1).ShouldBe(Expected: 32);
             Test.GetAt(Index: 100).ShouldBe(Expected: 0);
@@ -774,7 +774,7 @@ namespace L_Tests.LCore.Extensions
             Test.GetAt(Index: 1u).ShouldBe(Expected: 32);
             Test.GetAt(Index: 100u).ShouldBe(Expected: 0);
 
-            ((IEnumerable)Test).GetAt(-1).ShouldBe(Expected: null);
+            ((IEnumerable)Test).GetAt(Index: -1).ShouldBe(Expected: null);
             ((IEnumerable)Test).GetAt(Index: 0).ShouldBe(Expected: 5);
             ((IEnumerable)Test).GetAt(Index: 1).ShouldBe(Expected: 32);
             ((IEnumerable)Test).GetAt(Index: 100).ShouldBe(Expected: null);
@@ -783,7 +783,7 @@ namespace L_Tests.LCore.Extensions
             ((IEnumerable)Test).GetAt(Index: 1u).ShouldBe(Expected: 32);
             ((IEnumerable)Test).GetAt(Index: 100u).ShouldBe(Expected: null);
 
-            ((Array)Test).GetAt(-1).ShouldBe(Expected: null);
+            ((Array)Test).GetAt(Index: -1).ShouldBe(Expected: null);
             ((Array)Test).GetAt(Index: 0).ShouldBe(Expected: 5);
             ((Array)Test).GetAt(Index: 1).ShouldBe(Expected: 32);
             ((Array)Test).GetAt(Index: 100).ShouldBe(Expected: null);
@@ -793,7 +793,7 @@ namespace L_Tests.LCore.Extensions
             ((Array)Test).GetAt(Index: 100u).ShouldBe(Expected: null);
 
             "".GetAt(Index: 0).ShouldBe(default(char));
-            "12345".GetAt(-1).ShouldBe(default(char));
+            "12345".GetAt(Index: -1).ShouldBe(default(char));
             "12345".GetAt(Index: 0).ShouldBe(Expected: '1');
             "12345".GetAt(Index: 1).ShouldBe(Expected: '2');
             "12345".GetAt(Index: 5).ShouldBe(default(char));
@@ -1093,7 +1093,7 @@ namespace L_Tests.LCore.Extensions
                 };
 
 
-            Test.HasIndex(-1).ShouldBeFalse();
+            Test.HasIndex(Index: -1).ShouldBeFalse();
             Test.HasIndex(Index: 0).ShouldBeTrue();
             Test.HasIndex(Index: 1).ShouldBeTrue();
             Test.HasIndex(Index: 6).ShouldBeTrue();
@@ -1303,7 +1303,7 @@ namespace L_Tests.LCore.Extensions
             Func<int, bool> False = i => false;
 
             Test.Last(Count: 2).Should().Equal(2, 253);
-            Test.Last(-5, True).Should().Equal();
+            Test.Last(Count: -5, Condition: True).Should().Equal();
             Test.Last(Count: 0, Condition: True).Should().Equal();
             Test.Last(Count: 2, Condition: False).Should().Equal();
             Test.Last(Count: 2, Condition: True).Should().Equal(2, 253);
@@ -1322,7 +1322,7 @@ namespace L_Tests.LCore.Extensions
             Test.Last(Count: 2u, Condition: i => i > 1000).Should().Equal(21436);
 
             Test.List().Last(Count: 2).Should().Equal(2, 253);
-            Test.List().Last(-5, True).Should().Equal();
+            Test.List().Last(Count: -5, Condition: True).Should().Equal();
             Test.List().Last(Count: 0, Condition: True).Should().Equal();
             Test.List().Last(Count: 2, Condition: False).Should().Equal();
             Test.List().Last(Count: 2, Condition: True).Should().Equal(2, 253);
@@ -1341,7 +1341,7 @@ namespace L_Tests.LCore.Extensions
             Test.List().Last(Count: 2u, Condition: i => i > 1000).Should().Equal(21436);
 
             ((IEnumerable)Test).Last<int>(Count: 2, Condition: null).Should().Equal(2, 253);
-            ((IEnumerable)Test).Last<int>(-5, True).Should().Equal();
+            ((IEnumerable)Test).Last<int>(Count: -5, Condition: True).Should().Equal();
             ((IEnumerable)Test).Last<int>(Count: 0, Condition: True).Should().Equal();
             ((IEnumerable)Test).Last<int>(Count: 2, Condition: False).Should().Equal();
             ((IEnumerable)Test).Last<int>(Count: 2, Condition: True).Should().Equal(2, 253);
@@ -1427,10 +1427,10 @@ namespace L_Tests.LCore.Extensions
 
             Test.Should().Equal(1, 6, 3, 4, 5, 2, 7, 8, 9);
 
-            Test.Move(-1, Index2: 5);
+            Test.Move(Index1: -1, Index2: 5);
             Test.Should().Equal(6, 3, 4, 5, 2, 1, 7, 8, 9);
 
-            Test.Move(-1, -1);
+            Test.Move(Index1: -1, Index2: -1);
             Test.Should().Equal(6, 3, 4, 5, 2, 1, 7, 8, 9);
 
             Test.Move(Index1: 0, Index2: 9);
@@ -1458,10 +1458,10 @@ namespace L_Tests.LCore.Extensions
             Test.Should().Equal(1, 6, 3, 4, 5, 2, 7, 8, 9);
 
 
-            Test.Move(-1, Index2: 5);
+            Test.Move(Index1: -1, Index2: 5);
             Test.Should().Equal(6, 3, 4, 5, 2, 1, 7, 8, 9);
 
-            Test.Move(-1, -1);
+            Test.Move(Index1: -1, Index2: -1);
             Test.Should().Equal(6, 3, 4, 5, 2, 1, 7, 8, 9);
 
             Test.Move(Index1: 0, Index2: 9);
@@ -1580,10 +1580,10 @@ namespace L_Tests.LCore.Extensions
                 }
 
 
-            Test.Random(-1).Should().BeEmpty();
+            Test.Random(Count: -1).Should().BeEmpty();
             Test.Random(Count: 0).Should().BeEmpty();
 
-            Test.List().Random(-1).Should().BeEmpty();
+            Test.List().Random(Count: -1).Should().BeEmpty();
             Test.List().Random(Count: 0).Should().BeEmpty();
 
             for (int i = 0; i < 20; i++)
@@ -2019,7 +2019,7 @@ namespace L_Tests.LCore.Extensions
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
 
             // Out of range silently fails.
-            Test.SetAt(-1, Value: 5);
+            Test.SetAt(Index: -1, Value: 5);
             Test.SetAt(Index: 1000, Value: 5);
 
             Test.Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
@@ -2038,7 +2038,7 @@ namespace L_Tests.LCore.Extensions
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
 
             // Out of range silently fails.
-            Test2.SetAt(-1, Value: 5);
+            Test2.SetAt(Index: -1, Value: 5);
             Test2.SetAt(Index: 1000, Value: 5);
 
             Test2.Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
@@ -2054,7 +2054,7 @@ namespace L_Tests.LCore.Extensions
                 6, 446, 48498, 45, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5, 6,
                 446, 2, 4, 4, 4, 4, 5, 1, 2, 3, 4);
 
-            ((IEnumerable)Test3).SetAt(-1, Value: 5);
+            ((IEnumerable)Test3).SetAt(Index: -1, Value: 5);
             ((IEnumerable)Test3).SetAt(Index: 1000, Value: 5);
 
             ((IEnumerable)Test3).Should().Equal(0, 5, 6, 542, 321, 2, 1, 13, 5, 698, 9, 88, 7, 5, 44, 6, 5, 223, 3, 5,
@@ -2194,9 +2194,9 @@ namespace L_Tests.LCore.Extensions
             Test.Should().Equal(45, 48498, 6, 542, 321, 2, 1);
             Test.Swap(Index1: 1, Index2: 5);
             Test.Should().Equal(45, 2, 6, 542, 321, 48498, 1);
-            Test.Swap(-1, Index2: 10);
+            Test.Swap(Index1: -1, Index2: 10);
             Test.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
-            Test.Swap(-1, -1);
+            Test.Swap(Index1: -1, Index2: -1);
             Test.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
             Test.Swap(Index1: 10, Index2: 10);
             Test.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
@@ -2205,9 +2205,9 @@ namespace L_Tests.LCore.Extensions
             Test2.Should().Equal(45, 48498, 6, 542, 321, 2, 1);
             Test2.Swap(Index1: 1, Index2: 5);
             Test2.Should().Equal(45, 2, 6, 542, 321, 48498, 1);
-            Test2.Swap(-1, Index2: 10);
+            Test2.Swap(Index1: -1, Index2: 10);
             Test2.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
-            Test2.Swap(-1, -1);
+            Test2.Swap(Index1: -1, Index2: -1);
             Test2.Should().Equal(1, 2, 6, 542, 321, 48498, 45);
             Test2.Swap(Index1: 10, Index2: 10);
             Test2.Should().Equal(1, 2, 6, 542, 321, 48498, 45);

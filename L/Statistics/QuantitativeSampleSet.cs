@@ -7,6 +7,7 @@ using LCore.Extensions;
 // ReSharper disable UnusedVariable
 // ReSharper disable VirtualMemberNeverOverriden.Global
 // ReSharper disable MemberCanBeProtected.Global
+// ReSharper disable VirtualMemberNeverOverridden.Global
 
 namespace LCore.Statistics
     {

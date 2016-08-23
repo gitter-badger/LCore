@@ -1,5 +1,4 @@
 ﻿using System;
-
 using LCore.Tools;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -10,33 +9,43 @@ using LCore.Dynamic;
 
 namespace LCore.Extensions
     {
+    /// <summary>
+    /// Provides extension methods dealing with the C# language and code
+    /// </summary>
     public static class LanguageExt
         {
         #region FindSourceCode
+
+        /// <summary>
+        /// Retrieves a block of code for a member.
+        /// Optionally, include code comments and any member Attributes
+        /// </summary>
         [CanBeNull]
-        public static string FindSourceCode([CanBeNull]this MemberInfo Member, bool IncludeMarkup = true)
+        public static string FindSourceCode([CanBeNull] this MemberInfo Member, bool IncludeAttributes = false, bool IncludeComments = false)
             {
             if (Member == null)
                 return null;
 
-            string CodeLocation = Member?.DeclaringType.FindClassFile(); //CodeExploder.CodeRootLocation;
+            string CodeLocation = Member.DeclaringType.FindClassFile(); //CodeExploder.CodeRootLocation;
 
 
             string[] CodeLines = File.ReadAllLines(CodeLocation);
 
-            string SearchStr = $"{Member.GetMemberType().GetGenericName()} {Member?.Name}";
+            string SearchStr = $"{Member.GetMemberType().GetGenericName()} {Member.Name}";
             string SearchStr2 = L._Lang.ReplaceNativeTypes(SearchStr);
 
             int? Index = CodeLines.IndexOf(Line => Line.Contains(SearchStr)) ??
                          CodeLines.IndexOf(Line => Line.Contains(SearchStr2));
 
+            var AttributeIndices = new List<int>();
+
             if (Index != null)
                 {
-                string StartBraceLine = CodeLines[(int)Index + 1];
+                string StartBraceLine = CodeLines[(int) Index + 1];
                 string EndBraceLine = StartBraceLine.Replace("{", "}");
 
-                int StartIndex = (int)Index;
-                int EndIndex = (int)Index + 2;
+                int StartIndex = (int) Index;
+                int EndIndex = (int) Index + 2;
 
                 while (StartIndex > 0)
                     {
@@ -44,13 +53,16 @@ namespace LCore.Extensions
 
                     string Line = CodeLines[StartIndex].Trim();
 
-                    if (IncludeMarkup && Line.StartsWith("[") && Line.EndsWith("]"))
+                    if (IncludeAttributes && Line.StartsWith("[") && Line.EndsWith("]"))
+                        {
+                        AttributeIndices.Add(StartIndex);
                         continue;
-                    if (IncludeMarkup &&
+                        }
+                    if (IncludeComments &&
                         (Line.Trim().StartsWith("//") ||
-                        Line.Trim().StartsWith("*/") ||
-                        Line.Trim().StartsWith("*") ||
-                        Line.Trim().StartsWith("/*")))
+                         Line.Trim().StartsWith("*/") ||
+                         Line.Trim().StartsWith("*") ||
+                         Line.Trim().StartsWith("/*")))
                         continue;
 
                     StartIndex++;
@@ -70,41 +82,39 @@ namespace LCore.Extensions
                     }
 
                 if (EndIndex != CodeLines.Length - 1)
-                    return CodeLines.Select((i, Line) => i >= StartIndex && i <= EndIndex).JoinLines();
+                    {
+                    CodeLines.Select((i, Line) => i >= StartIndex && i <= EndIndex &&
+                                                  // Filter to return comments but not attributes
+                                                  !(IncludeComments && !IncludeAttributes && !AttributeIndices.Has(i))).JoinLines();
+                    if (IncludeComments && !IncludeAttributes) {}
+                    }
                 }
 
             return null;
             }
 
         #endregion
-
         }
 
     public static partial class L
         {
-        public static class Lang
-            {
-            }
-
-
         [ExcludeFromCodeCoverage]
         // ReSharper disable once InconsistentNaming
         internal static class _Lang
             {
-            public static readonly string[] GenericInputTypes = { "T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16" };
-            public static readonly string[] GenericOutputTypes = { "U" };
-            public static readonly string[] GenericTypes = { "T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16", "U" };
-            public static readonly string[] OpenSequences = { "[", "{", "(", "<", "\'", "\"", "/*", "//" };
-            public static readonly string[] CloseSequences = { "]", "}", ")", ">", "\'", "\"", "*/", "\r\n" };
-            public static readonly char[] SeparatorChars = { ' ', ',', '<', '>', '(', ')', '{', '}', '[', ']', '-', '+', '.', '/', '*', '-', '&', '^', '%', '=', '?' };
-
+            public static readonly string[] GenericInputTypes = {"T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16"};
+            public static readonly string[] GenericOutputTypes = {"U"};
+            public static readonly string[] GenericTypes = {"T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16", "U"};
+            public static readonly string[] OpenSequences = {"[", "{", "(", "<", "\'", "\"", "/*", "//"};
+            public static readonly string[] CloseSequences = {"]", "}", ")", ">", "\'", "\"", "*/", "\r\n"};
+            public static readonly char[] SeparatorChars = {' ', ',', '<', '>', '(', ')', '{', '}', '[', ']', '-', '+', '.', '/', '*', '-', '&', '^', '%', '=', '?'};
 
             #region LanguageGetCodeString
 
             public static string LanguageGetCodeString(string File)
                 {
                 Func<string, string> Function = F<string, string>(
-                    FileName => L.File.GetFileContents(FileName).ByteArrayToString())
+                        FileName => L.File.GetFileContents(FileName).ByteArrayToString())
                     .Cache(nameof(LanguageGetCodeString));
 
                 return Function(File);
@@ -115,21 +125,21 @@ namespace LCore.Extensions
             #region LanguageGetCodeFiles
 
             public static readonly Func<string, List<FileInfo>> LanguageGetCodeFiles = F<string, List<FileInfo>>(Str =>
-            {
+                {
                 return Directory.GetFiles(Str, $"*{CodeExplode.ExplodeFileType}", SearchOption.AllDirectories).List().Select(
-                    Str2 => !Str2.ToLower().Contains(CodeExploder.CodeExplodeLocation?.ToLower() ?? "#"))
+                        Str2 => !Str2.ToLower().Contains(CodeExploder.CodeExplodeLocation?.ToLower() ?? "#"))
                     .Convert(Str3 => new FileInfo(Str3));
-            }).Cache("CodeExplode_FileInfoCache");
+                }).Cache("CodeExplode_FileInfoCache");
 
             #endregion
 
             #region MemberInfoGetCodeFromPath
 
             public static readonly Func<string, MemberInfo, string> MemberInfoGetCodeFromPath = (Path, Member) =>
-            {
+                {
                 List<FileInfo> Files = LanguageGetCodeFiles(Path);
-                string SearchStr = $"{_Lang.CleanGenericTypeName(Member?.GetMemberType()?.ToString())} {Member?.Name}";
-                string SearchStr2 = _Lang.ReplaceNativeTypes(SearchStr);
+                string SearchStr = $"{CleanGenericTypeName(Member?.GetMemberType()?.ToString())} {Member?.Name}";
+                string SearchStr2 = ReplaceNativeTypes(SearchStr);
                 string SearchStr3 = Member?.Name + CodeExplodeGenerics.MethodActionToken;
                 string SearchStr4 = Member?.Name + CodeExplodeGenerics.MethodFuncToken;
                 SearchStr = SearchStr.Replace(",", ", ");
@@ -137,7 +147,7 @@ namespace LCore.Extensions
                 int Index = -1;
 
                 var File = Files.First(FileInfo =>
-                {
+                    {
                     string FileContents = LanguageGetCodeString(FileInfo.FullName);
 
                     if (FileContents.Contains(SearchStr4))
@@ -168,7 +178,7 @@ namespace LCore.Extensions
                         return true;
                         }
                     return false;
-                });
+                    });
                 if (File == null)
                     {
                     return "";
@@ -181,23 +191,23 @@ namespace LCore.Extensions
 
                 string Out = $"{Code.Sub(Start: 0, Length: EndIndex)}\r\n";
 
-                if (Out.IsEmpty()) { }
+                if (Out.IsEmpty()) {}
                 return Out;
-            };
+                };
 
             #endregion
 
             #region LanguageFindMate
 
             public static readonly Func<string, int, int> LanguageFindMate = (Str, Start) =>
-            {
+                {
                 char Open = Str[Start];
                 char Close = CloseSequences[OpenSequences.List().IndexOf(Str[Start].ToString())][index: 0];
                 int Depth = 0;
                 int Index = Start + 1;
                 int Out = -1;
                 Index.For(Str.Length - 1, i =>
-                {
+                    {
                     if (Str[i] == Open)
                         Depth++;
                     if (Str[i] == Close)
@@ -210,22 +220,22 @@ namespace LCore.Extensions
                         Depth--;
                         }
                     return true;
-                });
+                    });
 
                 return Out;
-            };
+                };
 
             #endregion
 
-
             #region RemoveTypeNamespaces
+
             internal static readonly Func<string, string> RemoveTypeNamespaces = Str =>
-            {
+                {
                 while (Str.Has(Obj: '.'))
                     {
                     int Index = Str.IndexOf(value: '.');
                     string Temp = Str.Sub(Start: 0, Length: Index);
-                    int IndexSpace = Temp.LastIndexOfAny(_Lang.SeparatorChars);
+                    int IndexSpace = Temp.LastIndexOfAny(SeparatorChars);
                     if (IndexSpace < 0)
                         {
                         Str = Str.Sub(Index + 1);
@@ -236,11 +246,14 @@ namespace LCore.Extensions
                         }
                     }
                 return Str;
-            };
+                };
+
             #endregion
+
             #region CleanGenericTypeName
+
             internal static readonly Func<string, string> CleanGenericTypeName = Str =>
-            {
+                {
                 Str = Str.Replace("`1[", "<");
                 Str = Str.Replace("`2[", "<");
                 Str = Str.Replace("`3[", "<");
@@ -296,30 +309,31 @@ namespace LCore.Extensions
                 Str = Str.Replace("[", ">");
                 Str = Str.Replace("***", "[]");
                 return RemoveTypeNamespaces(Str);
-            };
-            #endregion
+                };
 
+            #endregion
 
             #region GetAssemblyTypesWithAttribute
+
             internal static readonly Func<Type, List<Type>> GetAssemblyTypesWithAttribute = Attr =>
-            {
+                {
                 return Assembly.GetCallingAssembly().GetModules()
-                    .Convert(Module =>
-                        {
-                            return Module.GetTypes().Select(Type =>
-                            {
-                                return Attr.TypeEquals(typeof(void)) || Type.HasAttribute(Attr, IncludeBaseClasses: true);
-                            });
-                        })
+                    .Convert(Module => { return Module.GetTypes().Select(Type => { return Attr.TypeEquals(typeof(void)) || Type.HasAttribute(Attr, IncludeBaseClasses: true); }); })
                     .Flatten<Type>();
-            };
+                };
+
             #endregion
+
             #region GetAssemblyTypes
+
             internal static Func<List<Type>> GetAssemblyTypes = GetAssemblyTypesWithAttribute.Supply(typeof(void));
+
             #endregion
+
             #region ReplaceNativeTypes
+
             internal static readonly Func<string, string> ReplaceNativeTypes = Str =>
-            {
+                {
                 Str = Str.Replace("Double", "double");
                 Str = Str.Replace("UInt64", "ulong");
                 Str = Str.Replace("Int64", "long");
@@ -329,127 +343,156 @@ namespace LCore.Extensions
                 Str = Str.Replace("Boolean", "bool");
                 Str = Str.Replace("String", "string");
                 return Str;
-            };
+                };
+
             #endregion
+
             #region CommentSummary
+
             internal static readonly Func<string, string> CommentSummary =
                 In => In.Replace("\r\n", "\r\n/// ").Surround("/// <summary>\r\n/// ", "\r\n/// </summary>\r\n");
+
             #endregion
+
             #region Class
+
             internal static readonly Func<string, string, bool, string> Class =
                 (In, ClassName, Static) => In.Surround(
-                $"public {(Static ? "static " : "")}class {ClassName}\r\n{{\r\n", "}\r\n");
+                    $"public {(Static ? "static " : "")}class {ClassName}\r\n{{\r\n", "}\r\n");
+
             #endregion
+
             #region Using
+
             internal static readonly Func<string[], string, string> Using = (Using, In) =>
-            {
+                {
                 if (Using.IsEmpty() || In.IsEmpty())
                     return In;
 
                 string Out = "";
-                Using.Each(Str =>
-                {
-                    Out += $"using {Str};\r\n";
-                });
+                Using.Each(Str => { Out += $"using {Str};\r\n"; });
                 Out += "\r\n";
                 Out += In;
                 return Out;
-            };
+                };
 
             #endregion
+
             #region Namespace
+
             internal static readonly Func<string, string, string> Namespace = (In, NamespaceName) => In.Surround(
                 $"namespace {NamespaceName}\r\n{{\r\n",
                 "}\r\n");
+
             #endregion
+
             #region Region
+
             internal static readonly Func<string, string, string> Region = (In, Region) => In.Surround(
                 $"#region {Region}\r\n",
                 "#endregion\r\n");
+
             #endregion
+
             #region GetGenericsFromTypes
+
             internal static readonly Func<string[], List<string>> GetGenericsFromTypes = Generics =>
                 {
-                    var Out = new List<string>();
-                    Generics.Each(Generic =>
-                    {
-                        Out.AddRange(GetTypeGenerics(Generic));
-                    });
+                var Out = new List<string>();
+                Generics.Each(Generic => { Out.AddRange(GetTypeGenerics(Generic)); });
 
-                    Out = Out.RemoveDuplicates();
-                    Out = Out.Select(Str => _Lang.GenericTypes.Has(Str)).List();
-                    Out.Sort(Str.NumericalCompare);
-                    return Out;
+                Out = Out.RemoveDuplicates();
+                Out = Out.Select(Str => GenericTypes.Has(Str)).List();
+                Out.Sort(Str.NumericalCompare);
+                return Out;
                 };
+
             #endregion
+
             #region GetTypeGenerics
+
             internal static readonly Func<string, List<string>> GetTypeGenerics = TypeStr =>
-            {
-                string Out = TypeStr.Has(Obj: '<') ? TypeStr.Sub(TypeStr.LastIndexOf(value: '<') + 1, TypeStr.LastIndexOf(value: '>') - TypeStr.LastIndexOf(value: '<') - 1) : "";
+                {
+                string Out = TypeStr.Has(Obj: '<')
+                    ? TypeStr.Sub(TypeStr.LastIndexOf(value: '<') + 1, TypeStr.LastIndexOf(value: '>') - TypeStr.LastIndexOf(value: '<') - 1)
+                    : "";
                 if (Out.Has(Obj: ','))
                     return Out.Split(',').List().Collect(Str =>
                         {
-                            if (Str == "T")
-                                return "T1";
-                            return Str == "" ? null : Str.Trim();
+                        if (Str == "T")
+                            return "T1";
+                        return Str == ""
+                            ? null
+                            : Str.Trim();
                         });
-                return !Out.IsEmpty() ? new List<string> { Out } : new List<string>();
-            };
+                return !Out.IsEmpty()
+                    ? new List<string> {Out}
+                    : new List<string>();
+                };
+
             #endregion
+
             #region GetEmptyTypeLambdaMethods
+
             internal static Func<Type, string> GetEmptyTypeLambdaMethods = Type =>
                 {
-                    MethodInfo[] Methods = Type.GetMethods();
-                    return Methods.Convert(GetEmptyLambdaFromMethod).Combine();
+                MethodInfo[] Methods = Type.GetMethods();
+                return Methods.Convert(GetEmptyLambdaFromMethod).Combine();
                 };
+
             #endregion
+
             #region GetEmptyLambdaFromMethod
+
             internal static readonly Func<MethodInfo, string> GetEmptyLambdaFromMethod = Method =>
                 {
-                    string FunctionTypeName = CleanGenericTypeName(Method.ReturnType.ToString());
-                    string ParameterTypes = Method.GetParameters().Convert(Param => CleanGenericTypeName(Param.ParameterType.ToString())).Combine(", ");
-                    string ParameterNames = Method.GetParameters().Convert(Param => Param.Name).Combine(",  ");
-                    List<string> Generics = GetGenericsFromTypes(ParameterTypes.Split(",  ").Add(FunctionTypeName));
-                    bool ReadOnly = Generics.IsEmpty();
-                    string BaseType = Method.ReturnType.TypeEquals(typeof(void)) ? "Action" : "Func";
-                    if (!ParameterTypes.IsEmpty())
-                        BaseType += $"<{ParameterTypes}";
-                    if (!Method.ReturnType.TypeEquals(typeof(void)))
-                        BaseType += $", {CleanGenericTypeName(Method.ReturnType.ToString())}";
-                    BaseType += ">";
+                string FunctionTypeName = CleanGenericTypeName(Method.ReturnType.ToString());
+                string ParameterTypes = Method.GetParameters().Convert(Param => CleanGenericTypeName(Param.ParameterType.ToString())).Combine(", ");
+                string ParameterNames = Method.GetParameters().Convert(Param => Param.Name).Combine(",  ");
+                List<string> Generics = GetGenericsFromTypes(ParameterTypes.Split(",  ").Add(FunctionTypeName));
+                bool ReadOnly = Generics.IsEmpty();
+                string BaseType = Method.ReturnType.TypeEquals(typeof(void))
+                    ? "Action"
+                    : "Func";
+                if (!ParameterTypes.IsEmpty())
+                    BaseType += $"<{ParameterTypes}";
+                if (!Method.ReturnType.TypeEquals(typeof(void)))
+                    BaseType += $", {CleanGenericTypeName(Method.ReturnType.ToString())}";
+                BaseType += ">";
 
-                    string Out = $"public static {(ReadOnly ? "readonly " : "")}";
-                    Out += $"{BaseType} ";
-                    Out += Method.Name;
-                    if (!ReadOnly)
-                        {
-                        Out += $"<{Generics.Combine(", ")}>";
-                        Out += "()\r\n";
-                        Out += "{\r\n";
-                        Out += "return ";
-                        }
-                    else
-                        {
-                        Out += " = ";
-                        }
-                    Out += $"({ParameterNames}) => \r\n";
+                string Out = $"public static {(ReadOnly ? "readonly " : "")}";
+                Out += $"{BaseType} ";
+                Out += Method.Name;
+                if (!ReadOnly)
+                    {
+                    Out += $"<{Generics.Combine(", ")}>";
+                    Out += "()\r\n";
                     Out += "{\r\n";
-                    Out += "};\r\n";
-                    if (!ReadOnly)
-                        {
-                        Out += "}\r\n";
-                        }
+                    Out += "return ";
+                    }
+                else
+                    {
+                    Out += " = ";
+                    }
+                Out += $"({ParameterNames}) => \r\n";
+                Out += "{\r\n";
+                Out += "};\r\n";
+                if (!ReadOnly)
+                    {
+                    Out += "}\r\n";
+                    }
 
-                    if (Out.Contains(", )"))
-                        {
-                        }
+                if (Out.Contains(", )")) {}
 
-                    return Out;
+                return Out;
                 };
+
             #endregion
+
             #region GetExtensionMethodDeclaration
+
             internal static readonly Func<string, Lists<string, Type>, Type, string, MemberTypes, bool, string> GetExtensionMethodDeclaration = (Name, Params, OutType, Comment, MemberType, ExecuteResult) =>
-            {
+                {
                 if (Params.List1.Count == 0 ||
                     Params.List2.Count == 0)
                     throw new ArgumentException("No Parameters found");
@@ -475,7 +518,7 @@ namespace LCore.Extensions
                     {
                     Out += ", ";
                     1.For(Params.Count, i =>
-                    {
+                        {
                         string ParamType = CleanGenericTypeName(Params.List2[i].ToString());
                         if (Params.List1[i].StartsWith("params"))
                             {
@@ -486,24 +529,24 @@ namespace LCore.Extensions
                         if (i < Params.Count - 1)
                             Out += ", ";
                         return true;
-                    });
+                        });
                     }
 
                 Out += ")\r\n";
 
-                if (Out.Contains(", )"))
-                    {
-                    }
+                if (Out.Contains(", )")) {}
 
                 if (!Comment.IsEmpty())
                     Out = CommentSummary(Comment) + Out;
                 return Out;
-            };
-            #endregion
-            #region GetExtensionMethodBody
-            internal static readonly Func<Type, string, Lists<string, Type>, Type, MemberTypes, bool, string> GetExtensionMethodBody = (DeclaringType, Name, Params, ReturnType, MemberType, ExecuteResult) =>
-            {
+                };
 
+            #endregion
+
+            #region GetExtensionMethodBody
+
+            internal static readonly Func<Type, string, Lists<string, Type>, Type, MemberTypes, bool, string> GetExtensionMethodBody = (DeclaringType, Name, Params, ReturnType, MemberType, ExecuteResult) =>
+                {
                 string ExtensionParam = CleanGenericTypeName(Params.List2[index: 0].ToString());
                 string Parameters = "";
                 if (Params.Count > 1)
@@ -529,7 +572,8 @@ namespace LCore.Extensions
 
                 Out += "}\r\n";
                 return Out;
-            };
+                };
+
             #endregion
             }
         }

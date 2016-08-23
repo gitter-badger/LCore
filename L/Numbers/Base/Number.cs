@@ -387,7 +387,7 @@ namespace LCore.Numbers
         /// <exception cref="T:System.ArgumentException">
         /// <paramref name="Obj" /> is not the same type as this instance. </exception>
         /// <filterpriority>2</filterpriority>
-        public override int CompareTo([CanBeNull] object Obj)
+        public override int CompareTo(object Obj)
             {
             if (Obj is INumber)
                 {

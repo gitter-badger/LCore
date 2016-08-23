@@ -57,7 +57,7 @@ namespace L_Tests.LCore.Extensions
             L.Str.Char(Str: null, i: 0).ShouldBe(default(char));
             L.Str.Char("", i: 0).ShouldBe(default(char));
             L.Str.Char(" ", i: 1).ShouldBe(default(char));
-            L.Str.Char(" ", -1).ShouldBe(default(char));
+            L.Str.Char(" ", i: -1).ShouldBe(default(char));
             L.Str.Char(" ", i: 0).ShouldBe(Expected: ' ');
             L.Str.Char("abc", i: 0).ShouldBe(Expected: 'a');
             L.Str.Char("abc", i: 1).ShouldBe(Expected: 'b');
@@ -83,11 +83,11 @@ namespace L_Tests.LCore.Extensions
         public void Pluralize()
             {
             L.Str.Pluralize("apple", Count: 0).ShouldBe("apples");
-            L.Str.Pluralize("apple", -1).ShouldBe("apple");
+            L.Str.Pluralize("apple", Count: -1).ShouldBe("apple");
             L.Str.Pluralize("apple", Count: 1).ShouldBe("apple");
             L.Str.Pluralize("apple", Count: 2).ShouldBe("apples");
             L.Str.Pluralize("entity", Count: 0).ShouldBe("entities");
-            L.Str.Pluralize("entity", -1).ShouldBe("entity");
+            L.Str.Pluralize("entity", Count: -1).ShouldBe("entity");
             L.Str.Pluralize("entity", Count: 1).ShouldBe("entity");
             L.Str.Pluralize("entity", Count: 2).ShouldBe("entities");
 

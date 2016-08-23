@@ -30,7 +30,7 @@ namespace L_Tests.LCore.Tools
             nameof(StatMonitor.Clear) + "()")]
         public void StatisticalGathering()
             {
-            L.A(() => new StatMonitor(-1)).ShouldFail();
+            L.A(() => new StatMonitor(WalkingAverageSize: -1)).ShouldFail();
             L.A(() => new StatMonitor(WalkingAverageSize: 0)).ShouldFail();
 
             var Test = new StatMonitor(WalkingAverageSize: 10);

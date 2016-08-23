@@ -72,18 +72,18 @@ namespace L_Tests.LCore.Extensions.Optional
             // parent CopyFieldsTo subclass 
             Test3.CopyFieldsTo(Test4);
 
-            Test4.A.ShouldBe(-1);
-            Test4.B.ShouldBe(-2);
-            Test4.C.ShouldBe(-3);
+            Test4.A.ShouldBe(Expected: -1);
+            Test4.B.ShouldBe(Expected: -2);
+            Test4.C.ShouldBe(Expected: -3);
             Test4.D.ShouldBe(Expected: 4);
             Test4.E.ShouldBe(Expected: null);
 
             // subclass CopyFieldsTo subclass 
             Test4.CopyFieldsTo(Test4);
 
-            Test4.A.ShouldBe(-1);
-            Test4.B.ShouldBe(-2);
-            Test4.C.ShouldBe(-3);
+            Test4.A.ShouldBe(Expected: -1);
+            Test4.B.ShouldBe(Expected: -2);
+            Test4.C.ShouldBe(Expected: -3);
             Test4.D.ShouldBe(Expected: 4);
             Test4.E.ShouldBe(Expected: null);
 
@@ -103,12 +103,12 @@ namespace L_Tests.LCore.Extensions.Optional
 
             Test5.CopyFieldsTo(Test6);
 
-            Test6.A.ShouldBe(-1);
-            Test6.B.ShouldBe(-2);
-            Test6.C.ShouldBe(-3);
+            Test6.A.ShouldBe(Expected: -1);
+            Test6.B.ShouldBe(Expected: -2);
+            Test6.C.ShouldBe(Expected: -3);
 
             // read only fields CopyFieldsTo subclass 
-            var Test7 = new TestClassReadOnly(-1, -2, -3);
+            var Test7 = new TestClassReadOnly(A: -1, B: -2, C: -3);
             var Test8 = new TestClass
                 {
                 A = 1,
@@ -118,9 +118,9 @@ namespace L_Tests.LCore.Extensions.Optional
 
             Test7.CopyFieldsTo(Test8);
 
-            Test8.A.ShouldBe(-1);
-            Test8.B.ShouldBe(-2);
-            Test8.C.ShouldBe(-3);
+            Test8.A.ShouldBe(Expected: -1);
+            Test8.B.ShouldBe(Expected: -2);
+            Test8.C.ShouldBe(Expected: -3);
             }
 
         [Fact]
@@ -180,8 +180,8 @@ namespace L_Tests.LCore.Extensions.Optional
             Test3.CopyFieldsTo(Test4, Mapper2);
 
             Test4.A.ShouldBe(Expected: 1);
-            Test4.B.ShouldBe(-2);
-            Test4.C.ShouldBe(-3);
+            Test4.B.ShouldBe(Expected: -2);
+            Test4.C.ShouldBe(Expected: -3);
             Test4.D.ShouldBe(Expected: 4);
             Test4.E.ShouldBe(Expected: null);
 
@@ -189,8 +189,8 @@ namespace L_Tests.LCore.Extensions.Optional
             Test4.CopyFieldsTo(Test4, Mapper2);
 
             Test4.A.ShouldBe(Expected: 1);
-            Test4.B.ShouldBe(-2);
-            Test4.C.ShouldBe(-3);
+            Test4.B.ShouldBe(Expected: -2);
+            Test4.C.ShouldBe(Expected: -3);
             Test4.D.ShouldBe(Expected: 4);
             Test4.E.ShouldBe(Expected: null);
 
@@ -200,8 +200,8 @@ namespace L_Tests.LCore.Extensions.Optional
             Test4.CopyFieldsTo(Test5, (Dictionary<string, string>)null);
 
             Test5.A.ShouldBe(Expected: 1);
-            Test5.B.ShouldBe(-2);
-            Test5.C.ShouldBe(-3);
+            Test5.B.ShouldBe(Expected: -2);
+            Test5.C.ShouldBe(Expected: -3);
             Test4.D.ShouldBe(Expected: 4);
             Test5.E.ShouldBe(Expected: null);
             }
@@ -251,7 +251,7 @@ namespace L_Tests.LCore.Extensions.Optional
 
             Test4.Should().Equal("5", "5", "5", "5", "5");
 
-            L.F<string, int, Func<string[]>>(global::LCore.Extensions.Optional.ObjectExt.FN_CreateArray).ShouldFail("5", -1);
+            L.F<string, int, Func<string[]>>(global::LCore.Extensions.Optional.ObjectExt.FN_CreateArray).ShouldFail("5", o2: -1);
 
             Func<string[]> Test5 = "5".FN_CreateArray(Count: 0);
 
@@ -278,7 +278,7 @@ namespace L_Tests.LCore.Extensions.Optional
 
             Test4.Should().Equal("5", "5", "5", "5", "5");
 
-            L.F<string, int, Func<List<string>>>(global::LCore.Extensions.Optional.ObjectExt.FN_CreateList).ShouldFail("5", -1);
+            L.F<string, int, Func<List<string>>>(global::LCore.Extensions.Optional.ObjectExt.FN_CreateList).ShouldFail("5", o2: -1);
 
             Func<List<string>> Test5 = "5".FN_CreateList(Count: 0);
 
