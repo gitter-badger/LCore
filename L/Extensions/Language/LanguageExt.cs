@@ -16,6 +16,9 @@ namespace LCore.Extensions
         [CanBeNull]
         public static string FindSourceCode([CanBeNull]this MemberInfo Member, bool IncludeAttributes = true)
             {
+            if (Member == null)
+                return null;
+
             string CodeLocation = Member?.DeclaringType.FindClassFile(); //CodeExploder.CodeRootLocation;
 
 
@@ -74,6 +77,13 @@ namespace LCore.Extensions
     public static partial class L
         {
         public static class Lang
+            {
+            }
+
+
+        [ExcludeFromCodeCoverage]
+        // ReSharper disable once InconsistentNaming
+        internal static class _Lang
             {
             public static readonly string[] GenericInputTypes = { "T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16" };
             public static readonly string[] GenericOutputTypes = { "U" };
@@ -174,39 +184,34 @@ namespace LCore.Extensions
             #region LanguageFindMate
 
             public static readonly Func<string, int, int> LanguageFindMate = (Str, Start) =>
+            {
+                char Open = Str[Start];
+                char Close = CloseSequences[OpenSequences.List().IndexOf(Str[Start].ToString())][index: 0];
+                int Depth = 0;
+                int Index = Start + 1;
+                int Out = -1;
+                Index.For(Str.Length - 1, i =>
                 {
-                    char Open = Str[Start];
-                    char Close = CloseSequences[OpenSequences.List().IndexOf(Str[Start].ToString())][index: 0];
-                    int Depth = 0;
-                    int Index = Start + 1;
-                    int Out = -1;
-                    Index.For(Str.Length - 1, i =>
+                    if (Str[i] == Open)
+                        Depth++;
+                    if (Str[i] == Close)
                         {
-                            if (Str[i] == Open)
-                                Depth++;
-                            if (Str[i] == Close)
-                                {
-                                if (Depth == 0)
-                                    {
-                                    Out = i;
-                                    return false;
-                                    }
-                                Depth--;
-                                }
-                            return true;
-                        });
+                        if (Depth == 0)
+                            {
+                            Out = i;
+                            return false;
+                            }
+                        Depth--;
+                        }
+                    return true;
+                });
 
-                    return Out;
-                };
+                return Out;
+            };
 
             #endregion
-            }
 
 
-        [ExcludeFromCodeCoverage]
-        // ReSharper disable once InconsistentNaming
-        internal static class _Lang
-            {
             #region RemoveTypeNamespaces
             internal static readonly Func<string, string> RemoveTypeNamespaces = Str =>
             {
@@ -214,7 +219,7 @@ namespace LCore.Extensions
                     {
                     int Index = Str.IndexOf(value: '.');
                     string Temp = Str.Sub(Start: 0, Length: Index);
-                    int IndexSpace = Temp.LastIndexOfAny(Lang.SeparatorChars);
+                    int IndexSpace = Temp.LastIndexOfAny(_Lang.SeparatorChars);
                     if (IndexSpace < 0)
                         {
                         Str = Str.Sub(Index + 1);
@@ -366,7 +371,7 @@ namespace LCore.Extensions
                     });
 
                     Out = Out.RemoveDuplicates();
-                    Out = Out.Select(Str => Lang.GenericTypes.Has(Str)).List();
+                    Out = Out.Select(Str => _Lang.GenericTypes.Has(Str)).List();
                     Out.Sort(Str.NumericalCompare);
                     return Out;
                 };

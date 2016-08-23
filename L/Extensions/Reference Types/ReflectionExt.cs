@@ -166,7 +166,7 @@ namespace LCore.Extensions
             {
             if (In is Type)
                 {
-                return $"{((Type)In).Namespace}.{((Type)In).GetClassHierarchy()}".ReplaceAll("+", ".");
+                return $"{((Type)In).Namespace}.{((Type)In).GetNestedNames()}".ReplaceAll("+", ".");
                 }
             if (In is PropertyInfo || In is FieldInfo || In is EventInfo || In is MethodInfo)
                 {
@@ -300,29 +300,6 @@ namespace LCore.Extensions
 
         #endregion
 
-        #region GetClassHierarchy
-
-        /// <summary>
-        /// Returns the full hierarchy of classes if <paramref name="In" /> is a nested class.
-        /// Ex. "L.Comment.Test"
-        /// </summary>
-        public static string GetClassHierarchy([CanBeNull] this Type In)
-            {
-            var Parts = new List<string>();
-
-            while (In != null)
-                {
-                Parts.Add(In.GetGenericName());
-                In = In.DeclaringType;
-                }
-
-            Parts.Reverse();
-
-            return Parts.JoinLines(".");
-            }
-
-        #endregion
-
         #region GetComparer
 
         /// <summary>
@@ -425,8 +402,6 @@ namespace LCore.Extensions
             }
 
         #endregion
-
-        // TODO: GetClassHierarchy are identical, merge
 
         #region GetNestedNames
 
@@ -1162,7 +1137,7 @@ namespace LCore.Extensions
 
             string MethodName = In.Name;
 
-            string Start = $"{In.DeclaringType?.GetClassHierarchy()}";
+            string Start = $"{In.DeclaringType?.GetNestedNames()}";
 
             if (FullyQualify)
                 Start = $"{In.DeclaringType?.Namespace}.{Start}";

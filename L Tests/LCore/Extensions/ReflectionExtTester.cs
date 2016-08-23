@@ -231,17 +231,7 @@ namespace L_Tests.LCore.Extensions
             Test.GetCustomAttributes(Inherit: false);
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
             }
-
-
-        [Fact]
-        [Trait(Traits.TargetMember,
-            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." +
-            nameof(ReflectionExt.GetClassHierarchy) + "(Type) => String")]
-        public void GetClassHierarchy()
-            {
-            typeof(TestClass).GetClassHierarchy().ShouldBe("ReflectionExtTester.TestClass");
-            }
-
+        
 
         [Fact]
         [Trait(Traits.TargetMember,

@@ -222,7 +222,7 @@ namespace LCore.Extensions
 
             return GetCommentName(Code,
                 In.Namespace,
-                In.GetClassHierarchy(),
+                In.GetNestedNames(),
                 MemberName: null,
                 Types: In.GetGenericArguments().Length);
             }
@@ -231,7 +231,7 @@ namespace LCore.Extensions
             {
             string Out = GetCommentName("M",
                 In.DeclaringType?.Namespace,
-                In.DeclaringType?.GetClassHierarchy(),
+                In.DeclaringType?.GetNestedNames(),
                 In.Name,
                 In.GetGenericArguments().Length);
             string Parameters = In.GetParameters().Convert(Param => Param.ParameterType.FullName).JoinLines(",");
@@ -242,7 +242,7 @@ namespace LCore.Extensions
             {
             return GetCommentName("F",
                 In.DeclaringType?.Namespace,
-                In.DeclaringType?.GetClassHierarchy(),
+                In.DeclaringType?.GetNestedNames(),
                 In.Name,
                 Types: 0);
             }
@@ -251,7 +251,7 @@ namespace LCore.Extensions
             {
             return GetCommentName("P",
                 In.DeclaringType?.Namespace,
-                In.DeclaringType?.GetClassHierarchy(),
+                In.DeclaringType?.GetNestedNames(),
                 In.Name,
                 Types: 0);
             }

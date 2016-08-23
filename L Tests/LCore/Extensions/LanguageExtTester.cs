@@ -19,7 +19,7 @@ namespace L_Tests.LCore.Extensions
         public void Dispose() { }
 
         [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LanguageExt) + "." + nameof(LanguageExt.FindSourceCode) + "(MemberInfo) => String")]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LanguageExt) + "." + nameof(LanguageExt.FindSourceCode) + "(MemberInfo, Boolean) => String")]
         public void FindSourceCode()
             {
             // super meta test
@@ -29,7 +29,7 @@ namespace L_Tests.LCore.Extensions
 
         public const string FindSourceCodeTestCode =
 @"        [Fact]
-        [Trait(Traits.TargetMember, nameof(LCore) + ""."" + nameof(global::LCore.Extensions) + ""."" + nameof(LanguageExt) + ""."" + nameof(LanguageExt.FindSourceCode) + ""(MemberInfo) => String"")]
+        [Trait(Traits.TargetMember, nameof(LCore) + ""."" + nameof(global::LCore.Extensions) + ""."" + nameof(LanguageExt) + ""."" + nameof(LanguageExt.FindSourceCode) + ""(MemberInfo, Boolean) => String"")]
         public void FindSourceCode()
             {
             // super meta test
