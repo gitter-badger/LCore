@@ -14,7 +14,7 @@ namespace LCore.Extensions
         {
         #region FindSourceCode
         [CanBeNull]
-        public static string FindSourceCode([CanBeNull]this MemberInfo Member, bool IncludeAttributes = true)
+        public static string FindSourceCode([CanBeNull]this MemberInfo Member, bool IncludeMarkup = true)
             {
             if (Member == null)
                 return null;
@@ -44,7 +44,13 @@ namespace LCore.Extensions
 
                     string Line = CodeLines[StartIndex].Trim();
 
-                    if (IncludeAttributes && Line.StartsWith("[") && Line.EndsWith("]"))
+                    if (IncludeMarkup && Line.StartsWith("[") && Line.EndsWith("]"))
+                        continue;
+                    if (IncludeMarkup &&
+                        (Line.Trim().StartsWith("//") ||
+                        Line.Trim().StartsWith("*/") ||
+                        Line.Trim().StartsWith("*") ||
+                        Line.Trim().StartsWith("/*")))
                         continue;
 
                     StartIndex++;
