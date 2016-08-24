@@ -85,11 +85,21 @@ namespace L_Tests.LCore.Extensions
         [Fact]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LanguageExt) + "." + nameof(LanguageExt.FindSourceCodeLineNumber) + "(MemberInfo) => Nullable<UInt32>")]
         public void FindSourceCodeLineNumber()
-            {/*
-            ((uint)(typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCodeLineNumber())).ShouldBe(0);
-            typeof(LanguageExtTester).GetMethod(nameof(this.Dispose)).FindSourceCodeLineNumber().ShouldBe(0);
-            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty)).FindSourceCodeLineNumber().ShouldBe(0);
-            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCodeLineNumber().ShouldBe(0);*/
+            {
+            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode_SelfTest)).FindSourceCodeLineNumber().ShouldBe(39u);
+            typeof(LanguageExtTester).GetMethod(nameof(this.Dispose)).FindSourceCodeLineNumber().ShouldBe(34u);
+            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty)).FindSourceCodeLineNumber().ShouldBe(22u);
+            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCodeLineNumber().ShouldBe(30u);
+            }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LanguageExt) + "." + nameof(LanguageExt.FindSourceCodeLineCount) + "(MemberInfo, Boolean, Boolean, Boolean) => UInt32")]
+        public void FindSourceCodeLineCount()
+            {
+            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode_SelfTest)).FindSourceCodeLineCount().ShouldBe(11u);
+            typeof(LanguageExtTester).GetMethod(nameof(this.Dispose)).FindSourceCodeLineCount().ShouldBe(3u);
+            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty)).FindSourceCodeLineCount().ShouldBe(7u);
+            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCodeLineCount().ShouldBe(0u);
             }
 
         public const string FindSourceCodeTestCode =

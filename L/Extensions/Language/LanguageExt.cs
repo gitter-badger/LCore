@@ -166,20 +166,21 @@ namespace LCore.Extensions
 
         /// <summary>
         /// Determines the number of lines in a block of code, if source is available.
+        /// By default, Attributes and comments are included, but empty lines are not.
         /// </summary>
         [CanBeNull]
         public static uint FindSourceCodeLineCount([CanBeNull] this MemberInfo Member,
             bool IncludeEmptyLines = false,
-            bool IncludeAttributes = false,
-            bool IncludeComments = false)
+            bool IncludeAttributes = true,
+            bool IncludeComments = true)
             {
-            string[] Source = Member.FindSourceCode(IncludeAttributes, IncludeAttributes).Lines();
+            string[] Source = Member.FindSourceCode(IncludeAttributes, IncludeComments).Lines();
 
             return Source.Count(Line =>
                 {
                     string Line2 = Line.Trim();
 
-                    return Line2 != "}" && Line2 != "{" && Line2 != "";
+                    return IncludeEmptyLines || (Line2 != "}" || Line2 != "{" || Line2 != "");
                 });
             }
         #endregion
