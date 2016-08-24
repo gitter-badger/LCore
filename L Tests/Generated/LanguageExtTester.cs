@@ -14,10 +14,10 @@ namespace L_Tests.LCore.Extensions
     public partial class LanguageExtTester
     {
         [Fact]
-        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(LanguageExt)+ "." + nameof(LanguageExt.FindSourceCodeLineNumber) + "(MemberInfo) => Nullable<UInt32>")]
-        public void FindSourceCodeLineNumber()
+        [Trait(Traits.TargetMember,nameof(LCore)+ "." + nameof(global::LCore.Extensions)+ "." + nameof(LanguageExt)+ "." + nameof(LanguageExt.FindSourceCodeLineCount) + "(MemberInfo, Boolean, Boolean, Boolean) => UInt32")]
+        public void FindSourceCodeLineCount()
         {
-            // TODO: Implement method test LCore.Extensions.LanguageExt.FindSourceCodeLineNumber
+            // TODO: Implement method test LCore.Extensions.LanguageExt.FindSourceCodeLineCount
         }
 
     }

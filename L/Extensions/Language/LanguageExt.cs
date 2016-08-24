@@ -21,7 +21,8 @@ namespace LCore.Extensions
         /// Optionally, include code comments and any member Attributes
         /// </summary>
         [CanBeNull]
-        public static string FindSourceCode([CanBeNull] this MemberInfo Member, bool IncludeAttributes = false, bool IncludeComments = false)
+        public static string FindSourceCode([CanBeNull] this MemberInfo Member, bool IncludeAttributes = false,
+            bool IncludeComments = false)
             {
             if (Member == null)
                 return null;
@@ -68,11 +69,11 @@ namespace LCore.Extensions
 
             if (Index != null)
                 {
-                string StartBraceLine = CodeLines[(int) Index + 1];
+                string StartBraceLine = CodeLines[(int)Index + 1];
                 string EndBraceLine = StartBraceLine.Replace("{", "}");
 
-                int StartIndex = (int) Index;
-                int EndIndex = (int) Index + 2;
+                int StartIndex = (int)Index;
+                int EndIndex = (int)Index + 2;
 
                 bool SingleLineMember = CodeLines[StartIndex].Trim().EndsWith("{}") ||
                                         CodeLines[StartIndex].Trim().EndsWith("{ }") ||
@@ -80,7 +81,7 @@ namespace LCore.Extensions
                                         (Member is PropertyInfo && CodeLines[StartIndex].Contains($"{SearchStr2} => "));
 
                 if (SingleLineMember)
-                    EndIndex = (int) Index;
+                    EndIndex = (int)Index;
 
                 while (StartIndex > 0)
                     {
@@ -154,11 +155,33 @@ namespace LCore.Extensions
                          CodeLines.IndexOf(Line => Line.Contains(SearchStr2));
 
             if (Index != null)
-                return (uint) (int) Index;
+                return (uint)(int)Index;
 
             return null;
             }
 
+        #endregion
+
+        #region FindSourceCodeLineCount
+
+        /// <summary>
+        /// Determines the number of lines in a block of code, if source is available.
+        /// </summary>
+        [CanBeNull]
+        public static uint FindSourceCodeLineCount([CanBeNull] this MemberInfo Member,
+            bool IncludeEmptyLines = false,
+            bool IncludeAttributes = false,
+            bool IncludeComments = false)
+            {
+            string[] Source = Member.FindSourceCode(IncludeAttributes, IncludeAttributes).Lines();
+
+            return Source.Count(Line =>
+                {
+                    string Line2 = Line.Trim();
+
+                    return Line2 != "}" && Line2 != "{" && Line2 != "";
+                });
+            }
         #endregion
         }
 
@@ -168,12 +191,12 @@ namespace LCore.Extensions
         // ReSharper disable once InconsistentNaming
         internal static class _Lang
             {
-            public static readonly string[] GenericInputTypes = {"T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16"};
-            public static readonly string[] GenericOutputTypes = {"U"};
-            public static readonly string[] GenericTypes = {"T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16", "U"};
-            public static readonly string[] OpenSequences = {"[", "{", "(", "<", "\'", "\"", "/*", "//"};
-            public static readonly string[] CloseSequences = {"]", "}", ")", ">", "\'", "\"", "*/", "\r\n"};
-            public static readonly char[] SeparatorChars = {' ', ',', '<', '>', '(', ')', '{', '}', '[', ']', '-', '+', '.', '/', '*', '-', '&', '^', '%', '=', '?'};
+            public static readonly string[] GenericInputTypes = { "T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16" };
+            public static readonly string[] GenericOutputTypes = { "U" };
+            public static readonly string[] GenericTypes = { "T", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", "T13", "T14", "T15", "T16", "U" };
+            public static readonly string[] OpenSequences = { "[", "{", "(", "<", "\'", "\"", "/*", "//" };
+            public static readonly string[] CloseSequences = { "]", "}", ")", ">", "\'", "\"", "*/", "\r\n" };
+            public static readonly char[] SeparatorChars = { ' ', ',', '<', '>', '(', ')', '{', '}', '[', ']', '-', '+', '.', '/', '*', '-', '&', '^', '%', '=', '?' };
 
             #region LanguageGetCodeString
 
@@ -192,9 +215,9 @@ namespace LCore.Extensions
 
             public static readonly Func<string, List<FileInfo>> LanguageGetCodeFiles = F<string, List<FileInfo>>(Str =>
                 {
-                return Directory.GetFiles(Str, $"*{CodeExplode.ExplodeFileType}", SearchOption.AllDirectories).List().Select(
-                        Str2 => !Str2.ToLower().Contains(CodeExploder.CodeExplodeLocation?.ToLower() ?? "#"))
-                    .Convert(Str3 => new FileInfo(Str3));
+                    return Directory.GetFiles(Str, $"*{CodeExplode.ExplodeFileType}", SearchOption.AllDirectories).List().Select(
+                            Str2 => !Str2.ToLower().Contains(CodeExploder.CodeExplodeLocation?.ToLower() ?? "#"))
+                        .Convert(Str3 => new FileInfo(Str3));
                 }).Cache("CodeExplode_FileInfoCache");
 
             #endregion
@@ -203,62 +226,62 @@ namespace LCore.Extensions
 
             public static readonly Func<string, MemberInfo, string> MemberInfoGetCodeFromPath = (Path, Member) =>
                 {
-                List<FileInfo> Files = LanguageGetCodeFiles(Path);
-                string SearchStr = $"{CleanGenericTypeName(Member?.GetMemberType()?.ToString())} {Member?.Name}";
-                string SearchStr2 = ReplaceNativeTypes(SearchStr);
-                string SearchStr3 = Member?.Name + CodeExplodeGenerics.MethodActionToken;
-                string SearchStr4 = Member?.Name + CodeExplodeGenerics.MethodFuncToken;
-                SearchStr = SearchStr.Replace(",", ", ");
-                string Code = "";
-                int Index = -1;
+                    List<FileInfo> Files = LanguageGetCodeFiles(Path);
+                    string SearchStr = $"{CleanGenericTypeName(Member?.GetMemberType()?.ToString())} {Member?.Name}";
+                    string SearchStr2 = ReplaceNativeTypes(SearchStr);
+                    string SearchStr3 = Member?.Name + CodeExplodeGenerics.MethodActionToken;
+                    string SearchStr4 = Member?.Name + CodeExplodeGenerics.MethodFuncToken;
+                    SearchStr = SearchStr.Replace(",", ", ");
+                    string Code = "";
+                    int Index = -1;
 
-                var File = Files.First(FileInfo =>
-                    {
-                    string FileContents = LanguageGetCodeString(FileInfo.FullName);
+                    var File = Files.First(FileInfo =>
+                        {
+                            string FileContents = LanguageGetCodeString(FileInfo.FullName);
 
-                    if (FileContents.Contains(SearchStr4))
+                            if (FileContents.Contains(SearchStr4))
+                                {
+                                SearchStr = SearchStr4;
+                                Code = FileContents;
+                                Index = Code.IndexOf(SearchStr);
+                                return true;
+                                }
+                            if (FileContents.Contains(SearchStr3))
+                                {
+                                SearchStr = SearchStr3;
+                                Code = FileContents;
+                                Index = Code.IndexOf(SearchStr);
+                                return true;
+                                }
+                            if (FileContents.Contains(SearchStr2))
+                                {
+                                SearchStr = SearchStr2;
+                                Code = FileContents;
+                                Index = Code.IndexOf(SearchStr);
+                                return true;
+                                }
+                            if (FileContents.Contains(SearchStr))
+                                {
+                                Code = FileContents;
+                                Index = Code.IndexOf(SearchStr);
+                                return true;
+                                }
+                            return false;
+                        });
+                    if (File == null)
                         {
-                        SearchStr = SearchStr4;
-                        Code = FileContents;
-                        Index = Code.IndexOf(SearchStr);
-                        return true;
+                        return "";
                         }
-                    if (FileContents.Contains(SearchStr3))
-                        {
-                        SearchStr = SearchStr3;
-                        Code = FileContents;
-                        Index = Code.IndexOf(SearchStr);
-                        return true;
-                        }
-                    if (FileContents.Contains(SearchStr2))
-                        {
-                        SearchStr = SearchStr2;
-                        Code = FileContents;
-                        Index = Code.IndexOf(SearchStr);
-                        return true;
-                        }
-                    if (FileContents.Contains(SearchStr))
-                        {
-                        Code = FileContents;
-                        Index = Code.IndexOf(SearchStr);
-                        return true;
-                        }
-                    return false;
-                    });
-                if (File == null)
-                    {
-                    return "";
-                    }
-                string Temp = Code.Sub(Start: 0, Length: Index);
-                Index = Temp.LastIndexOf("\r\n", StringComparison.Ordinal);
-                Code = Code.Substring(Index + 2);
-                int OpenBraceIndex = Code.IndexOf(value: '{');
-                int EndIndex = LanguageFindMate(Code, OpenBraceIndex) + 1;
+                    string Temp = Code.Sub(Start: 0, Length: Index);
+                    Index = Temp.LastIndexOf("\r\n", StringComparison.Ordinal);
+                    Code = Code.Substring(Index + 2);
+                    int OpenBraceIndex = Code.IndexOf(value: '{');
+                    int EndIndex = LanguageFindMate(Code, OpenBraceIndex) + 1;
 
-                string Out = $"{Code.Sub(Start: 0, Length: EndIndex)}\r\n";
+                    string Out = $"{Code.Sub(Start: 0, Length: EndIndex)}\r\n";
 
-                if (Out.IsEmpty()) {}
-                return Out;
+                    if (Out.IsEmpty()) { }
+                    return Out;
                 };
 
             #endregion
@@ -267,28 +290,28 @@ namespace LCore.Extensions
 
             public static readonly Func<string, int, int> LanguageFindMate = (Str, Start) =>
                 {
-                char Open = Str[Start];
-                char Close = CloseSequences[OpenSequences.List().IndexOf(Str[Start].ToString())][index: 0];
-                int Depth = 0;
-                int Index = Start + 1;
-                int Out = -1;
-                Index.For(Str.Length - 1, i =>
-                    {
-                    if (Str[i] == Open)
-                        Depth++;
-                    if (Str[i] == Close)
+                    char Open = Str[Start];
+                    char Close = CloseSequences[OpenSequences.List().IndexOf(Str[Start].ToString())][index: 0];
+                    int Depth = 0;
+                    int Index = Start + 1;
+                    int Out = -1;
+                    Index.For(Str.Length - 1, i =>
                         {
-                        if (Depth == 0)
-                            {
-                            Out = i;
-                            return false;
-                            }
-                        Depth--;
-                        }
-                    return true;
-                    });
+                            if (Str[i] == Open)
+                                Depth++;
+                            if (Str[i] == Close)
+                                {
+                                if (Depth == 0)
+                                    {
+                                    Out = i;
+                                    return false;
+                                    }
+                                Depth--;
+                                }
+                            return true;
+                        });
 
-                return Out;
+                    return Out;
                 };
 
             #endregion
@@ -297,21 +320,21 @@ namespace LCore.Extensions
 
             internal static readonly Func<string, string> RemoveTypeNamespaces = Str =>
                 {
-                while (Str.Has(Obj: '.'))
-                    {
-                    int Index = Str.IndexOf(value: '.');
-                    string Temp = Str.Sub(Start: 0, Length: Index);
-                    int IndexSpace = Temp.LastIndexOfAny(SeparatorChars);
-                    if (IndexSpace < 0)
+                    while (Str.Has(Obj: '.'))
                         {
-                        Str = Str.Sub(Index + 1);
+                        int Index = Str.IndexOf(value: '.');
+                        string Temp = Str.Sub(Start: 0, Length: Index);
+                        int IndexSpace = Temp.LastIndexOfAny(SeparatorChars);
+                        if (IndexSpace < 0)
+                            {
+                            Str = Str.Sub(Index + 1);
+                            }
+                        else
+                            {
+                            Str = Str.Sub(Start: 0, Length: IndexSpace + 1) + Str.Substring(Index + 1);
+                            }
                         }
-                    else
-                        {
-                        Str = Str.Sub(Start: 0, Length: IndexSpace + 1) + Str.Substring(Index + 1);
-                        }
-                    }
-                return Str;
+                    return Str;
                 };
 
             #endregion
@@ -320,61 +343,61 @@ namespace LCore.Extensions
 
             internal static readonly Func<string, string> CleanGenericTypeName = Str =>
                 {
-                Str = Str.Replace("`1[", "<");
-                Str = Str.Replace("`2[", "<");
-                Str = Str.Replace("`3[", "<");
-                Str = Str.Replace("`4[", "<");
-                Str = Str.Replace("`5[", "<");
-                Str = Str.Replace("`6[", "<");
-                Str = Str.Replace("`7[", "<");
-                Str = Str.Replace("`8[", "<");
-                Str = Str.Replace("`9[", "<");
-                Str = Str.Replace("`10[", "<");
-                Str = Str.Replace("`11[", "<");
-                Str = Str.Replace("`12[", "<");
-                Str = Str.Replace("`13[", "<");
-                Str = Str.Replace("`14[", "<");
-                Str = Str.Replace("`15[", "<");
-                Str = Str.Replace("`16[", "<");
-                Str = Str.Replace("`17[", "<");
-                Str = Str.Replace("Action`10", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10>");
-                Str = Str.Replace("Action`11", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11>");
-                Str = Str.Replace("Action`12", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12>");
-                Str = Str.Replace("Action`13", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13>");
-                Str = Str.Replace("Action`14", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14>");
-                Str = Str.Replace("Action`15", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15>");
-                Str = Str.Replace("Action`16", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16>");
-                Str = Str.Replace("Action`1", "Action<T1>");
-                Str = Str.Replace("Action`2", "Action<T1,T2>");
-                Str = Str.Replace("Action`3", "Action<T1,T2,T3>");
-                Str = Str.Replace("Action`4", "Action<T1,T2,T3,T4>");
-                Str = Str.Replace("Action`5", "Action<T1,T2,T3,T4,T5>");
-                Str = Str.Replace("Action`6", "Action<T1,T2,T3,T4,T5,T6>");
-                Str = Str.Replace("Action`7", "Action<T1,T2,T3,T4,T5,T6,T7>");
-                Str = Str.Replace("Action`8", "Action<T1,T2,T3,T4,T5,T6,T7,T8>");
-                Str = Str.Replace("Action`9", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9>");
-                Str = Str.Replace("Func`10", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,U>");
-                Str = Str.Replace("Func`11", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,U>");
-                Str = Str.Replace("Func`12", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,U>");
-                Str = Str.Replace("Func`13", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,U>");
-                Str = Str.Replace("Func`14", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,U>");
-                Str = Str.Replace("Func`15", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,U>");
-                Str = Str.Replace("Func`16", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,U>");
-                Str = Str.Replace("Func`17", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,U>");
-                Str = Str.Replace("Func`1", "Func<U>");
-                Str = Str.Replace("Func`2", "Func<T1,U>");
-                Str = Str.Replace("Func`3", "Func<T1,T2,U>");
-                Str = Str.Replace("Func`4", "Func<T1,T2,T3,U>");
-                Str = Str.Replace("Func`5", "Func<T1,T2,T3,T4,U>");
-                Str = Str.Replace("Func`6", "Func<T1,T2,T3,T4,T5,U>");
-                Str = Str.Replace("Func`7", "Func<T1,T2,T3,T4,T5,T6,U>");
-                Str = Str.Replace("Func`8", "Func<T1,T2,T3,T4,T5,T6,T7,U>");
-                Str = Str.Replace("Func`9", "Func<T1,T2,T3,T4,T5,T6,T7,T8,U>");
-                Str = Str.Replace("[]", "***");
-                Str = Str.Replace("]", ">");
-                Str = Str.Replace("[", ">");
-                Str = Str.Replace("***", "[]");
-                return RemoveTypeNamespaces(Str);
+                    Str = Str.Replace("`1[", "<");
+                    Str = Str.Replace("`2[", "<");
+                    Str = Str.Replace("`3[", "<");
+                    Str = Str.Replace("`4[", "<");
+                    Str = Str.Replace("`5[", "<");
+                    Str = Str.Replace("`6[", "<");
+                    Str = Str.Replace("`7[", "<");
+                    Str = Str.Replace("`8[", "<");
+                    Str = Str.Replace("`9[", "<");
+                    Str = Str.Replace("`10[", "<");
+                    Str = Str.Replace("`11[", "<");
+                    Str = Str.Replace("`12[", "<");
+                    Str = Str.Replace("`13[", "<");
+                    Str = Str.Replace("`14[", "<");
+                    Str = Str.Replace("`15[", "<");
+                    Str = Str.Replace("`16[", "<");
+                    Str = Str.Replace("`17[", "<");
+                    Str = Str.Replace("Action`10", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10>");
+                    Str = Str.Replace("Action`11", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11>");
+                    Str = Str.Replace("Action`12", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12>");
+                    Str = Str.Replace("Action`13", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13>");
+                    Str = Str.Replace("Action`14", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14>");
+                    Str = Str.Replace("Action`15", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15>");
+                    Str = Str.Replace("Action`16", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16>");
+                    Str = Str.Replace("Action`1", "Action<T1>");
+                    Str = Str.Replace("Action`2", "Action<T1,T2>");
+                    Str = Str.Replace("Action`3", "Action<T1,T2,T3>");
+                    Str = Str.Replace("Action`4", "Action<T1,T2,T3,T4>");
+                    Str = Str.Replace("Action`5", "Action<T1,T2,T3,T4,T5>");
+                    Str = Str.Replace("Action`6", "Action<T1,T2,T3,T4,T5,T6>");
+                    Str = Str.Replace("Action`7", "Action<T1,T2,T3,T4,T5,T6,T7>");
+                    Str = Str.Replace("Action`8", "Action<T1,T2,T3,T4,T5,T6,T7,T8>");
+                    Str = Str.Replace("Action`9", "Action<T1,T2,T3,T4,T5,T6,T7,T8,T9>");
+                    Str = Str.Replace("Func`10", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,U>");
+                    Str = Str.Replace("Func`11", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,U>");
+                    Str = Str.Replace("Func`12", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,U>");
+                    Str = Str.Replace("Func`13", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,U>");
+                    Str = Str.Replace("Func`14", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,U>");
+                    Str = Str.Replace("Func`15", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,U>");
+                    Str = Str.Replace("Func`16", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,U>");
+                    Str = Str.Replace("Func`17", "Func<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,U>");
+                    Str = Str.Replace("Func`1", "Func<U>");
+                    Str = Str.Replace("Func`2", "Func<T1,U>");
+                    Str = Str.Replace("Func`3", "Func<T1,T2,U>");
+                    Str = Str.Replace("Func`4", "Func<T1,T2,T3,U>");
+                    Str = Str.Replace("Func`5", "Func<T1,T2,T3,T4,U>");
+                    Str = Str.Replace("Func`6", "Func<T1,T2,T3,T4,T5,U>");
+                    Str = Str.Replace("Func`7", "Func<T1,T2,T3,T4,T5,T6,U>");
+                    Str = Str.Replace("Func`8", "Func<T1,T2,T3,T4,T5,T6,T7,U>");
+                    Str = Str.Replace("Func`9", "Func<T1,T2,T3,T4,T5,T6,T7,T8,U>");
+                    Str = Str.Replace("[]", "***");
+                    Str = Str.Replace("]", ">");
+                    Str = Str.Replace("[", ">");
+                    Str = Str.Replace("***", "[]");
+                    return RemoveTypeNamespaces(Str);
                 };
 
             #endregion
@@ -383,9 +406,9 @@ namespace LCore.Extensions
 
             internal static readonly Func<Type, List<Type>> GetAssemblyTypesWithAttribute = Attr =>
                 {
-                return Assembly.GetCallingAssembly().GetModules()
-                    .Convert(Module => { return Module.GetTypes().Select(Type => { return Attr.TypeEquals(typeof(void)) || Type.HasAttribute(Attr, IncludeBaseClasses: true); }); })
-                    .Flatten<Type>();
+                    return Assembly.GetCallingAssembly().GetModules()
+                        .Convert(Module => { return Module.GetTypes().Select(Type => { return Attr.TypeEquals(typeof(void)) || Type.HasAttribute(Attr, IncludeBaseClasses: true); }); })
+                        .Flatten<Type>();
                 };
 
             #endregion
@@ -400,15 +423,15 @@ namespace LCore.Extensions
 
             internal static readonly Func<string, string> ReplaceNativeTypes = Str =>
                 {
-                Str = Str.Replace("Double", "double");
-                Str = Str.Replace("UInt64", "ulong");
-                Str = Str.Replace("Int64", "long");
-                Str = Str.Replace("UInt32", "uint");
-                Str = Str.Replace("Int32", "int");
-                Str = Str.Replace("Single", "float");
-                Str = Str.Replace("Boolean", "bool");
-                Str = Str.Replace("String", "string");
-                return Str;
+                    Str = Str.Replace("Double", "double");
+                    Str = Str.Replace("UInt64", "ulong");
+                    Str = Str.Replace("Int64", "long");
+                    Str = Str.Replace("UInt32", "uint");
+                    Str = Str.Replace("Int32", "int");
+                    Str = Str.Replace("Single", "float");
+                    Str = Str.Replace("Boolean", "bool");
+                    Str = Str.Replace("String", "string");
+                    return Str;
                 };
 
             #endregion
@@ -432,14 +455,14 @@ namespace LCore.Extensions
 
             internal static readonly Func<string[], string, string> Using = (Using, In) =>
                 {
-                if (Using.IsEmpty() || In.IsEmpty())
-                    return In;
+                    if (Using.IsEmpty() || In.IsEmpty())
+                        return In;
 
-                string Out = "";
-                Using.Each(Str => { Out += $"using {Str};\r\n"; });
-                Out += "\r\n";
-                Out += In;
-                return Out;
+                    string Out = "";
+                    Using.Each(Str => { Out += $"using {Str};\r\n"; });
+                    Out += "\r\n";
+                    Out += In;
+                    return Out;
                 };
 
             #endregion
@@ -464,13 +487,13 @@ namespace LCore.Extensions
 
             internal static readonly Func<string[], List<string>> GetGenericsFromTypes = Generics =>
                 {
-                var Out = new List<string>();
-                Generics.Each(Generic => { Out.AddRange(GetTypeGenerics(Generic)); });
+                    var Out = new List<string>();
+                    Generics.Each(Generic => { Out.AddRange(GetTypeGenerics(Generic)); });
 
-                Out = Out.RemoveDuplicates();
-                Out = Out.Select(Str => GenericTypes.Has(Str)).List();
-                Out.Sort(Str.NumericalCompare);
-                return Out;
+                    Out = Out.RemoveDuplicates();
+                    Out = Out.Select(Str => GenericTypes.Has(Str)).List();
+                    Out.Sort(Str.NumericalCompare);
+                    return Out;
                 };
 
             #endregion
@@ -479,21 +502,21 @@ namespace LCore.Extensions
 
             internal static readonly Func<string, List<string>> GetTypeGenerics = TypeStr =>
                 {
-                string Out = TypeStr.Has(Obj: '<')
-                    ? TypeStr.Sub(TypeStr.LastIndexOf(value: '<') + 1, TypeStr.LastIndexOf(value: '>') - TypeStr.LastIndexOf(value: '<') - 1)
-                    : "";
-                if (Out.Has(Obj: ','))
-                    return Out.Split(',').List().Collect(Str =>
-                        {
-                        if (Str == "T")
-                            return "T1";
-                        return Str == ""
-                            ? null
-                            : Str.Trim();
-                        });
-                return !Out.IsEmpty()
-                    ? new List<string> {Out}
-                    : new List<string>();
+                    string Out = TypeStr.Has(Obj: '<')
+                        ? TypeStr.Sub(TypeStr.LastIndexOf(value: '<') + 1, TypeStr.LastIndexOf(value: '>') - TypeStr.LastIndexOf(value: '<') - 1)
+                        : "";
+                    if (Out.Has(Obj: ','))
+                        return Out.Split(',').List().Collect(Str =>
+                            {
+                                if (Str == "T")
+                                    return "T1";
+                                return Str == ""
+                                ? null
+                                : Str.Trim();
+                            });
+                    return !Out.IsEmpty()
+                        ? new List<string> { Out }
+                        : new List<string>();
                 };
 
             #endregion
@@ -502,8 +525,8 @@ namespace LCore.Extensions
 
             internal static Func<Type, string> GetEmptyTypeLambdaMethods = Type =>
                 {
-                MethodInfo[] Methods = Type.GetMethods();
-                return Methods.Convert(GetEmptyLambdaFromMethod).Combine();
+                    MethodInfo[] Methods = Type.GetMethods();
+                    return Methods.Convert(GetEmptyLambdaFromMethod).Combine();
                 };
 
             #endregion
@@ -512,45 +535,45 @@ namespace LCore.Extensions
 
             internal static readonly Func<MethodInfo, string> GetEmptyLambdaFromMethod = Method =>
                 {
-                string FunctionTypeName = CleanGenericTypeName(Method.ReturnType.ToString());
-                string ParameterTypes = Method.GetParameters().Convert(Param => CleanGenericTypeName(Param.ParameterType.ToString())).Combine(", ");
-                string ParameterNames = Method.GetParameters().Convert(Param => Param.Name).Combine(",  ");
-                List<string> Generics = GetGenericsFromTypes(ParameterTypes.Split(",  ").Add(FunctionTypeName));
-                bool ReadOnly = Generics.IsEmpty();
-                string BaseType = Method.ReturnType.TypeEquals(typeof(void))
-                    ? "Action"
-                    : "Func";
-                if (!ParameterTypes.IsEmpty())
-                    BaseType += $"<{ParameterTypes}";
-                if (!Method.ReturnType.TypeEquals(typeof(void)))
-                    BaseType += $", {CleanGenericTypeName(Method.ReturnType.ToString())}";
-                BaseType += ">";
+                    string FunctionTypeName = CleanGenericTypeName(Method.ReturnType.ToString());
+                    string ParameterTypes = Method.GetParameters().Convert(Param => CleanGenericTypeName(Param.ParameterType.ToString())).Combine(", ");
+                    string ParameterNames = Method.GetParameters().Convert(Param => Param.Name).Combine(",  ");
+                    List<string> Generics = GetGenericsFromTypes(ParameterTypes.Split(",  ").Add(FunctionTypeName));
+                    bool ReadOnly = Generics.IsEmpty();
+                    string BaseType = Method.ReturnType.TypeEquals(typeof(void))
+                        ? "Action"
+                        : "Func";
+                    if (!ParameterTypes.IsEmpty())
+                        BaseType += $"<{ParameterTypes}";
+                    if (!Method.ReturnType.TypeEquals(typeof(void)))
+                        BaseType += $", {CleanGenericTypeName(Method.ReturnType.ToString())}";
+                    BaseType += ">";
 
-                string Out = $"public static {(ReadOnly ? "readonly " : "")}";
-                Out += $"{BaseType} ";
-                Out += Method.Name;
-                if (!ReadOnly)
-                    {
-                    Out += $"<{Generics.Combine(", ")}>";
-                    Out += "()\r\n";
+                    string Out = $"public static {(ReadOnly ? "readonly " : "")}";
+                    Out += $"{BaseType} ";
+                    Out += Method.Name;
+                    if (!ReadOnly)
+                        {
+                        Out += $"<{Generics.Combine(", ")}>";
+                        Out += "()\r\n";
+                        Out += "{\r\n";
+                        Out += "return ";
+                        }
+                    else
+                        {
+                        Out += " = ";
+                        }
+                    Out += $"({ParameterNames}) => \r\n";
                     Out += "{\r\n";
-                    Out += "return ";
-                    }
-                else
-                    {
-                    Out += " = ";
-                    }
-                Out += $"({ParameterNames}) => \r\n";
-                Out += "{\r\n";
-                Out += "};\r\n";
-                if (!ReadOnly)
-                    {
-                    Out += "}\r\n";
-                    }
+                    Out += "};\r\n";
+                    if (!ReadOnly)
+                        {
+                        Out += "}\r\n";
+                        }
 
-                if (Out.Contains(", )")) {}
+                    if (Out.Contains(", )")) { }
 
-                return Out;
+                    return Out;
                 };
 
             #endregion
@@ -559,52 +582,52 @@ namespace LCore.Extensions
 
             internal static readonly Func<string, Lists<string, Type>, Type, string, MemberTypes, bool, string> GetExtensionMethodDeclaration = (Name, Params, OutType, Comment, MemberType, ExecuteResult) =>
                 {
-                if (Params.List1.Count == 0 ||
-                    Params.List2.Count == 0)
-                    throw new ArgumentException("No Parameters found");
-                string FunctionTypeName = CleanGenericTypeName(OutType.ToString());
-                string ExtensionParam = CleanGenericTypeName(Params.List2[index: 0].ToString());
-                string Parameters = "";
-                if (Params.Count > 1)
-                    Parameters = 1.To(Params.Count - 1, i => { return CleanGenericTypeName(Params.List2[i].ToString()); }).Combine(",  ");
+                    if (Params.List1.Count == 0 ||
+                        Params.List2.Count == 0)
+                        throw new ArgumentException("No Parameters found");
+                    string FunctionTypeName = CleanGenericTypeName(OutType.ToString());
+                    string ExtensionParam = CleanGenericTypeName(Params.List2[index: 0].ToString());
+                    string Parameters = "";
+                    if (Params.Count > 1)
+                        Parameters = 1.To(Params.Count - 1, i => { return CleanGenericTypeName(Params.List2[i].ToString()); }).Combine(",  ");
 
-                List<string> Generics = GetGenericsFromTypes(Parameters.Split(",  ").Add(FunctionTypeName, ExtensionParam));
+                    List<string> Generics = GetGenericsFromTypes(Parameters.Split(",  ").Add(FunctionTypeName, ExtensionParam));
 
-                string Out = $"public static {(ExecuteResult ? "void " : FunctionTypeName)}";
-                Out += $" {Name}";
+                    string Out = $"public static {(ExecuteResult ? "void " : FunctionTypeName)}";
+                    Out += $" {Name}";
 
 
-                if (!Generics.IsEmpty())
-                    {
-                    Out += $"<{Generics.Combine(", ")}>";
-                    }
-
-                Out += $"(this {ExtensionParam} {Params.List1[index: 0]}";
-                if (Params.Count > 1)
-                    {
-                    Out += ", ";
-                    1.For(Params.Count, i =>
+                    if (!Generics.IsEmpty())
                         {
-                        string ParamType = CleanGenericTypeName(Params.List2[i].ToString());
-                        if (Params.List1[i].StartsWith("params"))
+                        Out += $"<{Generics.Combine(", ")}>";
+                        }
+
+                    Out += $"(this {ExtensionParam} {Params.List1[index: 0]}";
+                    if (Params.Count > 1)
+                        {
+                        Out += ", ";
+                        1.For(Params.Count, i =>
                             {
-                            Out += "params ";
-                            Params.Set1(i, Params.List1[i].Substring(startIndex: 7));
-                            }
-                        Out += $"{ParamType} {Params.List1[i]}";
-                        if (i < Params.Count - 1)
-                            Out += ", ";
-                        return true;
-                        });
-                    }
+                                string ParamType = CleanGenericTypeName(Params.List2[i].ToString());
+                                if (Params.List1[i].StartsWith("params"))
+                                    {
+                                    Out += "params ";
+                                    Params.Set1(i, Params.List1[i].Substring(startIndex: 7));
+                                    }
+                                Out += $"{ParamType} {Params.List1[i]}";
+                                if (i < Params.Count - 1)
+                                    Out += ", ";
+                                return true;
+                            });
+                        }
 
-                Out += ")\r\n";
+                    Out += ")\r\n";
 
-                if (Out.Contains(", )")) {}
+                    if (Out.Contains(", )")) { }
 
-                if (!Comment.IsEmpty())
-                    Out = CommentSummary(Comment) + Out;
-                return Out;
+                    if (!Comment.IsEmpty())
+                        Out = CommentSummary(Comment) + Out;
+                    return Out;
                 };
 
             #endregion
@@ -613,31 +636,31 @@ namespace LCore.Extensions
 
             internal static readonly Func<Type, string, Lists<string, Type>, Type, MemberTypes, bool, string> GetExtensionMethodBody = (DeclaringType, Name, Params, ReturnType, MemberType, ExecuteResult) =>
                 {
-                string ExtensionParam = CleanGenericTypeName(Params.List2[index: 0].ToString());
-                string Parameters = "";
-                if (Params.Count > 1)
-                    Parameters = 1.To(Params.Count - 1, i => { return CleanGenericTypeName(Params.List2[i].ToString()); }).Combine(",  ");
+                    string ExtensionParam = CleanGenericTypeName(Params.List2[index: 0].ToString());
+                    string Parameters = "";
+                    if (Params.Count > 1)
+                        Parameters = 1.To(Params.Count - 1, i => { return CleanGenericTypeName(Params.List2[i].ToString()); }).Combine(",  ");
 
-                string FunctionTypeName = CleanGenericTypeName(ReturnType.ToString());
-                List<string> Generics = GetGenericsFromTypes(Parameters.Split(",  ").Add(FunctionTypeName, ExtensionParam));
+                    string FunctionTypeName = CleanGenericTypeName(ReturnType.ToString());
+                    List<string> Generics = GetGenericsFromTypes(Parameters.Split(",  ").Add(FunctionTypeName, ExtensionParam));
 
-                string Out = "{\r\n";
-                Out +=
-                    $"{(!ReturnType.TypeEquals(typeof(void)) && !ExecuteResult ? "return " : "")}{DeclaringType.Name}.{Name}";
+                    string Out = "{\r\n";
+                    Out +=
+                        $"{(!ReturnType.TypeEquals(typeof(void)) && !ExecuteResult ? "return " : "")}{DeclaringType.Name}.{Name}";
 
-                if (!Generics.IsEmpty())
-                    {
-                    Out += $"<{Generics.Combine(", ")}>";
-                    }
+                    if (!Generics.IsEmpty())
+                        {
+                        Out += $"<{Generics.Combine(", ")}>";
+                        }
 
-                Out +=
-                    $"{(MemberType.HasFlag(MemberTypes.Method) ? "()" : "")}({Params.List1.List().Collect(Str => { if (Str.Contains(" = ")) Str = Str.Sub(Start: 0, Length: Str.IndexOf(" = ")); return Str; }).Combine(", ")})";
-                if (ExecuteResult)
-                    Out += "()";
-                Out += ";\r\n";
+                    Out +=
+                        $"{(MemberType.HasFlag(MemberTypes.Method) ? "()" : "")}({Params.List1.List().Collect(Str => { if (Str.Contains(" = ")) Str = Str.Sub(Start: 0, Length: Str.IndexOf(" = ")); return Str; }).Combine(", ")})";
+                    if (ExecuteResult)
+                        Out += "()";
+                    Out += ";\r\n";
 
-                Out += "}\r\n";
-                return Out;
+                    Out += "}\r\n";
+                    return Out;
                 };
 
             #endregion
