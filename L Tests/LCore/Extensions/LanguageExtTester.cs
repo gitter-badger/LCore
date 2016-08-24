@@ -66,15 +66,25 @@ namespace L_Tests.LCore.Extensions
             // TODO Test constructors
             // TODO Test comments / attributes
 
-            // TODO Test fields;
+            // TODO Test fields
             // TODO Test comments / attributes
 
-            // TODO Test enum;
+            // TODO Test enum
             // TODO Test comments / attributes
 
-            // TODO Test class;
+            // TODO Test class
             // TODO Test comments / attributes
             }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LanguageExt) + "." + nameof(LanguageExt.FindSourceCodeLineNumber) + "(MemberInfo) => Nullable<UInt32>")]
+        public void FindSourceCodeLineNumber()
+        {
+            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode)).FindSourceCodeLineNumber().ShouldBe(FindSourceCodeTestCode);
+            typeof(LanguageExtTester).GetMethod(nameof(this.Dispose)).FindSourceCodeLineNumber().ShouldBe(DisposeCode);
+            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty)).FindSourceCodeLineNumber().ShouldBe(TestPropertyCode);
+            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCodeLineNumber().ShouldBe(TestPropertyCode2);
+        }
 
         public const string FindSourceCodeTestCode =
             @"        public void FindSourceCode()
