@@ -187,10 +187,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\L Banner original.png" />
-    <Content Include="Content\L Logo.png" />
-    <Content Include="Content\LCore-banner-large.png" />
-    <Content Include="Content\LCore-banner-small.png" />
+    <None Include="Content\L Banner original.png" />
+    <None Include="Content\L Logo.png" />
+    <None Include="Content\LCore-banner-large.png" />
+    <None Include="Content\LCore-banner-small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
