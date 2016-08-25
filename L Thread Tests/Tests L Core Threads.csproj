@@ -50,15 +50,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="L Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LCore.2016.8.23.5\lib\net451\L Utilities.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\L\bin\Debug\L Utilities.dll</HintPath>
     </Reference>
     <Reference Include="L, Version=0.9.0.11, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LCore.2016.8.23.5\lib\net451\L.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\L\bin\Debug\L.dll</HintPath>
     </Reference>
     <Reference Include="LUnit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LUnit.2016.8.23.6\lib\net451\LUnit.dll</HintPath>
+      <HintPath>..\packages\LUnit.2016.8.25.8\lib\net451\LUnit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.UnitTestFramework.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5bf63060baa03a11, processorArchitecture=MSIL">
@@ -116,10 +116,6 @@
     <Folder Include="LCore\Threads\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\L Banner original.png" />
-    <Content Include="Content\L Logo.png" />
-    <Content Include="Content\LCore-banner-large.png" />
-    <Content Include="Content\LCore-banner-small.png" />
     <Content Include="Content\LUnit banner original.png" />
     <Content Include="Content\LUnit-banner-large.png" />
     <Content Include="Content\LUnit-banner-small.png" />
