@@ -96,10 +96,10 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LanguageExt) + "." + nameof(LanguageExt.FindSourceCodeLineCount) + "(MemberInfo, Boolean, Boolean, Boolean) => UInt32")]
         public void FindSourceCodeLineCount()
             {
-            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode_SelfTest)).FindSourceCodeLineCount().ShouldBe(Expected: 11u);
+            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode_SelfTest)).FindSourceCodeLineCount().ShouldBe(Expected: 9u);
             typeof(LanguageExtTester).GetMethod(nameof(this.Dispose)).FindSourceCodeLineCount().ShouldBe(Expected: 3u);
-            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty)).FindSourceCodeLineCount().ShouldBe(Expected: 7u);
-            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCodeLineCount().ShouldBe(Expected: 0u);
+            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty)).FindSourceCodeLineCount().ShouldBe(Expected: 5u);
+            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCodeLineCount().ShouldBe(Expected: 3u);
             }
 
         public const string FindSourceCodeTestCode =

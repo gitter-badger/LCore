@@ -49,14 +49,6 @@
       <HintPath>..\packages\JetBrains.Annotations.10.1.5\lib\net\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="L Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\L\bin\Debug\L Utilities.dll</HintPath>
-    </Reference>
-    <Reference Include="L, Version=0.9.0.11, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\L\bin\Debug\L.dll</HintPath>
-    </Reference>
     <Reference Include="LUnit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LUnit.2016.8.25.8\lib\net451\LUnit.dll</HintPath>
       <Private>True</Private>
@@ -121,6 +113,16 @@
     <Content Include="Content\LUnit-banner-small.png" />
     <Content Include="Content\LUnit-logo-large.png" />
     <Content Include="Content\LUnit-logo-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\L Utilities\L Utilities.csproj">
+      <Project>{d586b389-6bf3-47f0-bfd6-49a0ce6acd67}</Project>
+      <Name>L Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\L\L Core.csproj">
+      <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
+      <Name>L Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
