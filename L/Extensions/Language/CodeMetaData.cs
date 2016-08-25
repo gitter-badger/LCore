@@ -2,27 +2,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using JetBrains.Annotations;
 using LCore.Interfaces;
 
 namespace LCore.Extensions
     {
     public class CodeMetaData
         {
-        public MemberInfo Member { get; set; }
+        public const string TODO = nameof(TODO);
 
-        public ICodeComment Comments { get; set; }
+        public const string BUG = nameof(BUG);
 
-        public uint? CodeLineNumber { get; set; }
+        public MemberInfo Member { get; }
 
-        public uint? CodeLineCount { get; set; }
+        public ICodeComment Comments { get; }
 
-        public string[] CodeLines { get; set; }
+        public uint? CodeLineNumber { get; }
 
-        public string CodeFilePath { get; set; }
+        public uint? CodeLineCount { get; }
 
-        public List<Attribute> Attributes { get; set; }
+        public string[] CodeLines { get; }
 
-        public CodeMetaData(MemberInfo Member)
+        public string CodeFilePath { get; }
+
+        public List<Attribute> Attributes { get; }
+
+        public string[] CommentTODO { get; }
+
+        public string[] CommentBUG { get; }
+
+        public Dictionary<string, string[]> CommentTags { get; }
+
+        public CodeMetaData([NotNull]MemberInfo Member, [CanBeNull]string[] TrackCommentTags = null)
             {
             this.Member = Member;
 
@@ -37,6 +48,23 @@ namespace LCore.Extensions
 
             this.Attributes = Member.GetAttributes<Attribute>(IncludeBaseTypes: true);
 
+            this.CommentTODO = this.ReadCommentTag(TODO);
+            this.CommentBUG = this.ReadCommentTag(BUG);
+
+            TrackCommentTags.Each(Tag => this.CommentTags.Add(Tag, this.ReadCommentTag(Tag)));
+            }
+
+        private string[] ReadCommentTag(string Tag)
+            {
+            var Out = new List<string>();
+            this.CodeLines.Each(Line =>
+                {
+                    string TrimLine = Line.Trim();
+                    if (TrimLine.StartsWith($"//{Tag}") || TrimLine.StartsWith($"// {Tag}"))
+                        Out.Add(TrimLine.After(Tag));
+                });
+
+            return Out.Array();
             }
         }
     }

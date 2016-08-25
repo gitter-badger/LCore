@@ -89,6 +89,7 @@ namespace LCore.Extensions
 
                     string Line = CodeLines[StartIndex].Trim();
 
+                    // TODO Add support for split-line attributes 
                     if ((IncludeAttributes || IncludeComments) && Line.StartsWith("[") && Line.EndsWith("]"))
                         {
                         AttributeIndices.Add(StartIndex);
