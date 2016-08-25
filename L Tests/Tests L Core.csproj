@@ -75,7 +75,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="LUnit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LUnit.2016.8.23.1\lib\net451\LUnit.dll</HintPath>
+      <HintPath>..\packages\LUnit.2016.8.23.6\lib\net451\LUnit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -218,7 +218,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Content\LCore-banner.pdn" />
     <None Include="Content\LUnit-banner.pdn" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -226,9 +225,6 @@
     <Folder Include="Generated\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\L Banner original.png" />
-    <Content Include="Content\LCore-banner-large.png" />
-    <Content Include="Content\LCore-banner-small.png" />
     <Content Include="Content\LUnit banner original.png" />
     <Content Include="Content\LUnit-banner-large.png" />
     <Content Include="Content\LUnit-banner-small.png" />
