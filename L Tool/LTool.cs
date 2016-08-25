@@ -27,6 +27,7 @@ namespace L_Tool
             var Test = new CodeExploder(this.CodeRoot, this.CodeDynamicFolder);
             Test.BackupAllExplodeFiles();
             string Str = Test.ExplodeAllTypes();
+            // ReSharper disable once LocalizableElement
             MessageBox.Show($"{Str.Count(Obj: '\n')} Lines Generated");
             Application.Exit();
             }

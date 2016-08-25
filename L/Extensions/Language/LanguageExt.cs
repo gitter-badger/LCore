@@ -169,21 +169,31 @@ namespace LCore.Extensions
         /// By default, Attributes and comments are included, but empty lines are not.
         /// </summary>
         [CanBeNull]
-        public static uint FindSourceCodeLineCount([CanBeNull] this MemberInfo Member,
+        public static uint? FindSourceCodeLineCount([CanBeNull] this MemberInfo Member,
             bool IncludeEmptyLines = false,
             bool IncludeAttributes = true,
             bool IncludeComments = true)
             {
             string[] Source = Member.FindSourceCode(IncludeAttributes, IncludeComments).Lines();
 
-            return Source.Count(Line =>
+            uint Out = Source.Count(Line =>
                 {
                     string Line2 = Line.Trim();
 
-                    return IncludeEmptyLines || (Line2 != "}" || Line2 != "{" || Line2 != "");
+                    return IncludeEmptyLines || (Line2 != "}" && Line2 != "{" && Line2 != "");
                 });
+
+            return Out == 0u ? null : (uint?)Out;
             }
         #endregion
+        [CanBeNull]
+
+        public static CodeMetaData GatherCodeMetaData([CanBeNull]this MemberInfo Member)
+            {
+            return Member == null
+                ? null
+                : new CodeMetaData(Member);
+            }
         }
 
     public static partial class L

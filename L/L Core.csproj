@@ -67,6 +67,7 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\Language\CodeMetaData.cs" />
     <Compile Include="Extensions\Methods\L.cs" />
     <Compile Include="Extensions\Reference Types\ComparableExt.cs" />
     <Compile Include="Extensions\Reference Types\ReflectionExt.cs" />
