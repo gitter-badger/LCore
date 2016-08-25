@@ -13,8 +13,12 @@ namespace LCore.Extensions
 
         public const string BUG = nameof(BUG);
 
+        public Type Type { get; }
+
+        [CanBeNull]
         public MemberInfo Member { get; }
 
+        [CanBeNull]
         public ICodeComment Comments { get; }
 
         public uint? CodeLineNumber { get; }
@@ -23,6 +27,7 @@ namespace LCore.Extensions
 
         public string[] CodeLines { get; }
 
+        [CanBeNull]
         public string CodeFilePath { get; }
 
         public List<Attribute> Attributes { get; }
@@ -36,6 +41,7 @@ namespace LCore.Extensions
         public CodeMetaData([NotNull]MemberInfo Member, [CanBeNull]string[] TrackCommentTags = null)
             {
             this.Member = Member;
+            this.Type = Member.DeclaringType;
 
             this.Comments = Member.GetComments();
 

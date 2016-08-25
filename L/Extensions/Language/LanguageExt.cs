@@ -187,9 +187,9 @@ namespace LCore.Extensions
             return Out == 0u ? null : (uint?)Out;
             }
         #endregion
-        [CanBeNull]
 
-        public static CodeMetaData GatherCodeMetaData([CanBeNull]this MemberInfo Member)
+        [CanBeNull]
+        public static CodeMetaData GatherSourceCodeMetaData([CanBeNull]this MemberInfo Member)
             {
             return Member == null
                 ? null
