@@ -8,7 +8,7 @@
     <owners>Code Singularity</owners>
     <licenseUrl>https://raw.githubusercontent.com/CodeSingularity/LCore/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/CodeSingularity/LCore</projectUrl>
-    <iconUrl>http://codesingularity.info/Content/Icon.ico</iconUrl>
+    <iconUrl>https://github.com/CodeSingularity/LCore/L/Content/LCore-small-logo.ico</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>C# Extensions Method Library</description>
     <releaseNotes></releaseNotes>

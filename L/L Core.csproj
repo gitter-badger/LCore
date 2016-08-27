@@ -181,6 +181,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\LCore small logo.pdn" />
     <None Include="Content\LCore-banner.pdn" />
     <None Include="L Core.nuspec" />
     <None Include="packages.config">
@@ -192,6 +193,10 @@
     <None Include="Content\L Logo.png" />
     <None Include="Content\LCore-banner-large.png" />
     <None Include="Content\LCore-banner-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\LCore-small-logo.ico" />
+    <Content Include="Content\LCore small logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
