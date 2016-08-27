@@ -106,6 +106,16 @@
     <Folder Include="Generated\" />
     <Folder Include="LCore\Threads\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\L Utilities\L Utilities.csproj">
+      <Project>{d586b389-6bf3-47f0-bfd6-49a0ce6acd67}</Project>
+      <Name>L Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\L\L Core.csproj">
+      <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
+      <Name>L Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
