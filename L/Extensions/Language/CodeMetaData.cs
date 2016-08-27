@@ -13,6 +13,8 @@ namespace LCore.Extensions
 
         public const string BUG = nameof(BUG);
 
+        public const string NewNotImplemented = "throw new " + nameof(NotImplementedException);
+
         public Type Type { get; }
 
         [CanBeNull]
@@ -36,6 +38,8 @@ namespace LCore.Extensions
 
         public string[] CommentBUG { get; }
 
+        public string[] NotImplemented { get; }
+
         public Dictionary<string, string[]> CommentTags { get; }
 
         public CodeMetaData([NotNull]MemberInfo Member, [CanBeNull]string[] TrackCommentTags = null)
@@ -56,6 +60,8 @@ namespace LCore.Extensions
 
             this.CommentTODO = this.ReadCommentTag(TODO);
             this.CommentBUG = this.ReadCommentTag(BUG);
+
+            this.NotImplemented = this.ReadCommentTag(NewNotImplemented);
 
             TrackCommentTags.Each(Tag => this.CommentTags.Add(Tag, this.ReadCommentTag(Tag)));
             }
