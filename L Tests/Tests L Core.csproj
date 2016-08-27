@@ -75,7 +75,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="LUnit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LUnit.2016.8.25.8\lib\net451\LUnit.dll</HintPath>
+      <HintPath>..\packages\LUnit.2016.8.25202213.1\lib\net451\LUnit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -211,29 +211,13 @@
       <Project>{ff977727-0141-4001-a70f-bf3044da035c}</Project>
       <Name>Tests L Core Threads</Name>
     </ProjectReference>
-    <ProjectReference Include="..\L Utilities\L Utilities.csproj">
-      <Project>{d586b389-6bf3-47f0-bfd6-49a0ce6acd67}</Project>
-      <Name>L Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\L\L Core.csproj">
-      <Project>{cd24bcec-5a94-4524-b1d3-0537c66b0761}</Project>
-      <Name>L Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Content\LUnit-banner.pdn" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generated\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\LUnit banner original.png" />
-    <Content Include="Content\LUnit-banner-large.png" />
-    <Content Include="Content\LUnit-banner-small.png" />
-    <Content Include="Content\LUnit-logo-large.png" />
-    <Content Include="Content\LUnit-logo-small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
