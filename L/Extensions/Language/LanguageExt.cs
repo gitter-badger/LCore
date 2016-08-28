@@ -29,104 +29,110 @@ namespace LCore.Extensions
 
             string CodeLocation = Member.DeclaringType.FindClassFile(); //CodeExploder.CodeRootLocation;
 
-            string[] CodeLines = File.ReadAllLines(CodeLocation);
-
-            string SearchStr = $"{Member.GetMemberType().GetGenericName()} {Member.Name}";
-            string SearchStr_Native = L._Lang.ReplaceNativeTypes(SearchStr);
-
-            string SearchStr2 = "", SearchStr3 = "", SearchStr4 = "";
-            string SearchStr2_Native = "", SearchStr3_Native = "", SearchStr4_Native = "";
-
-            if (Member is MethodInfo)
+            if (!string.IsNullOrEmpty(CodeLocation))
                 {
-                SearchStr = $"{SearchStr}(";
-                SearchStr_Native = $"{SearchStr_Native}(";
-                SearchStr2 = $"{SearchStr}";
-                SearchStr2_Native = $"{SearchStr_Native}";
-                }
-            if (Member is PropertyInfo)
-                {
-                SearchStr3 = $"{SearchStr} ";
-                SearchStr3_Native = $"{SearchStr_Native} ";
-                }
-            if (Member is PropertyInfo)
-                {
-                SearchStr4 = $"{SearchStr}\r\n";
-                SearchStr4_Native = $"{SearchStr_Native}\r\n";
-                }
 
-            int? Index =
-                CodeLines.IndexOf(Line => SearchStr4_Native != "" && Line.Contains(SearchStr4_Native)) ??
-                CodeLines.IndexOf(Line => SearchStr4 != "" && Line.Contains(SearchStr4)) ??
-                CodeLines.IndexOf(Line => SearchStr3_Native != "" && Line.Contains(SearchStr3_Native)) ??
-                CodeLines.IndexOf(Line => SearchStr3 != "" && Line.Contains(SearchStr3)) ??
-                CodeLines.IndexOf(Line => SearchStr2_Native != "" && Line.Contains(SearchStr2_Native)) ??
-                CodeLines.IndexOf(Line => SearchStr2 != "" && Line.Contains(SearchStr2)) ??
-                CodeLines.IndexOf(Line => SearchStr != "" && Line.Contains(SearchStr_Native)) ??
-                CodeLines.IndexOf(Line => SearchStr_Native != "" && Line.Contains(SearchStr));
+                string[] CodeLines = File.ReadAllLines(CodeLocation);
 
-            var AttributeIndices = new List<int>();
+                string SearchStr = $"{Member.GetMemberType().GetGenericName()} {Member.Name}";
+                string SearchStr_Native = L._Lang.ReplaceNativeTypes(SearchStr);
 
-            if (Index != null)
-                {
-                string StartBraceLine = CodeLines[(int)Index + 1];
-                string EndBraceLine = StartBraceLine.Replace("{", "}");
+                string SearchStr2 = "", SearchStr3 = "", SearchStr4 = "";
+                string SearchStr2_Native = "", SearchStr3_Native = "", SearchStr4_Native = "";
 
-                int StartIndex = (int)Index;
-                int EndIndex = (int)Index + 2;
-
-                bool SingleLineMember = CodeLines[StartIndex].Trim().EndsWith("{}") ||
-                                        CodeLines[StartIndex].Trim().EndsWith("{ }") ||
-                                        (Member is PropertyInfo && CodeLines[StartIndex].Contains($"{SearchStr} => ")) ||
-                                        (Member is PropertyInfo && CodeLines[StartIndex].Contains($"{SearchStr2} => "));
-
-                if (SingleLineMember)
-                    EndIndex = (int)Index;
-
-                while (StartIndex > 0)
+                if (Member is MethodInfo)
                     {
-                    StartIndex--;
+                    SearchStr = $"{SearchStr}(";
+                    SearchStr_Native = $"{SearchStr_Native}(";
+                    SearchStr2 = $"{SearchStr}";
+                    SearchStr2_Native = $"{SearchStr_Native}";
+                    }
+                if (Member is PropertyInfo)
+                    {
+                    SearchStr3 = $"{SearchStr} ";
+                    SearchStr3_Native = $"{SearchStr_Native} ";
+                    }
+                if (Member is PropertyInfo)
+                    {
+                    SearchStr4 = $"{SearchStr}\r\n";
+                    SearchStr4_Native = $"{SearchStr_Native}\r\n";
+                    }
 
-                    string Line = CodeLines[StartIndex].Trim();
+                int? Index =
+                    CodeLines.IndexOf(Line => SearchStr4_Native != "" && Line.Contains(SearchStr4_Native)) ??
+                    CodeLines.IndexOf(Line => SearchStr4 != "" && Line.Contains(SearchStr4)) ??
+                    CodeLines.IndexOf(Line => SearchStr3_Native != "" && Line.Contains(SearchStr3_Native)) ??
+                    CodeLines.IndexOf(Line => SearchStr3 != "" && Line.Contains(SearchStr3)) ??
+                    CodeLines.IndexOf(Line => SearchStr2_Native != "" && Line.Contains(SearchStr2_Native)) ??
+                    CodeLines.IndexOf(Line => SearchStr2 != "" && Line.Contains(SearchStr2)) ??
+                    CodeLines.IndexOf(Line => SearchStr != "" && Line.Contains(SearchStr_Native)) ??
+                    CodeLines.IndexOf(Line => SearchStr_Native != "" && Line.Contains(SearchStr));
 
-                    // TODO Add support for split-line attributes 
-                    if ((IncludeAttributes || IncludeComments) && Line.StartsWith("[") && Line.EndsWith("]"))
+                var AttributeIndices = new List<int>();
+
+                if (Index != null)
+                    {
+                    string StartBraceLine = CodeLines[(int)Index + 1];
+                    string EndBraceLine = StartBraceLine.Replace("{", "}");
+
+                    int StartIndex = (int)Index;
+                    int EndIndex = (int)Index + 2;
+
+                    bool SingleLineMember = CodeLines[StartIndex].Trim().EndsWith("{}") ||
+                                            CodeLines[StartIndex].Trim().EndsWith("{ }") ||
+                                            (Member is PropertyInfo &&
+                                             CodeLines[StartIndex].Contains($"{SearchStr} => ")) ||
+                                            (Member is PropertyInfo &&
+                                             CodeLines[StartIndex].Contains($"{SearchStr2} => "));
+
+                    if (SingleLineMember)
+                        EndIndex = (int)Index;
+
+                    while (StartIndex > 0)
                         {
-                        AttributeIndices.Add(StartIndex);
-                        continue;
+                        StartIndex--;
+
+                        string Line = CodeLines[StartIndex].Trim();
+
+                        // TODO Add support for split-line attributes 
+                        if ((IncludeAttributes || IncludeComments) && Line.StartsWith("[") && Line.EndsWith("]"))
+                            {
+                            AttributeIndices.Add(StartIndex);
+                            continue;
+                            }
+                        if (IncludeComments &&
+                            (Line.Trim().StartsWith("//") ||
+                             Line.Trim().StartsWith("*/") ||
+                             Line.Trim().StartsWith("*") ||
+                             Line.Trim().StartsWith("/*")))
+                            continue;
+
+                        StartIndex++;
+                        break;
                         }
-                    if (IncludeComments &&
-                        (Line.Trim().StartsWith("//") ||
-                         Line.Trim().StartsWith("*/") ||
-                         Line.Trim().StartsWith("*") ||
-                         Line.Trim().StartsWith("/*")))
-                        continue;
 
-                    StartIndex++;
-                    break;
-                    }
+                    while (!SingleLineMember && EndIndex < CodeLines.Length - 1)
+                        {
+                        EndIndex++;
 
-                while (!SingleLineMember && EndIndex < CodeLines.Length - 1)
-                    {
-                    EndIndex++;
+                        string Line = CodeLines[EndIndex];
 
-                    string Line = CodeLines[EndIndex];
+                        if (!Line.StartsWith(EndBraceLine) && Line != EndBraceLine)
+                            continue;
 
-                    if (!Line.StartsWith(EndBraceLine) && Line != EndBraceLine)
-                        continue;
+                        break;
+                        }
 
-                    break;
-                    }
-
-                if (EndIndex != CodeLines.Length - 1)
-                    {
-                    return CodeLines.Select(
-                        (i, Line) => i >= StartIndex && i <= EndIndex &&
-                                     // Filter to return comments but not attributes
-                                     !(IncludeComments && !IncludeAttributes && AttributeIndices.Has(i))).JoinLines();
+                    if (EndIndex != CodeLines.Length - 1)
+                        {
+                        return CodeLines.Select(
+                                (i, Line) => i >= StartIndex && i <= EndIndex &&
+                                             // Filter to return comments but not attributes
+                                             !(IncludeComments && !IncludeAttributes && AttributeIndices.Has(i)))
+                            .JoinLines();
+                        }
                     }
                 }
-
             return null;
             }
 
