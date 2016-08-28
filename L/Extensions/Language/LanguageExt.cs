@@ -152,18 +152,19 @@ namespace LCore.Extensions
 
             string CodeLocation = Member.DeclaringType.FindClassFile(); //CodeExploder.CodeRootLocation;
 
+            if (!string.IsNullOrEmpty(CodeLocation))
+                {
+                string[] CodeLines = File.ReadAllLines(CodeLocation);
 
-            string[] CodeLines = File.ReadAllLines(CodeLocation);
+                string SearchStr = $"{Member.GetMemberType().GetGenericName()} {Member.Name}";
+                string SearchStr2 = L._Lang.ReplaceNativeTypes(SearchStr);
 
-            string SearchStr = $"{Member.GetMemberType().GetGenericName()} {Member.Name}";
-            string SearchStr2 = L._Lang.ReplaceNativeTypes(SearchStr);
+                int? Index = CodeLines.IndexOf(Line => Line.Contains(SearchStr)) ??
+                             CodeLines.IndexOf(Line => Line.Contains(SearchStr2));
 
-            int? Index = CodeLines.IndexOf(Line => Line.Contains(SearchStr)) ??
-                         CodeLines.IndexOf(Line => Line.Contains(SearchStr2));
-
-            if (Index != null)
-                return (uint)(int)Index;
-
+                if (Index != null)
+                    return (uint)(int)Index;
+                }
             return null;
             }
 
