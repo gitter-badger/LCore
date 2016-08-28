@@ -198,6 +198,9 @@ namespace LCore.Extensions
             }
         #endregion
 
+        /// <summary>
+        /// Gathers code metadata for a <paramref name="Member"/> if it's available.
+        /// </summary>
         [CanBeNull]
         public static CodeMetaData GatherSourceCodeMetaData([CanBeNull]this MemberInfo Member)
             {
