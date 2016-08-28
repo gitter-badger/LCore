@@ -17,7 +17,6 @@ namespace LCore.Extensions
 
         public Type Type { get; }
 
-        [CanBeNull]
         public MemberInfo Member { get; }
 
         [CanBeNull]

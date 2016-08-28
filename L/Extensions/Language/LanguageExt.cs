@@ -143,6 +143,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Determines the starting line of code for the given member,
         /// if source code is available.
+        /// 
+        /// The line number returned is 1-based NOT 0-based.
         /// </summary>
         [CanBeNull]
         public static uint? FindSourceCodeLineNumber([CanBeNull] this MemberInfo Member)
@@ -163,7 +165,8 @@ namespace LCore.Extensions
                              CodeLines.IndexOf(Line => Line.Contains(SearchStr2));
 
                 if (Index != null)
-                    return (uint)(int)Index;
+                    return (uint)(int)(Index
+                        + 1); // Line index returned is 1-based not 0-based
                 }
             return null;
             }
