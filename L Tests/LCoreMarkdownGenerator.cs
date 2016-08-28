@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
 using LCore.Extensions;
 using LCore.LDoc.Markdown;
@@ -63,10 +64,13 @@ namespace LCore.Tests
             [typeof(ExceptionList)] = "", // TODO fix, this should be resolving internally
 
             [typeof(Schedule)] = "",
+
+
             [typeof(IDictionary<,>)] = "",
             [typeof(ICollection<>)] = "",
             [typeof(IEquatable<>)] = "",
             [typeof(IComparable<>)] = "",
+            [typeof(Expression<>)] = "",
             };
         }
     }

@@ -75,7 +75,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="LDoc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LDoc.2016.241.22.15\lib\net451\LDoc.dll</HintPath>
+      <HintPath>..\packages\LDoc.2016.241.22.21\lib\net451\LDoc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="LUnit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
