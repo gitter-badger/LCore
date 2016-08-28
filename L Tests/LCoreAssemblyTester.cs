@@ -36,6 +36,12 @@ namespace LCore.Tests
             Assembly.GetAssembly(typeof(ThreadExtTester))
             };
 
+        [Fact]
+        public void GenerateMarkdown()
+            {
+            new LCoreMarkdownGenerator().Generate(WriteToDisk: true);
+            }
+
         public LCoreAssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) { }
         }
     }

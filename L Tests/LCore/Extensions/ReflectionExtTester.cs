@@ -12,11 +12,13 @@ using LCore.Extensions;
 using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using LCore.Naming;
+using LCore.Numbers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
 // ReSharper disable UnusedParameter.Global
+// ReSharper disable PossibleNullReferenceException
 
 // ReSharper disable ArgumentsStyleLiteral
 
@@ -231,7 +233,7 @@ namespace L_Tests.LCore.Extensions
             Test.GetCustomAttributes(Inherit: false);
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
             }
-        
+
 
         [Fact]
         [Trait(Traits.TargetMember,
@@ -1144,6 +1146,13 @@ namespace L_Tests.LCore.Extensions
             Directory.GetFiles(typeof(ReflectionExtTester).GetAssembly().GetRootPath()).Has(File => File.EndsWith(".csproj")).ShouldBeTrue();
             }
 
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ReflectionExt) + "." + nameof(ReflectionExt.FindClassFile) + "(Type) => String")]
+        public void FindClassFile()
+            {
+            typeof(L).FindClassFile().EndsWith("L.cs").ShouldBeTrue();
+            typeof(DecimalNumber).FindClassFile().EndsWith("DecimalNumber.cs").ShouldBeTrue();
+            }
 
         #region Helpers
 
