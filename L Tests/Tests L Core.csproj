@@ -75,7 +75,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="LUnit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LUnit.2016.8.27181852.1\lib\net451\LUnit.dll</HintPath>
+      <HintPath>..\packages\LUnit.2016.8.27192238.1\lib\net451\LUnit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -226,6 +226,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generated\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\LUnit banner original.png" />
+    <Content Include="Content\LUnit-banner-large.png" />
+    <Content Include="Content\LUnit-small-logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
