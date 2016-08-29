@@ -26,7 +26,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Tracks unimplemented members using this string
         /// </summary>
-        public const string NewNotImplemented = "throw new " + nameof(NotImplementedException);
+        public const string NewNotImplemented = "throw new NotImplementedException";
 
         /// <summary>
         /// The declaring type of the target member

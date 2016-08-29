@@ -3,33 +3,45 @@
 [Up](../L.md)
 
 ### Obj
-![Type Static Class](http://b.repl.ca/v1/Type-Static%20Class-lightgrey.png "") ![Documented 46%](http://b.repl.ca/v1/Documented-46%25-yellow.png "")
-![Type Static Class](http://b.repl.ca/v1/Type-Static%20Class-lightgrey.png "") ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
+
+![Type Static Class](http://b.repl.ca/v1/Type-Static%20Class-blue.png "") ![Documented 46%](http://b.repl.ca/v1/Documented-46%25-yellow.png "")
+
+![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
+
 [View Source](../Extensions/Methods/L.cs#L)
 
 ###### Summary
 
             Contains System.Object static methods and lambdas.
             
- - [As](Obj_As.md)
- - [Swap](Obj_Swap.md)
- - [SafeEquals](Obj_SafeEquals.md)
- - [New](Obj_New.md)
- - [NewRandom](Obj_NewRandom.md)
- - [IsNull](Obj_IsNull.md)
- - [IsA](Obj_IsA.md)
- - [HasProperty](Obj_HasProperty.md)
- - [GetProperty](Obj_GetProperty.md)
- - [SetProperty](Obj_SetProperty.md)
- - [Str](Obj_Str.md)
- - [Objects_ToString](Obj_Objects_ToString.md)
- - [NewRandom_TypeCreators](Obj_NewRandom_TypeCreators.md)
- - [Is](Obj_Is.md)
+
+Public Static Override Methods (11) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 27%](http://b.repl.ca/v1/Total%20Documented-27%25-red.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
+:---  | :---  | :---  | :---  | :--- 
+**[As](Obj_As.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[Swap](Obj_Swap.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[SafeEquals](Obj_SafeEquals.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[New](Obj_New.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[NewRandom](Obj_NewRandom.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[NewRandom](Obj_NewRandom.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[IsNull](Obj_IsNull.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[IsA](Obj_IsA.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[HasProperty](Obj_HasProperty.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[GetProperty](Obj_GetProperty.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[SetProperty](Obj_SetProperty.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+
+
+Public   Fields (4) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
+:---  | :---  | :---  | :---  | :--- 
+**[Str](Obj_Str.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[Objects_ToString](Obj_Objects_ToString.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[NewRandom_TypeCreators](Obj_NewRandom_TypeCreators.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[Is](Obj_Is.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+
 
 
 
 ---
 
-[Home](../../README.md) [Table of Contents](../../TableOfContents.md)
+Copyright 2016 &copy; [Home](../../README.md) [Table of Contents](../../TableOfContents.md)
 
 This markdown was generated by [LDoc](https://github.com/CodeSingularity/LDoc), powered by [LUnit](https://github.com/CodeSingularity/LUnit), [LCore](https://github.com/CodeSingularity/LCore)

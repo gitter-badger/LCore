@@ -3,32 +3,44 @@
 [Up](../L.md)
 
 ### File
-![Type Static Class](http://b.repl.ca/v1/Type-Static%20Class-lightgrey.png "") ![Documented 92%](http://b.repl.ca/v1/Documented-92%25-green.png "")
-![Type Static Class](http://b.repl.ca/v1/Type-Static%20Class-lightgrey.png "") ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
+
+![Type Static Class](http://b.repl.ca/v1/Type-Static%20Class-blue.png "") ![Documented 92%](http://b.repl.ca/v1/Documented-92%25-green.png "")
+
+![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
+
 [View Source](../Extensions/Methods/L.cs#L)
 
 ###### Summary
 
             Contains static methods and lambdas pertaining to file operations.
             
- - [BufferedMove](File_BufferedMove.md)
- - [CombinePaths](File_CombinePaths.md)
- - [GetFileContents](File_GetFileContents.md)
- - [SafeCopyFile](File_SafeCopyFile.md)
- - [SafeMoveFile](File_SafeMoveFile.md)
- - [BufferedMoveProgress](File_BufferedMoveProgress.md)
- - [DefaultFileMode](File_DefaultFileMode.md)
- - [DefaultFileAccess](File_DefaultFileAccess.md)
- - [DefaultFileShare](File_DefaultFileShare.md)
- - [LockFiles](File_LockFiles.md)
- - [CombinePathsDefaultSeparator](File_CombinePathsDefaultSeparator.md)
- - [HashAlgorithm](File_HashAlgorithm.md)
- - [CleanFileName](File_CleanFileName.md)
+
+Public Static Override Methods (6) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
+:---  | :---  | :---  | :---  | :--- 
+**[BufferedMove](File_BufferedMove.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[CombinePaths](File_CombinePaths.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[CombinePaths](File_CombinePaths.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[GetFileContents](File_GetFileContents.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[SafeCopyFile](File_SafeCopyFile.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[SafeMoveFile](File_SafeMoveFile.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+
+
+Public   Fields (8) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 87%](http://b.repl.ca/v1/Total%20Documented-87%25-green.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
+:---  | :---  | :---  | :---  | :--- 
+**[BufferedMoveProgress](File_BufferedMoveProgress.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[DefaultFileMode](File_DefaultFileMode.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[DefaultFileAccess](File_DefaultFileAccess.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[DefaultFileShare](File_DefaultFileShare.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[LockFiles](File_LockFiles.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[CombinePathsDefaultSeparator](File_CombinePathsDefaultSeparator.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[HashAlgorithm](File_HashAlgorithm.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[CleanFileName](File_CleanFileName.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+
 
 
 
 ---
 
-[Home](../../README.md) [Table of Contents](../../TableOfContents.md)
+Copyright 2016 &copy; [Home](../../README.md) [Table of Contents](../../TableOfContents.md)
 
 This markdown was generated by [LDoc](https://github.com/CodeSingularity/LDoc), powered by [LUnit](https://github.com/CodeSingularity/LUnit), [LCore](https://github.com/CodeSingularity/LCore)

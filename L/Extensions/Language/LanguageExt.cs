@@ -209,6 +209,9 @@ namespace LCore.Extensions
                 : new CodeMetaData(Member);
             }
 
+        /// <summary>
+        /// Retrieves a member's declaration details
+        /// </summary>
         public static MemberDetails GetMemberDetails(this MemberInfo Member)
             {
             if (Member is MethodInfo)

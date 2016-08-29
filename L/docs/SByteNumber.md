@@ -3,29 +3,44 @@
 [Up](../L.md)
 
 ### SByteNumber
-![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-lightgrey.png "") ![Documented 81%](http://b.repl.ca/v1/Documented-81%25-green.png "")
-![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-lightgrey.png "") ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
+
+![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 81%](http://b.repl.ca/v1/Documented-81%25-green.png "")
+
+![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
+
 
 ###### Summary
 
             Provides an implementation of INumber for sbyte
             
- - [op_Implicit](SByteNumber_op_Implicit.md)
- - [GetValuePrecision](SByteNumber_GetValuePrecision.md)
- - [Add](SByteNumber_Add.md)
- - [Subtract](SByteNumber_Subtract.md)
- - [Multiply](SByteNumber_Multiply.md)
- - [Divide](SByteNumber_Divide.md)
- - [New](SByteNumber_New.md)
- - [TypePrecision](SByteNumber_TypePrecision.md)
- - [TypeMinValue](SByteNumber_TypeMinValue.md)
- - [TypeMaxValue](SByteNumber_TypeMaxValue.md)
- - [TypeDefaultValue](SByteNumber_TypeDefaultValue.md)
+
+Public Static Override Methods (1) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 0%](http://b.repl.ca/v1/Total%20Documented-0%25-red.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
+:---  | :---  | :---  | :---  | :--- 
+**[op_Implicit](SByteNumber_op_Implicit.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/SByteNumber.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+
+
+Public  Virtual Methods (6) |  | ![Total Lines of Code 5](http://b.repl.ca/v1/Total%20Lines%20of%20Code-5-blue.png "") | ![Total Documented 83%](http://b.repl.ca/v1/Total%20Documented-83%25-green.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
+:---  | :---  | :---  | :---  | :--- 
+**[GetValuePrecision](SByteNumber_GetValuePrecision.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/SByteNumber.cs#L63) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[Add](SByteNumber_Add.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/SByteNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[Subtract](SByteNumber_Subtract.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/SByteNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[Multiply](SByteNumber_Multiply.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/SByteNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[Divide](SByteNumber_Divide.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/SByteNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[New](SByteNumber_New.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/SByteNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+
+
+Public   Fields (4) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
+:---  | :---  | :---  | :---  | :--- 
+**[TypePrecision](SByteNumber_TypePrecision.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/SByteNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[TypeMinValue](SByteNumber_TypeMinValue.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/SByteNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[TypeMaxValue](SByteNumber_TypeMaxValue.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/SByteNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[TypeDefaultValue](SByteNumber_TypeDefaultValue.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/SByteNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+
 
 
 
 ---
 
-[Home](../../README.md) [Table of Contents](../../TableOfContents.md)
+Copyright 2016 &copy; [Home](../../README.md) [Table of Contents](../../TableOfContents.md)
 
 This markdown was generated by [LDoc](https://github.com/CodeSingularity/LDoc), powered by [LUnit](https://github.com/CodeSingularity/LUnit), [LCore](https://github.com/CodeSingularity/LCore)

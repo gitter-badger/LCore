@@ -3,30 +3,45 @@
 [Up](../L.md)
 
 ### FloatNumber
-![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-lightgrey.png "") ![Documented 75%](http://b.repl.ca/v1/Documented-75%25-green.png "")
-![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-lightgrey.png "") ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
+
+![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 75%](http://b.repl.ca/v1/Documented-75%25-green.png "")
+
+![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
+
 
 ###### Summary
 
             Provides an implementation of INumber for float
             
- - [op_Implicit](FloatNumber_op_Implicit.md)
- - [GetValuePrecision](FloatNumber_GetValuePrecision.md)
- - [Add](FloatNumber_Add.md)
- - [Subtract](FloatNumber_Subtract.md)
- - [Multiply](FloatNumber_Multiply.md)
- - [Divide](FloatNumber_Divide.md)
- - [New](FloatNumber_New.md)
- - [ToString](FloatNumber_ToString.md)
- - [TypePrecision](FloatNumber_TypePrecision.md)
- - [TypeMinValue](FloatNumber_TypeMinValue.md)
- - [TypeMaxValue](FloatNumber_TypeMaxValue.md)
- - [TypeDefaultValue](FloatNumber_TypeDefaultValue.md)
+
+Public Static Override Methods (1) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 0%](http://b.repl.ca/v1/Total%20Documented-0%25-red.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
+:---  | :---  | :---  | :---  | :--- 
+**[op_Implicit](FloatNumber_op_Implicit.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/FloatNumber.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+
+
+Public  Virtual Methods (7) |  | ![Total Lines of Code 25](http://b.repl.ca/v1/Total%20Lines%20of%20Code-25-blue.png "") | ![Total Documented 71%](http://b.repl.ca/v1/Total%20Documented-71%25-green.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
+:---  | :---  | :---  | :---  | :--- 
+**[GetValuePrecision](FloatNumber_GetValuePrecision.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/FloatNumber.cs#L63) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[Add](FloatNumber_Add.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/FloatNumber.cs#L72) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[Subtract](FloatNumber_Subtract.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/FloatNumber.cs#L80) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[Multiply](FloatNumber_Multiply.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/FloatNumber.cs#L88) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[Divide](FloatNumber_Divide.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/FloatNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[New](FloatNumber_New.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/FloatNumber.cs#L105) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[ToString](FloatNumber_ToString.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/FloatNumber.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+
+
+Public   Fields (4) |  | ![Total Lines of Code 16](http://b.repl.ca/v1/Total%20Lines%20of%20Code-16-blue.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
+:---  | :---  | :---  | :---  | :--- 
+**[TypePrecision](FloatNumber_TypePrecision.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/FloatNumber.cs#L43) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[TypeMinValue](FloatNumber_TypeMinValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/FloatNumber.cs#L48) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[TypeMaxValue](FloatNumber_TypeMaxValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/FloatNumber.cs#L53) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+**[TypeDefaultValue](FloatNumber_TypeDefaultValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/FloatNumber.cs#L58) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+
 
 
 
 ---
 
-[Home](../../README.md) [Table of Contents](../../TableOfContents.md)
+Copyright 2016 &copy; [Home](../../README.md) [Table of Contents](../../TableOfContents.md)
 
 This markdown was generated by [LDoc](https://github.com/CodeSingularity/LDoc), powered by [LUnit](https://github.com/CodeSingularity/LUnit), [LCore](https://github.com/CodeSingularity/LCore)

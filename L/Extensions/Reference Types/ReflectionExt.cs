@@ -1377,7 +1377,7 @@ namespace LCore.Extensions
         [CanBeNull]
         public static string GetRootPath([CanBeNull] this Assembly Assembly)
             {
-            Func<Assembly, string> _GetRootPath = new Func<Assembly, string>(CacheType =>
+            Func<Assembly, string> Cache = new Func<Assembly, string>(CacheType =>
                 {
                     if (Assembly != null)
                         {
@@ -1398,7 +1398,7 @@ namespace LCore.Extensions
                     return null;
                 }).Cache(nameof(GetRootPath));
 
-            return _GetRootPath(Assembly);
+            return Cache(Assembly);
             }
 
         /// <summary>
@@ -1407,7 +1407,7 @@ namespace LCore.Extensions
         [CanBeNull]
         public static string FindClassFile([CanBeNull] this Type Type)
             {
-            Func<Type, string> _FindClassFile = new Func<Type, string>(CacheType =>
+            Func<Type, string> Cache = new Func<Type, string>(CacheType =>
                 {
                     if (CacheType == null)
                         return null;
@@ -1426,31 +1426,40 @@ namespace LCore.Extensions
                     return null;
                 }).Cache(nameof(FindClassFile));
 
-            return _FindClassFile(Type);
+            return Cache(Type);
             }
 
+        /// <summary>
+        /// Determines if a <paramref name="Method"/> is overriden from a base class.
+        /// </summary>
         public static bool IsOverride([CanBeNull] this MethodInfo Method)
             {
             return Method?.GetBaseDefinition() != null;
             }
 
+        /// <summary>
+        /// Determines if a <paramref name="Method"/> is sealed.
+        /// </summary>
         public static bool IsSealed([CanBeNull] this MethodInfo Method)
             {
             return Method != null && Method.IsOverride() && !Method.IsVirtual;
             }
 
+        /// <summary>
+        /// Determines if a <paramref name="Method"/> is marked as protected.
+        /// </summary>
         public static bool IsProtected([CanBeNull] this MethodInfo Method)
             {
             return Method != null && Method.IsFamily;
             }
 
+        /// <summary>
+        /// Determines if a <paramref name="Method"/> is marked as internal.
+        /// </summary>
         public static bool IsInternal([CanBeNull] this MethodInfo Method)
             {
             return Method != null && Method.IsFamilyAndAssembly;
             }
-
-
-
         }
     public static partial class L
         {
@@ -1961,7 +1970,7 @@ namespace LCore.Extensions
             /// </summary>
             public static string GetProjectRootPath()
                 {
-                Func<string> _GetProjectRootPath = new Func<string>(() =>
+                Func<string> Cache = new Func<string>(() =>
                     {
                         string Path = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -1976,7 +1985,7 @@ namespace LCore.Extensions
                         return Path;
                     }).Cache(nameof(GetProjectRootPath));
 
-                return _GetProjectRootPath();
+                return Cache();
 
                 }
 
@@ -1985,7 +1994,7 @@ namespace LCore.Extensions
             /// </summary>
             public static string GetSolutionRootPath()
                 {
-                Func<string> _GetSolutionRootPath = new Func<string>(() =>
+                Func<string> Cache = new Func<string>(() =>
                     {
                         string Path = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -2000,7 +2009,7 @@ namespace LCore.Extensions
                         return Path;
                     }).Cache(nameof(GetSolutionRootPath));
 
-                return _GetSolutionRootPath();
+                return Cache();
 
                 }
             }
