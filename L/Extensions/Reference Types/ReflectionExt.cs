@@ -1377,26 +1377,26 @@ namespace LCore.Extensions
         [CanBeNull]
         public static string GetRootPath([CanBeNull] this Assembly Assembly)
             {
-            Func<Assembly, string> _GetRootPath = new Func<Assembly, string>((CacheType =>
-            {
-                if (Assembly != null)
-                    {
-                    string Root = L.Ref.GetSolutionRootPath();
-
-                    if (Directory.Exists(Root) && Directory.Exists($"{Root}\\{Assembly.GetName().Name.CleanFileName()}"))
-                        return $"{Root}\\{Assembly.GetName().Name.CleanFileName()}";
-
-                    string File = Directory.GetFiles(Root, "*.*", SearchOption.AllDirectories).First(
-                        Str => Str.EndsWith($"{Assembly.GetName().Name.CleanFileName()}.csproj"));
-
-                    if (System.IO.File.Exists(File))
+            Func<Assembly, string> _GetRootPath = new Func<Assembly, string>(CacheType =>
+                {
+                    if (Assembly != null)
                         {
-                        return new FileInfo(File).DirectoryName;
-                        }
-                    }
+                        string Root = L.Ref.GetSolutionRootPath();
 
-                return null;
-            })).Cache(nameof(GetRootPath));
+                        if (Directory.Exists(Root) && Directory.Exists($"{Root}\\{Assembly.GetName().Name.CleanFileName()}"))
+                            return $"{Root}\\{Assembly.GetName().Name.CleanFileName()}";
+
+                        string File = Directory.GetFiles(Root, "*.*", SearchOption.AllDirectories).First(
+                            Str => Str.EndsWith($"{Assembly.GetName().Name.CleanFileName()}.csproj"));
+
+                        if (System.IO.File.Exists(File))
+                            {
+                            return new FileInfo(File).DirectoryName;
+                            }
+                        }
+
+                    return null;
+                }).Cache(nameof(GetRootPath));
 
             return _GetRootPath(Assembly);
             }
@@ -1407,27 +1407,50 @@ namespace LCore.Extensions
         [CanBeNull]
         public static string FindClassFile([CanBeNull] this Type Type)
             {
-            Func<Type, string> _FindClassFile = new Func<Type, string>((CacheType =>
-              {
-                  if (CacheType == null)
-                      return null;
+            Func<Type, string> _FindClassFile = new Func<Type, string>(CacheType =>
+                {
+                    if (CacheType == null)
+                        return null;
 
-                  string Path = CacheType.GetAssembly().GetRootPath();
+                    string Path = CacheType.GetAssembly().GetRootPath();
 
-                  if (Directory.Exists(Path))
-                      {
-                      string Out = Directory.GetFiles(Path, $"{CacheType.Name.CleanFileName().ToLower()}.cs", SearchOption.AllDirectories)
+                    if (Directory.Exists(Path))
+                        {
+                        string Out = Directory.GetFiles(Path, $"{CacheType.Name.CleanFileName().ToLower()}.cs", SearchOption.AllDirectories)
                             .First(File => !File.ToLower().EndsWith($"\\generated\\{CacheType.Name.CleanFileName().ToLower()}.cs"));
 
-                      if (Out != null)
-                          return Out;
-                      }
+                        if (Out != null)
+                            return Out;
+                        }
 
-                  return null;
-              })).Cache(nameof(FindClassFile));
+                    return null;
+                }).Cache(nameof(FindClassFile));
 
             return _FindClassFile(Type);
             }
+
+        public static bool IsOverride([CanBeNull] this MethodInfo Method)
+            {
+            return Method?.GetBaseDefinition() != null;
+            }
+
+        public static bool IsSealed([CanBeNull] this MethodInfo Method)
+            {
+            return Method != null && Method.IsOverride() && !Method.IsVirtual;
+            }
+
+        public static bool IsProtected([CanBeNull] this MethodInfo Method)
+            {
+            return Method != null && Method.IsFamily;
+            }
+
+        public static bool IsInternal([CanBeNull] this MethodInfo Method)
+            {
+            return Method != null && Method.IsFamilyAndAssembly;
+            }
+
+
+
         }
     public static partial class L
         {
@@ -1938,20 +1961,20 @@ namespace LCore.Extensions
             /// </summary>
             public static string GetProjectRootPath()
                 {
-                Func<string> _GetProjectRootPath = new Func<string>((() =>
-                {
-                    string Path = AppDomain.CurrentDomain.BaseDirectory;
+                Func<string> _GetProjectRootPath = new Func<string>(() =>
+                    {
+                        string Path = AppDomain.CurrentDomain.BaseDirectory;
 
-                    while (Directory.Exists(Path))
-                        {
-                        if (Directory.GetFiles(Path).Has(File => File.EndsWith(".csproj")))
-                            return Path;
+                        while (Directory.Exists(Path))
+                            {
+                            if (Directory.GetFiles(Path).Has(File => File.EndsWith(".csproj")))
+                                return Path;
 
-                        Path = new DirectoryInfo(Path).Parent?.FullName ?? "";
-                        }
+                            Path = new DirectoryInfo(Path).Parent?.FullName ?? "";
+                            }
 
-                    return Path;
-                })).Cache(nameof(GetProjectRootPath));
+                        return Path;
+                    }).Cache(nameof(GetProjectRootPath));
 
                 return _GetProjectRootPath();
 
@@ -1962,20 +1985,20 @@ namespace LCore.Extensions
             /// </summary>
             public static string GetSolutionRootPath()
                 {
-                Func<string> _GetSolutionRootPath = new Func<string>((() =>
-                {
-                    string Path = AppDomain.CurrentDomain.BaseDirectory;
+                Func<string> _GetSolutionRootPath = new Func<string>(() =>
+                    {
+                        string Path = AppDomain.CurrentDomain.BaseDirectory;
 
-                    while (Directory.Exists(Path))
-                        {
-                        if (Directory.GetFiles(Path).Has(File => File.EndsWith(".sln")))
-                            return Path;
+                        while (Directory.Exists(Path))
+                            {
+                            if (Directory.GetFiles(Path).Has(File => File.EndsWith(".sln")))
+                                return Path;
 
-                        Path = new DirectoryInfo(Path).Parent?.FullName ?? "";
-                        }
+                            Path = new DirectoryInfo(Path).Parent?.FullName ?? "";
+                            }
 
-                    return Path;
-                })).Cache(nameof(GetSolutionRootPath));
+                        return Path;
+                    }).Cache(nameof(GetSolutionRootPath));
 
                 return _GetSolutionRootPath();
 

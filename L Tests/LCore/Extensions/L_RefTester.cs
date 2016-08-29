@@ -43,7 +43,7 @@ namespace L_Tests.LCore.Extensions
             L.Ref.GetNamespaceTypes("LCore.Tests").ShouldBeEquivalentTo(new List<Type>
                 {
                 typeof(LCoreAssemblyTester),
-                typeof(LCoreMarkdownGenerator),
+                typeof(LCoreMarkdownGenerator)
                 });
 
             L.Ref.GetNamespaceTypes("LCore", typeof(L)).Should().Equal();

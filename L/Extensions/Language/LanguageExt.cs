@@ -208,6 +208,39 @@ namespace LCore.Extensions
                 ? null
                 : new CodeMetaData(Member);
             }
+
+        public static MemberDetails GetMemberDetails(this MemberInfo Member)
+            {
+            if (Member is MethodInfo)
+                {
+                var Method = (MethodInfo)Member;
+
+                return new MemberDetails
+                    {
+                    Context = Method.IsStatic ? MemberContext.Static : MemberContext.Instance,
+                    Type = MemberType.Method,
+                    Inheritance =
+                        Method.IsAbstract ? MemberInheritance.Abstract
+                        : Method.IsVirtual ? MemberInheritance.Virtual
+                        : Method.IsOverride() ? MemberInheritance.Override
+                        : Method.IsSealed() ? MemberInheritance.Sealed
+                        : MemberInheritance.None,
+                    Scope =
+                        Method.IsPublic ? MemberScope.Public
+                        : Method.IsPrivate ? MemberScope.Private
+                        : Method.IsProtected() ? MemberScope.Protected
+                        : Method.IsInternal() ? MemberScope.Internal
+                        : MemberScope.Private
+                    };
+                }
+
+            // TODO property types
+            // TODO field types
+            // TODO event types
+            // TODO enum types
+            return default(MemberDetails);
+            }
+
         }
 
     public static partial class L

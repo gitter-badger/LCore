@@ -39,7 +39,10 @@ namespace LCore.Tests
         [Fact]
         public void GenerateMarkdown()
             {
+#if DEBUG
+#else
             new LCoreMarkdownGenerator().Generate(WriteToDisk: true);
+#endif
             }
 
         public LCoreAssemblyTester([NotNull] ITestOutputHelper Output) : base(Output) { }

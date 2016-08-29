@@ -68,6 +68,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\Language\CodeMetaData.cs" />
+    <Compile Include="Extensions\Language\MemberContext.cs" />
+    <Compile Include="Extensions\Language\MemberDetails.cs" />
+    <Compile Include="Extensions\Language\MemberInheritance.cs" />
+    <Compile Include="Extensions\Language\MemberScope.cs" />
+    <Compile Include="Extensions\Language\MemberType.cs" />
     <Compile Include="Extensions\Methods\L.cs" />
     <Compile Include="Extensions\Reference Types\ComparableExt.cs" />
     <Compile Include="Extensions\Reference Types\ReflectionExt.cs" />

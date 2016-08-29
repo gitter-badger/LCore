@@ -39,6 +39,11 @@ namespace LCore.Extensions
         public MemberInfo Member { get; }
 
         /// <summary>
+        /// Details about the declaration of the member
+        /// </summary>
+        public MemberDetails Details { get; }
+
+        /// <summary>
         /// Any comments, if declared, on the target  member
         /// </summary>
         [CanBeNull]
@@ -99,6 +104,9 @@ namespace LCore.Extensions
         public CodeMetaData([NotNull]MemberInfo Member, [CanBeNull]string[] TrackCommentTags = null)
             {
             this.Member = Member;
+
+            this.Details = Member.GetMemberDetails();
+
             this.Type = Member.DeclaringType;
 
             this.Comments = Member.GetComments();
