@@ -2341,6 +2341,22 @@ namespace LCore.Extensions
 
         #endregion
 
+        #region Percent
+
+        /// <summary>
+        /// Returns a number from 0 to 100, 
+        /// representing the percentage of items in <paramref name="In"/>
+        /// that satisfy <paramref name="Condition"/>
+        /// </summary>
+        public static int Percent<T>([CanBeNull]this IEnumerable<T> In, [CanBeNull]Func<T, bool> Condition)
+            {
+            if (In.IsEmpty() || Condition == null)
+                return 0;
+
+            return (int)(In.Convert(Item => Condition(Item) ? 0 : 1).Average() * 100).Round();
+            }
+        #endregion
+
         #region Named
 
         /// <summary>
