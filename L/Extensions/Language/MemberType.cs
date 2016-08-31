@@ -13,7 +13,10 @@ namespace LCore.Extensions
         Field,
         Property,
         Method,
-        Type,
+        Class,
+        Structure,
+        Interface,
+        Enum,
         Event
 #pragma warning restore 1591
         }

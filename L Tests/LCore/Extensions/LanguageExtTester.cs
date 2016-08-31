@@ -2,9 +2,13 @@ using Xunit.Abstractions;
 using LCore.LUnit;
 using Xunit;
 using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit.Fluent;
+
+// ReSharper disable PossibleNullReferenceException
 
 // ReSharper disable AnnotationRedundancyAtValueType
 // ReSharper disable ValueParameterNotUsed
@@ -16,7 +20,9 @@ namespace L_Tests.LCore.Extensions
     /// </summary>
     public partial class LanguageExtTester : XUnitOutputTester, IDisposable
         {
-        public LanguageExtTester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        public LanguageExtTester([NotNull] ITestOutputHelper Output) : base(Output)
+            {
+            }
 
         // test comment
         [CanBeNull]
@@ -32,7 +38,9 @@ namespace L_Tests.LCore.Extensions
 
         // test comment
         [CanBeNull]
-        public void Dispose() { }
+        public void Dispose()
+            {
+            }
 
         // super meta test
         [Fact]
@@ -86,10 +94,10 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LanguageExt) + "." + nameof(LanguageExt.FindSourceCodeLineNumber) + "(MemberInfo) => Nullable<UInt32>")]
         public void FindSourceCodeLineNumber()
             {
-            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode_SelfTest)).FindSourceCodeLineNumber().ShouldBe(Expected: 40u);
-            typeof(LanguageExtTester).GetMethod(nameof(this.Dispose)).FindSourceCodeLineNumber().ShouldBe(Expected: 35u);
-            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty)).FindSourceCodeLineNumber().ShouldBe(Expected: 23u);
-            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCodeLineNumber().ShouldBe(Expected: 31u);
+            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode_SelfTest)).FindSourceCodeLineNumber().ShouldBe(Expected: 48u);
+            typeof(LanguageExtTester).GetMethod(nameof(this.Dispose)).FindSourceCodeLineNumber().ShouldBe(Expected: 41u);
+            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty)).FindSourceCodeLineNumber().ShouldBe(Expected: 29u);
+            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCodeLineNumber().ShouldBe(Expected: 37u);
             }
 
         [Fact]
@@ -101,6 +109,118 @@ namespace L_Tests.LCore.Extensions
             typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty)).FindSourceCodeLineCount().ShouldBe(Expected: 5u);
             typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCodeLineCount().ShouldBe(Expected: 3u);
             }
+
+        [Fact]
+        [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LanguageExt) + "." + nameof(LanguageExt.GetMemberDetails) + "(MemberInfo) => MemberDetails")]
+        public void GetMemberDetails()
+            {
+            typeof(Test)
+                .GetMemberDetails().ToString().ShouldBe("Public Class");
+            typeof(Test.TestPublic)
+                .GetMemberDetails().ToString().ShouldBe("Public Class");
+            typeof(Test.TestAbstract)
+                .GetMemberDetails().ToString().ShouldBe("Public Abstract Class");
+            typeof(Test.TestSealed)
+                .GetMemberDetails().ToString().ShouldBe("Public Sealed Class");
+            typeof(Test.TestInternal)
+                .GetMemberDetails().ToString().ShouldBe("Internal Class");
+            typeof(TestProtected)
+                .GetMemberDetails().ToString().ShouldBe("Protected Class");
+
+            // TODO test sealed class
+
+
+            typeof(Test.TestPublic).GetMethod(nameof(Test.TestPublic.PublicMethod))
+                .GetMemberDetails().ToString().ShouldBe("Public Method");
+
+            typeof(Test.TestPublicBase).GetMethod(nameof(Test.TestPublicBase.VirtualMethod))
+                .GetMemberDetails().ToString().ShouldBe("Public Virtual Method");
+
+            typeof(Test.TestPublicBase).GetMethod(nameof(Test.TestPublicBase.AbstractMethod))
+                .GetMemberDetails().ToString().ShouldBe("Public Abstract Method");
+
+            typeof(LanguageExtTester).GetMethod(nameof(this.PrivateMethod),
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                .GetMemberDetails().ToString().ShouldBe("Private Method");
+
+            typeof(LanguageExtTester).GetMethod(nameof(this.ProtectedMethod),
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                .GetMemberDetails().ToString().ShouldBe("Protected Method");
+
+            typeof(Test.TestPublic).GetMethod(nameof(Test.TestPublic.VirtualMethod),
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                .GetMemberDetails().ToString().ShouldBe("Public Override Method");
+
+            typeof(Test.TestPublic).GetMethod(nameof(Test.TestPublic.InternalMethod),
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                .GetMemberDetails().ToString().ShouldBe("Internal Method");
+
+            // TODO test sealed method
+            }
+
+        #region Helpers
+
+        [ExcludeFromCodeCoverage]
+        private void PrivateMethod()
+            {
+            }
+
+        [ExcludeFromCodeCoverage]
+        protected void ProtectedMethod()
+            {
+            }
+
+
+        [ExcludeFromCodeCoverage]
+        protected class TestProtected
+            {
+            }
+
+        [ExcludeFromCodeCoverage]
+        private class Test
+            {
+            public class TestPublic : TestPublicBase
+                {
+                public void PublicMethod()
+                    {
+                    }
+
+
+                internal void InternalMethod()
+                    {
+                    }
+
+                public override void VirtualMethod()
+                    {
+                    }
+
+                public override void AbstractMethod()
+                    {
+                    }
+                }
+
+            public abstract class TestPublicBase
+                {
+                public virtual void VirtualMethod()
+                    {
+                    }
+
+                public abstract void AbstractMethod();
+                }
+
+            public abstract class TestAbstract
+                {
+                }
+
+            public sealed class TestSealed
+                {
+                }
+
+            internal class TestInternal
+                {
+                }
+            }
+
 
         public const string FindSourceCodeTestCode =
             @"        public void FindSourceCode_SelfTest()
@@ -133,7 +253,9 @@ namespace L_Tests.LCore.Extensions
             }";
 
 
-        private const string DisposeCode = "        public void Dispose() { }";
+        private const string DisposeCode = @"        public void Dispose()
+            {
+            }";
 
         private const string TestPropertyCode = @"        public string TestProperty
             {
@@ -151,5 +273,7 @@ namespace L_Tests.LCore.Extensions
             typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode_SelfTest)).FindSourceCode(IncludeAttributes: true).ShouldBe(FindSourceCodeTestCode_WithAttributes);
             typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode_SelfTest)).FindSourceCode(IncludeAttributes: false, IncludeComments: true).ShouldBe(FindSourceCodeTestCode_WithComments);
             typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode_SelfTest)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).ShouldBe(FindSourceCodeTestCode_WithBoth);";
+
+        #endregion  }
         }
     }

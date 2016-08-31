@@ -40,8 +40,6 @@ namespace LCore.Extensions
 
             #endregion
 
-
-
             #region MemberInfoExplode
 
             public static readonly Func<MemberInfo, string> MemberInfoExplode = Member =>
@@ -143,7 +141,9 @@ namespace LCore.Extensions
                     {
                     var Out = new List<string>();
                     string LastFunctionName = FunctionNameSearch;
-                    if (Member.Name.Contains("Merge")) {}
+                    if (Member.Name.Contains("Merge"))
+                        {
+                        }
                     string LastAddition = ConvertFieldToMethod(Code, LastFunctionName);
                     int Count = Replacements.Count;
 
@@ -159,8 +159,8 @@ namespace LCore.Extensions
                                 string Replacement = Repl[i];
                                 string Replacement2 = Repl[i + 1];
                                 string NewFunctionName = FunctionNameSearch + (AppendNumber1ToFunctionName || i > 0
-                                    ? NumberSeparator + (i + 1).ToString()
-                                    : "");
+                                                             ? NumberSeparator + (i + 1).ToString()
+                                                             : "");
 
                                 if (Replacement.Contains("[MethodName]"))
                                     Replacement = Replacement.Replace("[MethodName]", LastFunctionName.Trim());
@@ -174,7 +174,9 @@ namespace LCore.Extensions
                                     LastAddition = LastAddition.Replace(Replacement, Replacement2);
                                     LastAddition = LastAddition.Replace(LastFunctionName, NewFunctionName);
 
-                                    if (LastAddition.Contains("<T1><T1>")) {}
+                                    if (LastAddition.Contains("<T1><T1>"))
+                                        {
+                                        }
 
                                     LastFunctionName = NewFunctionName;
                                     }
@@ -311,13 +313,15 @@ namespace LCore.Extensions
                         ParamTypes.Each((i, Param) =>
                             {
                             Params.Add(ParamNames[i] + (i > 0
-                                ? i.ToString()
-                                : ""), Param);
+                                           ? i.ToString()
+                                           : ""), Param);
                             });
                         }
                     else
                         {
-                        if (ParamTypes.Count() != ParamNames.Count()) {}
+                        if (ParamTypes.Count() != ParamNames.Count())
+                            {
+                            }
                         ParamTypes.Each((i, Param) => { Params.Add(ParamNames[i], Param); });
                         }
 
@@ -334,7 +338,9 @@ namespace LCore.Extensions
                     Member2?.GetGenericArguments().Each(Arg =>
                         {
                         Type[] Constraints = Arg.GetGenericParameterConstraints();
-                        if (!Constraints.IsEmpty()) {}
+                        if (!Constraints.IsEmpty())
+                            {
+                            }
                         });
 
                     Out += _Lang.GetExtensionMethodBody(Member.DeclaringType, Member.Name, Params, ReturnType, Member.MemberType,

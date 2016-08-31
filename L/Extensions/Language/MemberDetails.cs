@@ -7,20 +7,23 @@ namespace LCore.Extensions
     /// <summary>
     /// Describes a member's declaration details.
     /// </summary>
-    public struct MemberDetails
+    public class MemberDetails
         {
         /// <summary>
         /// The member's scope
         /// </summary>
         public MemberScope Scope { get; set; }
+
         /// <summary>
         /// The member's context
         /// </summary>
         public MemberContext Context { get; set; }
+
         /// <summary>
         /// The member's type
         /// </summary>
         public MemberType Type { get; set; }
+
         /// <summary>
         /// The member's inheritance 
         /// </summary>
@@ -31,10 +34,12 @@ namespace LCore.Extensions
         /// </summary>
         public override string ToString()
             {
-            return $"{this.Scope.GetFriendlyName()} " +
-                   $"{(this.Context == MemberContext.Instance ? "" : this.Context.GetFriendlyName())} " +
-                   $"{(this.Inheritance == MemberInheritance.None ? "" : this.Inheritance.GetFriendlyName())} " +
-                   $"{this.Type.GetFriendlyName()}".ReplaceAll("  ", " ");
+            string Out = $"{this.Scope.GetFriendlyName()} " +
+                         $"{(this.Context == MemberContext.Instance ? "" : this.Context.GetFriendlyName())} " +
+                         $"{(this.Inheritance == MemberInheritance.None ? "" : this.Inheritance.GetFriendlyName())} " +
+                         $"{this.Type.GetFriendlyName()}".ReplaceAll("  ", " ");
+
+            return Out.ReplaceAll("  ", " ");
             }
         }
     }
