@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### Schedule
@@ -9,33 +9,58 @@
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
 
-Public  Virtual Methods (1) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 0%](http://b.repl.ca/v1/Total%20Documented-0%25-red.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[ToString](Schedule_ToString.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Override Methods (1)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-0-red.png" alt="Total Code Lines 0" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-0%25-red.png" alt="Total Documentation 0%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="Schedule_ToString.md" alt="">ToString</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/Schedule.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="Schedule_ToString.md" alt="">ToString</a>();</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="353"></td></tr>
+</table>
 
 
-Public Static Override Methods (1) |  | ![Total Lines of Code 34](http://b.repl.ca/v1/Total%20Lines%20of%20Code-34-blue.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[FromString](Schedule_FromString.md)** |  | [![Lines of Code 34](http://b.repl.ca/v1/Lines%20of%20Code-34-blue.png "")](../Tools/Schedule.cs#L73) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (1)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-34-blue.png" alt="Total Code Lines 34" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="Schedule_FromString.md" alt="">FromString</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/Schedule.cs#L73" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-34-blue.png" alt="Lines of Code 34" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="Schedule.md" alt="">Schedule</a></strong> <a href="Schedule_FromString.md" alt="">FromString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="366"></td></tr>
+</table>
 
 
-Public   Fields (15) |  | ![Total Lines of Code 7](http://b.repl.ca/v1/Total%20Lines%20of%20Code-7-blue.png "") | ![Total Documented 0%](http://b.repl.ca/v1/Total%20Documented-0%25-red.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[Mode](Schedule_Mode.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L23) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TimesOfDay](Schedule_TimesOfDay.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L24) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[DaysOfWeek](Schedule_DaysOfWeek.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L25) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[DaysOfMonth](Schedule_DaysOfMonth.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L26) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[OneTimeScheduleDate](Schedule_OneTimeScheduleDate.md)** |  | [![Lines of Code 2](http://b.repl.ca/v1/Lines%20of%20Code-2-blue.png "")](../Tools/Schedule.cs#L27) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[DefaultTimeOfDay](Schedule_DefaultTimeOfDay.md)** |  | [![Lines of Code 3](http://b.repl.ca/v1/Lines%20of%20Code-3-blue.png "")](../Tools/Schedule.cs#L16) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[AllDays](Schedule_AllDays.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L18) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[AllDaysStr](Schedule_AllDaysStr.md)** |  | [![Lines of Code 2](http://b.repl.ca/v1/Lines%20of%20Code-2-blue.png "")](../Tools/Schedule.cs#L19) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[XmlNameStr](Schedule_XmlNameStr.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L10) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[XmlModeStr](Schedule_XmlModeStr.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L11) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[XmlTimeStr](Schedule_XmlTimeStr.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L12) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[XmlDayStr](Schedule_XmlDayStr.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L13) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[SplitChar](Schedule_SplitChar.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[DefaultMode](Schedule_DefaultMode.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L15) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ScheduleMode](Schedule_ScheduleMode.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/Schedule.cs#L15) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Sealed Enums (1)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-0-red.png" alt="Total Code Lines 0" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-0%25-red.png" alt="Total Documentation 0%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="Schedule_ScheduleMode.md" alt="">ScheduleMode</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/Schedule.cs#L15" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6></h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="349"></td></tr>
+</table>
 
 
 

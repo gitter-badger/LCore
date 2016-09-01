@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### ICodeComment
@@ -13,24 +13,6 @@
 
             An interface to contain the information within XML comment metadata
             
-
-Public   Fields (14) |  | ![Total Lines of Code 76](http://b.repl.ca/v1/Total%20Lines%20of%20Code-76-blue.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[Summary](ICodeComment_Summary.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Interfaces/ICodeComment.cs#L16) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Returns](ICodeComment_Returns.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Interfaces/ICodeComment.cs#L21) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Value](ICodeComment_Value.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Interfaces/ICodeComment.cs#L26) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Examples](ICodeComment_Examples.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Interfaces/ICodeComment.cs#L31) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Remarks](ICodeComment_Remarks.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Interfaces/ICodeComment.cs#L36) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Parameters](ICodeComment_Parameters.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Interfaces/ICodeComment.cs#L41) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Exceptions](ICodeComment_Exceptions.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Interfaces/ICodeComment.cs#L46) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Permissions](ICodeComment_Permissions.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Interfaces/ICodeComment.cs#L51) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TypeParameters](ICodeComment_TypeParameters.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Interfaces/ICodeComment.cs#L56) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Includes](ICodeComment_Includes.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Interfaces/ICodeComment.cs#L61) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Features](ICodeComment_Features.md)** |  | [![Lines of Code 9](http://b.repl.ca/v1/Lines%20of%20Code-9-blue.png "")](../Interfaces/ICodeComment.cs#L68) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ClassFeatures](ICodeComment_ClassFeatures.md)** |  | [![Lines of Code 9](http://b.repl.ca/v1/Lines%20of%20Code-9-blue.png "")](../Interfaces/ICodeComment.cs#L72) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ProjectFeatures](ICodeComment_ProjectFeatures.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Interfaces/ICodeComment.cs#L76) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TestedFeatures](ICodeComment_TestedFeatures.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Interfaces/ICodeComment.cs#L80) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-
 
 
 

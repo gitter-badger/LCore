@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](LanguageExt.md)
 
 ### LanguageExt
@@ -7,13 +7,13 @@
 
 # FindSourceCode
 
-#### Static Method
+#### Public Static Method
 
-###### public static [String](https://msdn.microsoft.com/en-us/library/system.string.aspx) FindSourceCode([MemberInfo](https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx) Member, [Boolean](https://msdn.microsoft.com/en-us/library/system.boolean.aspx) IncludeAttributes, [Boolean](https://msdn.microsoft.com/en-us/library/system.boolean.aspx) IncludeComments);
+##### public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> FindSourceCode(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a> Member, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeAttributes, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeComments);
 
-![Type Public Static Override Method](http://b.repl.ca/v1/Type-Public%20Static%20Override%20Method-blue.png "") ![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-blue.png "") ![TODOs 0](http://b.repl.ca/v1/TODOs-0-green.png "") ![Bugs 0](http://b.repl.ca/v1/Bugs-0-green.png "") ![Not Implemented 0](http://b.repl.ca/v1/Not%20Implemented-0-green.png "") ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![SourceCode Available](http://b.repl.ca/v1/SourceCode-Available-brightgreen.png "")](../Extensions/Language/LanguageExt.cs#L24)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Language/LanguageExt.cs#L24)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Language/LanguageExt.cs#L24)
 
-![UnitTested No](http://b.repl.ca/v1/UnitTested-No-lightgrey.png "") ![AttributeTests 0](http://b.repl.ca/v1/AttributeTests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Language/LanguageExt.cs)
+![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Language/LanguageExt.cs)
 
 ##### Summary
 

@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### StopWatch
@@ -14,10 +14,30 @@
             Simple class to time actions.
             
 
-Public  Override Methods (2) |  | ![Total Lines of Code 11](http://b.repl.ca/v1/Total%20Lines%20of%20Code-11-blue.png "") | ![Total Documented 0%](http://b.repl.ca/v1/Total%20Documented-0%25-red.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[Start](StopWatch_Start.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Tools/Stopwatch.cs#L24) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Stop](StopWatch_Stop.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Tools/Stopwatch.cs#L33) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Methods (2)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-11-blue.png" alt="Total Code Lines 11" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-0%25-red.png" alt="Total Documentation 0%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="StopWatch_Start.md" alt="">Start</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/Stopwatch.cs#L24" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="StopWatch_Start.md" alt="">Start</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StopWatch_Stop.md" alt="">Stop</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/Stopwatch.cs#L33" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> <a href="StopWatch_Stop.md" alt="">Stop</a>();</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="347"></td></tr>
+</table>
 
 
 

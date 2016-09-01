@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### ConvertibleExt
@@ -14,16 +14,78 @@
             Provides extension methods to IConvertible objects.
             
 
-Public Static Override Methods (8) |  | ![Total Lines of Code 33](http://b.repl.ca/v1/Total%20Lines%20of%20Code-33-blue.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[CanConvertTo](ConvertibleExt_CanConvertTo.md)** |  | [![Lines of Code 13](http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png "")](../Extensions/Reference%20Types/ConvertibleExt.cs#L23) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[CanConvertTo](ConvertibleExt_CanConvertTo.md)** |  | [![Lines of Code 13](http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png "")](../Extensions/Reference%20Types/ConvertibleExt.cs#L23) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[CanConvertToString](ConvertibleExt_CanConvertToString.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/ConvertibleExt.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ConvertTo](ConvertibleExt_ConvertTo.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/ConvertibleExt.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ConvertTo](ConvertibleExt_ConvertTo.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/ConvertibleExt.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ConvertToString](ConvertibleExt_ConvertToString.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/ConvertibleExt.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TryConvertTo](ConvertibleExt_TryConvertTo.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/ConvertibleExt.cs#L192) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TryConvertToString](ConvertibleExt_TryConvertToString.md)** |  | [![Lines of Code 7](http://b.repl.ca/v1/Lines%20of%20Code-7-blue.png "")](../Extensions/Reference%20Types/ConvertibleExt.cs#L210) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (8)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-33-blue.png" alt="Total Code Lines 33" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="ConvertibleExt_CanConvertTo-0.md" alt="">CanConvertTo</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L23" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png" alt="Lines of Code 13" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ConvertibleExt_CanConvertTo-0.md" alt="">CanConvertTo</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ConvertibleExt_CanConvertTo-1.md" alt="">CanConvertTo</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L23" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png" alt="Lines of Code 13" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ConvertibleExt_CanConvertTo-1.md" alt="">CanConvertTo</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ConvertibleExt_CanConvertToString.md" alt="">CanConvertToString</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ConvertibleExt_CanConvertToString.md" alt="">CanConvertToString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ConvertibleExt_ConvertTo-0.md" alt="">ConvertTo</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="ConvertibleExt_ConvertTo-0.md" alt="">ConvertTo</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ConvertibleExt_ConvertTo-1.md" alt="">ConvertTo</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/b3h38hb0.aspx" alt="" target="_blank">Nullable</a>&lt;T&gt; <a href="ConvertibleExt_ConvertTo-1.md" alt="">ConvertTo</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ConvertibleExt_ConvertToString.md" alt="">ConvertToString</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="ConvertibleExt_ConvertToString.md" alt="">ConvertToString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ConvertibleExt_TryConvertTo.md" alt="">TryConvertTo</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L192" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> <a href="ConvertibleExt_TryConvertTo.md" alt="">TryConvertTo</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ConvertibleExt_TryConvertToString.md" alt="">TryConvertToString</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L210" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-7-blue.png" alt="Lines of Code 7" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> <a href="ConvertibleExt_TryConvertToString.md" alt="">TryConvertToString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="366"></td></tr>
+</table>
 
 
 

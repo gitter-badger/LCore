@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### UIntNumber
@@ -14,27 +14,80 @@
             Provides an implementation of INumber for uint
             
 
-Public Static Override Methods (1) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 0%](http://b.repl.ca/v1/Total%20Documented-0%25-red.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[op_Implicit](UIntNumber_op_Implicit.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/UIntNumber.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (1)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-0-red.png" alt="Total Code Lines 0" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-0%25-red.png" alt="Total Documentation 0%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="UIntNumber_op_Implicit.md" alt="">op_Implicit</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/UIntNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="UIntNumber.md" alt="">UIntNumber</a></strong> <a href="UIntNumber_op_Implicit.md" alt="">op_Implicit</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> i);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="351"></td></tr>
+</table>
 
 
-Public  Virtual Methods (6) |  | ![Total Lines of Code 25](http://b.repl.ca/v1/Total%20Lines%20of%20Code-25-blue.png "") | ![Total Documented 83%](http://b.repl.ca/v1/Total%20Documented-83%25-green.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[GetValuePrecision](UIntNumber_GetValuePrecision.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/UIntNumber.cs#L64) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Add](UIntNumber_Add.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/UIntNumber.cs#L72) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Subtract](UIntNumber_Subtract.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/UIntNumber.cs#L80) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Multiply](UIntNumber_Multiply.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/UIntNumber.cs#L88) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Divide](UIntNumber_Divide.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/UIntNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[New](UIntNumber_New.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/UIntNumber.cs#L105) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-
-
-Public   Fields (4) |  | ![Total Lines of Code 16](http://b.repl.ca/v1/Total%20Lines%20of%20Code-16-blue.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[TypePrecision](UIntNumber_TypePrecision.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/UIntNumber.cs#L44) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TypeMinValue](UIntNumber_TypeMinValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/UIntNumber.cs#L49) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TypeMaxValue](UIntNumber_TypeMaxValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/UIntNumber.cs#L54) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TypeDefaultValue](UIntNumber_TypeDefaultValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/UIntNumber.cs#L59) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Override Methods (6)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-25-blue.png" alt="Total Code Lines 25" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-83%25-green.png" alt="Total Documentation 83%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="UIntNumber_GetValuePrecision.md" alt="">GetValuePrecision</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/UIntNumber.cs#L64" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <strong><a href="Number.md" alt="">Number</a></strong> <a href="UIntNumber_GetValuePrecision.md" alt="">GetValuePrecision</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="UIntNumber_Add-0.md" alt="">Add</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/UIntNumber.cs#L72" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> <a href="UIntNumber_Add-0.md" alt="">Add</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="UIntNumber_Subtract-0.md" alt="">Subtract</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/UIntNumber.cs#L80" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> <a href="UIntNumber_Subtract-0.md" alt="">Subtract</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="UIntNumber_Multiply-0.md" alt="">Multiply</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/UIntNumber.cs#L88" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> <a href="UIntNumber_Multiply-0.md" alt="">Multiply</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="UIntNumber_Divide-0.md" alt="">Divide</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/UIntNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="UIntNumber_Divide-0.md" alt="">Divide</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="UIntNumber_New-0.md" alt="">New</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/UIntNumber.cs#L105" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <strong><a href="Number%601.md" alt="">Number</a></strong>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a>&gt; <a href="UIntNumber_New-0.md" alt="">New</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> In);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="360"></td></tr>
+</table>
 
 
 

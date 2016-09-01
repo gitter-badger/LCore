@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### Char
@@ -14,15 +14,6 @@
 
             Contains System.Char static methods and lambdas.
             
-
-Public   Fields (5) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 80%](http://b.repl.ca/v1/Total%20Documented-80%25-green.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[LowerCaseChars](Char_LowerCaseChars.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[UpperCaseChars](Char_UpperCaseChars.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[NumberChars](Char_NumberChars.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[SpecialChars](Char_SpecialChars.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[NewLineChar](Char_NewLineChar.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-
 
 
 

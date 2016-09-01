@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### IValidateAttribute
@@ -15,9 +15,22 @@
             using an implementation of LUnit's AssemblyTester.
             
 
-Public  Abstract Methods (1) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[Validate](IValidateAttribute_Validate.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../LUnit/Attributes/Interfaces/IValidateAttribute.cs#L19) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Abstract Methods (1)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-0-red.png" alt="Total Code Lines 0" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="IValidateAttribute_Validate.md" alt="">Validate</a></strong></h4></td>
+<td>   </td>
+<td><a href="../LUnit/Attributes/Interfaces/IValidateAttribute.cs#L19" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>[] <a href="IValidateAttribute_Validate.md" alt="">Validate</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a> Member);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="365"></td></tr>
+</table>
 
 
 

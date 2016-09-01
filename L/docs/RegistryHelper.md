@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### RegistryHelper
@@ -15,26 +15,158 @@
             All unhandled exceptions are Formed. Safe class.
             
 
-Public  Override Methods (18) |  | ![Total Lines of Code 102](http://b.repl.ca/v1/Total%20Lines%20of%20Code-102-blue.png "") | ![Total Documented 83%](http://b.repl.ca/v1/Total%20Documented-83%25-green.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[RemoveAll](RegistryHelper_RemoveAll.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Tools/RegistryHelper.cs#L27) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Remove](RegistryHelper_Remove.md)** |  | [![Lines of Code 7](http://b.repl.ca/v1/Lines%20of%20Code-7-blue.png "")](../Tools/RegistryHelper.cs#L27) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Save](RegistryHelper_Save.md)** |  | [![Lines of Code 18](http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png "")](../Tools/RegistryHelper.cs#L49) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Save](RegistryHelper_Save.md)** |  | [![Lines of Code 18](http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png "")](../Tools/RegistryHelper.cs#L49) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Save](RegistryHelper_Save.md)** |  | [![Lines of Code 18](http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png "")](../Tools/RegistryHelper.cs#L49) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Save](RegistryHelper_Save.md)** |  | [![Lines of Code 18](http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png "")](../Tools/RegistryHelper.cs#L49) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Save](RegistryHelper_Save.md)** |  | [![Lines of Code 18](http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png "")](../Tools/RegistryHelper.cs#L49) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[LoadObject](RegistryHelper_LoadObject.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[LoadString](RegistryHelper_LoadString.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[LoadInt](RegistryHelper_LoadInt.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[LoadLong](RegistryHelper_LoadLong.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[LoadFloat](RegistryHelper_LoadFloat.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[LoadDouble](RegistryHelper_LoadDouble.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[LoadChar](RegistryHelper_LoadChar.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[LoadBool](RegistryHelper_LoadBool.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[LoadBinary](RegistryHelper_LoadBinary.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[LoadList](RegistryHelper_LoadList.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[LoadAll](RegistryHelper_LoadAll.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Methods (18)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-102-blue.png" alt="Total Code Lines 102" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-83%25-green.png" alt="Total Documentation 83%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="RegistryHelper_RemoveAll.md" alt="">RemoveAll</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L27" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="RegistryHelper_RemoveAll.md" alt="">RemoveAll</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_Remove.md" alt="">Remove</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L27" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-7-blue.png" alt="Lines of Code 7" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="RegistryHelper_Remove.md" alt="">Remove</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>[] Names);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_Save-0.md" alt="">Save</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L49" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png" alt="Lines of Code 18" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="RegistryHelper_Save-0.md" alt="">Save</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_Save-1.md" alt="">Save</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L49" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png" alt="Lines of Code 18" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="RegistryHelper_Save-1.md" alt="">Save</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_Save-2.md" alt="">Save</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L49" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png" alt="Lines of Code 18" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="RegistryHelper_Save-2.md" alt="">Save</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name, <a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> Obj);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_Save-3.md" alt="">Save</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L49" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png" alt="Lines of Code 18" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="RegistryHelper_Save-3.md" alt="">Save</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name, <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] List);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_Save-4.md" alt="">Save</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L49" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png" alt="Lines of Code 18" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="RegistryHelper_Save-4.md" alt="">Save</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name, <a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a>&gt; List);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_LoadObject.md" alt="">LoadObject</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="RegistryHelper_LoadObject.md" alt="">LoadObject</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_LoadString.md" alt="">LoadString</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="RegistryHelper_LoadString.md" alt="">LoadString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_LoadInt.md" alt="">LoadInt</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/b3h38hb0.aspx" alt="" target="_blank">Nullable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a>&gt; <a href="RegistryHelper_LoadInt.md" alt="">LoadInt</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_LoadLong.md" alt="">LoadLong</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/b3h38hb0.aspx" alt="" target="_blank">Nullable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.int64.aspx" alt="">Int64</a>&gt; <a href="RegistryHelper_LoadLong.md" alt="">LoadLong</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_LoadFloat.md" alt="">LoadFloat</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/b3h38hb0.aspx" alt="" target="_blank">Nullable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a>&gt; <a href="RegistryHelper_LoadFloat.md" alt="">LoadFloat</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_LoadDouble.md" alt="">LoadDouble</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/b3h38hb0.aspx" alt="" target="_blank">Nullable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a>&gt; <a href="RegistryHelper_LoadDouble.md" alt="">LoadDouble</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_LoadChar.md" alt="">LoadChar</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/b3h38hb0.aspx" alt="" target="_blank">Nullable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a>&gt; <a href="RegistryHelper_LoadChar.md" alt="">LoadChar</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_LoadBool.md" alt="">LoadBool</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/b3h38hb0.aspx" alt="" target="_blank">Nullable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt; <a href="RegistryHelper_LoadBool.md" alt="">LoadBool</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_LoadBinary.md" alt="">LoadBinary</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="RegistryHelper_LoadBinary.md" alt="">LoadBinary</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_LoadList.md" alt="">LoadList</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a>&gt; <a href="RegistryHelper_LoadList.md" alt="">LoadList</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Name);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="RegistryHelper_LoadAll.md" alt="">LoadAll</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/RegistryHelper.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<strong><a href="Set%602.md" alt="">Set</a></strong>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a>&gt;&gt; <a href="RegistryHelper_LoadAll.md" alt="">LoadAll</a>();</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="354"></td></tr>
+</table>
 
 
 

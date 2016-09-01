@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](RegistryHelper.md)
 
 ### RegistryHelper
@@ -7,13 +7,13 @@
 
 # Remove
 
-#### InstanceMethod
+#### Public Method
 
-###### public [void](https://msdn.microsoft.com/en-us/library/system.void.aspx) Remove([String](https://msdn.microsoft.com/en-us/library/system.string.aspx)[] Names);
+##### public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> Remove(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>[] Names);
 
-![Type Public  Override Method](http://b.repl.ca/v1/Type-Public%20%20Override%20Method-blue.png "") ![Lines of Code 7](http://b.repl.ca/v1/Lines%20of%20Code-7-blue.png "") ![TODOs 0](http://b.repl.ca/v1/TODOs-0-green.png "") ![Bugs 0](http://b.repl.ca/v1/Bugs-0-green.png "") ![Not Implemented 0](http://b.repl.ca/v1/Not%20Implemented-0-green.png "") ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![SourceCode Available](http://b.repl.ca/v1/SourceCode-Available-brightgreen.png "")](../Tools/RegistryHelper.cs#L27)
+![Type Public Method](http://b.repl.ca/v1/Type-Public%20Method-Blue.png "") [![Lines of Code 7](http://b.repl.ca/v1/Lines%20of%20Code-7-blue.png "")](../Tools/RegistryHelper.cs#L27)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Tools/RegistryHelper.cs#L27)
 
-![UnitTested No](http://b.repl.ca/v1/UnitTested-No-lightgrey.png "") ![AttributeTests 0](http://b.repl.ca/v1/AttributeTests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Tools/RegistryHelper.cs)
+![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Tools/RegistryHelper.cs)
 
 ##### Summary
 
@@ -29,7 +29,7 @@ Names | No | [String](https://msdn.microsoft.com/en-us/library/system.string.asp
 
 ###### [void](https://msdn.microsoft.com/en-us/library/system.void.aspx)
 
-#### Exceptions
+#### Method Exceptions
 T:System.Security.SecurityException The user does not have the permissions required to read from the registry key. 
 T:System.UnauthorizedAccessException The user does not have the necessary registry rights.
 T:System.IO.IOException A system error occurred; for example, the current key has been deleted.

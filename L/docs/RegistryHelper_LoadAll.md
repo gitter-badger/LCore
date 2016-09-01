@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](RegistryHelper.md)
 
 ### RegistryHelper
@@ -7,17 +7,17 @@
 
 # LoadAll
 
-#### InstanceMethod
+#### Public Method
 
-###### public <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="" alt="" target="_blank">Set</a>&lt;[String](https://msdn.microsoft.com/en-us/library/system.string.aspx), [Object](https://msdn.microsoft.com/en-us/library/system.object.aspx)&gt;&gt; LoadAll();
+##### public <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<strong><a href="Set%602.md" alt="">Set</a></strong>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a>&gt;&gt; LoadAll();
 
-![Type Public  Override Method](http://b.repl.ca/v1/Type-Public%20%20Override%20Method-blue.png "") ![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-blue.png "") ![TODOs 0](http://b.repl.ca/v1/TODOs-0-green.png "") ![Bugs 0](http://b.repl.ca/v1/Bugs-0-green.png "") ![Not Implemented 0](http://b.repl.ca/v1/Not%20Implemented-0-green.png "") ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![SourceCode Available](http://b.repl.ca/v1/SourceCode-Available-brightgreen.png "")](../Tools/RegistryHelper.cs#L)
+![Type Public Method](http://b.repl.ca/v1/Type-Public%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Tools/RegistryHelper.cs#L)
 
-![UnitTested No](http://b.repl.ca/v1/UnitTested-No-lightgrey.png "") ![AttributeTests 0](http://b.repl.ca/v1/AttributeTests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Tools/RegistryHelper.cs)
+![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Tools/RegistryHelper.cs)
 
 #### Returns
 
-###### <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="" alt="" target="_blank">Set</a>&lt;[String](https://msdn.microsoft.com/en-us/library/system.string.aspx), [Object](https://msdn.microsoft.com/en-us/library/system.object.aspx)&gt;&gt;
+###### <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;**[Set](Set%602.md)**&lt;[String](https://msdn.microsoft.com/en-us/library/system.string.aspx), [Object](https://msdn.microsoft.com/en-us/library/system.object.aspx)&gt;&gt;
 
 
 

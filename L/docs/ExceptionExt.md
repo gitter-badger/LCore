@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### ExceptionExt
@@ -14,121 +14,918 @@
             Provides extensions for method exception handling
             
 
-Public Static Override Methods (113) |  | ![Total Lines of Code 43](http://b.repl.ca/v1/Total%20Lines%20of%20Code-43-blue.png "") | ![Total Documented 5%](http://b.repl.ca/v1/Total%20Documented-5%25-red.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[Fail](ExceptionExt_Fail.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1905) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Fail](ExceptionExt_Fail.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1913) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Fail](ExceptionExt_Fail.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1921) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Fail](ExceptionExt_Fail.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1929) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Fail](ExceptionExt_Fail.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1937) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Fail](ExceptionExt_Fail.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1945) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Fail](ExceptionExt_Fail.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1953) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Fail](ExceptionExt_Fail.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Extensions/Methods/ExceptionExt.cs#L1881) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Fail](ExceptionExt_Fail.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1889) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Fail](ExceptionExt_Fail.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1897) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Throw](ExceptionExt_Throw.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Extensions/Methods/ExceptionExt.cs#L1965) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Throw](ExceptionExt_Throw.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1973) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Throw](ExceptionExt_Throw.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1981) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Throw](ExceptionExt_Throw.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1989) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Throw](ExceptionExt_Throw.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1997) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Throw](ExceptionExt_Throw.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2005) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Throw](ExceptionExt_Throw.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2013) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Throw](ExceptionExt_Throw.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2021) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Throw](ExceptionExt_Throw.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2029) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Throw](ExceptionExt_Throw.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2037) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2050) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2059) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2068) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2077) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2086) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2096) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2105) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2114) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2123) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2132) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2050) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2059) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2068) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2077) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2086) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2096) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2105) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2114) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2123) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Report](ExceptionExt_Report.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2132) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Handle](ExceptionExt_Handle.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Extensions/Methods/ExceptionExt.cs#L2240) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Handle](ExceptionExt_Handle.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2249) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Handle](ExceptionExt_Handle.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2258) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Handle](ExceptionExt_Handle.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2267) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Handle](ExceptionExt_Handle.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2276) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Handle](ExceptionExt_Handle.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2285) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Handle](ExceptionExt_Handle.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2294) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Handle](ExceptionExt_Handle.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2303) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Handle](ExceptionExt_Handle.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2312) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Handle](ExceptionExt_Handle.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L2321) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Try](ExceptionExt_Try.md)** |  | [![Lines of Code 12](http://b.repl.ca/v1/Lines%20of%20Code-12-blue.png "")](../Extensions/Methods/ExceptionExt.cs#L22) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Try](ExceptionExt_Try.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L43) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Try](ExceptionExt_Try.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L63) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Try](ExceptionExt_Try.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L83) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Try](ExceptionExt_Try.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L103) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Try](ExceptionExt_Try.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L220) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Try](ExceptionExt_Try.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L239) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Try](ExceptionExt_Try.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L258) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Try](ExceptionExt_Try.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L277) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Try](ExceptionExt_Try.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L296) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Extensions/Methods/ExceptionExt.cs#L404) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L412) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L420) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L428) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L436) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L529) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L537) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L545) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L553) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L561) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Extensions/Methods/ExceptionExt.cs#L404) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L412) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L420) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L428) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L436) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L529) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L537) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L545) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L553) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L561) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L529) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L537) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L545) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L553) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L561) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Extensions/Methods/ExceptionExt.cs#L404) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L412) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L420) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L428) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L436) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L529) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L537) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L545) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L553) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Catch](ExceptionExt_Catch.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L561) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Retry](ExceptionExt_Retry.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1455) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Retry](ExceptionExt_Retry.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1491) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Retry](ExceptionExt_Retry.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1527) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Retry](ExceptionExt_Retry.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1563) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Retry](ExceptionExt_Retry.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1599) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Retry](ExceptionExt_Retry.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1635) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Retry](ExceptionExt_Retry.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1670) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Retry](ExceptionExt_Retry.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1705) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Retry](ExceptionExt_Retry.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1741) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Retry](ExceptionExt_Retry.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1777) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Debug](ExceptionExt_Debug.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1812) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Debug](ExceptionExt_Debug.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1820) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Debug](ExceptionExt_Debug.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1828) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Debug](ExceptionExt_Debug.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1836) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Debug](ExceptionExt_Debug.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1845) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Debug](ExceptionExt_Debug.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1853) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Debug](ExceptionExt_Debug.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1861) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Debug](ExceptionExt_Debug.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ExceptionExt.cs#L1869) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (113)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-43-blue.png" alt="Total Code Lines 43" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-5%25-red.png" alt="Total Documentation 5%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="ExceptionExt_Fail-0.md" alt="">Fail</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1905" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; <a href="ExceptionExt_Fail-0.md" alt="">Fail</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Fail-1.md" alt="">Fail</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1913" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; <a href="ExceptionExt_Fail-1.md" alt="">Fail</a>(<a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Fail-2.md" alt="">Fail</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1921" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; <a href="ExceptionExt_Fail-2.md" alt="">Fail</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Fail-3.md" alt="">Fail</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1929" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T, U&gt; <a href="ExceptionExt_Fail-3.md" alt="">Fail</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Fail-4.md" alt="">Fail</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1937" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; <a href="ExceptionExt_Fail-4.md" alt="">Fail</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Fail-5.md" alt="">Fail</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1945" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; <a href="ExceptionExt_Fail-5.md" alt="">Fail</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Fail-6.md" alt="">Fail</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1953" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; <a href="ExceptionExt_Fail-6.md" alt="">Fail</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Throw-0.md" alt="">Throw</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1965" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> <a href="ExceptionExt_Throw-0.md" alt="">Throw</a>(<a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Throw-1.md" alt="">Throw</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1973" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T&gt; <a href="ExceptionExt_Throw-1.md" alt="">Throw</a>(<a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Throw-2.md" alt="">Throw</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1981" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; <a href="ExceptionExt_Throw-2.md" alt="">Throw</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Throw-3.md" alt="">Throw</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1989" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; <a href="ExceptionExt_Throw-3.md" alt="">Throw</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Throw-4.md" alt="">Throw</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1997" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; <a href="ExceptionExt_Throw-4.md" alt="">Throw</a>(<a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Throw-5.md" alt="">Throw</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2005" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; <a href="ExceptionExt_Throw-5.md" alt="">Throw</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Throw-6.md" alt="">Throw</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2013" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T, U&gt; <a href="ExceptionExt_Throw-6.md" alt="">Throw</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Throw-7.md" alt="">Throw</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2021" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; <a href="ExceptionExt_Throw-7.md" alt="">Throw</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Throw-8.md" alt="">Throw</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2029" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; <a href="ExceptionExt_Throw-8.md" alt="">Throw</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Throw-9.md" alt="">Throw</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2037" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; <a href="ExceptionExt_Throw-9.md" alt="">Throw</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-0.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2050" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> <a href="ExceptionExt_Report-0.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-1.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2059" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T&gt; <a href="ExceptionExt_Report-1.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-2.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2068" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; <a href="ExceptionExt_Report-2.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-3.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2077" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; <a href="ExceptionExt_Report-3.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-4.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2086" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; <a href="ExceptionExt_Report-4.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-5.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2096" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; <a href="ExceptionExt_Report-5.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-6.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2105" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T, U&gt; <a href="ExceptionExt_Report-6.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-7.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2114" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; <a href="ExceptionExt_Report-7.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-8.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2123" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; <a href="ExceptionExt_Report-8.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-9.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2132" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; <a href="ExceptionExt_Report-9.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-10.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2050" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> <a href="ExceptionExt_Report-10.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> In, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-11.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2059" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T&gt; <a href="ExceptionExt_Report-11.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T&gt; In, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-12.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2068" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; <a href="ExceptionExt_Report-12.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; In, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-13.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2077" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; <a href="ExceptionExt_Report-13.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; In, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-14.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2086" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; <a href="ExceptionExt_Report-14.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; In, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-15.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2096" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; <a href="ExceptionExt_Report-15.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; In, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-16.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2105" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T, U&gt; <a href="ExceptionExt_Report-16.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T, U&gt; In, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-17.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2114" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; <a href="ExceptionExt_Report-17.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; In, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-18.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2123" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; <a href="ExceptionExt_Report-18.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; In, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Report-19.md" alt="">Report</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2132" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; <a href="ExceptionExt_Report-19.md" alt="">Report</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In, E Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Handle-0.md" alt="">Handle</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2240" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> <a href="ExceptionExt_Handle-0.md" alt="">Handle</a>(<a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Handle-1.md" alt="">Handle</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2249" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt; <a href="ExceptionExt_Handle-1.md" alt="">Handle</a>(<a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Handle-2.md" alt="">Handle</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2258" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; <a href="ExceptionExt_Handle-2.md" alt="">Handle</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Handle-3.md" alt="">Handle</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2267" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; <a href="ExceptionExt_Handle-3.md" alt="">Handle</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Handle-4.md" alt="">Handle</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2276" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; <a href="ExceptionExt_Handle-4.md" alt="">Handle</a>(<a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Handle-5.md" alt="">Handle</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2285" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; <a href="ExceptionExt_Handle-5.md" alt="">Handle</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Handle-6.md" alt="">Handle</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2294" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; <a href="ExceptionExt_Handle-6.md" alt="">Handle</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Handle-7.md" alt="">Handle</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2303" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; <a href="ExceptionExt_Handle-7.md" alt="">Handle</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Handle-8.md" alt="">Handle</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2312" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; <a href="ExceptionExt_Handle-8.md" alt="">Handle</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Handle-9.md" alt="">Handle</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L2321" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; <a href="ExceptionExt_Handle-9.md" alt="">Handle</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Try-0.md" alt="">Try</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L22" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-12-blue.png" alt="Lines of Code 12" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt; <a href="ExceptionExt_Try-0.md" alt="">Try</a>(<a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Try-1.md" alt="">Try</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L43" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt; <a href="ExceptionExt_Try-1.md" alt="">Try</a>(<a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Try-2.md" alt="">Try</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L63" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt; <a href="ExceptionExt_Try-2.md" alt="">Try</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Try-3.md" alt="">Try</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L83" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt; <a href="ExceptionExt_Try-3.md" alt="">Try</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Try-4.md" alt="">Try</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L103" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt; <a href="ExceptionExt_Try-4.md" alt="">Try</a>(<a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Try-5.md" alt="">Try</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L220" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; <a href="ExceptionExt_Try-5.md" alt="">Try</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Try-6.md" alt="">Try</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L239" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; <a href="ExceptionExt_Try-6.md" alt="">Try</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Try-7.md" alt="">Try</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L258" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; <a href="ExceptionExt_Try-7.md" alt="">Try</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Try-8.md" alt="">Try</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L277" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; <a href="ExceptionExt_Try-8.md" alt="">Try</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Try-9.md" alt="">Try</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L296" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; <a href="ExceptionExt_Try-9.md" alt="">Try</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-0.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L404" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> <a href="ExceptionExt_Catch-0.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-1.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L412" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt; <a href="ExceptionExt_Catch-1.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-2.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L420" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; <a href="ExceptionExt_Catch-2.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-3.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L428" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; <a href="ExceptionExt_Catch-3.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-4.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L436" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; <a href="ExceptionExt_Catch-4.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-5.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L529" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; <a href="ExceptionExt_Catch-5.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-6.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L537" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; <a href="ExceptionExt_Catch-6.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-7.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L545" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; <a href="ExceptionExt_Catch-7.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-8.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L553" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; <a href="ExceptionExt_Catch-8.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-9.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L561" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; <a href="ExceptionExt_Catch-9.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-10.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L404" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> <a href="ExceptionExt_Catch-10.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;E&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-11.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L412" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt; <a href="ExceptionExt_Catch-11.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;E&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-12.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L420" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; <a href="ExceptionExt_Catch-12.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;E&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-13.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L428" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; <a href="ExceptionExt_Catch-13.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;E&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-14.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L436" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; <a href="ExceptionExt_Catch-14.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;E&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-15.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L529" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; <a href="ExceptionExt_Catch-15.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;E&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-16.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L537" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; <a href="ExceptionExt_Catch-16.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;E&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-17.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L545" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; <a href="ExceptionExt_Catch-17.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;E&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-18.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L553" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; <a href="ExceptionExt_Catch-18.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;E&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-19.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L561" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; <a href="ExceptionExt_Catch-19.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;E&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-20.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L529" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; <a href="ExceptionExt_Catch-20.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;E, U&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-21.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L537" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; <a href="ExceptionExt_Catch-21.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;E, U&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-22.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L545" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; <a href="ExceptionExt_Catch-22.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;E, U&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-23.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L553" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; <a href="ExceptionExt_Catch-23.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;E, U&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-24.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L561" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; <a href="ExceptionExt_Catch-24.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;E, U&gt; Catch);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-25.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L404" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> <a href="ExceptionExt_Catch-25.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-26.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L412" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt; <a href="ExceptionExt_Catch-26.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-27.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L420" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; <a href="ExceptionExt_Catch-27.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-28.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L428" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; <a href="ExceptionExt_Catch-28.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-29.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L436" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; <a href="ExceptionExt_Catch-29.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-30.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L529" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; <a href="ExceptionExt_Catch-30.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-31.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L537" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; <a href="ExceptionExt_Catch-31.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-32.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L545" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; <a href="ExceptionExt_Catch-32.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-33.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L553" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; <a href="ExceptionExt_Catch-33.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Catch-34.md" alt="">Catch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L561" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; <a href="ExceptionExt_Catch-34.md" alt="">Catch</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Retry-0.md" alt="">Retry</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1455" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> <a href="ExceptionExt_Retry-0.md" alt="">Retry</a>(<a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Tries);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Retry-1.md" alt="">Retry</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1491" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T&gt; <a href="ExceptionExt_Retry-1.md" alt="">Retry</a>(<a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Tries);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Retry-2.md" alt="">Retry</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1527" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; <a href="ExceptionExt_Retry-2.md" alt="">Retry</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Tries);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Retry-3.md" alt="">Retry</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1563" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; <a href="ExceptionExt_Retry-3.md" alt="">Retry</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Tries);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Retry-4.md" alt="">Retry</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1599" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; <a href="ExceptionExt_Retry-4.md" alt="">Retry</a>(<a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Tries);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Retry-5.md" alt="">Retry</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1635" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; <a href="ExceptionExt_Retry-5.md" alt="">Retry</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Tries);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Retry-6.md" alt="">Retry</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1670" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; <a href="ExceptionExt_Retry-6.md" alt="">Retry</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Tries);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Retry-7.md" alt="">Retry</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1705" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; <a href="ExceptionExt_Retry-7.md" alt="">Retry</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Tries);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Retry-8.md" alt="">Retry</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1741" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; <a href="ExceptionExt_Retry-8.md" alt="">Retry</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Tries);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Retry-9.md" alt="">Retry</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1777" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; <a href="ExceptionExt_Retry-9.md" alt="">Retry</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Tries);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Debug-0.md" alt="">Debug</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1812" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt; <a href="ExceptionExt_Debug-0.md" alt="">Debug</a>(<a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Debug-1.md" alt="">Debug</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1820" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; <a href="ExceptionExt_Debug-1.md" alt="">Debug</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Debug-2.md" alt="">Debug</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1828" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; <a href="ExceptionExt_Debug-2.md" alt="">Debug</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Debug-3.md" alt="">Debug</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1836" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; <a href="ExceptionExt_Debug-3.md" alt="">Debug</a>(<a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Debug-4.md" alt="">Debug</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1845" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; <a href="ExceptionExt_Debug-4.md" alt="">Debug</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Debug-5.md" alt="">Debug</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1853" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; <a href="ExceptionExt_Debug-5.md" alt="">Debug</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Debug-6.md" alt="">Debug</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1861" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; <a href="ExceptionExt_Debug-6.md" alt="">Debug</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Debug-7.md" alt="">Debug</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1869" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; <a href="ExceptionExt_Debug-7.md" alt="">Debug</a>(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Fail-7.md" alt="">Fail</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1881" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> <a href="ExceptionExt_Fail-7.md" alt="">Fail</a>(<a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Fail-8.md" alt="">Fail</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1889" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T&gt; <a href="ExceptionExt_Fail-8.md" alt="">Fail</a>(<a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T&gt; In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionExt_Fail-9.md" alt="">Fail</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Methods/ExceptionExt.cs#L1897" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; <a href="ExceptionExt_Fail-9.md" alt="">Fail</a>(<a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt; In);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="356"></td></tr>
+</table>
 
 
 

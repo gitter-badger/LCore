@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](Schedule.md)
 
 ### Schedule
@@ -7,13 +7,13 @@
 
 # FromString
 
-#### Static Method
+#### Public Static Method
 
-###### public static <a href="" alt="" target="_blank">Schedule</a> FromString([String](https://msdn.microsoft.com/en-us/library/system.string.aspx) In);
+##### public static <strong><a href="Schedule.md" alt="">Schedule</a></strong> FromString(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);
 
-![Type Public Static Override Method](http://b.repl.ca/v1/Type-Public%20Static%20Override%20Method-blue.png "") ![Lines of Code 34](http://b.repl.ca/v1/Lines%20of%20Code-34-blue.png "") ![TODOs 0](http://b.repl.ca/v1/TODOs-0-green.png "") ![Bugs 0](http://b.repl.ca/v1/Bugs-0-green.png "") ![Not Implemented 0](http://b.repl.ca/v1/Not%20Implemented-0-green.png "") ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![SourceCode Available](http://b.repl.ca/v1/SourceCode-Available-brightgreen.png "")](../Tools/Schedule.cs#L73)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 34](http://b.repl.ca/v1/Lines%20of%20Code-34-blue.png "")](../Tools/Schedule.cs#L73)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Tools/Schedule.cs#L73)
 
-![UnitTested No](http://b.repl.ca/v1/UnitTested-No-lightgrey.png "") ![AttributeTests 0](http://b.repl.ca/v1/AttributeTests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Tools/Schedule.cs)
+![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Tools/Schedule.cs)
 
 ##### Summary
 
@@ -27,9 +27,9 @@ In | No | [String](https://msdn.microsoft.com/en-us/library/system.string.aspx) 
 
 #### Returns
 
-###### <a href="" alt="" target="_blank">Schedule</a>
+###### **[Schedule](Schedule.md)**
 
-#### Exceptions
+#### Method Exceptions
 T:System.ArgumentException ScheduleMode could not be determined.
 
 

@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### FileExt
@@ -14,17 +14,86 @@
             Provides extensions to more easily access the file system.
             
 
-Public Static Override Methods (9) |  | ![Total Lines of Code 39](http://b.repl.ca/v1/Total%20Lines%20of%20Code-39-blue.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[CleanFileName](FileExt_CleanFileName.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Extensions/Reference%20Types/FileExt.cs#L27) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[EnsurePathExists](FileExt_EnsurePathExists.md)** |  | [![Lines of Code 11](http://b.repl.ca/v1/Lines%20of%20Code-11-blue.png "")](../Extensions/Reference%20Types/FileExt.cs#L39) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[EveryOtherByte](FileExt_EveryOtherByte.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/FileExt.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[GetFileStream](FileExt_GetFileStream.md)** |  | [![Lines of Code 10](http://b.repl.ca/v1/Lines%20of%20Code-10-blue.png "")](../Extensions/Reference%20Types/FileExt.cs#L176) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[GetFileHash](FileExt_GetFileHash.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/FileExt.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[GetMemoryStream](FileExt_GetMemoryStream.md)** |  | [![Lines of Code 13](http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png "")](../Extensions/Reference%20Types/FileExt.cs#L211) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[GetStreamHash](FileExt_GetStreamHash.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/FileExt.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[GetStringHash](FileExt_GetStringHash.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/FileExt.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ReadAllBytes](FileExt_ReadAllBytes.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/FileExt.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (9)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-39-blue.png" alt="Total Code Lines 39" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="FileExt_CleanFileName.md" alt="">CleanFileName</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/FileExt.cs#L27" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="FileExt_CleanFileName.md" alt="">CleanFileName</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FileExt_EnsurePathExists.md" alt="">EnsurePathExists</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/FileExt.cs#L39" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-11-blue.png" alt="Lines of Code 11" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="FileExt_EnsurePathExists.md" alt="">EnsurePathExists</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Path);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FileExt_EveryOtherByte.md" alt="">EveryOtherByte</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/FileExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="FileExt_EveryOtherByte.md" alt="">EveryOtherByte</a>(<a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FileExt_GetFileStream.md" alt="">GetFileStream</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/FileExt.cs#L176" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-10-blue.png" alt="Lines of Code 10" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.io.filestream.aspx" alt="">FileStream</a> <a href="FileExt_GetFileStream.md" alt="">GetFileStream</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> FullPath);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FileExt_GetFileHash.md" alt="">GetFileHash</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/FileExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="FileExt_GetFileHash.md" alt="">GetFileHash</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> FullPath);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FileExt_GetMemoryStream.md" alt="">GetMemoryStream</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/FileExt.cs#L211" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png" alt="Lines of Code 13" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.io.memorystream.aspx" alt="">MemoryStream</a> <a href="FileExt_GetMemoryStream.md" alt="">GetMemoryStream</a>(<a href="https://msdn.microsoft.com/en-us/library/system.io.stream.aspx" alt="">Stream</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FileExt_GetStreamHash.md" alt="">GetStreamHash</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/FileExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="FileExt_GetStreamHash.md" alt="">GetStreamHash</a>(<a href="https://msdn.microsoft.com/en-us/library/system.io.stream.aspx" alt="">Stream</a> InputStream);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FileExt_GetStringHash.md" alt="">GetStringHash</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/FileExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="FileExt_GetStringHash.md" alt="">GetStringHash</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FileExt_ReadAllBytes.md" alt="">ReadAllBytes</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/FileExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="FileExt_ReadAllBytes.md" alt="">ReadAllBytes</a>(<a href="https://msdn.microsoft.com/en-us/library/system.io.stream.aspx" alt="">Stream</a> Input);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="366"></td></tr>
+</table>
 
 
 
