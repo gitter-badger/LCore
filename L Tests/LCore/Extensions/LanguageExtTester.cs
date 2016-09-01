@@ -7,6 +7,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit.Fluent;
+// ReSharper disable PartialTypeWithSinglePart
 
 // ReSharper disable PossibleNullReferenceException
 
@@ -77,16 +78,31 @@ namespace L_Tests.LCore.Extensions
             typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCode(IncludeAttributes: false, IncludeComments: true).ShouldBe(CommentLine + TestPropertyCode2);
             typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).ShouldBe(CommentLine + AttributeLine + TestPropertyCode2);
 
+            // Test class
+            int Expected = 1741;
+            typeof(MemberDetails).FindSourceCode().Length.ShouldBe(Expected);
+            typeof(MemberDetails).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
+            typeof(MemberDetails).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected + 90);
+            typeof(MemberDetails).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected + 90);
+
+            // Test nested class
+            Expected = 483;
+            typeof(Test).FindSourceCode().Length.ShouldBe(Expected);
+            typeof(Test).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
+            typeof(Test).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected);
+            typeof(Test).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected);
+
+            // Test enum
+            Expected = 182;
+            typeof(MemberScope).FindSourceCode().Length.ShouldBe(Expected);
+            typeof(MemberScope).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
+            typeof(MemberScope).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected + 78);
+            typeof(MemberScope).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected + 78);
+
             // TODO Test constructors
             // TODO Test comments / attributes
 
             // TODO Test fields
-            // TODO Test comments / attributes
-
-            // TODO Test enum
-            // TODO Test comments / attributes
-
-            // TODO Test class
             // TODO Test comments / attributes
             }
 

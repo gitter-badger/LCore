@@ -41,5 +41,19 @@ namespace LCore.Extensions
 
             return Out.ReplaceAll("  ", " ");
             }
+
+        /// <summary>
+        /// Returns the member's details as a code string.
+        /// Ex. "public virtual string",
+        ///     "protected abstract class"
+        /// </summary>
+        /// <returns></returns>
+        public string ToCodeString()
+            {
+            return this.ToString()
+                .Replace(MemberType.Structure.ToString(), "struct")
+                .ToLower()
+                .Replace("sealed enum", "enum"); // Enums are sealed but sealed is not written
+            }
         }
     }
