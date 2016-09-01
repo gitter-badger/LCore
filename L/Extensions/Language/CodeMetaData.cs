@@ -116,7 +116,7 @@ namespace LCore.Extensions
             this.CodeLineCount = Member.FindSourceCodeLineCount();
             this.CodeLineNumber = Member.FindSourceCodeLineNumber();
 
-            this.CodeFilePath = Member.DeclaringType.FindClassFile();
+            this.CodeFilePath = (Member is Type ? (Type)Member : Member.DeclaringType).FindClassFile();
 
             this.Attributes = Member.GetAttributes<Attribute>(IncludeBaseTypes: true);
 
