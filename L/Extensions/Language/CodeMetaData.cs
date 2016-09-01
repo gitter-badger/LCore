@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Interfaces;
@@ -131,7 +132,9 @@ namespace LCore.Extensions
         private List<CodeLineInfo> ReadCommentTag(string Tag)
             {
             var Out = new List<CodeLineInfo>();
-            this.CodeLines.Each((i, Line) =>
+
+            // Use file lines not local code lines for correct file line number
+            File.ReadAllLines(this.CodeFilePath).Each((i, Line) =>
                 {
                     string TrimLine = Line.Trim();
                     if (TrimLine.StartsWith($"//{Tag}") || TrimLine.StartsWith($"// {Tag}"))
