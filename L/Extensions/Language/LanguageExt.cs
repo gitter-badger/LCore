@@ -87,6 +87,10 @@ namespace LCore.Extensions
 
                 if (Index != null)
                     {
+                    // for methods whose parameters break lines, advance until the closing ')'
+                    while (Member is MethodInfo && !CodeLines[(int)Index].EndsWith(")"))
+                        Index++;
+
                     string StartBraceLine = CodeLines[(int)Index + 1];
                     string EndBraceLine = StartBraceLine.Replace("{", "}");
 

@@ -86,7 +86,7 @@ namespace L_Tests.LCore.Extensions
             typeof(MemberDetails).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected + 90);
 
             // Test nested class
-            Expected = 483;
+            Expected = 657;
             typeof(Test).FindSourceCode().Length.ShouldBe(Expected);
             typeof(Test).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
             typeof(Test).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected);
@@ -98,6 +98,20 @@ namespace L_Tests.LCore.Extensions
             typeof(MemberScope).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
             typeof(MemberScope).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected + 78);
             typeof(MemberScope).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected + 78);
+
+            // Test overridden method
+            Expected = 98;
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.VirtualMethod)).FindSourceCode().Length.ShouldBe(Expected);
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.VirtualMethod)).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.VirtualMethod)).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected);
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.VirtualMethod)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected);
+
+            // Test methods with line breaks
+            Expected = 89;
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.LineBreakingMethod)).FindSourceCode().Length.ShouldBe(Expected);
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.LineBreakingMethod)).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.LineBreakingMethod)).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected);
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.LineBreakingMethod)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected);
 
             // TODO Test constructors
             // TODO Test comments / attributes
@@ -222,6 +236,12 @@ namespace L_Tests.LCore.Extensions
 
                 public override void AbstractMethod()
                     {
+                    }
+
+                public void LineBreakingMethod(string s1, string s2, string s3,
+                    string s4, string s5)
+                    {
+
                     }
                 }
 
