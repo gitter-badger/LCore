@@ -2585,10 +2585,11 @@ namespace L_Tests.LCore.Extensions
             {
             int[,] Test = {
                 { 1,2},
-                { 3,4}
+                { 3,4},
+                { 5,6}
                 };
 
-            Test.ToNestedArrays().ToS().ShouldBe("Int32[][] { Int32[] { 1, 2 }, Int32[] { 3, 4 } }");
+            Test.ToNestedArrays().ToS().ShouldBe("Int32[][] { Int32[] { 1, 2 }, Int32[] { 3, 4 }, Int32[] { 5, 6 } }");
             }
         }
     }

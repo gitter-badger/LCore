@@ -3156,8 +3156,8 @@ namespace LCore.Extensions
 
             var Out = new List<List<T>>();
 
-            int ColumnCount = In.GetLength(dimension: 0);
-            int RowCount = In.GetLength(dimension: 1);
+            int RowCount = In.GetLength(dimension: 0);
+            int ColumnCount = In.GetLength(dimension: 1);
 
             for (int i = 0; i < RowCount; i++)
                 {
