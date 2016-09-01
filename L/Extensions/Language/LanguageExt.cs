@@ -224,11 +224,11 @@ namespace LCore.Extensions
         /// Gathers code metadata for a <paramref name="Member"/> if it's available.
         /// </summary>
         [CanBeNull]
-        public static CodeMetaData GatherSourceCodeMetaData([CanBeNull] this MemberInfo Member)
+        public static CodeMetaData GatherSourceCodeMetaData([CanBeNull] this MemberInfo Member, string[] CustomCommentTags = null)
             {
             return Member == null
                 ? null
-                : new CodeMetaData(Member);
+                : new CodeMetaData(Member, CustomCommentTags);
             }
 
         /// <summary>
