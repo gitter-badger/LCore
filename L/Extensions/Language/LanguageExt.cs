@@ -280,9 +280,9 @@ namespace LCore.Extensions
                                 ? MemberType.Interface
                                 : MemberType.Structure,
                     Inheritance =
-                        Type.IsAbstract
+                        Type.IsAbstract && !Type.IsStatic()
                             ? MemberInheritance.Abstract
-                            : Type.IsSealed
+                            : Type.IsSealed && !Type.IsStatic()
                                 ? MemberInheritance.Sealed
                                 : MemberInheritance.None,
                     Scope = Type.IsInternal()

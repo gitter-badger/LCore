@@ -142,6 +142,9 @@ namespace L_Tests.LCore.Extensions
                 .GetMemberDetails().ToString().ShouldBe("Internal Class");
             typeof(TestProtected)
                 .GetMemberDetails().ToString().ShouldBe("Protected Class");
+            typeof(TestStatic)
+                .GetMemberDetails().ToString().ShouldBe("Public Static Class");
+
 
             // TODO test sealed class
 
@@ -172,6 +175,7 @@ namespace L_Tests.LCore.Extensions
                 .GetMemberDetails().ToString().ShouldBe("Internal Method");
 
             // TODO test sealed method
+            // TODO test static method
             }
 
         #region Helpers
@@ -190,6 +194,12 @@ namespace L_Tests.LCore.Extensions
         [ExcludeFromCodeCoverage]
         protected class TestProtected
             {
+            }
+
+        [ExcludeFromCodeCoverage]
+        public static class TestStatic
+            {
+
             }
 
         [ExcludeFromCodeCoverage]
