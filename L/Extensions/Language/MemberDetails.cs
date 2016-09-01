@@ -53,6 +53,9 @@ namespace LCore.Extensions
             return this.ToString()
                 .Replace(MemberType.Structure.ToString(), "struct")
                 .ToLower()
+                .Replace(" method", "")
+                .Replace(" property", "")
+                .Replace(" field", "")
                 .Replace("sealed enum", "enum"); // Enums are sealed but sealed is not written
             }
         }

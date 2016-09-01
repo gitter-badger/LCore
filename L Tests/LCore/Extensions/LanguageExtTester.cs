@@ -79,7 +79,7 @@ namespace L_Tests.LCore.Extensions
             typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).ShouldBe(CommentLine + AttributeLine + TestPropertyCode2);
 
             // Test class
-            int Expected = 1741;
+            int Expected = 1865;
             typeof(MemberDetails).FindSourceCode().Length.ShouldBe(Expected);
             typeof(MemberDetails).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
             typeof(MemberDetails).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected + 90);
