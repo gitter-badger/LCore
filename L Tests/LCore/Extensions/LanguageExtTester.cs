@@ -8,6 +8,8 @@ using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit.Fluent;
 // ReSharper disable PartialTypeWithSinglePart
+// ReSharper disable UnusedParameter.Local
+// ReSharper disable InconsistentNaming
 
 // ReSharper disable PossibleNullReferenceException
 
@@ -101,17 +103,17 @@ namespace L_Tests.LCore.Extensions
 
             // Test overridden method
             Expected = 98;
-            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.VirtualMethod)).FindSourceCode().Length.ShouldBe(Expected);
-            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.VirtualMethod)).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
-            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.VirtualMethod)).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected);
-            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.VirtualMethod)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected);
+            typeof(Test.TestPublic).GetMethod(nameof(Test.TestPublic.VirtualMethod)).FindSourceCode().Length.ShouldBe(Expected);
+            typeof(Test.TestPublic).GetMethod(nameof(Test.TestPublic.VirtualMethod)).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
+            typeof(Test.TestPublic).GetMethod(nameof(Test.TestPublic.VirtualMethod)).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected);
+            typeof(Test.TestPublic).GetMethod(nameof(Test.TestPublic.VirtualMethod)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected);
 
             // Test methods with line breaks
             Expected = 89;
-            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.LineBreakingMethod)).FindSourceCode().Length.ShouldBe(Expected);
-            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.LineBreakingMethod)).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
-            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.LineBreakingMethod)).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected);
-            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.LineBreakingMethod)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected);
+            typeof(Test.TestPublic).GetMethod(nameof(Test.TestPublic.LineBreakingMethod)).FindSourceCode().Length.ShouldBe(Expected);
+            typeof(Test.TestPublic).GetMethod(nameof(Test.TestPublic.LineBreakingMethod)).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
+            typeof(Test.TestPublic).GetMethod(nameof(Test.TestPublic.LineBreakingMethod)).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected);
+            typeof(Test.TestPublic).GetMethod(nameof(Test.TestPublic.LineBreakingMethod)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected);
 
             // TODO Test constructors
             // TODO Test comments / attributes

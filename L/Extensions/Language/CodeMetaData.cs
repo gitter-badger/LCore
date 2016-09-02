@@ -143,7 +143,7 @@ namespace LCore.Extensions
                     {
                     string TrimLine = Line.Trim();
                     if (TrimLine.StartsWith($"//{Tag}") || TrimLine.StartsWith($"// {Tag}"))
-                        Out.Add(new CodeLineInfo()
+                        Out.Add(new CodeLineInfo
                             {
                             LineText = Line,
                             LineNumber = (uint) (i + 1), // Line numbers are 1-based
