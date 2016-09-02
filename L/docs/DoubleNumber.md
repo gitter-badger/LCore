@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### DoubleNumber
@@ -14,28 +14,88 @@
             Provides an implementation of INumber for double
             
 
-Public Static Override Methods (1) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 0%](http://b.repl.ca/v1/Total%20Documented-0%25-red.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[op_Implicit](DoubleNumber_op_Implicit.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/DoubleNumber.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (1)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-0-red.png" alt="Total Code Lines 0" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-0%25-red.png" alt="Total Documentation 0%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="DoubleNumber_op_Implicit.md" alt="">op_Implicit</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/DoubleNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="DoubleNumber.md" alt="">DoubleNumber</a></strong> <a href="DoubleNumber_op_Implicit.md" alt="">op_Implicit</a>(<a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> i);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="351"></td></tr>
+</table>
 
 
-Public  Virtual Methods (7) |  | ![Total Lines of Code 25](http://b.repl.ca/v1/Total%20Lines%20of%20Code-25-blue.png "") | ![Total Documented 71%](http://b.repl.ca/v1/Total%20Documented-71%25-green.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[GetValuePrecision](DoubleNumber_GetValuePrecision.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/DoubleNumber.cs#L59) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Add](DoubleNumber_Add.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/DoubleNumber.cs#L67) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Subtract](DoubleNumber_Subtract.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/DoubleNumber.cs#L75) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Multiply](DoubleNumber_Multiply.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/DoubleNumber.cs#L83) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Divide](DoubleNumber_Divide.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/DoubleNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[New](DoubleNumber_New.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/DoubleNumber.cs#L100) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ToString](DoubleNumber_ToString.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/DoubleNumber.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-
-
-Public   Fields (4) |  | ![Total Lines of Code 16](http://b.repl.ca/v1/Total%20Lines%20of%20Code-16-blue.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[TypePrecision](DoubleNumber_TypePrecision.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/DoubleNumber.cs#L39) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TypeMinValue](DoubleNumber_TypeMinValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/DoubleNumber.cs#L44) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TypeMaxValue](DoubleNumber_TypeMaxValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/DoubleNumber.cs#L49) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TypeDefaultValue](DoubleNumber_TypeDefaultValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/DoubleNumber.cs#L54) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Override Methods (7)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-25-blue.png" alt="Total Code Lines 25" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-71%25-green.png" alt="Total Documentation 71%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="DoubleNumber_GetValuePrecision.md" alt="">GetValuePrecision</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/DoubleNumber.cs#L59" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <strong><a href="Number.md" alt="">Number</a></strong> <a href="DoubleNumber_GetValuePrecision.md" alt="">GetValuePrecision</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="DoubleNumber_Add-0.md" alt="">Add</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/DoubleNumber.cs#L67" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> <a href="DoubleNumber_Add-0.md" alt="">Add</a>(<a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="DoubleNumber_Subtract-0.md" alt="">Subtract</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/DoubleNumber.cs#L75" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> <a href="DoubleNumber_Subtract-0.md" alt="">Subtract</a>(<a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="DoubleNumber_Multiply-0.md" alt="">Multiply</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/DoubleNumber.cs#L83" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> <a href="DoubleNumber_Multiply-0.md" alt="">Multiply</a>(<a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="DoubleNumber_Divide-0.md" alt="">Divide</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/DoubleNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="DoubleNumber_Divide-0.md" alt="">Divide</a>(<a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="DoubleNumber_New-0.md" alt="">New</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/DoubleNumber.cs#L100" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <strong><a href="Number%601.md" alt="">Number</a></strong>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a>&gt; <a href="DoubleNumber_New-0.md" alt="">New</a>(<a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="DoubleNumber_ToString.md" alt="">ToString</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/DoubleNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="DoubleNumber_ToString.md" alt="">ToString</a>();</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="360"></td></tr>
+</table>
 
 
 

@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### CommentExt
@@ -18,9 +18,22 @@
             XML documentation option in Project Properties -> Build Tab
             
 
-Public Static Override Methods (1) |  | ![Total Lines of Code 101](http://b.repl.ca/v1/Total%20Lines%20of%20Code-101-blue.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[GetComments](CommentExt_GetComments.md)** |  | [![Lines of Code 101](http://b.repl.ca/v1/Lines%20of%20Code-101-blue.png "")](../Extensions/Language/CommentExt.cs#L35) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (1)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-101-blue.png" alt="Total Code Lines 101" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="CommentExt_GetComments.md" alt="">GetComments</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Language/CommentExt.cs#L35" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-101-blue.png" alt="Lines of Code 101" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="ICodeComment.md" alt="">ICodeComment</a></strong> <a href="CommentExt_GetComments.md" alt="">GetComments</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a> In);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="368"></td></tr>
+</table>
 
 
 

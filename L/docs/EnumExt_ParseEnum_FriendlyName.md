@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](EnumExt.md)
 
 ### EnumExt
@@ -7,13 +7,13 @@
 
 # ParseEnum_FriendlyName
 
-#### Static Method
+#### Public Static Method
 
-###### public static [Enum](https://msdn.microsoft.com/en-us/library/system.enum.aspx) ParseEnum_FriendlyName([String](https://msdn.microsoft.com/en-us/library/system.string.aspx) Str, [Type](https://msdn.microsoft.com/en-us/library/system.type.aspx) Type);
+##### public static <a href="https://msdn.microsoft.com/en-us/library/system.enum.aspx" alt="">Enum</a> ParseEnum_FriendlyName(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str, <a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);
 
-![Type Public Static Override Method](http://b.repl.ca/v1/Type-Public%20Static%20Override%20Method-blue.png "") ![Lines of Code 8](http://b.repl.ca/v1/Lines%20of%20Code-8-blue.png "") ![TODOs 0](http://b.repl.ca/v1/TODOs-0-green.png "") ![Bugs 0](http://b.repl.ca/v1/Bugs-0-green.png "") ![Not Implemented 0](http://b.repl.ca/v1/Not%20Implemented-0-green.png "") ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![SourceCode Available](http://b.repl.ca/v1/SourceCode-Available-brightgreen.png "")](../Extensions/Value%20Types/EnumExt.cs#L90)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 8](http://b.repl.ca/v1/Lines%20of%20Code-8-blue.png "")](../Extensions/Value%20Types/EnumExt.cs#L90)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Value%20Types/EnumExt.cs#L90)
 
-![UnitTested No](http://b.repl.ca/v1/UnitTested-No-lightgrey.png "") ![AttributeTests 0](http://b.repl.ca/v1/AttributeTests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Value%20Types/EnumExt.cs)
+![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Value%20Types/EnumExt.cs)
 
 ##### Summary
 

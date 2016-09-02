@@ -31,7 +31,7 @@ namespace LCore.Tests
         public override List<ProjectInfo> Home_RelatedProjects
             => base.Home_RelatedProjects.Select(Project => Project.Name != nameof(LCore));
 
-        public override string RootUrl => LUnit.LUnit.Urls.GitHubRepository_LCore;
+        public override string RootUrl => LCore.LUnit.LUnit.Urls.GitHubRepository_LCore;
 
         /// <summary>
         /// Override this value to display a large image on top ofthe main document

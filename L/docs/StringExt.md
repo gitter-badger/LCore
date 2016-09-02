@@ -1,12 +1,12 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### StringExt
 
 ![Type Static Class](http://b.repl.ca/v1/Type-Static%20Class-blue.png "") ![Documented 86%](http://b.repl.ca/v1/Documented-86%25-green.png "")
 
-![Covered 92%](http://b.repl.ca/v1/Covered-92%25-green.png "")
+![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
 
 ###### Summary
@@ -14,73 +14,534 @@
             Extends strings and char types.
             
 
-Public Static Override Methods (65) |  | ![Total Lines of Code 1105](http://b.repl.ca/v1/Total%20Lines%20of%20Code-1105-blue.png "") | ![Total Documented 86%](http://b.repl.ca/v1/Total%20Documented-86%25-green.png "") | ![Total Coverage 92%](http://b.repl.ca/v1/Total%20Coverage-92%25-green.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[Add](StringExt_Add.md)** |  | [![Lines of Code 13](http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L47) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Add](StringExt_Add.md)** |  | [![Lines of Code 13](http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L47) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[After](StringExt_After.md)** |  | [![Lines of Code 20](http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L97) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[AfterLast](StringExt_AfterLast.md)** |  | [![Lines of Code 20](http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L127) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[AlignCenter](StringExt_AlignCenter.md)** |  | [![Lines of Code 23](http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L159) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[AlignCenter](StringExt_AlignCenter.md)** |  | [![Lines of Code 23](http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L159) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[AlignLeft](StringExt_AlignLeft.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L209) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[AlignLeft](StringExt_AlignLeft.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L209) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[AlignRight](StringExt_AlignRight.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L251) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[AlignRight](StringExt_AlignRight.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L251) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Before](StringExt_Before.md)** |  | [![Lines of Code 22](http://b.repl.ca/v1/Lines%20of%20Code-22-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L291) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[BeforeLast](StringExt_BeforeLast.md)** |  | [![Lines of Code 22](http://b.repl.ca/v1/Lines%20of%20Code-22-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L323) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[ByteArrayToString](StringExt_ByteArrayToString.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/StringExt.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[CleanCrlf](StringExt_CleanCrlf.md)** |  | [![Lines of Code 12](http://b.repl.ca/v1/Lines%20of%20Code-12-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L376) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[UnCleanCrlf](StringExt_UnCleanCrlf.md)** |  | [![Lines of Code 11](http://b.repl.ca/v1/Lines%20of%20Code-11-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L390) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Combine](StringExt_Combine.md)** |  | [![Lines of Code 29](http://b.repl.ca/v1/Lines%20of%20Code-29-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L417) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Concatenate](StringExt_Concatenate.md)** |  | [![Lines of Code 21](http://b.repl.ca/v1/Lines%20of%20Code-21-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L447) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[ContainsAny](StringExt_ContainsAny.md)** |  | [![Lines of Code 18](http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L483) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Count](StringExt_Count.md)** |  | [![Lines of Code 20](http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L420) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Fill](StringExt_Fill.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L536) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Fill](StringExt_Fill.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L536) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[FirstCaps](StringExt_FirstCaps.md)** |  | [![Lines of Code 29](http://b.repl.ca/v1/Lines%20of%20Code-29-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L571) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[FormatFileSize](StringExt_FormatFileSize.md)** |  | [![Lines of Code 52](http://b.repl.ca/v1/Lines%20of%20Code-52-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L621) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[FormatFileSize](StringExt_FormatFileSize.md)** |  | [![Lines of Code 52](http://b.repl.ca/v1/Lines%20of%20Code-52-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L621) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[HasMatch](StringExt_HasMatch.md)** |  | [![Lines of Code 18](http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L764) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Humanize](StringExt_Humanize.md)** |  | [![Lines of Code 32](http://b.repl.ca/v1/Lines%20of%20Code-32-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L792) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[IsEmpty](StringExt_IsEmpty.md)** |  | [![Lines of Code 13](http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L833) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[IsNumber](StringExt_IsNumber.md)** |  | [![Lines of Code 9](http://b.repl.ca/v1/Lines%20of%20Code-9-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L849) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[IsSymmetrical](StringExt_IsSymmetrical.md)** |  | [![Lines of Code 3](http://b.repl.ca/v1/Lines%20of%20Code-3-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L883) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[JoinLines](StringExt_JoinLines.md)** |  | [![Lines of Code 14](http://b.repl.ca/v1/Lines%20of%20Code-14-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L904) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Like](StringExt_Like.md)** |  | [![Lines of Code 21](http://b.repl.ca/v1/Lines%20of%20Code-21-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L926) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Lines](StringExt_Lines.md)** |  | [![Lines of Code 22](http://b.repl.ca/v1/Lines%20of%20Code-22-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L958) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Matches](StringExt_Matches.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L984) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Pad](StringExt_Pad.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1033) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Pad](StringExt_Pad.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1033) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Pluralize](StringExt_Pluralize.md)** |  | [![Lines of Code 19](http://b.repl.ca/v1/Lines%20of%20Code-19-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1121) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Pluralize](StringExt_Pluralize.md)** |  | [![Lines of Code 19](http://b.repl.ca/v1/Lines%20of%20Code-19-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1121) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Pluralize](StringExt_Pluralize.md)** |  | [![Lines of Code 19](http://b.repl.ca/v1/Lines%20of%20Code-19-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1121) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[RemoveAll](StringExt_RemoveAll.md)** |  | [![Lines of Code 16](http://b.repl.ca/v1/Lines%20of%20Code-16-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1177) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[ReplaceAll](StringExt_ReplaceAll.md)** |  | [![Lines of Code 20](http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1202) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[ReplaceAll](StringExt_ReplaceAll.md)** |  | [![Lines of Code 20](http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1202) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ReplaceLineEndings](StringExt_ReplaceLineEndings.md)** |  | [![Lines of Code 20](http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1259) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Reverse](StringExt_Reverse.md)** |  | [![Lines of Code 11](http://b.repl.ca/v1/Lines%20of%20Code-11-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1292) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Singularize](StringExt_Singularize.md)** |  | [![Lines of Code 12](http://b.repl.ca/v1/Lines%20of%20Code-12-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1311) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Split](StringExt_Split.md)** |  | [![Lines of Code 63](http://b.repl.ca/v1/Lines%20of%20Code-63-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1338) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[SplitWithQuotes](StringExt_SplitWithQuotes.md)** |  | [![Lines of Code 25](http://b.repl.ca/v1/Lines%20of%20Code-25-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1428) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Sub](StringExt_Sub.md)** |  | [![Lines of Code 23](http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1475) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Sub](StringExt_Sub.md)** |  | [![Lines of Code 23](http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1475) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Surround](StringExt_Surround.md)** |  | [![Lines of Code 19](http://b.repl.ca/v1/Lines%20of%20Code-19-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1538) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Symmetry](StringExt_Symmetry.md)** |  | [![Lines of Code 30](http://b.repl.ca/v1/Lines%20of%20Code-30-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1559) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Times](StringExt_Times.md)** |  | [![Lines of Code 18](http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1648) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Times](StringExt_Times.md)** |  | [![Lines of Code 18](http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1648) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Times](StringExt_Times.md)** |  | [![Lines of Code 18](http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1648) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Times](StringExt_Times.md)** |  | [![Lines of Code 18](http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1648) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[ToByteArray](StringExt_ToByteArray.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/StringExt.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[ToHexString](StringExt_ToHexString.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Reference%20Types/StringExt.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[ToStream](StringExt_ToStream.md)** |  | [![Lines of Code 7](http://b.repl.ca/v1/Lines%20of%20Code-7-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1792) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ToUrlSlug](StringExt_ToUrlSlug.md)** |  | [![Lines of Code 21](http://b.repl.ca/v1/Lines%20of%20Code-21-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1819) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Trim](StringExt_Trim.md)** |  | [![Lines of Code 18](http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1848) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[TrimEnd](StringExt_TrimEnd.md)** |  | [![Lines of Code 21](http://b.repl.ca/v1/Lines%20of%20Code-21-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1873) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[TrimStart](StringExt_TrimStart.md)** |  | [![Lines of Code 21](http://b.repl.ca/v1/Lines%20of%20Code-21-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1905) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[Words](StringExt_Words.md)** |  | [![Lines of Code 12](http://b.repl.ca/v1/Lines%20of%20Code-12-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1597) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[XmlClean](StringExt_XmlClean.md)** |  | [![Lines of Code 12](http://b.repl.ca/v1/Lines%20of%20Code-12-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1953) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "")
-**[UriEncode](StringExt_UriEncode.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1965) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[UriDecode](StringExt_UriDecode.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1975) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (65)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-1105-blue.png" alt="Total Code Lines 1105" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-86%25-green.png" alt="Total Documentation 86%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-92%25-green.png" alt="Total Coverage 92%" /></td></tr></thead>
+<tr><td><h4><strong><a href="StringExt_Add-0.md" alt="">Add</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L47" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png" alt="Lines of Code 13" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Add-0.md" alt="">Add</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a>[] Chars);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Add-1.md" alt="">Add</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L47" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png" alt="Lines of Code 13" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Add-1.md" alt="">Add</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a>&gt; Chars);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_After.md" alt="">After</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L97" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png" alt="Lines of Code 20" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_After.md" alt="">After</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Sequence);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_AfterLast.md" alt="">AfterLast</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L127" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png" alt="Lines of Code 20" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_AfterLast.md" alt="">AfterLast</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Sequence);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_AlignCenter-0.md" alt="">AlignCenter</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L159" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png" alt="Lines of Code 23" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_AlignCenter-0.md" alt="">AlignCenter</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Length, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> PadChar);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_AlignCenter-1.md" alt="">AlignCenter</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L159" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png" alt="Lines of Code 23" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_AlignCenter-1.md" alt="">AlignCenter</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Length, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> PadChar);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_AlignLeft-0.md" alt="">AlignLeft</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L209" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_AlignLeft-0.md" alt="">AlignLeft</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Length, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> PadChar);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_AlignLeft-1.md" alt="">AlignLeft</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L209" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_AlignLeft-1.md" alt="">AlignLeft</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Length, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> PadChar);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_AlignRight-0.md" alt="">AlignRight</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L251" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_AlignRight-0.md" alt="">AlignRight</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Length, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> PadChar);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_AlignRight-1.md" alt="">AlignRight</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L251" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_AlignRight-1.md" alt="">AlignRight</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Length, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> PadChar);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Before.md" alt="">Before</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L291" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-22-blue.png" alt="Lines of Code 22" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Before.md" alt="">Before</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Sequence);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_BeforeLast.md" alt="">BeforeLast</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L323" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-22-blue.png" alt="Lines of Code 22" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_BeforeLast.md" alt="">BeforeLast</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Sequence);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_ByteArrayToString.md" alt="">ByteArrayToString</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_ByteArrayToString.md" alt="">ByteArrayToString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_CleanCrlf.md" alt="">CleanCrlf</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L376" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-12-blue.png" alt="Lines of Code 12" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_CleanCrlf.md" alt="">CleanCrlf</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_UnCleanCrlf.md" alt="">UnCleanCrlf</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L390" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-11-blue.png" alt="Lines of Code 11" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_UnCleanCrlf.md" alt="">UnCleanCrlf</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Combine.md" alt="">Combine</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L417" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-29-blue.png" alt="Lines of Code 29" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Combine.md" alt="">Combine</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> CombineStr);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Concatenate.md" alt="">Concatenate</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L447" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-21-blue.png" alt="Lines of Code 21" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Concatenate.md" alt="">Concatenate</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> MaxLength, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> ConcatenateString);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_ContainsAny.md" alt="">ContainsAny</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L483" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png" alt="Lines of Code 18" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="StringExt_ContainsAny.md" alt="">ContainsAny</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>&gt; Find);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Count.md" alt="">Count</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L420" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png" alt="Lines of Code 20" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> <a href="StringExt_Count.md" alt="">Count</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Search);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Fill-0.md" alt="">Fill</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L536" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Fill-0.md" alt="">Fill</a>(<a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Count);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Fill-1.md" alt="">Fill</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L536" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Fill-1.md" alt="">Fill</a>(<a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Count);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_FirstCaps.md" alt="">FirstCaps</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L571" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-29-blue.png" alt="Lines of Code 29" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_FirstCaps.md" alt="">FirstCaps</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Value);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_FormatFileSize-0.md" alt="">FormatFileSize</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L621" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-52-blue.png" alt="Lines of Code 52" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_FormatFileSize-0.md" alt="">FormatFileSize</a>(<a href="https://msdn.microsoft.com/en-us/library/system.int64.aspx" alt="">Int64</a> Size, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Decimals);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_FormatFileSize-1.md" alt="">FormatFileSize</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L621" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-52-blue.png" alt="Lines of Code 52" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_FormatFileSize-1.md" alt="">FormatFileSize</a>(<a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Size, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Decimals);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_HasMatch.md" alt="">HasMatch</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L764" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png" alt="Lines of Code 18" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="StringExt_HasMatch.md" alt="">HasMatch</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>[] Expressions);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Humanize.md" alt="">Humanize</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L792" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-32-blue.png" alt="Lines of Code 32" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Humanize.md" alt="">Humanize</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> FieldName);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_IsEmpty.md" alt="">IsEmpty</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L833" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png" alt="Lines of Code 13" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="StringExt_IsEmpty.md" alt="">IsEmpty</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_IsNumber.md" alt="">IsNumber</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L849" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-9-blue.png" alt="Lines of Code 9" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="StringExt_IsNumber.md" alt="">IsNumber</a>(<a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_IsSymmetrical.md" alt="">IsSymmetrical</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L883" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-3-blue.png" alt="Lines of Code 3" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="StringExt_IsSymmetrical.md" alt="">IsSymmetrical</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Compare, <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Threshhold);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_JoinLines.md" alt="">JoinLines</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L904" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-14-blue.png" alt="Lines of Code 14" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_JoinLines.md" alt="">JoinLines</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> JoinStr);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Like.md" alt="">Like</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L926" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-21-blue.png" alt="Lines of Code 21" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="StringExt_Like.md" alt="">Like</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Compare);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Lines.md" alt="">Lines</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L958" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-22-blue.png" alt="Lines of Code 22" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>[] <a href="StringExt_Lines.md" alt="">Lines</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Matches.md" alt="">Matches</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L984" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.text.regularexpressions.match.aspx" alt="">Match</a>&gt; <a href="StringExt_Matches.md" alt="">Matches</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Expression);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Pad-0.md" alt="">Pad</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1033" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Pad-0.md" alt="">Pad</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Length, <strong><a href="Align.md" alt="">L.Align</a></strong> Alignment, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> PadChar);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Pad-1.md" alt="">Pad</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1033" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Pad-1.md" alt="">Pad</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Length, <strong><a href="Align.md" alt="">L.Align</a></strong> Alignment, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> PadChar);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Pluralize-0.md" alt="">Pluralize</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1121" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-19-blue.png" alt="Lines of Code 19" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Pluralize-0.md" alt="">Pluralize</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Count);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Pluralize-1.md" alt="">Pluralize</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1121" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-19-blue.png" alt="Lines of Code 19" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Pluralize-1.md" alt="">Pluralize</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Count);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Pluralize-2.md" alt="">Pluralize</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1121" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-19-blue.png" alt="Lines of Code 19" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Pluralize-2.md" alt="">Pluralize</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_RemoveAll.md" alt="">RemoveAll</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1177" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-16-blue.png" alt="Lines of Code 16" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_RemoveAll.md" alt="">RemoveAll</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>[] Find);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_ReplaceAll-0.md" alt="">ReplaceAll</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1202" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png" alt="Lines of Code 20" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_ReplaceAll-0.md" alt="">ReplaceAll</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Find, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Replace);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_ReplaceAll-1.md" alt="">ReplaceAll</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1202" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png" alt="Lines of Code 20" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_ReplaceAll-1.md" alt="">ReplaceAll</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/s4ys34ea.aspx" alt="" target="_blank">IDictionary</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>&gt; Replacements);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_ReplaceLineEndings.md" alt="">ReplaceLineEndings</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1259" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png" alt="Lines of Code 20" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_ReplaceLineEndings.md" alt="">ReplaceLineEndings</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Replacement);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Reverse.md" alt="">Reverse</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1292" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-11-blue.png" alt="Lines of Code 11" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Reverse.md" alt="">Reverse</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Singularize.md" alt="">Singularize</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1311" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-12-blue.png" alt="Lines of Code 12" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Singularize.md" alt="">Singularize</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Split.md" alt="">Split</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1338" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-63-blue.png" alt="Lines of Code 63" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>[] <a href="StringExt_Split.md" alt="">Split</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> SplitStr);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_SplitWithQuotes.md" alt="">SplitWithQuotes</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1428" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-25-blue.png" alt="Lines of Code 25" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>&gt; <a href="StringExt_SplitWithQuotes.md" alt="">SplitWithQuotes</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Line, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> SplitBy);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Sub-0.md" alt="">Sub</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1475" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png" alt="Lines of Code 23" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Sub-0.md" alt="">Sub</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Start, <a href="https://msdn.microsoft.com/en-us/library/b3h38hb0.aspx" alt="" target="_blank">Nullable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a>&gt; Length);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Sub-1.md" alt="">Sub</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1475" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png" alt="Lines of Code 23" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Sub-1.md" alt="">Sub</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Start, <a href="https://msdn.microsoft.com/en-us/library/b3h38hb0.aspx" alt="" target="_blank">Nullable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a>&gt; Length);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Surround.md" alt="">Surround</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1538" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-19-blue.png" alt="Lines of Code 19" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Surround.md" alt="">Surround</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Before, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> After);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Symmetry.md" alt="">Symmetry</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1559" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-30-blue.png" alt="Lines of Code 30" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> <a href="StringExt_Symmetry.md" alt="">Symmetry</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Compare);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Times-0.md" alt="">Times</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1648" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png" alt="Lines of Code 18" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Times-0.md" alt="">Times</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Count);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Times-1.md" alt="">Times</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1648" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png" alt="Lines of Code 18" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Times-1.md" alt="">Times</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Count);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Times-2.md" alt="">Times</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1648" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png" alt="Lines of Code 18" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Times-2.md" alt="">Times</a>(<a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Count);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Times-3.md" alt="">Times</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1648" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png" alt="Lines of Code 18" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Times-3.md" alt="">Times</a>(<a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Count);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_ToByteArray.md" alt="">ToByteArray</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="StringExt_ToByteArray.md" alt="">ToByteArray</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_ToHexString.md" alt="">ToHexString</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_ToHexString.md" alt="">ToHexString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] Bytes);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_ToStream.md" alt="">ToStream</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1792" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-7-blue.png" alt="Lines of Code 7" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.io.stream.aspx" alt="">Stream</a> <a href="StringExt_ToStream.md" alt="">ToStream</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_ToUrlSlug.md" alt="">ToUrlSlug</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1819" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-21-blue.png" alt="Lines of Code 21" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_ToUrlSlug.md" alt="">ToUrlSlug</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Trim.md" alt="">Trim</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1848" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-18-blue.png" alt="Lines of Code 18" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_Trim.md" alt="">Trim</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> TrimStr);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_TrimEnd.md" alt="">TrimEnd</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1873" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-21-blue.png" alt="Lines of Code 21" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_TrimEnd.md" alt="">TrimEnd</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> TrimStr);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_TrimStart.md" alt="">TrimStart</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1905" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-21-blue.png" alt="Lines of Code 21" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_TrimStart.md" alt="">TrimStart</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> TrimStr);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_Words.md" alt="">Words</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1597" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-12-blue.png" alt="Lines of Code 12" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>[] <a href="StringExt_Words.md" alt="">Words</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_XmlClean.md" alt="">XmlClean</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1953" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-12-blue.png" alt="Lines of Code 12" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_XmlClean.md" alt="">XmlClean</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_UriEncode.md" alt="">UriEncode</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1965" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_UriEncode.md" alt="">UriEncode</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StringExt_UriDecode.md" alt="">UriDecode</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L1975" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_UriDecode.md" alt="">UriDecode</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="367"></td></tr>
+</table>
 
 
 

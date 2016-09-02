@@ -1,7 +1,13 @@
 ![](L/Content/LCore-banner-large.png "")
-<img align="right" src="L/Content/LCore-logo-small.png">
+<img align="right" src="L/Content/LCore-logo-small.png" alt="Logo" />
 
 ## Home
+
+### Installation Instructions
+Add LCore as a nuget package:
+```cs
+Install-Package LCore
+```
 
 ## L
 

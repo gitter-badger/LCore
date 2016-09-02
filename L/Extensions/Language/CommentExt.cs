@@ -234,8 +234,16 @@ namespace LCore.Extensions
                 In.DeclaringType?.GetNestedNames(),
                 In.Name,
                 In.GetGenericArguments().Length);
+            //  string Parameters = In.GetParameters().Convert(Param => Param.ParameterType.FullName).JoinLines(",");
+            //  return $"{Out}({Parameters})";
+
+
             string Parameters = In.GetParameters().Convert(Param => Param.ParameterType.FullName).JoinLines(",");
-            return $"{Out}({Parameters})";
+
+            if (!string.IsNullOrEmpty(Parameters))
+                Parameters = $"({Parameters})";
+
+            return $"{Out}{Parameters}";
             }
 
         private static string GetCommentName(this FieldInfo In)
@@ -269,6 +277,8 @@ namespace LCore.Extensions
                     return ((PropertyInfo)In).GetCommentName();
                 case nameof(FieldInfo):
                     return ((FieldInfo)In).GetCommentName();
+                case nameof(MethodBase):
+                    return ((MethodBase)In).GetCommentName();
                 case nameof(MethodInfo):
                     return ((MethodInfo)In).GetCommentName();
                 case nameof(TypeInfo):

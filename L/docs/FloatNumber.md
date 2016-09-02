@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### FloatNumber
@@ -14,28 +14,88 @@
             Provides an implementation of INumber for float
             
 
-Public Static Override Methods (1) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 0%](http://b.repl.ca/v1/Total%20Documented-0%25-red.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[op_Implicit](FloatNumber_op_Implicit.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/FloatNumber.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (1)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-0-red.png" alt="Total Code Lines 0" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-0%25-red.png" alt="Total Documentation 0%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="FloatNumber_op_Implicit.md" alt="">op_Implicit</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/FloatNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="FloatNumber.md" alt="">FloatNumber</a></strong> <a href="FloatNumber_op_Implicit.md" alt="">op_Implicit</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> i);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="351"></td></tr>
+</table>
 
 
-Public  Virtual Methods (7) |  | ![Total Lines of Code 25](http://b.repl.ca/v1/Total%20Lines%20of%20Code-25-blue.png "") | ![Total Documented 71%](http://b.repl.ca/v1/Total%20Documented-71%25-green.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[GetValuePrecision](FloatNumber_GetValuePrecision.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/FloatNumber.cs#L63) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Add](FloatNumber_Add.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/FloatNumber.cs#L72) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Subtract](FloatNumber_Subtract.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/FloatNumber.cs#L80) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Multiply](FloatNumber_Multiply.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/FloatNumber.cs#L88) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Divide](FloatNumber_Divide.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/FloatNumber.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[New](FloatNumber_New.md)** |  | [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/FloatNumber.cs#L105) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ToString](FloatNumber_ToString.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/FloatNumber.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-
-
-Public   Fields (4) |  | ![Total Lines of Code 16](http://b.repl.ca/v1/Total%20Lines%20of%20Code-16-blue.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[TypePrecision](FloatNumber_TypePrecision.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/FloatNumber.cs#L43) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TypeMinValue](FloatNumber_TypeMinValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/FloatNumber.cs#L48) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TypeMaxValue](FloatNumber_TypeMaxValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/FloatNumber.cs#L53) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TypeDefaultValue](FloatNumber_TypeDefaultValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/FloatNumber.cs#L58) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Override Methods (7)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-25-blue.png" alt="Total Code Lines 25" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-71%25-green.png" alt="Total Documentation 71%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="FloatNumber_GetValuePrecision.md" alt="">GetValuePrecision</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/FloatNumber.cs#L63" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <strong><a href="Number.md" alt="">Number</a></strong> <a href="FloatNumber_GetValuePrecision.md" alt="">GetValuePrecision</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FloatNumber_Add-0.md" alt="">Add</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/FloatNumber.cs#L72" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> <a href="FloatNumber_Add-0.md" alt="">Add</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FloatNumber_Subtract-0.md" alt="">Subtract</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/FloatNumber.cs#L80" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> <a href="FloatNumber_Subtract-0.md" alt="">Subtract</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FloatNumber_Multiply-0.md" alt="">Multiply</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/FloatNumber.cs#L88" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> <a href="FloatNumber_Multiply-0.md" alt="">Multiply</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FloatNumber_Divide-0.md" alt="">Divide</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/FloatNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="FloatNumber_Divide-0.md" alt="">Divide</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FloatNumber_New-0.md" alt="">New</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/FloatNumber.cs#L105" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <strong><a href="Number%601.md" alt="">Number</a></strong>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a>&gt; <a href="FloatNumber_New-0.md" alt="">New</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="FloatNumber_ToString.md" alt="">ToString</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/FloatNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="FloatNumber_ToString.md" alt="">ToString</a>();</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="360"></td></tr>
+</table>
 
 
 

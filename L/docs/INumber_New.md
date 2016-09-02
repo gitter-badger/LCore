@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](INumber.md)
 
 ### INumber
@@ -7,13 +7,13 @@
 
 # New
 
-#### InstanceMethod
+#### Public Abstract Method
 
-###### public [Number](Number.md) New([Object](https://msdn.microsoft.com/en-us/library/system.object.aspx) In);
+##### public abstract <strong><a href="Number.md" alt="">Number</a></strong> New(<a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> In);
 
-![Type Public  Abstract Method](http://b.repl.ca/v1/Type-Public%20%20Abstract%20Method-blue.png "") ![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "") ![TODOs 0](http://b.repl.ca/v1/TODOs-0-green.png "") ![Bugs 0](http://b.repl.ca/v1/Bugs-0-green.png "") ![Not Implemented 0](http://b.repl.ca/v1/Not%20Implemented-0-green.png "") ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![SourceCode Available](http://b.repl.ca/v1/SourceCode-Available-brightgreen.png "")](../Numbers/INumber.cs#L55)
+![Type Public Abstract Method](http://b.repl.ca/v1/Type-Public%20Abstract%20Method-Blue.png "") [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/INumber.cs#L55)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Numbers/INumber.cs#L55)
 
-![UnitTested No](http://b.repl.ca/v1/UnitTested-No-lightgrey.png "") ![AttributeTests 0](http://b.repl.ca/v1/AttributeTests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Numbers/INumber.cs)
+![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Numbers/INumber.cs)
 
 ##### Summary
 
@@ -29,7 +29,7 @@ In | No | [Object](https://msdn.microsoft.com/en-us/library/system.object.aspx) 
 
 #### Returns
 
-###### [Number](Number.md)
+###### **[Number](Number.md)**
 
 
 

@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](StringExt.md)
 
 ### StringExt
@@ -7,13 +7,13 @@
 
 # Symmetry
 
-#### Static Method
+#### Public Static Method
 
-###### public static [Double](https://msdn.microsoft.com/en-us/library/system.double.aspx) Symmetry([String](https://msdn.microsoft.com/en-us/library/system.string.aspx) In, [String](https://msdn.microsoft.com/en-us/library/system.string.aspx) Compare);
+##### public static <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Symmetry(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Compare);
 
-![Type Public Static Override Method](http://b.repl.ca/v1/Type-Public%20Static%20Override%20Method-blue.png "") ![Lines of Code 30](http://b.repl.ca/v1/Lines%20of%20Code-30-blue.png "") ![TODOs 0](http://b.repl.ca/v1/TODOs-0-green.png "") ![Bugs 0](http://b.repl.ca/v1/Bugs-0-green.png "") ![Not Implemented 0](http://b.repl.ca/v1/Not%20Implemented-0-green.png "") ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![SourceCode Available](http://b.repl.ca/v1/SourceCode-Available-brightgreen.png "")](../Extensions/Reference%20Types/StringExt.cs#L1559)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 30](http://b.repl.ca/v1/Lines%20of%20Code-30-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1559)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Reference%20Types/StringExt.cs#L1559)
 
-![UnitTested No](http://b.repl.ca/v1/UnitTested-No-lightgrey.png "") ![AttributeTests 3](http://b.repl.ca/v1/AttributeTests-3-brightgreen.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Reference%20Types/StringExt.cs)
+![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 3](http://b.repl.ca/v1/Attribute%20Tests-3-brightgreen.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Reference%20Types/StringExt.cs)
 
 ##### Summary
 

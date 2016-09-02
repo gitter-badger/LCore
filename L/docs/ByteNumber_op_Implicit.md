@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](ByteNumber.md)
 
 ### ByteNumber
@@ -7,13 +7,13 @@
 
 # op_Implicit
 
-#### Static Method
+#### Public Static Method
 
-###### public static [ByteNumber](ByteNumber.md) op_Implicit([Byte](https://msdn.microsoft.com/en-us/library/system.byte.aspx) i);
+##### public static <strong><a href="ByteNumber.md" alt="">ByteNumber</a></strong> op_Implicit(<a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a> i);
 
-![Type Public Static Override Method](http://b.repl.ca/v1/Type-Public%20Static%20Override%20Method-blue.png "") ![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-blue.png "") ![TODOs 0](http://b.repl.ca/v1/TODOs-0-green.png "") ![Bugs 0](http://b.repl.ca/v1/Bugs-0-green.png "") ![Not Implemented 0](http://b.repl.ca/v1/Not%20Implemented-0-green.png "") ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![SourceCode Available](http://b.repl.ca/v1/SourceCode-Available-brightgreen.png "")](../Numbers/ByteNumber.cs#L)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/ByteNumber.cs#L)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Numbers/ByteNumber.cs#L)
 
-![UnitTested No](http://b.repl.ca/v1/UnitTested-No-lightgrey.png "") ![AttributeTests 0](http://b.repl.ca/v1/AttributeTests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Numbers/ByteNumber.cs)
+![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Numbers/ByteNumber.cs)
 
 ###### Parameters
 
@@ -24,7 +24,7 @@ i | No | [Byte](https://msdn.microsoft.com/en-us/library/system.byte.aspx) |
 
 #### Returns
 
-###### [ByteNumber](ByteNumber.md)
+###### **[ByteNumber](ByteNumber.md)**
 
 
 

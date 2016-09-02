@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### ExceptionList
@@ -14,19 +14,46 @@
             Allows an exception to contain multiple exceptions within itself.
             
 
-Public Static Override Methods (4) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 0%](http://b.repl.ca/v1/Total%20Documented-0%25-red.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[op_Implicit](ExceptionList_op_Implicit.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/ExceptionList.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Implicit](ExceptionList_op_Implicit.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/ExceptionList.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Implicit](ExceptionList_op_Implicit.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/ExceptionList.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Implicit](ExceptionList_op_Implicit.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/ExceptionList.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-
-
-Public   Fields (3) |  | ![Total Lines of Code 17](http://b.repl.ca/v1/Total%20Lines%20of%20Code-17-blue.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[Exceptions](ExceptionList_Exceptions.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Tools/ExceptionList.cs#L45) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Message](ExceptionList_Message.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Tools/ExceptionList.cs#L58) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[StackTrace](ExceptionList_StackTrace.md)** |  | [![Lines of Code 7](http://b.repl.ca/v1/Lines%20of%20Code-7-blue.png "")](../Tools/ExceptionList.cs#L66) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (4)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-0-red.png" alt="Total Code Lines 0" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-0%25-red.png" alt="Total Documentation 0%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="ExceptionList_op_Implicit-0.md" alt="">op_Implicit</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/ExceptionList.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>[] <a href="ExceptionList_op_Implicit-0.md" alt="">op_Implicit</a>(<strong><a href="ExceptionList.md" alt="">ExceptionList</a></strong> Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionList_op_Implicit-1.md" alt="">op_Implicit</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/ExceptionList.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="ExceptionList.md" alt="">ExceptionList</a></strong> <a href="ExceptionList_op_Implicit-1.md" alt="">op_Implicit</a>(<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>[] Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionList_op_Implicit-2.md" alt="">op_Implicit</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/ExceptionList.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; <a href="ExceptionList_op_Implicit-2.md" alt="">op_Implicit</a>(<strong><a href="ExceptionList.md" alt="">ExceptionList</a></strong> Ex);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="ExceptionList_op_Implicit-3.md" alt="">op_Implicit</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/ExceptionList.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="ExceptionList.md" alt="">ExceptionList</a></strong> <a href="ExceptionList_op_Implicit-3.md" alt="">op_Implicit</a>(<a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; Ex);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="351"></td></tr>
+</table>
 
 
 

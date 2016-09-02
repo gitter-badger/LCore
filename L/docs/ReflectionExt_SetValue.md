@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](ReflectionExt.md)
 
 ### ReflectionExt
@@ -7,13 +7,13 @@
 
 # SetValue
 
-#### Static Method
+#### Public Static Method
 
-###### public static [void](https://msdn.microsoft.com/en-us/library/system.void.aspx) SetValue([MemberInfo](https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx) In, [Object](https://msdn.microsoft.com/en-us/library/system.object.aspx) Obj, [Object](https://msdn.microsoft.com/en-us/library/system.object.aspx) Value);
+##### public static <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> SetValue(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Value);
 
-![Type Public Static Override Method](http://b.repl.ca/v1/Type-Public%20Static%20Override%20Method-blue.png "") ![Lines of Code 17](http://b.repl.ca/v1/Lines%20of%20Code-17-blue.png "") ![TODOs 0](http://b.repl.ca/v1/TODOs-0-green.png "") ![Bugs 0](http://b.repl.ca/v1/Bugs-0-green.png "") ![Not Implemented 0](http://b.repl.ca/v1/Not%20Implemented-0-green.png "") ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![SourceCode Available](http://b.repl.ca/v1/SourceCode-Available-brightgreen.png "")](../Extensions/Reference%20Types/ReflectionExt.cs#L1104)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 17](http://b.repl.ca/v1/Lines%20of%20Code-17-blue.png "")](../Extensions/Reference%20Types/ReflectionExt.cs#L1104)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Reference%20Types/ReflectionExt.cs#L1104)
 
-![UnitTested No](http://b.repl.ca/v1/UnitTested-No-lightgrey.png "") ![AttributeTests 0](http://b.repl.ca/v1/AttributeTests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Reference%20Types/ReflectionExt.cs)
+![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Reference%20Types/ReflectionExt.cs)
 
 ##### Summary
 
@@ -33,7 +33,7 @@ Value | No | [Object](https://msdn.microsoft.com/en-us/library/system.object.asp
 
 ###### [void](https://msdn.microsoft.com/en-us/library/system.void.aspx)
 
-#### Exceptions
+#### Method Exceptions
 T:System.ArgumentException If the MemberInfo  was not found on Obj.
 
 

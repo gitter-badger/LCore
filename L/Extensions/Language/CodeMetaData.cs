@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Interfaces;
@@ -79,22 +80,22 @@ namespace LCore.Extensions
         /// <summary>
         /// All todo comments declared within the target member's code
         /// </summary>
-        public string[] CommentTODO { get; }
+        public CodeLineInfo[] CommentTODO { get; }
 
         /// <summary>
         /// All bugs declared within the target member's code comments
         /// </summary>
-        public string[] CommentBUG { get; }
+        public CodeLineInfo[] CommentBUG { get; }
 
         /// <summary>
         /// All unimplemented sections within the target member's code comments
         /// </summary>
-        public string[] NotImplemented { get; }
+        public CodeLineInfo[] NotImplemented { get; }
 
         /// <summary>
         /// All custom comments that are being tracked
         /// </summary>
-        public Dictionary<string, string[]> CommentTags { get; } = new Dictionary<string, string[]>();
+        public Dictionary<string, List<CodeLineInfo>> CommentTags { get; } = new Dictionary<string, List<CodeLineInfo>>();
 
         /// <summary>
         /// Create a new CodeMetaData.
@@ -116,29 +117,37 @@ namespace LCore.Extensions
             this.CodeLineCount = Member.FindSourceCodeLineCount();
             this.CodeLineNumber = Member.FindSourceCodeLineNumber();
 
-            this.CodeFilePath = Member.DeclaringType.FindClassFile();
+            this.CodeFilePath = (Member is Type ? (Type)Member : Member.DeclaringType).FindClassFile();
 
             this.Attributes = Member.GetAttributes<Attribute>(IncludeBaseTypes: true);
 
-            this.CommentTODO = this.ReadCommentTag(TODO);
-            this.CommentBUG = this.ReadCommentTag(BUG);
+            this.CommentTODO = this.ReadCommentTag(TODO).Array();
+            this.CommentBUG = this.ReadCommentTag(BUG).Array();
 
-            this.NotImplemented = this.ReadCommentTag(NewNotImplemented);
+            this.NotImplemented = this.ReadCommentTag(NewNotImplemented).Array();
 
             TrackCommentTags.Each(Tag => this.CommentTags.Add(Tag, this.ReadCommentTag(Tag)));
             }
 
-        private string[] ReadCommentTag(string Tag)
+        private List<CodeLineInfo> ReadCommentTag(string Tag)
             {
-            var Out = new List<string>();
-            this.CodeLines.Each(Line =>
+            var Out = new List<CodeLineInfo>();
+
+            // Use file lines not local code lines for correct file line number
+            File.ReadAllLines(this.CodeFilePath).Each((i, Line) =>
                 {
                     string TrimLine = Line.Trim();
                     if (TrimLine.StartsWith($"//{Tag}") || TrimLine.StartsWith($"// {Tag}"))
-                        Out.Add(TrimLine.After(Tag));
+                        Out.Add(new CodeLineInfo()
+                            {
+                            LineText = Line,
+                            LineNumber = (uint)(i + 1), // Line numbers are 1-based
+                            FilePath = this.CodeFilePath
+                            });
+
                 });
 
-            return Out.Array();
+            return Out;
             }
         }
     }

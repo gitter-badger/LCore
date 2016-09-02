@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### DateTimeConverter
@@ -14,17 +14,38 @@
             Provides methods for converting  structures to and from the equivalent RFC 3339 string representation.
             
 
-Public Static Override Methods (3) |  | ![Total Lines of Code 23](http://b.repl.ca/v1/Total%20Lines%20of%20Code-23-blue.png "") | ![Total Documented 66%](http://b.repl.ca/v1/Total%20Documented-66%25-yellowgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[Parse](DateTimeConverter_Parse.md)** |  | [![Lines of Code 10](http://b.repl.ca/v1/Lines%20of%20Code-10-blue.png "")](../Tools/DateTimeConverter.cs#L111) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ToString](DateTimeConverter_ToString.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/DateTimeConverter.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[TryParse](DateTimeConverter_TryParse.md)** |  | [![Lines of Code 13](http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png "")](../Tools/DateTimeConverter.cs#L184) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-
-
-Public   Fields (2) |  | ![Total Lines of Code 41](http://b.repl.ca/v1/Total%20Lines%20of%20Code-41-blue.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[Rfc3339DateTimeFormat](DateTimeConverter_Rfc3339DateTimeFormat.md)** |  | [![Lines of Code 13](http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png "")](../Tools/DateTimeConverter.cs#L48) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Rfc3339DateTimePatterns](DateTimeConverter_Rfc3339DateTimePatterns.md)** |  | [![Lines of Code 28](http://b.repl.ca/v1/Lines%20of%20Code-28-blue.png "")](../Tools/DateTimeConverter.cs#L61) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (3)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-23-blue.png" alt="Total Code Lines 23" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-66%25-yellowgreen.png" alt="Total Documentation 66%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="DateTimeConverter_Parse.md" alt="">Parse</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/DateTimeConverter.cs#L111" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-10-blue.png" alt="Lines of Code 10" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.datetime.aspx" alt="">DateTime</a> <a href="DateTimeConverter_Parse.md" alt="">Parse</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="DateTimeConverter_ToString-0.md" alt="">ToString</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/DateTimeConverter.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="DateTimeConverter_ToString-0.md" alt="">ToString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.datetime.aspx" alt="">DateTime</a> UtcDateTime);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="DateTimeConverter_TryParse.md" alt="">TryParse</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/DateTimeConverter.cs#L184" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png" alt="Lines of Code 13" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="DateTimeConverter_TryParse.md" alt="">TryParse</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str, ref <a href="https://msdn.microsoft.com/en-us/library/system.datetime.aspx" alt="">DateTime</a> Result);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="364"></td></tr>
+</table>
 
 
 

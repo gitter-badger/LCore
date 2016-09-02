@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using FluentAssertions;
 using JetBrains.Annotations;
@@ -102,8 +103,10 @@ namespace L_Tests.LCore.Extensions
             var Comments5 = typeof(L.Comment.Test).GetMember(nameof(L.Comment.Test.TestMethod2)).First().GetComments();
             Comments5.Includes.Should().Equal(new Set<string, string>("filepath", "[@name=\"filename\"]"));
 
+            typeof(L.Ref).GetMethod(nameof(L.Ref.GetSolutionRootPath)).GetComments().Should().NotBeNull();
             }
 
+        [ExcludeFromCodeCoverage]
         private class TestInvalidMemberInfo : MemberInfo
             {
             public override object[] GetCustomAttributes(bool Inherit)
@@ -120,7 +123,7 @@ namespace L_Tests.LCore.Extensions
                 {
                 return null;
                 }
-
+            
             // ReSharper disable UnassignedGetOnlyAutoProperty
             public override MemberTypes MemberType { get; }
             public override string Name { get; }

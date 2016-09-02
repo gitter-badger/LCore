@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### Bool
@@ -15,33 +15,134 @@
             Contains System.Boolean static methods and lambdas.
             
 
-Public Static Override Methods (15) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 0%](http://b.repl.ca/v1/Total%20Documented-0%25-red.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[L_If_A](Bool_L_If_A.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_If_A](Bool_L_If_A.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_If_A](Bool_L_If_A.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_If_A](Bool_L_If_A.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_If_A](Bool_L_If_A.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_If_F](Bool_L_If_F.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_If_F](Bool_L_If_F.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_If_F](Bool_L_If_F.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_If_F](Bool_L_If_F.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_If_F](Bool_L_If_F.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_IfElse](Bool_L_IfElse.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_IfElse](Bool_L_IfElse.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_IfElse](Bool_L_IfElse.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_IfElse](Bool_L_IfElse.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[L_IfElse](Bool_L_IfElse.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-
-
-Public   Fields (6) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[True](Bool_True.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[False](Bool_False.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Not](Bool_Not.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[And](Bool_And.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Or](Bool_Or.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Xor](Bool_Xor.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (15)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-0-red.png" alt="Total Code Lines 0" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-0%25-red.png" alt="Total Documentation 0%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="Bool_L_If_A-0.md" alt="">L_If_A</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a>, <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;&gt; <a href="Bool_L_If_A-0.md" alt="">L_If_A</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_If_A-1.md" alt="">L_If_A</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;&gt; <a href="Bool_L_If_A-1.md" alt="">L_If_A</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_If_A-2.md" alt="">L_If_A</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;&gt; <a href="Bool_L_If_A-2.md" alt="">L_If_A</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_If_A-3.md" alt="">L_If_A</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;&gt; <a href="Bool_L_If_A-3.md" alt="">L_If_A</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_If_A-4.md" alt="">L_If_A</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;&gt; <a href="Bool_L_If_A-4.md" alt="">L_If_A</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_If_F-0.md" alt="">L_If_F</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt;&gt; <a href="Bool_L_If_F-0.md" alt="">L_If_F</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_If_F-1.md" alt="">L_If_F</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U&gt;&gt; <a href="Bool_L_If_F-1.md" alt="">L_If_F</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_If_F-2.md" alt="">L_If_F</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt;&gt; <a href="Bool_L_If_F-2.md" alt="">L_If_F</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_If_F-3.md" alt="">L_If_F</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, U&gt;&gt; <a href="Bool_L_If_F-3.md" alt="">L_If_F</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_If_F-4.md" alt="">L_If_F</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt;&gt; <a href="Bool_L_If_F-4.md" alt="">L_If_F</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_IfElse-0.md" alt="">L_IfElse</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a>, <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a>, <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a>&gt; <a href="Bool_L_IfElse-0.md" alt="">L_IfElse</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_IfElse-1.md" alt="">L_IfElse</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt;, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt;, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;T1&gt;&gt; <a href="Bool_L_IfElse-1.md" alt="">L_IfElse</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_IfElse-2.md" alt="">L_IfElse</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549311.aspx" alt="" target="_blank">Action</a>&lt;T1, T2&gt;&gt; <a href="Bool_L_IfElse-2.md" alt="">L_IfElse</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_IfElse-3.md" alt="">L_IfElse</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549392.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3&gt;&gt; <a href="Bool_L_IfElse-3.md" alt="">L_IfElse</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Bool_L_IfElse-4.md" alt="">L_IfElse</a></strong></h4></td>
+<td>   </td>
+<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb548654.aspx" alt="" target="_blank">Action</a>&lt;T1, T2, T3, T4&gt;&gt; <a href="Bool_L_IfElse-4.md" alt="">L_IfElse</a>();</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="352"></td></tr>
+</table>
 
 
 

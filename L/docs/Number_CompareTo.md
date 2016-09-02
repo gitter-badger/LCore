@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](Number.md)
 
 ### Number
@@ -7,13 +7,13 @@
 
 # CompareTo
 
-#### InstanceMethod
+#### Public Abstract Method
 
-###### public [Int32](https://msdn.microsoft.com/en-us/library/system.int32.aspx) CompareTo([Object](https://msdn.microsoft.com/en-us/library/system.object.aspx) Obj);
+##### public abstract <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> CompareTo(<a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj);
 
-![Type Public  Abstract Method](http://b.repl.ca/v1/Type-Public%20%20Abstract%20Method-blue.png "") ![Lines of Code 23](http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png "") ![TODOs 0](http://b.repl.ca/v1/TODOs-0-green.png "") ![Bugs 0](http://b.repl.ca/v1/Bugs-0-green.png "") ![Not Implemented 0](http://b.repl.ca/v1/Not%20Implemented-0-green.png "") ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![SourceCode Available](http://b.repl.ca/v1/SourceCode-Available-brightgreen.png "")](../Numbers/Base/Number.cs#L390)
+![Type Public Abstract Method](http://b.repl.ca/v1/Type-Public%20Abstract%20Method-Blue.png "") [![Lines of Code 23](http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png "")](../Numbers/Base/Number.cs#L390)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Numbers/Base/Number.cs#L390)
 
-![UnitTested No](http://b.repl.ca/v1/UnitTested-No-lightgrey.png "") ![AttributeTests 0](http://b.repl.ca/v1/AttributeTests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Numbers/Base/Number.cs)
+![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Numbers/Base/Number.cs)
 
 ##### Summary
 Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.
@@ -31,7 +31,7 @@ Obj | No | [Object](https://msdn.microsoft.com/en-us/library/system.object.aspx)
 A value that indicates the relative order of the objects being compared. The return value has these meanings: Value Meaning Less than zero This instance precedes  in the sort order. Zero This instance occurs in the same position in the sort order as 
             . Greater than zero This instance follows  in the sort order. 
 
-#### Exceptions
+#### Method Exceptions
 T:System.ArgumentException  is not the same type as this instance. 
 
 

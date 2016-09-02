@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](IValidateAttribute.md)
 
 ### IValidateAttribute
@@ -7,13 +7,13 @@
 
 # Validate
 
-#### InstanceMethod
+#### Public Abstract Method
 
-###### public [String](https://msdn.microsoft.com/en-us/library/system.string.aspx)[] Validate([MemberInfo](https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx) Member);
+##### public abstract <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>[] Validate(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a> Member);
 
-![Type Public  Abstract Method](http://b.repl.ca/v1/Type-Public%20%20Abstract%20Method-blue.png "") ![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-blue.png "") ![TODOs 0](http://b.repl.ca/v1/TODOs-0-green.png "") ![Bugs 0](http://b.repl.ca/v1/Bugs-0-green.png "") ![Not Implemented 0](http://b.repl.ca/v1/Not%20Implemented-0-green.png "") ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![SourceCode Available](http://b.repl.ca/v1/SourceCode-Available-brightgreen.png "")](../LUnit/Attributes/Interfaces/IValidateAttribute.cs#L19)
+![Type Public Abstract Method](http://b.repl.ca/v1/Type-Public%20Abstract%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../LUnit/Attributes/Interfaces/IValidateAttribute.cs#L19)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../LUnit/Attributes/Interfaces/IValidateAttribute.cs#L19)
 
-![UnitTested No](http://b.repl.ca/v1/UnitTested-No-lightgrey.png "") ![AttributeTests 0](http://b.repl.ca/v1/AttributeTests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../LUnit/Attributes/Interfaces/IValidateAttribute.cs)
+![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../LUnit/Attributes/Interfaces/IValidateAttribute.cs)
 
 ##### Summary
 

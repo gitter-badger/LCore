@@ -7,6 +7,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LUnit.Fluent;
+// ReSharper disable PartialTypeWithSinglePart
 
 // ReSharper disable PossibleNullReferenceException
 
@@ -77,16 +78,45 @@ namespace L_Tests.LCore.Extensions
             typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCode(IncludeAttributes: false, IncludeComments: true).ShouldBe(CommentLine + TestPropertyCode2);
             typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).ShouldBe(CommentLine + AttributeLine + TestPropertyCode2);
 
+            // Test class
+            int Expected = 1865;
+            typeof(MemberDetails).FindSourceCode().Length.ShouldBe(Expected);
+            typeof(MemberDetails).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
+            typeof(MemberDetails).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected + 90);
+            typeof(MemberDetails).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected + 90);
+
+            // Test nested class
+            Expected = 657;
+            typeof(Test).FindSourceCode().Length.ShouldBe(Expected);
+            typeof(Test).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
+            typeof(Test).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected);
+            typeof(Test).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected);
+
+            // Test enum
+            Expected = 182;
+            typeof(MemberScope).FindSourceCode().Length.ShouldBe(Expected);
+            typeof(MemberScope).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
+            typeof(MemberScope).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected + 78);
+            typeof(MemberScope).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected + 78);
+
+            // Test overridden method
+            Expected = 98;
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.VirtualMethod)).FindSourceCode().Length.ShouldBe(Expected);
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.VirtualMethod)).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.VirtualMethod)).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected);
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.VirtualMethod)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected);
+
+            // Test methods with line breaks
+            Expected = 89;
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.LineBreakingMethod)).FindSourceCode().Length.ShouldBe(Expected);
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.LineBreakingMethod)).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.LineBreakingMethod)).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected);
+            typeof(LanguageExtTester.Test.TestPublic).GetMethod(nameof(LanguageExtTester.Test.TestPublic.LineBreakingMethod)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).Length.ShouldBe(Expected);
+
             // TODO Test constructors
             // TODO Test comments / attributes
 
             // TODO Test fields
-            // TODO Test comments / attributes
-
-            // TODO Test enum
-            // TODO Test comments / attributes
-
-            // TODO Test class
             // TODO Test comments / attributes
             }
 
@@ -126,6 +156,9 @@ namespace L_Tests.LCore.Extensions
                 .GetMemberDetails().ToString().ShouldBe("Internal Class");
             typeof(TestProtected)
                 .GetMemberDetails().ToString().ShouldBe("Protected Class");
+            typeof(TestStatic)
+                .GetMemberDetails().ToString().ShouldBe("Public Static Class");
+
 
             // TODO test sealed class
 
@@ -156,6 +189,7 @@ namespace L_Tests.LCore.Extensions
                 .GetMemberDetails().ToString().ShouldBe("Internal Method");
 
             // TODO test sealed method
+            // TODO test static method
             }
 
         #region Helpers
@@ -174,6 +208,12 @@ namespace L_Tests.LCore.Extensions
         [ExcludeFromCodeCoverage]
         protected class TestProtected
             {
+            }
+
+        [ExcludeFromCodeCoverage]
+        public static class TestStatic
+            {
+
             }
 
         [ExcludeFromCodeCoverage]
@@ -196,6 +236,12 @@ namespace L_Tests.LCore.Extensions
 
                 public override void AbstractMethod()
                     {
+                    }
+
+                public void LineBreakingMethod(string s1, string s2, string s3,
+                    string s4, string s5)
+                    {
+
                     }
                 }
 

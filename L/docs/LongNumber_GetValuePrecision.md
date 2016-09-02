@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](LongNumber.md)
 
 ### LongNumber
@@ -7,17 +7,17 @@
 
 # GetValuePrecision
 
-#### InstanceMethod
+#### Public Override Method
 
-###### public [Number](Number.md) GetValuePrecision();
+##### public override <strong><a href="Number.md" alt="">Number</a></strong> GetValuePrecision();
 
-![Type Public  Virtual Method](http://b.repl.ca/v1/Type-Public%20%20Virtual%20Method-blue.png "") ![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "") ![TODOs 0](http://b.repl.ca/v1/TODOs-0-green.png "") ![Bugs 0](http://b.repl.ca/v1/Bugs-0-green.png "") ![Not Implemented 0](http://b.repl.ca/v1/Not%20Implemented-0-green.png "") ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![SourceCode Available](http://b.repl.ca/v1/SourceCode-Available-brightgreen.png "")](../Numbers/LongNumber.cs#L63)
+![Type Public Override Method](http://b.repl.ca/v1/Type-Public%20Override%20Method-Blue.png "") [![Lines of Code 5](http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png "")](../Numbers/LongNumber.cs#L63)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Numbers/LongNumber.cs#L63)
 
-![UnitTested No](http://b.repl.ca/v1/UnitTested-No-lightgrey.png "") ![AttributeTests 0](http://b.repl.ca/v1/AttributeTests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Numbers/LongNumber.cs)
+![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Numbers/LongNumber.cs)
 
 #### Returns
 
-###### [Number](Number.md)
+###### **[Number](Number.md)**
 
 
 

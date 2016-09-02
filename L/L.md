@@ -1,5 +1,5 @@
 ![](Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;Content/LCore-logo-small.png&quot;&gt;](../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../README.md)
 [Home](../README.md)
 
 ## L

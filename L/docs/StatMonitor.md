@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### StatMonitor
@@ -15,11 +15,38 @@
             a number of results.
             
 
-Public  Override Methods (3) |  | ![Total Lines of Code 28](http://b.repl.ca/v1/Total%20Lines%20of%20Code-28-blue.png "") | ![Total Documented 33%](http://b.repl.ca/v1/Total%20Documented-33%25-yellow.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[GetCurrentAverageStat](StatMonitor_GetCurrentAverageStat.md)** |  | [![Lines of Code 14](http://b.repl.ca/v1/Lines%20of%20Code-14-blue.png "")](../Tools/StatMonitor.cs#L14) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[AddStat](StatMonitor_AddStat.md)** |  | [![Lines of Code 8](http://b.repl.ca/v1/Lines%20of%20Code-8-blue.png "")](../Tools/StatMonitor.cs#L58) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Clear](StatMonitor_Clear.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Tools/StatMonitor.cs#L69) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Methods (3)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-28-blue.png" alt="Total Code Lines 28" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-33%25-yellow.png" alt="Total Documentation 33%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="StatMonitor_GetCurrentAverageStat.md" alt="">GetCurrentAverageStat</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/StatMonitor.cs#L14" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-14-blue.png" alt="Lines of Code 14" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> <a href="StatMonitor_GetCurrentAverageStat.md" alt="">GetCurrentAverageStat</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StatMonitor_AddStat.md" alt="">AddStat</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/StatMonitor.cs#L58" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-8-blue.png" alt="Lines of Code 8" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="StatMonitor_AddStat.md" alt="">AddStat</a>(<a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Stat);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="StatMonitor_Clear.md" alt="">Clear</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Tools/StatMonitor.cs#L69" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="StatMonitor_Clear.md" alt="">Clear</a>();</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="352"></td></tr>
+</table>
 
 
 

@@ -1,5 +1,5 @@
 ![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot;&gt;](../../README.md)
+[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
 ### Number
@@ -14,54 +14,266 @@
             Base class for number wrappers. Provides operators for seamless mathematical operations.
             
 
-Public  Virtual Methods (3) |  | ![Total Lines of Code 16](http://b.repl.ca/v1/Total%20Lines%20of%20Code-16-blue.png "") | ![Total Documented 33%](http://b.repl.ca/v1/Total%20Documented-33%25-yellow.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[Equals](Number_Equals.md)** |  | [![Lines of Code 10](http://b.repl.ca/v1/Lines%20of%20Code-10-blue.png "")](../Numbers/Base/Number.cs#L430) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[ToString](Number_ToString.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[GetHashCode](Number_GetHashCode.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Numbers/Base/Number.cs#L516) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Override Methods (3)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-15-blue.png" alt="Total Code Lines 15" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-33%25-yellow.png" alt="Total Documentation 33%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="Number_Equals.md" alt="">Equals</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L430" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-10-blue.png" alt="Lines of Code 10" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Number_Equals.md" alt="">Equals</a>(<a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_ToString.md" alt="">ToString</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="Number_ToString.md" alt="">ToString</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_GetHashCode.md" alt="">GetHashCode</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L516" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> <a href="Number_GetHashCode.md" alt="">GetHashCode</a>();</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="361"></td></tr>
+</table>
 
 
-Public Static Override Methods (14) |  | ![Total Lines of Code 0](http://b.repl.ca/v1/Total%20Lines%20of%20Code-0-red.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[op_GreaterThan](Number_op_GreaterThan.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_LessThan](Number_op_LessThan.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_GreaterThanOrEqual](Number_op_GreaterThanOrEqual.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_LessThanOrEqual](Number_op_LessThanOrEqual.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Equality](Number_op_Equality.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Inequality](Number_op_Inequality.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Division](Number_op_Division.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Division](Number_op_Division.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Multiply](Number_op_Multiply.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Multiply](Number_op_Multiply.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Subtraction](Number_op_Subtraction.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Subtraction](Number_op_Subtraction.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Addition](Number_op_Addition.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[op_Addition](Number_op_Addition.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Static Methods (14)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-0-red.png" alt="Total Code Lines 0" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="Number_op_GreaterThan.md" alt="">op_GreaterThan</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Number_op_GreaterThan.md" alt="">op_GreaterThan</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.icomparable.aspx" alt="">IComparable</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_LessThan.md" alt="">op_LessThan</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Number_op_LessThan.md" alt="">op_LessThan</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.icomparable.aspx" alt="">IComparable</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_GreaterThanOrEqual.md" alt="">op_GreaterThanOrEqual</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Number_op_GreaterThanOrEqual.md" alt="">op_GreaterThanOrEqual</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.icomparable.aspx" alt="">IComparable</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_LessThanOrEqual.md" alt="">op_LessThanOrEqual</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Number_op_LessThanOrEqual.md" alt="">op_LessThanOrEqual</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.icomparable.aspx" alt="">IComparable</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_Equality.md" alt="">op_Equality</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Number_op_Equality.md" alt="">op_Equality</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.icomparable.aspx" alt="">IComparable</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_Inequality.md" alt="">op_Inequality</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Number_op_Inequality.md" alt="">op_Inequality</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.icomparable.aspx" alt="">IComparable</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_Division-0.md" alt="">op_Division</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_op_Division-0.md" alt="">op_Division</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_Division-1.md" alt="">op_Division</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_op_Division-1.md" alt="">op_Division</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <strong><a href="Number.md" alt="">Number</a></strong> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_Multiply-0.md" alt="">op_Multiply</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_op_Multiply-0.md" alt="">op_Multiply</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_Multiply-1.md" alt="">op_Multiply</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_op_Multiply-1.md" alt="">op_Multiply</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <strong><a href="Number.md" alt="">Number</a></strong> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_Subtraction-0.md" alt="">op_Subtraction</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_op_Subtraction-0.md" alt="">op_Subtraction</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_Subtraction-1.md" alt="">op_Subtraction</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_op_Subtraction-1.md" alt="">op_Subtraction</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <strong><a href="Number.md" alt="">Number</a></strong> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_Addition-0.md" alt="">op_Addition</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_op_Addition-0.md" alt="">op_Addition</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> Number2);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_op_Addition-1.md" alt="">op_Addition</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public static <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_op_Addition-1.md" alt="">op_Addition</a>(<strong><a href="Number.md" alt="">Number</a></strong> Number1, <strong><a href="Number.md" alt="">Number</a></strong> Number2);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="364"></td></tr>
+</table>
 
 
-Public  Abstract Methods (12) |  | ![Total Lines of Code 88](http://b.repl.ca/v1/Total%20Lines%20of%20Code-88-blue.png "") | ![Total Documented 83%](http://b.repl.ca/v1/Total%20Documented-83%25-green.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[CompareTo](Number_CompareTo.md)** |  | [![Lines of Code 23](http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png "")](../Numbers/Base/Number.cs#L390) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[New](Number_New.md)** |  | [![Lines of Code 11](http://b.repl.ca/v1/Lines%20of%20Code-11-blue.png "")](../Numbers/Base/Number.cs#L264) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Divide](Number_Divide.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Numbers/Base/Number.cs#L158) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Divide](Number_Divide.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Numbers/Base/Number.cs#L158) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Multiply](Number_Multiply.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Numbers/Base/Number.cs#L149) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Multiply](Number_Multiply.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Numbers/Base/Number.cs#L149) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Subtract](Number_Subtract.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Numbers/Base/Number.cs#L140) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Subtract](Number_Subtract.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Numbers/Base/Number.cs#L140) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Add](Number_Add.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Numbers/Base/Number.cs#L131) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Add](Number_Add.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Numbers/Base/Number.cs#L131) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[GetValuePrecision](Number_GetValuePrecision.md)** |  | [![Lines of Code 6](http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png "")](../Numbers/Base/Number.cs#L713) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[GetValue](Number_GetValue.md)** |  | [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Numbers/Base/Number.cs#L) | ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-
-
-Public   Fields (5) |  | ![Total Lines of Code 20](http://b.repl.ca/v1/Total%20Lines%20of%20Code-20-blue.png "") | ![Total Documented 100%](http://b.repl.ca/v1/Total%20Documented-100%25-brightgreen.png "") | ![Total Coverage 0%](http://b.repl.ca/v1/Total%20Coverage-0%25-red.png "")
-:---  | :---  | :---  | :---  | :--- 
-**[NumberType](Number_NumberType.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/Base/Number.cs#L125) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[Precision](Number_Precision.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/Base/Number.cs#L220) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[MinValue](Number_MinValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/Base/Number.cs#L225) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[MaxValue](Number_MaxValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/Base/Number.cs#L230) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
-**[DefaultValue](Number_DefaultValue.md)** |  | [![Lines of Code 4](http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png "")](../Numbers/Base/Number.cs#L235) | ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") | ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "")
+<table>
+<thead><tr><td>Public Abstract Methods (12)</td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-87-blue.png" alt="Total Code Lines 87" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-83%25-green.png" alt="Total Documentation 83%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="Number_CompareTo.md" alt="">CompareTo</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L390" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png" alt="Lines of Code 23" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> <a href="Number_CompareTo.md" alt="">CompareTo</a>(<a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_New.md" alt="">New</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L264" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-11-blue.png" alt="Lines of Code 11" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_New.md" alt="">New</a>(<a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> In);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_Divide-0.md" alt="">Divide</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L158" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_Divide-0.md" alt="">Divide</a>(<strong><a href="Number.md" alt="">Number</a></strong> Value);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_Multiply-0.md" alt="">Multiply</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L149" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_Multiply-0.md" alt="">Multiply</a>(<strong><a href="Number.md" alt="">Number</a></strong> Value);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_Subtract-0.md" alt="">Subtract</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L140" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_Subtract-0.md" alt="">Subtract</a>(<strong><a href="Number.md" alt="">Number</a></strong> Value);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_Add-0.md" alt="">Add</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L131" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_Add-0.md" alt="">Add</a>(<strong><a href="Number.md" alt="">Number</a></strong> Value);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_Divide-1.md" alt="">Divide</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L158" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_Divide-1.md" alt="">Divide</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> Value);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_Multiply-1.md" alt="">Multiply</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L149" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_Multiply-1.md" alt="">Multiply</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> Value);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_Subtract-1.md" alt="">Subtract</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L140" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_Subtract-1.md" alt="">Subtract</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> Value);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_Add-1.md" alt="">Add</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L131" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_Add-1.md" alt="">Add</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> Value);</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_GetValuePrecision.md" alt="">GetValuePrecision</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L713" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <strong><a href="Number.md" alt="">Number</a></strong> <a href="Number_GetValuePrecision.md" alt="">GetValuePrecision</a>();</h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="Number_GetValue.md" alt="">GetValue</a></strong></h4></td>
+<td>   </td>
+<td><a href="../Numbers/Base/Number.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td colspan="5"><h6>public abstract <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="Number_GetValue.md" alt="">GetValue</a>();</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="361"></td></tr>
+</table>
 
 
 

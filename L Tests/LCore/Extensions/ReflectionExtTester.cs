@@ -1152,6 +1152,10 @@ namespace L_Tests.LCore.Extensions
             {
             typeof(L).FindClassFile().EndsWith("L.cs").ShouldBeTrue();
             typeof(DecimalNumber).FindClassFile().EndsWith("DecimalNumber.cs").ShouldBeTrue();
+
+            typeof(TestBaseClass2.TestSubClass2).FindClassFile().EndsWith("ReflectionExtTester.cs").ShouldBeTrue();
+
+            typeof(MemberDetails).FindClassFile().EndsWith("MemberDetails.cs").ShouldBeTrue();
             }
 
         #region Helpers
