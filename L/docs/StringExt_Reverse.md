@@ -11,7 +11,7 @@
 
 ##### public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Reverse(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);
 
-![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 11](http://b.repl.ca/v1/Lines%20of%20Code-11-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1292)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Reference%20Types/StringExt.cs#L1292)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-blue.png "") [![Lines of Code 11](http://b.repl.ca/v1/Lines%20of%20Code-11-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1292)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Reference%20Types/StringExt.cs#L1292)
 
 ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 4](http://b.repl.ca/v1/Attribute%20Tests-4-brightgreen.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Reference%20Types/StringExt.cs)
 

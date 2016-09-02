@@ -11,7 +11,7 @@
 
 ##### public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>&gt; SplitWithQuotes(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Line, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> SplitBy);
 
-![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 25](http://b.repl.ca/v1/Lines%20of%20Code-25-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1428)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Reference%20Types/StringExt.cs#L1428)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-blue.png "") [![Lines of Code 25](http://b.repl.ca/v1/Lines%20of%20Code-25-blue.png "")](../Extensions/Reference%20Types/StringExt.cs#L1428)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Reference%20Types/StringExt.cs#L1428)
 
 ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 4](http://b.repl.ca/v1/Attribute%20Tests-4-brightgreen.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Reference%20Types/StringExt.cs)
 

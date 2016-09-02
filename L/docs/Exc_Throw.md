@@ -3,6 +3,7 @@
 [Up](Exc.md)
 
 ### Exc
+[View Source](../Extensions/Methods/L.cs)
 
 # Throw
 

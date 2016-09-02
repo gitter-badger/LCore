@@ -8,6 +8,7 @@
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Extensions/Language/CommentExt.cs#L)
 
 ###### Summary
 
@@ -32,7 +33,7 @@
 <tr><td colspan="5"><h6>public static <strong><a href="ICodeComment.md" alt="">ICodeComment</a></strong> <a href="CommentExt_GetComments.md" alt="">GetComments</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a> In);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="368"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

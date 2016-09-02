@@ -11,7 +11,7 @@
 
 ##### public static <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Sqrt(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> In);
 
-![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 10](http://b.repl.ca/v1/Lines%20of%20Code-10-blue.png "")](../Extensions/Value%20Types/NumberExt.cs#L1167)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Value%20Types/NumberExt.cs#L1167)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-blue.png "") [![Lines of Code 10](http://b.repl.ca/v1/Lines%20of%20Code-10-blue.png "")](../Extensions/Value%20Types/NumberExt.cs#L1167)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Value%20Types/NumberExt.cs#L1167)
 
 ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 7](http://b.repl.ca/v1/Attribute%20Tests-7-brightgreen.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Value%20Types/NumberExt.cs)
 

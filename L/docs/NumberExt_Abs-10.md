@@ -11,7 +11,7 @@
 
 ##### public static <a href="https://msdn.microsoft.com/en-us/library/system.decimal.aspx" alt="">Decimal</a> Abs(<a href="https://msdn.microsoft.com/en-us/library/system.decimal.aspx" alt="">Decimal</a> In);
 
-![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Value%20Types/NumberExt.cs#L)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Value%20Types/NumberExt.cs#L)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-blue.png "")     ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Value%20Types/NumberExt.cs#L)
 
 ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 5](http://b.repl.ca/v1/Attribute%20Tests-5-brightgreen.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Value%20Types/NumberExt.cs)
 

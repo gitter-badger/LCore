@@ -23,7 +23,7 @@
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="Str_Char.md" alt="">Char</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> <a href="Str_Char.md" alt="">Char</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> i);</h6>
@@ -31,7 +31,7 @@
 </tr>
 <tr><td><h4><strong><a href="Str_JoinLines.md" alt="">JoinLines</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="Str_JoinLines.md" alt="">JoinLines</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>&gt; Line, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> CombineStr);</h6>
@@ -39,7 +39,7 @@
 </tr>
 <tr><td><h4><strong><a href="Str_CompareNumberString.md" alt="">CompareNumberString</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> <a href="Str_CompareNumberString.md" alt="">CompareNumberString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Compare1, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Compare2);</h6>
@@ -47,7 +47,7 @@
 </tr>
 <tr><td><h4><strong><a href="Str_NumericalCompare.md" alt="">NumericalCompare</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> <a href="Str_NumericalCompare.md" alt="">NumericalCompare</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Compare1, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Compare2);</h6>
@@ -55,7 +55,7 @@
 </tr>
 <tr><td><h4><strong><a href="Str_Pluralize-0.md" alt="">Pluralize</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="Str_Pluralize-0.md" alt="">Pluralize</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Count);</h6>
@@ -63,7 +63,7 @@
 </tr>
 <tr><td><h4><strong><a href="Str_Pluralize-1.md" alt="">Pluralize</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="Str_Pluralize-1.md" alt="">Pluralize</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Count);</h6>
@@ -71,7 +71,7 @@
 </tr>
 <tr><td><h4><strong><a href="Str_RemoveChars.md" alt="">RemoveChars</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="Str_RemoveChars.md" alt="">RemoveChars</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a>[] Chars);</h6>
@@ -79,7 +79,7 @@
 </tr>
 <tr><td><h4><strong><a href="Str_ReplaceDouble.md" alt="">ReplaceDouble</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="Str_ReplaceDouble.md" alt="">ReplaceDouble</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> StrIn, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> Char);</h6>
@@ -87,7 +87,7 @@
 </tr>
 <tr><td><h4><strong><a href="Str_Singularize.md" alt="">Singularize</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="Str_Singularize.md" alt="">Singularize</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str);</h6>
@@ -95,7 +95,7 @@
 </tr>
 <tr><td><h4><strong><a href="Str_Surround.md" alt="">Surround</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="Str_Surround.md" alt="">Surround</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Before, <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> After);</h6>
@@ -103,13 +103,13 @@
 </tr>
 <tr><td><h4><strong><a href="Str_ToS.md" alt="">ToS</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="Str_ToS.md" alt="">ToS</a>(<a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="356"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

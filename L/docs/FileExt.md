@@ -8,6 +8,7 @@
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Extensions/Reference%20Types/FileExt.cs#L)
 
 ###### Summary
 
@@ -38,7 +39,7 @@
 </tr>
 <tr><td><h4><strong><a href="FileExt_EveryOtherByte.md" alt="">EveryOtherByte</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/FileExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="FileExt_EveryOtherByte.md" alt="">EveryOtherByte</a>(<a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] In);</h6>
@@ -54,7 +55,7 @@
 </tr>
 <tr><td><h4><strong><a href="FileExt_GetFileHash.md" alt="">GetFileHash</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/FileExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="FileExt_GetFileHash.md" alt="">GetFileHash</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> FullPath);</h6>
@@ -70,7 +71,7 @@
 </tr>
 <tr><td><h4><strong><a href="FileExt_GetStreamHash.md" alt="">GetStreamHash</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/FileExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="FileExt_GetStreamHash.md" alt="">GetStreamHash</a>(<a href="https://msdn.microsoft.com/en-us/library/system.io.stream.aspx" alt="">Stream</a> InputStream);</h6>
@@ -78,7 +79,7 @@
 </tr>
 <tr><td><h4><strong><a href="FileExt_GetStringHash.md" alt="">GetStringHash</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/FileExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="FileExt_GetStringHash.md" alt="">GetStringHash</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
@@ -86,13 +87,13 @@
 </tr>
 <tr><td><h4><strong><a href="FileExt_ReadAllBytes.md" alt="">ReadAllBytes</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/FileExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="FileExt_ReadAllBytes.md" alt="">ReadAllBytes</a>(<a href="https://msdn.microsoft.com/en-us/library/system.io.stream.aspx" alt="">Stream</a> Input);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="366"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

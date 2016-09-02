@@ -8,6 +8,7 @@
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Extensions/Reference%20Types/ConvertibleExt.cs#L)
 
 ###### Summary
 
@@ -38,7 +39,7 @@
 </tr>
 <tr><td><h4><strong><a href="ConvertibleExt_CanConvertToString.md" alt="">CanConvertToString</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ConvertibleExt_CanConvertToString.md" alt="">CanConvertToString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In);</h6>
@@ -46,7 +47,7 @@
 </tr>
 <tr><td><h4><strong><a href="ConvertibleExt_ConvertTo-0.md" alt="">ConvertTo</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="ConvertibleExt_ConvertTo-0.md" alt="">ConvertTo</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
@@ -54,7 +55,7 @@
 </tr>
 <tr><td><h4><strong><a href="ConvertibleExt_ConvertTo-1.md" alt="">ConvertTo</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/b3h38hb0.aspx" alt="" target="_blank">Nullable</a>&lt;T&gt; <a href="ConvertibleExt_ConvertTo-1.md" alt="">ConvertTo</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In);</h6>
@@ -62,7 +63,7 @@
 </tr>
 <tr><td><h4><strong><a href="ConvertibleExt_ConvertToString.md" alt="">ConvertToString</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="ConvertibleExt_ConvertToString.md" alt="">ConvertToString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In);</h6>
@@ -70,7 +71,7 @@
 </tr>
 <tr><td><h4><strong><a href="ConvertibleExt_TryConvertTo.md" alt="">TryConvertTo</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ConvertibleExt.cs#L192" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> <a href="ConvertibleExt_TryConvertTo.md" alt="">TryConvertTo</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In);</h6>
@@ -84,7 +85,7 @@
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> <a href="ConvertibleExt_TryConvertToString.md" alt="">TryConvertToString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.iconvertible.aspx" alt="">IConvertible</a> In);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="366"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

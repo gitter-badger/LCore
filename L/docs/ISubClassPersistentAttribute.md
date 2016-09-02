@@ -8,6 +8,7 @@
 
 
 
+[View Source](../Interfaces/ISubclassPersistentAttribute.cs#L)
 
 ###### Summary
 

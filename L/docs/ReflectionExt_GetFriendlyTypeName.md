@@ -11,7 +11,7 @@
 
 ##### public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> GetFriendlyTypeName(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> In);
 
-![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 21](http://b.repl.ca/v1/Lines%20of%20Code-21-blue.png "")](../Extensions/Reference%20Types/ReflectionExt.cs#L473)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Reference%20Types/ReflectionExt.cs#L473)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-blue.png "") [![Lines of Code 21](http://b.repl.ca/v1/Lines%20of%20Code-21-blue.png "")](../Extensions/Reference%20Types/ReflectionExt.cs#L473)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Reference%20Types/ReflectionExt.cs#L473)
 
 ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Reference%20Types/ReflectionExt.cs)
 

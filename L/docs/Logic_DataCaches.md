@@ -3,6 +3,7 @@
 [Up](Logic.md)
 
 ### Logic
+[View Source](../Extensions/Methods/L.cs)
 
 # DataCaches
 

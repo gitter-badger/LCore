@@ -11,7 +11,7 @@
 
 ##### public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> TryParse(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str, ref <a href="https://msdn.microsoft.com/en-us/library/system.datetime.aspx" alt="">DateTime</a> Result);
 
-![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 13](http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png "")](../Tools/DateTimeConverter.cs#L184)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Tools/DateTimeConverter.cs#L184)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-blue.png "") [![Lines of Code 13](http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png "")](../Tools/DateTimeConverter.cs#L184)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Tools/DateTimeConverter.cs#L184)
 
 ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Tools/DateTimeConverter.cs)
 

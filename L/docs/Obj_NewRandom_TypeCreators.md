@@ -3,6 +3,7 @@
 [Up](Obj.md)
 
 ### Obj
+[View Source](../Extensions/Methods/L.cs)
 
 # NewRandom_TypeCreators
 

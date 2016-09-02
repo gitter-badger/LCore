@@ -11,7 +11,7 @@
 
 ##### public static <a href="https://msdn.microsoft.com/en-us/library/system.action.aspx" alt="">Action</a> AsyncResult(<a href="https://msdn.microsoft.com/en-us/library/bb534960.aspx" alt="" target="_blank">Func</a>&lt;U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/018hxwa8.aspx" alt="" target="_blank">Action</a>&lt;U&gt; Callback, <a href="https://msdn.microsoft.com/en-us/library/system.timespan.aspx" alt="">TimeSpan</a> TimeLimit, <a href="https://msdn.microsoft.com/en-us/library/system.threading.threadpriority.aspx" alt="">ThreadPriority</a> Priority);
 
-![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/ThreadExt.cs#L278)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Methods/ThreadExt.cs#L278)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-blue.png "")     ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Methods/ThreadExt.cs#L278)
 
 ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Methods/ThreadExt.cs)
 

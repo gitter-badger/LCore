@@ -8,6 +8,7 @@
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Extensions/Value%20Types/NumberExt.cs#L)
 
 ###### Summary
 
@@ -18,7 +19,7 @@
 <table>
 <thead><tr><td>Public Static Methods (88)</td>
 <td></td>
-<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-1039-blue.png" alt="Total Code Lines 1039" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-1065-blue.png" alt="Total Code Lines 1065" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Documentation-81%25-green.png" alt="Total Documentation 81%" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-80%25-green.png" alt="Total Coverage 80%" /></td></tr></thead>
 <tr><td><h4><strong><a href="NumberExt_AddEach.md" alt="">AddEach</a></strong></h4></td>
@@ -63,7 +64,7 @@
 </tr>
 <tr><td><h4><strong><a href="NumberExt_Abs-4.md" alt="">Abs</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Value%20Types/NumberExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> <a href="NumberExt_Abs-4.md" alt="">Abs</a>(<a href="https://msdn.microsoft.com/en-us/library/system.int16.aspx" alt="">Int16</a> In);</h6>
@@ -71,7 +72,7 @@
 </tr>
 <tr><td><h4><strong><a href="NumberExt_Abs-5.md" alt="">Abs</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Value%20Types/NumberExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> <a href="NumberExt_Abs-5.md" alt="">Abs</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> In);</h6>
@@ -95,7 +96,7 @@
 </tr>
 <tr><td><h4><strong><a href="NumberExt_Abs-8.md" alt="">Abs</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Value%20Types/NumberExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a> <a href="NumberExt_Abs-8.md" alt="">Abs</a>(<a href="https://msdn.microsoft.com/en-us/library/system.sbyte.aspx" alt="">SByte</a> In);</h6>
@@ -103,7 +104,7 @@
 </tr>
 <tr><td><h4><strong><a href="NumberExt_Abs-9.md" alt="">Abs</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Value%20Types/NumberExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a> <a href="NumberExt_Abs-9.md" alt="">Abs</a>(<a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a> In);</h6>
@@ -111,7 +112,7 @@
 </tr>
 <tr><td><h4><strong><a href="NumberExt_Abs-10.md" alt="">Abs</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Value%20Types/NumberExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.decimal.aspx" alt="">Decimal</a> <a href="NumberExt_Abs-10.md" alt="">Abs</a>(<a href="https://msdn.microsoft.com/en-us/library/system.decimal.aspx" alt="">Decimal</a> In);</h6>
@@ -263,7 +264,7 @@
 </tr>
 <tr><td><h4><strong><a href="NumberExt_DecimalPlaces-9.md" alt="">DecimalPlaces</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Value%20Types/NumberExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> <a href="NumberExt_DecimalPlaces-9.md" alt="">DecimalPlaces</a>(<a href="https://msdn.microsoft.com/en-us/library/system.decimal.aspx" alt="">Decimal</a> Dec);</h6>
@@ -271,7 +272,7 @@
 </tr>
 <tr><td><h4><strong><a href="NumberExt_DecimalPlaces-10.md" alt="">DecimalPlaces</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Value%20Types/NumberExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> <a href="NumberExt_DecimalPlaces-10.md" alt="">DecimalPlaces</a>(<a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> Double);</h6>
@@ -279,7 +280,7 @@
 </tr>
 <tr><td><h4><strong><a href="NumberExt_DecimalPlaces-11.md" alt="">DecimalPlaces</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Value%20Types/NumberExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> <a href="NumberExt_DecimalPlaces-11.md" alt="">DecimalPlaces</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Float);</h6>
@@ -687,7 +688,7 @@
 </tr>
 <tr><td><h4><strong><a href="NumberExt_To-0.md" alt="">To</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Value%20Types/NumberExt.cs#L1429" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><a href="../Extensions/Value%20Types/NumberExt.cs#L1429" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png" alt="Lines of Code 13" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a>[] <a href="NumberExt_To-0.md" alt="">To</a>(<a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> From, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> To);</h6>
@@ -695,7 +696,7 @@
 </tr>
 <tr><td><h4><strong><a href="NumberExt_To-1.md" alt="">To</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Value%20Types/NumberExt.cs#L1460" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><a href="../Extensions/Value%20Types/NumberExt.cs#L1460" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png" alt="Lines of Code 13" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a>[] <a href="NumberExt_To-1.md" alt="">To</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> From, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> To);</h6>
@@ -725,7 +726,7 @@
 <tr><td colspan="5"><h6>public static <strong><a href="Number.md" alt="">Number</a></strong> <a href="NumberExt_Wrap-2.md" alt="">Wrap</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="367"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

@@ -8,6 +8,7 @@
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Extensions/Value%20Types/EnumExt.cs#L)
 
 ###### Summary
 
@@ -22,7 +23,7 @@
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-40%25-yellow.png" alt="Total Coverage 40%" /></td></tr></thead>
 <tr><td><h4><strong><a href="EnumExt_ParseEnum-0.md" alt="">ParseEnum</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Value%20Types/EnumExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/b3h38hb0.aspx" alt="" target="_blank">Nullable</a>&lt;T&gt; <a href="EnumExt_ParseEnum-0.md" alt="">ParseEnum</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str);</h6>
@@ -38,7 +39,7 @@
 </tr>
 <tr><td><h4><strong><a href="EnumExt_ParseEnum-2.md" alt="">ParseEnum</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Value%20Types/EnumExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/b3h38hb0.aspx" alt="" target="_blank">Nullable</a>&lt;T&gt; <a href="EnumExt_ParseEnum-2.md" alt="">ParseEnum</a>(<a href="https://msdn.microsoft.com/en-us/library/system.enum.aspx" alt="">Enum</a> Enum);</h6>
@@ -60,7 +61,7 @@
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="EnumExt_GetFriendlyName.md" alt="">GetFriendlyName</a>(<a href="https://msdn.microsoft.com/en-us/library/system.enum.aspx" alt="">Enum</a> In);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="371"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

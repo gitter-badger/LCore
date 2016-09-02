@@ -11,13 +11,21 @@
 
 ##### public <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<strong><a href="Set%602.md" alt="">Set</a></strong>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a>&gt;&gt; LoadAll();
 
-![Type Public Method](http://b.repl.ca/v1/Type-Public%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Tools/RegistryHelper.cs#L)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Tools/RegistryHelper.cs#L)
+![Type Public Method](http://b.repl.ca/v1/Type-Public%20Method-blue.png "")     ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Tools/RegistryHelper.cs#L)
 
 ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Tools/RegistryHelper.cs)
+
+##### Summary
+
 
 #### Returns
 
 ###### <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;**[Set](Set%602.md)**&lt;[String](https://msdn.microsoft.com/en-us/library/system.string.aspx), [Object](https://msdn.microsoft.com/en-us/library/system.object.aspx)&gt;&gt;
+
+#### Method Exceptions
+T:System.Security.SecurityException The user does not have the permissions required to read from the registry key. 
+T:System.UnauthorizedAccessException The user does not have the necessary registry rights.
+T:System.IO.IOException A system error occurred; for example, the current key has been deleted.
 
 
 

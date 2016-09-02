@@ -8,6 +8,7 @@
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Extensions/Reference%20Types/ReflectionExt.cs#L)
 
 ###### Summary
 
@@ -18,7 +19,7 @@
 <table>
 <thead><tr><td>Public Static Methods (81)</td>
 <td></td>
-<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-624-blue.png" alt="Total Code Lines 624" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-622-blue.png" alt="Total Code Lines 622" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Documentation-87%25-green.png" alt="Total Documentation 87%" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="ReflectionExt_AlsoBaseTypes.md" alt="">AlsoBaseTypes</a></strong></h4></td>
@@ -111,7 +112,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_GetAttribute-0.md" alt="">GetAttribute</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L222" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static T <a href="ReflectionExt_GetAttribute-0.md" alt="">GetAttribute</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.icustomattributeprovider.aspx" alt="">ICustomAttributeProvider</a> AttributeProvider);</h6>
@@ -119,7 +120,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_GetAttribute-1.md" alt="">GetAttribute</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L222" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static T <a href="ReflectionExt_GetAttribute-1.md" alt="">GetAttribute</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.icustomattributeprovider.aspx" alt="">ICustomAttributeProvider</a> AttributeProvider, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeBaseTypes);</h6>
@@ -127,7 +128,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_GetAttributes.md" alt="">GetAttributes</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L257" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;T&gt; <a href="ReflectionExt_GetAttributes.md" alt="">GetAttributes</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.icustomattributeprovider.aspx" alt="">ICustomAttributeProvider</a> AttributeProvider, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeBaseTypes);</h6>
@@ -151,7 +152,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_GetComparer-1.md" alt="">GetComparer</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L320" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://www.google.com/#q=C%23+System.Collections.Generic.IComparer&lt;T&gt;" alt="Search for 'System.Collections.Generic.IComparer&lt;T&gt;'" target="_blank">IComparer</a>&lt;T&gt; <a href="ReflectionExt_GetComparer-1.md" alt="">GetComparer</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a> In);</h6>
@@ -215,7 +216,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_GetValue.md" alt="">GetValue</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="ReflectionExt_GetValue.md" alt="">GetValue</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj);</h6>
@@ -223,7 +224,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_GetValues-0.md" alt="">GetValues</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L537" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;T&gt; <a href="ReflectionExt_GetValues-0.md" alt="">GetValues</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeBaseClasses);</h6>
@@ -231,7 +232,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_GetValues-1.md" alt="">GetValues</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L537" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;T&gt; <a href="ReflectionExt_GetValues-1.md" alt="">GetValues</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a>&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> Instantiate);</h6>
@@ -239,7 +240,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_GetTypes-0.md" alt="">GetTypes</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L584" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a>&gt; <a href="ReflectionExt_GetTypes-0.md" alt="">GetTypes</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;T&gt; In);</h6>
@@ -247,7 +248,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_GetTypes-1.md" alt="">GetTypes</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L592" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a>[] <a href="ReflectionExt_GetTypes-1.md" alt="">GetTypes</a>(T[] In);</h6>
@@ -255,7 +256,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_HasAttribute-0.md" alt="">HasAttribute</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L604" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L604" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_HasAttribute-0.md" alt="">HasAttribute</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.icustomattributeprovider.aspx" alt="">ICustomAttributeProvider</a> AttributeProvider);</h6>
@@ -263,7 +264,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_HasAttribute-1.md" alt="">HasAttribute</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L604" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L604" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_HasAttribute-1.md" alt="">HasAttribute</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.icustomattributeprovider.aspx" alt="">ICustomAttributeProvider</a> AttributeProvider, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeBaseClasses);</h6>
@@ -271,7 +272,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_HasAttribute-2.md" alt="">HasAttribute</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L604" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L604" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_HasAttribute-2.md" alt="">HasAttribute</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.icustomattributeprovider.aspx" alt="">ICustomAttributeProvider</a> AttributeProvider, <a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeBaseClasses);</h6>
@@ -295,7 +296,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_HasIndexGetter-0.md" alt="">HasIndexGetter</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L675" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_HasIndexGetter-0.md" alt="">HasIndexGetter</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
@@ -303,7 +304,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_HasIndexGetter-1.md" alt="">HasIndexGetter</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L675" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_HasIndexGetter-1.md" alt="">HasIndexGetter</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
@@ -311,7 +312,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_HasIndexSetter-0.md" alt="">HasIndexSetter</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L697" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_HasIndexSetter-0.md" alt="">HasIndexSetter</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
@@ -319,7 +320,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_HasIndexSetter-1.md" alt="">HasIndexSetter</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L697" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_HasIndexSetter-1.md" alt="">HasIndexSetter</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
@@ -335,7 +336,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_IndexGetter-0.md" alt="">IndexGetter</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L749" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.reflection.propertyinfo.aspx" alt="">PropertyInfo</a> <a href="ReflectionExt_IndexGetter-0.md" alt="">IndexGetter</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
@@ -343,7 +344,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_IndexGetter-1.md" alt="">IndexGetter</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L749" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.reflection.propertyinfo.aspx" alt="">PropertyInfo</a> <a href="ReflectionExt_IndexGetter-1.md" alt="">IndexGetter</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
@@ -351,7 +352,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_IndexSetter-0.md" alt="">IndexSetter</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L782" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.reflection.propertyinfo.aspx" alt="">PropertyInfo</a> <a href="ReflectionExt_IndexSetter-0.md" alt="">IndexSetter</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
@@ -359,7 +360,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_IndexSetter-1.md" alt="">IndexSetter</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L782" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.reflection.propertyinfo.aspx" alt="">PropertyInfo</a> <a href="ReflectionExt_IndexSetter-1.md" alt="">IndexSetter</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
@@ -367,7 +368,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_InstantiateValues-0.md" alt="">InstantiateValues</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L815" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;T&gt; <a href="ReflectionExt_InstantiateValues-0.md" alt="">InstantiateValues</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeBaseClasses);</h6>
@@ -375,7 +376,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_InstantiateValues-1.md" alt="">InstantiateValues</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L815" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;T&gt; <a href="ReflectionExt_InstantiateValues-1.md" alt="">InstantiateValues</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a>&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj);</h6>
@@ -463,7 +464,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_New-0.md" alt="">New</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L999" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static T <a href="ReflectionExt_New-0.md" alt="">New</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a>[] Arguments);</h6>
@@ -471,7 +472,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_New-1.md" alt="">New</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="ReflectionExt_New-1.md" alt="">New</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a>[] Arguments, <a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> GenericType);</h6>
@@ -479,7 +480,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_NewRandom.md" alt="">NewRandom</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="ReflectionExt_NewRandom.md" alt="">NewRandom</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Minimum, <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Maximum);</h6>
@@ -511,7 +512,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_WithAttribute-0.md" alt="">WithAttribute</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1171" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;TMember&gt; <a href="ReflectionExt_WithAttribute-0.md" alt="">WithAttribute</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;TMember&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeBaseTypes);</h6>
@@ -519,7 +520,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_WithAttribute-1.md" alt="">WithAttribute</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1182" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-14-blue.png" alt="Lines of Code 14" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1182" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-2-blue.png" alt="Lines of Code 2" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a>&gt; <a href="ReflectionExt_WithAttribute-1.md" alt="">WithAttribute</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a>&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeBaseTypes);</h6>
@@ -527,7 +528,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_WithAttribute-2.md" alt="">WithAttribute</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1182" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-14-blue.png" alt="Lines of Code 14" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1182" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-2-blue.png" alt="Lines of Code 2" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a>&gt; <a href="ReflectionExt_WithAttribute-2.md" alt="">WithAttribute</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a>&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> AttributeType, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeBaseTypes);</h6>
@@ -535,7 +536,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_WithoutAttribute-0.md" alt="">WithoutAttribute</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1204" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;TMember&gt; <a href="ReflectionExt_WithoutAttribute-0.md" alt="">WithoutAttribute</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;TMember&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeBaseTypes);</h6>
@@ -543,7 +544,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_WithoutAttribute-1.md" alt="">WithoutAttribute</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1215" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1215" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-2-blue.png" alt="Lines of Code 2" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a>&gt; <a href="ReflectionExt_WithoutAttribute-1.md" alt="">WithoutAttribute</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a>&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeBaseTypes);</h6>
@@ -551,7 +552,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_WithoutAttribute-2.md" alt="">WithoutAttribute</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1215" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1215" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-2-blue.png" alt="Lines of Code 2" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a>&gt; <a href="ReflectionExt_WithoutAttribute-2.md" alt="">WithoutAttribute</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a>&gt; In, <a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> AttributeType, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> IncludeBaseTypes);</h6>
@@ -615,7 +616,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_FindClassFile.md" alt="">FindClassFile</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1408" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-17-blue.png" alt="Lines of Code 17" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1408" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-20-blue.png" alt="Lines of Code 20" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="ReflectionExt_FindClassFile.md" alt="">FindClassFile</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
@@ -623,7 +624,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_IsOverride.md" alt="">IsOverride</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1435" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1439" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_IsOverride.md" alt="">IsOverride</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.methodinfo.aspx" alt="">MethodInfo</a> Method);</h6>
@@ -631,7 +632,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_IsSealed.md" alt="">IsSealed</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1444" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1448" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_IsSealed.md" alt="">IsSealed</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.methodinfo.aspx" alt="">MethodInfo</a> Method);</h6>
@@ -639,7 +640,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_IsProtected-0.md" alt="">IsProtected</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1452" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1456" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_IsProtected-0.md" alt="">IsProtected</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.methodinfo.aspx" alt="">MethodInfo</a> Method);</h6>
@@ -647,7 +648,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_IsProtected-1.md" alt="">IsProtected</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1452" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1456" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_IsProtected-1.md" alt="">IsProtected</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
@@ -655,7 +656,7 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_IsInternal-0.md" alt="">IsInternal</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1468" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1472" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_IsInternal-0.md" alt="">IsInternal</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.methodinfo.aspx" alt="">MethodInfo</a> Method);</h6>
@@ -663,13 +664,13 @@
 </tr>
 <tr><td><h4><strong><a href="ReflectionExt_IsInternal-1.md" alt="">IsInternal</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1468" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="../Extensions/Reference%20Types/ReflectionExt.cs#L1472" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="ReflectionExt_IsInternal-1.md" alt="">IsInternal</a>(<a href="https://msdn.microsoft.com/en-us/library/system.type.aspx" alt="">Type</a> Type);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="361"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

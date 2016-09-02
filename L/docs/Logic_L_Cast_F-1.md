@@ -3,6 +3,7 @@
 [Up](Logic.md)
 
 ### Logic
+[View Source](../Extensions/Methods/L.cs)
 
 # L_Cast_F
 
@@ -10,13 +11,19 @@
 
 ##### public static <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U1&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T2, U2&gt;&gt; L_Cast_F();
 
-![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") ![Source Code Unavailable](http://b.repl.ca/v1/Source%20Code-Unavailable-red.png "")
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-blue.png "")     ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Methods/L.cs#L)
 
-![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")]
+![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Methods/L.cs)
+
+##### Summary
+
+            Returns a function that Casts the output of the Func to U2 and the input to T2
+            
 
 #### Returns
 
 ###### <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T1, U1&gt;, <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T2, U2&gt;&gt;
+
 
 
 

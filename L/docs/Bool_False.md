@@ -3,6 +3,7 @@
 [Up](Bool.md)
 
 ### Bool
+[View Source](../Extensions/Methods/L.cs)
 
 # False
 

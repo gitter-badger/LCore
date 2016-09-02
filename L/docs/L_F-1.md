@@ -11,9 +11,14 @@
 
 ##### public static <a href="https://msdn.microsoft.com/en-us/library/dd402868.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U&gt; F(<a href="https://msdn.microsoft.com/en-us/library/dd402868.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U&gt; In);
 
-![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/L.cs#L352)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Methods/L.cs#L352)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-blue.png "")     ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Methods/L.cs#L352)
 
 ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Methods/L.cs)
+
+##### Summary
+
+            Creates an empty method using the specified Type Arguments.
+            
 
 ###### Parameters
 
@@ -25,6 +30,7 @@ In | No | <a href="https://msdn.microsoft.com/en-us/library/dd402868.aspx" alt="
 #### Returns
 
 ###### <a href="https://msdn.microsoft.com/en-us/library/dd402868.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U&gt;
+
 
 
 

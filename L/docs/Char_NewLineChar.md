@@ -3,6 +3,7 @@
 [Up](Char.md)
 
 ### Char
+[View Source](../Extensions/Methods/L.cs)
 
 # NewLineChar
 

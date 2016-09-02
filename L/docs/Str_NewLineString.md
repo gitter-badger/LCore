@@ -3,6 +3,7 @@
 [Up](Str.md)
 
 ### Str
+[View Source](../Extensions/Methods/L.cs)
 
 # NewLineString
 

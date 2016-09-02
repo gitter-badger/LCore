@@ -23,7 +23,7 @@
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="Thread_MethodProfileData_Get.md" alt="">MethodProfileData_Get</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <strong><a href="MethodProfileData.md" alt="">MethodProfileData</a></strong> <a href="Thread_MethodProfileData_Get.md" alt="">MethodProfileData_Get</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Method);</h6>
@@ -31,7 +31,7 @@
 </tr>
 <tr><td><h4><strong><a href="Thread_MethodProfileData_Remove.md" alt="">MethodProfileData_Remove</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="Thread_MethodProfileData_Remove.md" alt="">MethodProfileData_Remove</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Method);</h6>
@@ -39,7 +39,7 @@
 </tr>
 <tr><td><h4><strong><a href="Thread_MethodProfileData_Add.md" alt="">MethodProfileData_Add</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="Thread_MethodProfileData_Add.md" alt="">MethodProfileData_Add</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Method, <strong><a href="MethodProfileData.md" alt="">MethodProfileData</a></strong> Profile);</h6>
@@ -47,13 +47,13 @@
 </tr>
 <tr><td><h4><strong><a href="Thread_MethodProfileData_Has.md" alt="">MethodProfileData_Has</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Thread_MethodProfileData_Has.md" alt="">MethodProfileData_Has</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Method);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="363"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

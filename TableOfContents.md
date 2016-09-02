@@ -66,6 +66,7 @@
  - [IGrouped](L/docs/IGrouped.md)
  - [ICodeComment](L/docs/ICodeComment.md)
  - [IReverseAttributeOrder](L/docs/IReverseAttributeOrder.md)
+ - [CodeLineInfo](L/docs/CodeLineInfo.md)
  - [CodeMetaData](L/docs/CodeMetaData.md)
  - [MemberContext](L/docs/MemberContext.md)
  - [MemberDetails](L/docs/MemberDetails.md)
@@ -1640,6 +1641,9 @@
  - [ClassFeatures](L/docs/ICodeComment_ClassFeatures.md)
  - [ProjectFeatures](L/docs/ICodeComment_ProjectFeatures.md)
  - [TestedFeatures](L/docs/ICodeComment_TestedFeatures.md)
+ - [FilePath](L/docs/CodeLineInfo_FilePath.md)
+ - [LineNumber](L/docs/CodeLineInfo_LineNumber.md)
+ - [LineText](L/docs/CodeLineInfo_LineText.md)
  - [Type](L/docs/CodeMetaData_Type.md)
  - [Member](L/docs/CodeMetaData_Member.md)
  - [Details](L/docs/CodeMetaData_Details.md)
@@ -1661,6 +1665,7 @@
  - [Static](L/docs/MemberContext_Static.md)
  - [Constant](L/docs/MemberContext_Constant.md)
  - [ToString](L/docs/MemberDetails_ToString.md)
+ - [ToCodeString](L/docs/MemberDetails_ToCodeString.md)
  - [Scope](L/docs/MemberDetails_Scope.md)
  - [Context](L/docs/MemberDetails_Context.md)
  - [Type](L/docs/MemberDetails_Type.md)
@@ -3124,6 +3129,9 @@
  - [Divide](L/docs/Operation_Divide.md)
  - [Home](README.md)
  - [Coverage Summary](CoverageSummary.md)
+ - [Summary &#39;TODO&#39;](TagSummary_TODO.md)
+ - [Summary &#39;BUG&#39;](TagSummary_BUG.md)
+ - [Summary &#39;throw new NotImplementedException&#39;](TagSummary_throw%20new%20NotImplementedException.md)
  - [Table of Contents]
 
 
@@ -3132,33 +3140,531 @@
 
 Generation Time | Total
 :---  | :--- 
-Duration | 5 minutes
+Duration | 6 minutes
 
 
 Documents | Total
 :---  | :--- 
-Markdown Documents | 3123
-Project Markdown Documents | 1
+Markdown Documents | 3131
+Project Markdown Documents | 4
 Assembly Markdown Documents | 1
-Type Markdown Documents | 111
-Member Markdown Documents | 3008
+Type Markdown Documents | 112
+Member Markdown Documents | 3012
 
 
 Markdown | Total
 :---  | :--- 
-Lines | 76463
-Headers | 17356
-Tables | 1231
-Badges | 17975
+Lines | 78627
+Headers | 17845
+Tables | 1234
+Badges | 15613
 
 
 Links | Total
 :---  | :--- 
-Links | 53518
-Local Links | 43136
-System Links | 5706
+Links | 52223
+Local Links | 41843
+System Links | 5712
 External Links | 9
 
+
+### Errors (496)
+- Could not find code line number for LCore.Tools.RegistryHelper.LoadObject
+- Could not find code line number for LCore.Tools.RegistryHelper.LoadString
+- Could not find code line number for LCore.Tools.RegistryHelper.LoadInt
+- Could not find code line number for LCore.Tools.RegistryHelper.LoadLong
+- Could not find code line number for LCore.Tools.RegistryHelper.LoadFloat
+- Could not find code line number for LCore.Tools.RegistryHelper.LoadDouble
+- Could not find code line number for LCore.Tools.RegistryHelper.LoadChar
+- Could not find code line number for LCore.Tools.RegistryHelper.LoadBool
+- Could not find code line number for LCore.Tools.RegistryHelper.LoadBinary
+- Could not find code line number for LCore.Tools.RegistryHelper.LoadList
+- Could not find code line number for LCore.Tools.RegistryHelper.LoadAll
+- Could not find code line number for LCore.Tools.IRegistry.RegistrySave
+- Could not find code line number for LCore.Tools.IRegistry.RegistryLoad
+- Could not find code line number for LCore.Tools.ExceptionList.op_Implicit
+- Could not find code line number for LCore.Tools.Lists<T1, T2>.Add
+- Could not find code line number for LCore.Tools.Lists<T1, T2>.Set
+- Could not find code line number for LCore.Tools.Lists<T1, T2>.Set1
+- Could not find code line number for LCore.Tools.Lists<T1, T2>.Set2
+- Could not find code line number for LCore.Tools.Lists<T1, T2>.GetAt
+- Could not find code line number for LCore.Tools.Lists<T1, T2>.RemoveAt
+- Could not find code line number for LCore.Tools.Set<T1, T2>.Equals
+- Could not find code line number for LCore.Tools.Set<T1, T2>.GetHashCode
+- Could not find code line number for LCore.Tools.Set<T1, T2>.ToString
+- Could not find code line number for LCore.Tools.Set<T1, T2>.op_Equality
+- Could not find code line number for LCore.Tools.Set<T1, T2>.op_Inequality
+- Could not find code line number for LCore.Tools.Set<T1, T2>.op_Implicit
+- Could not find code line number for LCore.Tools.DateTimeConverter.ToString
+- Could not find code line number for LCore.Tools.Schedule.ToString
+- Could not find code line number for LCore.Numbers.DecimalNumber.op_Implicit
+- Could not find code line number for LCore.Numbers.DecimalNumber.Add
+- Could not find code line number for LCore.Numbers.DecimalNumber.Subtract
+- Could not find code line number for LCore.Numbers.DecimalNumber.Multiply
+- Could not find code line number for LCore.Numbers.DecimalNumber.Divide
+- Could not find code line number for LCore.Numbers.DecimalNumber.New
+- Could not find code line number for LCore.Numbers.DecimalNumber.ToString
+- Could not find code line number for LCore.Numbers.DoubleNumber.op_Implicit
+- Could not find code line number for LCore.Numbers.DoubleNumber.Divide
+- Could not find code line number for LCore.Numbers.DoubleNumber.ToString
+- Could not find code line number for LCore.Numbers.FloatNumber.op_Implicit
+- Could not find code line number for LCore.Numbers.FloatNumber.Divide
+- Could not find code line number for LCore.Numbers.FloatNumber.ToString
+- Could not find code line number for LCore.Numbers.INumber<T>.New
+- Could not find code line number for LCore.Numbers.INumber.GetValue
+- Could not find code line number for LCore.Numbers.LongNumber.op_Implicit
+- Could not find code line number for LCore.Numbers.LongNumber.Divide
+- Could not find code line number for LCore.Numbers.Number<T, U>.op_Implicit
+- Could not find code line number for LCore.Numbers.Number<T>.op_Division
+- Could not find code line number for LCore.Numbers.Number<T>.op_Multiply
+- Could not find code line number for LCore.Numbers.Number<T>.op_Subtraction
+- Could not find code line number for LCore.Numbers.Number<T>.op_Addition
+- Could not find code line number for LCore.Numbers.Number<T>.Add
+- Could not find code line number for LCore.Numbers.Number<T>.Subtract
+- Could not find code line number for LCore.Numbers.Number<T>.Multiply
+- Could not find code line number for LCore.Numbers.Number<T>.Divide
+- Could not find code line number for LCore.Numbers.Number<T>.New
+- Could not find code line number for LCore.Numbers.Number<T>.GetValue
+- Could not find code line number for LCore.Numbers.Number<T>.CompareTo
+- Could not find code line number for LCore.Numbers.Number.ToString
+- Could not find code line number for LCore.Numbers.Number.op_GreaterThan
+- Could not find code line number for LCore.Numbers.Number.op_LessThan
+- Could not find code line number for LCore.Numbers.Number.op_GreaterThanOrEqual
+- Could not find code line number for LCore.Numbers.Number.op_LessThanOrEqual
+- Could not find code line number for LCore.Numbers.Number.op_Equality
+- Could not find code line number for LCore.Numbers.Number.op_Inequality
+- Could not find code line number for LCore.Numbers.Number.op_Division
+- Could not find code line number for LCore.Numbers.Number.op_Multiply
+- Could not find code line number for LCore.Numbers.Number.op_Subtraction
+- Could not find code line number for LCore.Numbers.Number.op_Addition
+- Could not find code line count for LCore.Numbers.Number.GetValuePrecision
+- Could not find code line number for LCore.Numbers.Number.GetValue
+- Could not find code line number for LCore.Numbers.ByteNumber.op_Implicit
+- Could not find code line number for LCore.Numbers.ByteNumber.Add
+- Could not find code line number for LCore.Numbers.ByteNumber.Subtract
+- Could not find code line number for LCore.Numbers.ByteNumber.Multiply
+- Could not find code line number for LCore.Numbers.ByteNumber.Divide
+- Could not find code line number for LCore.Numbers.ByteNumber.New
+- Could not find code line number for LCore.Numbers.IntNumber.op_Implicit
+- Could not find code line number for LCore.Numbers.IntNumber.Divide
+- Could not find code line number for LCore.Numbers.SByteNumber.op_Implicit
+- Could not find code line number for LCore.Numbers.SByteNumber.Add
+- Could not find code line number for LCore.Numbers.SByteNumber.Subtract
+- Could not find code line number for LCore.Numbers.SByteNumber.Multiply
+- Could not find code line number for LCore.Numbers.SByteNumber.Divide
+- Could not find code line number for LCore.Numbers.SByteNumber.New
+- Could not find code line number for LCore.Numbers.ShortNumber.op_Implicit
+- Could not find code line number for LCore.Numbers.ShortNumber.Add
+- Could not find code line number for LCore.Numbers.ShortNumber.Subtract
+- Could not find code line number for LCore.Numbers.ShortNumber.Multiply
+- Could not find code line number for LCore.Numbers.ShortNumber.Divide
+- Could not find code line number for LCore.Numbers.ShortNumber.New
+- Could not find code line number for LCore.Numbers.UIntNumber.op_Implicit
+- Could not find code line number for LCore.Numbers.UIntNumber.Divide
+- Could not find code line number for LCore.Numbers.ULongNumber.op_Implicit
+- Could not find code line number for LCore.Numbers.ULongNumber.Divide
+- Could not find code line number for LCore.Numbers.UShortNumber.op_Implicit
+- Could not find code line number for LCore.Numbers.UShortNumber.Add
+- Could not find code line number for LCore.Numbers.UShortNumber.Subtract
+- Could not find code line number for LCore.Numbers.UShortNumber.Multiply
+- Could not find code line number for LCore.Numbers.UShortNumber.Divide
+- Could not find code line number for LCore.Numbers.UShortNumber.New
+- Could not find code line number for LCore.Extensions.MemberDetails.ToString
+- Could not find code line number for LCore.Extensions.MemberDetails.ToCodeString
+- Could not find code line count for LCore.Extensions.L.F
+- Could not find code line count for LCore.Extensions.L.A
+- Could not find code line number for LCore.Extensions.L.Ref
+- Could not find code line number for LCore.Extensions.L.Num
+- Could not find code line number for LCore.Extensions.L.Comment
+- Could not find code line number for LCore.Extensions.L.Loop
+- Could not find code line number for LCore.Extensions.L.Thread
+- Could not find code line number for LCore.Extensions.L.Exc
+- Could not find code line number for LCore.Extensions.L.Obj
+- Could not find code line number for LCore.Extensions.L.Bool
+- Could not find code line number for LCore.Extensions.L.Date
+- Could not find code line number for LCore.Extensions.L.File
+- Could not find code line number for LCore.Extensions.L.Str
+- Could not find code line number for LCore.Extensions.L.Char
+- Could not find code line count for LCore.Extensions.L.Logic
+- Could not find code line number for LCore.Extensions.L.Ary
+- Could not find code line number for LCore.Extensions.L.List
+- Could not find code line number for LCore.Extensions.L.Align
+- Could not find code line number for LCore.Extensions.L.AlignVertical
+- Could not find code line count for LCore.Extensions.ComparableExt.Max
+- Could not find code line count for LCore.Extensions.ComparableExt.Min
+- Could not find code line count for LCore.Extensions.ReflectionExt.GetAttribute
+- Could not find code line count for LCore.Extensions.ReflectionExt.GetAttributes
+- Could not find code line count for LCore.Extensions.ReflectionExt.GetComparer
+- Could not find type link for System.Collections.Generic.IComparer<T>
+- Could not find code line number for LCore.Extensions.ReflectionExt.GetValue
+- Could not find code line count for LCore.Extensions.ReflectionExt.GetValues
+- Could not find code line count for LCore.Extensions.ReflectionExt.GetTypes
+- Could not find code line count for LCore.Extensions.ReflectionExt.HasIndexGetter
+- Could not find code line count for LCore.Extensions.ReflectionExt.HasIndexSetter
+- Could not find code line count for LCore.Extensions.ReflectionExt.IndexGetter
+- Could not find code line count for LCore.Extensions.ReflectionExt.IndexSetter
+- Could not find code line count for LCore.Extensions.ReflectionExt.InstantiateValues
+- Could not find code line count for LCore.Extensions.ReflectionExt.New
+- Could not find code line number for LCore.Extensions.ReflectionExt.New
+- Could not find code line number for LCore.Extensions.ReflectionExt.NewRandom
+- Could not find code line count for LCore.Extensions.ReflectionExt.WithAttribute
+- Could not find code line count for LCore.Extensions.ReflectionExt.WithoutAttribute
+- Could not find code line number for LCore.Extensions.NumberExt.Abs
+- Could not find code line number for LCore.Extensions.NumberExt.DecimalPlaces
+- Could not find code line number for LCore.Extensions.LanguageExt.FindSourceCodeLineNumber
+- Could not find code line number for LCore.Extensions.LanguageExt.FindSourceCodeLineCount
+- Could not find code line number for LCore.Extensions.EnumExt.ParseEnum
+- Could not find code line count for LCore.Extensions.LoopExt.To
+- Could not find code line count for LCore.Extensions.ThreadExt.Async
+- Could not find code line count for LCore.Extensions.ThreadExt.AsyncResult
+- Could not find code line count for LCore.Extensions.ThreadExt.Profile
+- Could not find code line count for LCore.Extensions.ExceptionExt.Fail
+- Could not find code line count for LCore.Extensions.ExceptionExt.Throw
+- Could not find code line count for LCore.Extensions.ExceptionExt.Report
+- Could not find code line count for LCore.Extensions.ExceptionExt.Handle
+- Could not find code line count for LCore.Extensions.ExceptionExt.Try
+- Could not find code line count for LCore.Extensions.ExceptionExt.Catch
+- Could not find code line count for LCore.Extensions.ExceptionExt.Retry
+- Could not find code line count for LCore.Extensions.ExceptionExt.Debug
+- Could not find code line number for LCore.Extensions.ConvertibleExt.CanConvertToString
+- Could not find code line number for LCore.Extensions.ConvertibleExt.ConvertTo
+- Could not find code line number for LCore.Extensions.ConvertibleExt.ConvertToString
+- Could not find code line count for LCore.Extensions.ConvertibleExt.TryConvertTo
+- Could not find code line number for LCore.Extensions.ObjectExt.GetPropertyValues
+- Could not find code line number for LCore.Extensions.ObjectExt.GetProperty
+- Could not find code line count for LCore.Extensions.ObjectExt.GetPropertyNames
+- Could not find code line count for LCore.Extensions.ObjectExt.Type
+- Could not find code line count for LCore.Extensions.BooleanExt.Or
+- Could not find code line count for LCore.Extensions.BooleanExt.Not
+- Could not find code line count for LCore.Extensions.BooleanExt.If
+- Could not find code line count for LCore.Extensions.BooleanExt.ElseIf
+- Could not find code line count for LCore.Extensions.BooleanExt.Else
+- Could not find code line count for LCore.Extensions.BooleanExt.Unless
+- Could not find code line count for LCore.Extensions.BooleanExt.And
+- Could not find code line count for LCore.Extensions.DictionaryExt.Flatten
+- Could not find code line count for LCore.Extensions.DictionaryExt.Flip
+- Could not find code line count for LCore.Extensions.DictionaryExt.Merge
+- Could not find code line count for LCore.Extensions.DictionaryExt.AddRange
+- Could not find code line count for LCore.Extensions.DictionaryExt.GetAllValues
+- Could not find code line count for LCore.Extensions.DictionaryExt.SafeAdd
+- Could not find code line count for LCore.Extensions.DictionaryExt.SafeSet
+- Could not find code line count for LCore.Extensions.DictionaryExt.SafeGet
+- Could not find code line count for LCore.Extensions.DictionaryExt.SafeRemove
+- Could not find code line count for LCore.Extensions.DictionaryExt.ToDictionary
+- Could not find code line number for LCore.Extensions.DateExt.Average
+- Could not find code line number for LCore.Extensions.DateExt.DayOfWeekNumber
+- Could not find code line number for LCore.Extensions.DateExt.CleanDateString
+- Could not find code line number for LCore.Extensions.DateExt.ToSpecification
+- Could not find code line number for LCore.Extensions.DateExt.GetMonthName
+- Could not find code line number for LCore.Extensions.DateExt.ToTimeString
+- Could not find code line number for LCore.Extensions.DateExt.TimeDifference
+- Could not find code line number for LCore.Extensions.DateExt.IsPast
+- Could not find code line number for LCore.Extensions.DateExt.IsFuture
+- Could not find code line number for LCore.Extensions.FileExt.EveryOtherByte
+- Could not find code line number for LCore.Extensions.FileExt.GetFileHash
+- Could not find code line number for LCore.Extensions.FileExt.GetStreamHash
+- Could not find code line number for LCore.Extensions.FileExt.GetStringHash
+- Could not find code line number for LCore.Extensions.FileExt.ReadAllBytes
+- Could not find code line number for LCore.Extensions.StringExt.ByteArrayToString
+- Could not find code line number for LCore.Extensions.StringExt.ToByteArray
+- Could not find code line number for LCore.Extensions.StringExt.ToHexString
+- Could not find code line count for LCore.Extensions.LogicExt.Cast
+- Could not find code line count for LCore.Extensions.LogicExt.Enclose
+- Could not find code line count for LCore.Extensions.LogicExt.Enclose2
+- Could not find code line count for LCore.Extensions.LogicExt.Enclose3
+- Could not find code line count for LCore.Extensions.LogicExt.Enclose4
+- Could not find code line count for LCore.Extensions.LogicExt.Surround
+- Could not find code line count for LCore.Extensions.LogicExt.Surround2
+- Could not find code line count for LCore.Extensions.LogicExt.Surround3
+- Could not find code line count for LCore.Extensions.LogicExt.Surround4
+- Could not find code line count for LCore.Extensions.EnumerableExt.RemoveDuplicates
+- Could not find code line count for LCore.Extensions.EnumerableExt.Mirror
+- Could not find code line count for LCore.Extensions.EnumerableExt.Select
+- Could not find code line count for LCore.Extensions.EnumerableExt.SetAt
+- Could not find code line count for LCore.Extensions.EnumerableExt.Shuffle
+- Could not find type link for System.Collections.Generic.IList<T>
+- Could not find type link for System.Collections.Generic.IList<T>
+- Could not find code line count for LCore.Extensions.EnumerableExt.Sum
+- Could not find code line count for LCore.Extensions.EnumerableExt.ToNestedArrays
+- Could not find code line count for LCore.Extensions.EnumerableExt.While
+- Could not find code line count for LCore.Extensions.EnumerableExt.First
+- Could not find code line count for LCore.Extensions.EnumerableExt.Flatten
+- Could not find code line number for LCore.Extensions.EnumerableExt.GetAt
+- Could not find code line count for LCore.Extensions.EnumerableExt.GetAt
+- Could not find code line count for LCore.Extensions.EnumerableExt.GetAtIndices
+- Could not find code line count for LCore.Extensions.EnumerableExt.Group
+- Could not find code line count for LCore.Extensions.EnumerableExt.GroupTwice
+- Could not find code line count for LCore.Extensions.EnumerableExt.Has
+- Could not find code line number for LCore.Extensions.EnumerableExt.Index
+- Could not find code line count for LCore.Extensions.EnumerableExt.Index
+- Could not find code line count for LCore.Extensions.EnumerableExt.IndexTwice
+- Could not find code line number for LCore.Extensions.EnumerableExt.IndexOf
+- Could not find code line count for LCore.Extensions.EnumerableExt.Last
+- Could not find code line number for LCore.Extensions.EnumerableExt.List
+- Could not find code line count for LCore.Extensions.EnumerableExt.List
+- Could not find code line count for LCore.Extensions.EnumerableExt.Percent
+- Could not find code line count for LCore.Extensions.EnumerableExt.Named
+- Could not find code line number for LCore.Extensions.EnumerableExt.Named
+- Could not find code line count for LCore.Extensions.EnumerableExt.Random
+- Could not find code line count for LCore.Extensions.EnumerableExt.Remove
+- Could not find code line count for LCore.Extensions.EnumerableExt.RemoveAt
+- Could not find code line count for LCore.Extensions.EnumerableExt.RemoveDuplicate
+- Could not find code line count for LCore.Extensions.EnumerableExt.Add
+- Could not find code line count for LCore.Extensions.EnumerableExt.AddTo
+- Could not find code line count for LCore.Extensions.EnumerableExt.Append
+- Could not find code line number for LCore.Extensions.EnumerableExt.Array
+- Could not find code line count for LCore.Extensions.EnumerableExt.Array
+- Could not find code line count for LCore.Extensions.EnumerableExt.Collect
+- Could not find code line number for LCore.Extensions.EnumerableExt.Collect
+- Could not find code line number for LCore.Extensions.EnumerableExt.Convert
+- Could not find code line count for LCore.Extensions.EnumerableExt.Convert
+- Could not find code line number for LCore.Extensions.EnumerableExt.ConvertAll
+- Could not find code line count for LCore.Extensions.EnumerableExt.ConvertAll
+- Could not find code line count for LCore.Extensions.EnumerableExt.Count
+- Could not find code line count for LCore.Extensions.EnumerableExt.Fill
+- Could not find code line count for LCore.Extensions.EnumerableExt.Filter
+- Could not find code line count for LCore.Extensions.Optional.ObjectExt.CopyFieldsTo
+- Could not find code line count for LCore.Extensions.Optional.ObjectExt.Details
+- Could not find code line count for LCore.Extensions.Optional.ObjectExt.FN_CreateArray
+- Could not find code line count for LCore.Extensions.Optional.ObjectExt.FN_CreateList
+- Could not find code line count for LCore.Extensions.Optional.ObjectExt.FN_Func
+- Could not find code line count for LCore.Extensions.Optional.ObjectExt.FN_If
+- Could not find code line count for LCore.Extensions.Optional.ObjectExt.InitProperties
+- Could not find code line count for LCore.Extensions.Optional.ObjectExt.IsNull
+- Could not find code line number for LCore.Extensions.Optional.ObjectExt.Objects_ToString
+- Could not find code line count for LCore.Extensions.Optional.ObjectExt.SupplyTo
+- Could not find code line number for LCore.Extensions.L.Ref.Constant
+- Could not find code line number for LCore.Extensions.L.Ref.Constructor
+- Could not find code line number for LCore.Extensions.L.Ref.FindType
+- Could not find code line number for LCore.Extensions.L.Ref.FindMembers
+- Could not find code line number for LCore.Extensions.L.Ref.GetNamespaceTypes
+- Could not find code line number for LCore.Extensions.L.Ref.Member
+- Could not find code line number for LCore.Extensions.L.Ref.Method
+- Could not find code line number for LCore.Extensions.L.Ref.StaticMethod
+- Could not find code line number for LCore.Extensions.L.Ref.Event
+- Could not find code line number for LCore.Extensions.L.Ref.GetAvailableTestAssemblies
+- Could not find code line number for LCore.Extensions.L.Ref.GetPropertyNames
+- Could not find code line number for LCore.Extensions.L.Ref.GetProjectRootPath
+- Could not find code line number for LCore.Extensions.L.Ref.GetSolutionRootPath
+- Could not find code line number for LCore.Extensions.L.Num.ScientificNotationToNumber
+- Could not find code line number for LCore.Extensions.L.Num.Operation
+- Could not find code line number for LCore.Extensions.L.Loop.While_T
+- Could not find code line number for LCore.Extensions.L.Loop.L_DoWhile
+- Could not find code line number for LCore.Extensions.L.Loop.L_Until
+- Could not find code line number for LCore.Extensions.L.Loop.L_DoUntil
+- Could not find code line number for LCore.Extensions.L.Loop.L_Repeat_uint
+- Could not find code line number for LCore.Extensions.L.Loop.L_Repeat_int
+- Could not find code line number for LCore.Extensions.L.Loop.WhileI_T
+- Could not find code line number for LCore.Extensions.L.Loop.Until
+- Could not find code line number for LCore.Extensions.L.Loop.DoWhile
+- Could not find code line number for LCore.Extensions.L.Loop.DoUntil
+- Could not find code line number for LCore.Extensions.L.Loop.L_Collect
+- Could not find code line number for LCore.Extensions.L.Loop.L_MergeLoop
+- Could not find code line number for LCore.Extensions.L.Loop.L_To
+- Could not find code line number for LCore.Extensions.L.Loop.L_ToI
+- Could not find code line number for LCore.Extensions.L.Loop.L_For
+- Could not find code line number for LCore.Extensions.L.Thread.MethodProfileData_Get
+- Could not find code line number for LCore.Extensions.L.Thread.MethodProfileData_Remove
+- Could not find code line number for LCore.Extensions.L.Thread.MethodProfileData_Add
+- Could not find code line number for LCore.Extensions.L.Thread.MethodProfileData_Has
+- Could not find code line number for LCore.Extensions.L.Obj.As
+- Could not find code line number for LCore.Extensions.L.Obj.Swap
+- Could not find code line number for LCore.Extensions.L.Obj.SafeEquals
+- Could not find code line number for LCore.Extensions.L.Obj.New
+- Could not find code line number for LCore.Extensions.L.Obj.NewRandom
+- Could not find code line number for LCore.Extensions.L.Obj.IsNull
+- Could not find code line number for LCore.Extensions.L.Obj.IsA
+- Could not find code line number for LCore.Extensions.L.Obj.HasProperty
+- Could not find code line number for LCore.Extensions.L.Obj.GetProperty
+- Could not find code line number for LCore.Extensions.L.Obj.SetProperty
+- Could not find code line number for LCore.Extensions.L.Bool.L_If_A
+- Could not find code line number for LCore.Extensions.L.Bool.L_If_F
+- Could not find code line number for LCore.Extensions.L.Bool.L_IfElse
+- Could not find code line number for LCore.Extensions.L.Date.MonthNumberGetName
+- Could not find code line number for LCore.Extensions.L.File.BufferedMove
+- Could not find code line number for LCore.Extensions.L.File.CombinePaths
+- Could not find code line number for LCore.Extensions.L.File.GetFileContents
+- Could not find code line number for LCore.Extensions.L.File.SafeCopyFile
+- Could not find code line number for LCore.Extensions.L.File.SafeMoveFile
+- Could not find code line number for LCore.Extensions.L.Str.Char
+- Could not find code line number for LCore.Extensions.L.Str.JoinLines
+- Could not find code line number for LCore.Extensions.L.Str.CompareNumberString
+- Could not find code line number for LCore.Extensions.L.Str.NumericalCompare
+- Could not find code line number for LCore.Extensions.L.Str.Pluralize
+- Could not find code line number for LCore.Extensions.L.Str.RemoveChars
+- Could not find code line number for LCore.Extensions.L.Str.ReplaceDouble
+- Could not find code line number for LCore.Extensions.L.Str.Singularize
+- Could not find code line number for LCore.Extensions.L.Str.Surround
+- Could not find code line number for LCore.Extensions.L.Str.ToS
+- Could not find code line number for LCore.Extensions.L.Logic.New
+- Could not find code line number for LCore.Extensions.L.Logic.Action
+- Could not find code line number for LCore.Extensions.L.Logic.Do
+- Could not find code line number for LCore.Extensions.L.Logic.Function
+- Could not find code line number for LCore.Extensions.L.Logic.Return
+- Could not find code line number for LCore.Extensions.L.Logic.Pass
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_F_F2
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_F_F3
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_F_F4
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_A_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F_A1
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F_A2
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F_A3
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F_A4
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F1_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F1_A1
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F1_A2
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F1_A3
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F2_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F2_A1
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F2_A2
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F3_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F3_A1
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F_F1
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F_F2
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F_F3
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F_F4
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F1_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F1_F1
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F1_F2
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F1_F3
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F2_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F2_F1
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F2_F2
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F3_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F3_F1
+- Could not find code line number for LCore.Extensions.L.Logic.L_Merge_F4_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Supply_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Supply_A2
+- Could not find code line number for LCore.Extensions.L.Logic.L_Supply_A3
+- Could not find code line number for LCore.Extensions.L.Logic.L_Supply_A4
+- Could not find code line number for LCore.Extensions.L.Logic.L_Supply_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Supply_F2
+- Could not find code line number for LCore.Extensions.L.Logic.L_Supply_F3
+- Could not find code line number for LCore.Extensions.L.Logic.L_Supply_F4
+- Could not find code line number for LCore.Extensions.L.Logic.L_Cast_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Cast_F
+- Could not find code line number for LCore.Extensions.L.Logic.Then_A
+- Could not find code line number for LCore.Extensions.L.Logic.Then_A_F
+- Could not find code line number for LCore.Extensions.L.Logic.Then_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Then_F_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_A2
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_A3
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_A4
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_A_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_A_F2
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_A_F3
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_A_F4
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_F_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_F_A2
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_F_A3
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_F_A4
+- Could not find code line number for LCore.Extensions.L.Logic.L_ThenMissing_F_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Defaults_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Defaults_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Require_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Require2_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Require3_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Require4_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Require_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Require2_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Require3_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Require4_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_RequireAll_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_RequireAll_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Yield_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Yield2_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Yield3_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Yield4_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Yield_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Yield2_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Yield3_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Yield4_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Execute_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Execute_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Do
+- Could not find code line number for LCore.Extensions.L.Logic.L_Cache
+- Could not find code line number for LCore.Extensions.L.Logic.Cache
+- Could not find code line number for LCore.Extensions.L.Logic.GetCacheData
+- Could not find code line number for LCore.Extensions.L.Logic.ClearCache
+- Could not find code line number for LCore.Extensions.L.Logic.L_SetFunc_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_SetFunc_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_SetFunc_A2
+- Could not find code line number for LCore.Extensions.L.Logic.L_SetFunc_F2
+- Could not find code line number for LCore.Extensions.L.Logic.L_SetFunc_A3
+- Could not find code line number for LCore.Extensions.L.Logic.L_SetFunc_F3
+- Could not find code line number for LCore.Extensions.L.Logic.L_SetFunc_A4
+- Could not find code line number for LCore.Extensions.L.Logic.L_SetFunc_F4
+- Could not find code line number for LCore.Extensions.L.Logic.L_Set_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Set_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Set2_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Set2_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Set3_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Set3_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Set4_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Set4_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Return_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Return_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Rotate_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Rotate_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_RotateBack_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_RotateBack_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Default_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Default2_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Default3_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Default4_A
+- Could not find code line number for LCore.Extensions.L.Logic.L_Default_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Default2_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Default3_F
+- Could not find code line number for LCore.Extensions.L.Logic.L_Default4_F
+- Could not find code line number for LCore.Extensions.L.Ary.Array
+- Could not find code line number for LCore.Extensions.L.List.NewList
+- Could not find code line number for LCore.Extensions.L.List.ToList
+- Could not find code file path for LCore.Tools.IRegistry.RegistrySave
+- Could not find code file path for LCore.Tools.IRegistry.RegistryLoad
+- Could not find code file path for LCore.Tools.Lists<T1, T2>.Add
+- Could not find code file path for LCore.Tools.Lists<T1, T2>.Set
+- Could not find code file path for LCore.Tools.Lists<T1, T2>.Set1
+- Could not find code file path for LCore.Tools.Lists<T1, T2>.Set2
+- Could not find code file path for LCore.Tools.Lists<T1, T2>.GetAt
+- Could not find code file path for LCore.Tools.Lists<T1, T2>.RemoveAt
+- Could not find code file path for LCore.Tools.Set<T1, T2>.Equals
+- Could not find code file path for LCore.Tools.Set<T1, T2>.op_Equality
+- Could not find code file path for LCore.Tools.Set<T1, T2>.op_Inequality
+- Could not find code file path for LCore.Tools.Set<T1, T2>.op_Implicit
+- Could not find code file path for LCore.Tools.Set<T1, T2>.GetHashCode
+- Could not find code file path for LCore.Tools.Set<T1, T2>.ToString
+- Could not find code file path for LCore.Numbers.INumber<T>.New
+- Could not find code file path for LCore.Numbers.Number<T, U>.op_Implicit
+- Could not find code file path for LCore.Numbers.Number<T>.op_Division
+- Could not find code file path for LCore.Numbers.Number<T>.op_Multiply
+- Could not find code file path for LCore.Numbers.Number<T>.op_Subtraction
+- Could not find code file path for LCore.Numbers.Number<T>.op_Addition
+- Could not find code file path for LCore.Numbers.Number<T>.Add
+- Could not find code file path for LCore.Numbers.Number<T>.Subtract
+- Could not find code file path for LCore.Numbers.Number<T>.Multiply
+- Could not find code file path for LCore.Numbers.Number<T>.Divide
+- Could not find code file path for LCore.Numbers.Number<T>.New
+- Could not find code file path for LCore.Numbers.Number<T>.GetValue
+- Could not find code file path for LCore.Numbers.Number<T>.CompareTo
+- Could not find type link for System.Collections.Generic.IComparer<T>
+- Could not find type link for System.Collections.Generic.IComparer<T>
+- Could not find code file path for LCore.Extensions.DateExt.Average
+- Could not find code file path for LCore.Extensions.DateExt.DayOfWeekNumber
+- Could not find code file path for LCore.Extensions.DateExt.CleanDateString
+- Could not find code file path for LCore.Extensions.DateExt.ToSpecification
+- Could not find code file path for LCore.Extensions.DateExt.GetMonthName
+- Could not find code file path for LCore.Extensions.DateExt.ToTimeString
+- Could not find code file path for LCore.Extensions.DateExt.TimeDifference
+- Could not find code file path for LCore.Extensions.DateExt.IsPast
+- Could not find code file path for LCore.Extensions.DateExt.IsFuture
+- Could not find type link for System.Collections.Generic.IList<T>
+- Could not find type link for System.Collections.Generic.IList<T>
+- Could not find type link for System.Collections.Generic.IList<T>
+- Could not find type link for System.Collections.Generic.IList<T>
 
 
 

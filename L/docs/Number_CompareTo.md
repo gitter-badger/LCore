@@ -11,7 +11,7 @@
 
 ##### public abstract <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> CompareTo(<a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj);
 
-![Type Public Abstract Method](http://b.repl.ca/v1/Type-Public%20Abstract%20Method-Blue.png "") [![Lines of Code 23](http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png "")](../Numbers/Base/Number.cs#L390)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Numbers/Base/Number.cs#L390)
+![Type Public Abstract Method](http://b.repl.ca/v1/Type-Public%20Abstract%20Method-blue.png "") [![Lines of Code 11](http://b.repl.ca/v1/Lines%20of%20Code-11-blue.png "")](../Numbers/Base/Number.cs#L390)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Numbers/Base/Number.cs#L390)
 
 ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Numbers/Base/Number.cs)
 

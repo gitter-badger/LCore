@@ -11,9 +11,13 @@
 
 ##### public override <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> ToString();
 
-![Type Public Override Method](http://b.repl.ca/v1/Type-Public%20Override%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Language/MemberDetails.cs#L)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Language/MemberDetails.cs#L)
+![Type Public Override Method](http://b.repl.ca/v1/Type-Public%20Override%20Method-blue.png "")     ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Language/MemberDetails.cs#L)
 
 ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Language/MemberDetails.cs)
+
+##### Summary
+
+            Returns a string representation of a 
 
 #### Returns
 

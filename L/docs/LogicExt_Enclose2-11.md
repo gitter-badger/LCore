@@ -11,7 +11,7 @@
 
 ##### public static <a href="https://msdn.microsoft.com/en-us/library/bb549430.aspx" alt="" target="_blank">Func</a>&lt;T1, T3, T4, U&gt; Enclose2(<a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T3, T4, T2&gt; Func, <a href="https://msdn.microsoft.com/en-us/library/bb534647.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, U&gt; Outer);
 
-![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/LogicExt.cs#L1715)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Methods/LogicExt.cs#L1715)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-blue.png "")     ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Methods/LogicExt.cs#L1715)
 
 ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Methods/LogicExt.cs)
 

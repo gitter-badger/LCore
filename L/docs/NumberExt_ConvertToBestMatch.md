@@ -11,7 +11,7 @@
 
 ##### public static <strong><a href="Number.md" alt="">Number</a></strong> ConvertToBestMatch(<strong><a href="Number.md" alt="">Number</a></strong> Number);
 
-![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 25](http://b.repl.ca/v1/Lines%20of%20Code-25-blue.png "")](../Extensions/Value%20Types/NumberExt.cs#L373)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Value%20Types/NumberExt.cs#L373)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-blue.png "") [![Lines of Code 25](http://b.repl.ca/v1/Lines%20of%20Code-25-blue.png "")](../Extensions/Value%20Types/NumberExt.cs#L373)    ![Documented Yes](http://b.repl.ca/v1/Documented-Yes-brightgreen.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Value%20Types/NumberExt.cs#L373)
 
 ![Covered Yes](http://b.repl.ca/v1/Covered-Yes-brightgreen.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Value%20Types/NumberExt.cs)
 

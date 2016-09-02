@@ -11,7 +11,7 @@
 
 ##### public static <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; ElseIf(<a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; In, <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a>&gt; Condition, <a href="https://msdn.microsoft.com/en-us/library/bb534303.aspx" alt="" target="_blank">Func</a>&lt;T1, T2, T3, T4, U&gt; Act);
 
-![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](../Extensions/Methods/BooleanExt.cs#L784)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Methods/BooleanExt.cs#L784)
+![Type Public Static Method](http://b.repl.ca/v1/Type-Public%20Static%20Method-blue.png "")     ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") [![Source Code Available](http://b.repl.ca/v1/Source%20Code-Available-brightgreen.png "")](../Extensions/Methods/BooleanExt.cs#L784)
 
 ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")](../Extensions/Methods/BooleanExt.cs)
 

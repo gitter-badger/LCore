@@ -10,7 +10,7 @@
 
 ##### public abstract T Multiply(T Number1, T Number2);
 
-![Type Public Abstract Method](http://b.repl.ca/v1/Type-Public%20Abstract%20Method-Blue.png "") [![Lines of Code 0](http://b.repl.ca/v1/Lines%20of%20Code-0-red.png "")](#L)    ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") ![Source Code Unavailable](http://b.repl.ca/v1/Source%20Code-Unavailable-red.png "")
+![Type Public Abstract Method](http://b.repl.ca/v1/Type-Public%20Abstract%20Method-blue.png "")     ![Documented No](http://b.repl.ca/v1/Documented-No-red.png "") 
 
 ![Covered No](http://b.repl.ca/v1/Covered-No-red.png "") ![Unit Tested No](http://b.repl.ca/v1/Unit%20Tested-No-lightgrey.png "") ![Attribute Tests 0](http://b.repl.ca/v1/Attribute%20Tests-0-lightgrey.png "") [![Assertions 0](http://b.repl.ca/v1/Assertions-0-lightgrey.png "")]
 

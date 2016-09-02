@@ -8,6 +8,7 @@
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Extensions/Reference%20Types/StringExt.cs#L)
 
 ###### Summary
 
@@ -17,7 +18,7 @@
 <table>
 <thead><tr><td>Public Static Methods (65)</td>
 <td></td>
-<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-1105-blue.png" alt="Total Code Lines 1105" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-1067-blue.png" alt="Total Code Lines 1067" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Documentation-86%25-green.png" alt="Total Documentation 86%" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-92%25-green.png" alt="Total Coverage 92%" /></td></tr></thead>
 <tr><td><h4><strong><a href="StringExt_Add-0.md" alt="">Add</a></strong></h4></td>
@@ -54,7 +55,7 @@
 </tr>
 <tr><td><h4><strong><a href="StringExt_AlignCenter-0.md" alt="">AlignCenter</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/StringExt.cs#L159" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png" alt="Lines of Code 23" /></a></td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L159" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_AlignCenter-0.md" alt="">AlignCenter</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Length, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> PadChar);</h6>
@@ -62,7 +63,7 @@
 </tr>
 <tr><td><h4><strong><a href="StringExt_AlignCenter-1.md" alt="">AlignCenter</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/StringExt.cs#L159" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-23-blue.png" alt="Lines of Code 23" /></a></td>
+<td><a href="../Extensions/Reference%20Types/StringExt.cs#L159" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_AlignCenter-1.md" alt="">AlignCenter</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In, <a href="https://msdn.microsoft.com/en-us/library/system.uint32.aspx" alt="">UInt32</a> Length, <a href="https://msdn.microsoft.com/en-us/library/system.char.aspx" alt="">Char</a> PadChar);</h6>
@@ -118,7 +119,7 @@
 </tr>
 <tr><td><h4><strong><a href="StringExt_ByteArrayToString.md" alt="">ByteArrayToString</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/StringExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_ByteArrayToString.md" alt="">ByteArrayToString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] In);</h6>
@@ -454,7 +455,7 @@
 </tr>
 <tr><td><h4><strong><a href="StringExt_ToByteArray.md" alt="">ToByteArray</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/StringExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] <a href="StringExt_ToByteArray.md" alt="">ToByteArray</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
@@ -462,7 +463,7 @@
 </tr>
 <tr><td><h4><strong><a href="StringExt_ToHexString.md" alt="">ToHexString</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/StringExt.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-Yes-brightgreen.png" alt="Covered Yes" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_ToHexString.md" alt="">ToHexString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.byte.aspx" alt="">Byte</a>[] Bytes);</h6>
@@ -540,7 +541,7 @@
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="StringExt_UriDecode.md" alt="">UriDecode</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> In);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="367"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 
