@@ -57,8 +57,6 @@ namespace LCore.Tests
         public override string LogoImage_Small(GeneratedDocument MD) =>
             MD.GetRelativePath($"{typeof(L).GetAssembly().GetRootPath()}\\Content\\{nameof(LCore)}-logo-small.png");
 
-        public override bool RequireDirectLinksToAllForeignTypes => true;
-
         public override Dictionary<Type, string> CustomTypeLinks => new Dictionary<Type, string>
             {
             [typeof(Set<,>)] = "", // TODO link once document is up

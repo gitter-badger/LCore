@@ -8,6 +8,7 @@
 
 
 
+[View Source](../Extensions/Language/MemberScope.cs#L)
 
 ###### Summary
 

@@ -17,7 +17,7 @@
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="IRegistry_RegistrySave.md" alt="">RegistrySave</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public abstract <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="IRegistry_RegistrySave.md" alt="">RegistrySave</a>(<strong><a href="RegistryHelper.md" alt="">RegistryHelper</a></strong> MyRegistry);</h6>
@@ -25,13 +25,13 @@
 </tr>
 <tr><td><h4><strong><a href="IRegistry_RegistryLoad.md" alt="">RegistryLoad</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public abstract <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="IRegistry_RegistryLoad.md" alt="">RegistryLoad</a>(<strong><a href="RegistryHelper.md" alt="">RegistryHelper</a></strong> MyRegistry);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="353"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

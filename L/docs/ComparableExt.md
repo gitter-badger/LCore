@@ -8,6 +8,7 @@
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Extensions/Reference%20Types/ComparableExt.cs#L)
 
 ###### Summary
 
@@ -70,7 +71,7 @@
 </tr>
 <tr><td><h4><strong><a href="ComparableExt_Max-0.md" alt="">Max</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ComparableExt.cs#L137" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static T <a href="ComparableExt_Max-0.md" alt="">Max</a>(T In, T[] Others);</h6>
@@ -78,7 +79,7 @@
 </tr>
 <tr><td><h4><strong><a href="ComparableExt_Max-1.md" alt="">Max</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ComparableExt.cs#L137" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static T <a href="ComparableExt_Max-1.md" alt="">Max</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;T&gt; In, <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T, <a href="https://msdn.microsoft.com/en-us/library/system.icomparable.aspx" alt="">IComparable</a>&gt; Comparer);</h6>
@@ -86,7 +87,7 @@
 </tr>
 <tr><td><h4><strong><a href="ComparableExt_Min-0.md" alt="">Min</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ComparableExt.cs#L189" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static T <a href="ComparableExt_Min-0.md" alt="">Min</a>(T In, T[] Others);</h6>
@@ -94,13 +95,13 @@
 </tr>
 <tr><td><h4><strong><a href="ComparableExt_Min-1.md" alt="">Min</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Extensions/Reference%20Types/ComparableExt.cs#L189" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static T <a href="ComparableExt_Min-1.md" alt="">Min</a>(<a href="https://msdn.microsoft.com/en-us/library/78dfe2yb.aspx" alt="" target="_blank">IEnumerable</a>&lt;T&gt; In, <a href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" alt="" target="_blank">Func</a>&lt;T, <a href="https://msdn.microsoft.com/en-us/library/system.icomparable.aspx" alt="">IComparable</a>&gt; Comparer);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="365"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

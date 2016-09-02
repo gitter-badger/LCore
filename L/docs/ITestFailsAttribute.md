@@ -8,6 +8,7 @@
 
 
 
+[View Source](../LUnit/Attributes/Interfaces/ITestFailsAttribute.cs#L)
 
 ###### Summary
 

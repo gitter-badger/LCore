@@ -2,17 +2,17 @@
 [&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
 [Up](../L.md)
 
-### IDisableNullabilityTestingAttribute
+### CodeLineInfo
 
-![Type Abstract Class](http://b.repl.ca/v1/Type-Abstract%20Class-blue.png "")
+![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 100%](http://b.repl.ca/v1/Documented-100%25-brightgreen.png "")
 
 
 
-[View Source](../LUnit/Attributes/Interfaces/IDisableNullabilityTestingAttribute.cs#L)
+[View Source](../Extensions/Language/CodeLineInfo.cs#L)
 
 ###### Summary
 
-            Disables LUnit nullability testing for a method.
+            Information regarding a single line of code
             
 
 

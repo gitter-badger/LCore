@@ -8,6 +8,7 @@
 
 
 
+[View Source](../Extensions/Language/MemberInheritance.cs#L)
 
 ###### Summary
 

@@ -8,6 +8,7 @@
 
 
 
+[View Source](../Extensions/Language/MemberType.cs#L)
 
 ###### Summary
 

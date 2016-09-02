@@ -17,7 +17,7 @@
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="Set%602_Equals-0.md" alt="">Equals</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Set%602_Equals-0.md" alt="">Equals</a>(<a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> Obj);</h6>
@@ -25,7 +25,7 @@
 </tr>
 <tr><td><h4><strong><a href="Set%602_GetHashCode.md" alt="">GetHashCode</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> <a href="Set%602_GetHashCode.md" alt="">GetHashCode</a>();</h6>
@@ -33,13 +33,13 @@
 </tr>
 <tr><td><h4><strong><a href="Set%602_ToString.md" alt="">ToString</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="Set%602_ToString.md" alt="">ToString</a>();</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="353"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 
@@ -51,7 +51,7 @@
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="Set%602_op_Equality.md" alt="">op_Equality</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Set%602_op_Equality.md" alt="">op_Equality</a>(<strong><a href="Set%602.md" alt="">Set</a></strong> Set1, <strong><a href="Set%602.md" alt="">Set</a></strong> Set2);</h6>
@@ -59,7 +59,7 @@
 </tr>
 <tr><td><h4><strong><a href="Set%602_op_Inequality.md" alt="">op_Inequality</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Set%602_op_Inequality.md" alt="">op_Inequality</a>(<strong><a href="Set%602.md" alt="">Set</a></strong> Set1, <strong><a href="Set%602.md" alt="">Set</a></strong> Set2);</h6>
@@ -67,7 +67,7 @@
 </tr>
 <tr><td><h4><strong><a href="Set%602_op_Implicit-0.md" alt="">op_Implicit</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/dd268536.aspx" alt="" target="_blank">Tuple</a>&lt;T1, T2&gt; <a href="Set%602_op_Implicit-0.md" alt="">op_Implicit</a>(<strong><a href="Set%602.md" alt="">Set</a></strong> Set);</h6>
@@ -75,13 +75,13 @@
 </tr>
 <tr><td><h4><strong><a href="Set%602_op_Implicit-1.md" alt="">op_Implicit</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <strong><a href="Set%602.md" alt="">Set</a></strong> <a href="Set%602_op_Implicit-1.md" alt="">op_Implicit</a>(<a href="https://msdn.microsoft.com/en-us/library/dd268536.aspx" alt="" target="_blank">Tuple</a>&lt;T1, T2&gt; Tuple);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="351"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 
@@ -93,13 +93,13 @@
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="Set%602_Equals-1.md" alt="">Equals</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public virtual <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Set%602_Equals-1.md" alt="">Equals</a>(<strong><a href="Set%602.md" alt="">Set</a></strong> Other);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="352"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

@@ -4,10 +4,11 @@
 
 ### ProgressUpdater
 
-![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 80%](http://b.repl.ca/v1/Documented-80%25-green.png "")
+![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 100%](http://b.repl.ca/v1/Documented-100%25-brightgreen.png "")
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Tools/ProgressUpdater.cs#L)
 
 ###### Summary
 
@@ -20,7 +21,7 @@
 <thead><tr><td>Public Methods (5)</td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-27-blue.png" alt="Total Code Lines 27" /></td>
-<td><img src="http://b.repl.ca/v1/Total%20Documentation-80%25-green.png" alt="Total Documentation 80%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="ProgressUpdater_Status.md" alt="">Status</a></strong></h4></td>
 <td>   </td>
@@ -57,12 +58,12 @@
 <tr><td><h4><strong><a href="ProgressUpdater_Clear.md" alt="">Clear</a></strong></h4></td>
 <td>   </td>
 <td><a href="../Tools/ProgressUpdater.cs#L67" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-7-blue.png" alt="Lines of Code 7" /></a></td>
-<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="ProgressUpdater_Clear.md" alt="">Clear</a>();</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="351"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

@@ -8,6 +8,7 @@
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Tools/DateTimeConverter.cs#L)
 
 ###### Summary
 
@@ -30,7 +31,7 @@
 </tr>
 <tr><td><h4><strong><a href="DateTimeConverter_ToString-0.md" alt="">ToString</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Tools/DateTimeConverter.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="DateTimeConverter_ToString-0.md" alt="">ToString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.datetime.aspx" alt="">DateTime</a> UtcDateTime);</h6>
@@ -44,7 +45,7 @@
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="DateTimeConverter_TryParse.md" alt="">TryParse</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str, ref <a href="https://msdn.microsoft.com/en-us/library/system.datetime.aspx" alt="">DateTime</a> Result);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="364"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

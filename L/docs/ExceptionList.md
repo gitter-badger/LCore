@@ -8,6 +8,7 @@
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Tools/ExceptionList.cs#L)
 
 ###### Summary
 
@@ -22,7 +23,7 @@
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="ExceptionList_op_Implicit-0.md" alt="">op_Implicit</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Tools/ExceptionList.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>[] <a href="ExceptionList_op_Implicit-0.md" alt="">op_Implicit</a>(<strong><a href="ExceptionList.md" alt="">ExceptionList</a></strong> Ex);</h6>
@@ -30,7 +31,7 @@
 </tr>
 <tr><td><h4><strong><a href="ExceptionList_op_Implicit-1.md" alt="">op_Implicit</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Tools/ExceptionList.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <strong><a href="ExceptionList.md" alt="">ExceptionList</a></strong> <a href="ExceptionList_op_Implicit-1.md" alt="">op_Implicit</a>(<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>[] Ex);</h6>
@@ -38,7 +39,7 @@
 </tr>
 <tr><td><h4><strong><a href="ExceptionList_op_Implicit-2.md" alt="">op_Implicit</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Tools/ExceptionList.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; <a href="ExceptionList_op_Implicit-2.md" alt="">op_Implicit</a>(<strong><a href="ExceptionList.md" alt="">ExceptionList</a></strong> Ex);</h6>
@@ -46,13 +47,13 @@
 </tr>
 <tr><td><h4><strong><a href="ExceptionList_op_Implicit-3.md" alt="">op_Implicit</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Tools/ExceptionList.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <strong><a href="ExceptionList.md" alt="">ExceptionList</a></strong> <a href="ExceptionList_op_Implicit-3.md" alt="">op_Implicit</a>(<a href="https://msdn.microsoft.com/en-us/library/6sh2ey19.aspx" alt="" target="_blank">List</a>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.exception.aspx" alt="">Exception</a>&gt; Ex);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="351"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

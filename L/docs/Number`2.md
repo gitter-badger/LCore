@@ -17,13 +17,13 @@
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="Number%602_op_Implicit.md" alt="">op_Implicit</a></strong></h4></td>
 <td>   </td>
-<td><a href="#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static T <a href="Number%602_op_Implicit.md" alt="">op_Implicit</a>(<strong><a href="Number%602.md" alt="">Number</a></strong> i);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="351"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

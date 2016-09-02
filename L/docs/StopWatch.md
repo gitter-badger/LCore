@@ -4,10 +4,11 @@
 
 ### StopWatch
 
-![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 0%](http://b.repl.ca/v1/Documented-0%25-red.png "")
+![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 100%](http://b.repl.ca/v1/Documented-100%25-brightgreen.png "")
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Tools/Stopwatch.cs#L)
 
 ###### Summary
 
@@ -18,12 +19,12 @@
 <thead><tr><td>Public Methods (2)</td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-11-blue.png" alt="Total Code Lines 11" /></td>
-<td><img src="http://b.repl.ca/v1/Total%20Documentation-0%25-red.png" alt="Total Documentation 0%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="StopWatch_Start.md" alt="">Start</a></strong></h4></td>
 <td>   </td>
 <td><a href="../Tools/Stopwatch.cs#L24" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
-<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="StopWatch_Start.md" alt="">Start</a>();</h6>
 </td>
@@ -31,12 +32,12 @@
 <tr><td><h4><strong><a href="StopWatch_Stop.md" alt="">Stop</a></strong></h4></td>
 <td>   </td>
 <td><a href="../Tools/Stopwatch.cs#L33" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-6-blue.png" alt="Lines of Code 6" /></a></td>
-<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.double.aspx" alt="">Double</a> <a href="StopWatch_Stop.md" alt="">Stop</a>();</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="347"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

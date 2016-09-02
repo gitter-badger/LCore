@@ -8,6 +8,7 @@
 
 
 
+[View Source](../Naming/IFriendlyName.cs#L)
 
 ###### Summary
 

@@ -8,6 +8,7 @@
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../LUnit/Attributes/Interfaces/IValidateAttribute.cs#L)
 
 ###### Summary
 
@@ -18,18 +19,18 @@
 <table>
 <thead><tr><td>Public Abstract Methods (1)</td>
 <td></td>
-<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-0-red.png" alt="Total Code Lines 0" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-5-blue.png" alt="Total Code Lines 5" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="IValidateAttribute_Validate.md" alt="">Validate</a></strong></h4></td>
 <td>   </td>
-<td><a href="../LUnit/Attributes/Interfaces/IValidateAttribute.cs#L19" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td><a href="../LUnit/Attributes/Interfaces/IValidateAttribute.cs#L19" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public abstract <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a>[] <a href="IValidateAttribute_Validate.md" alt="">Validate</a>(<a href="https://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx" alt="">MemberInfo</a> Member);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="365"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

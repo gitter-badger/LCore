@@ -4,10 +4,11 @@
 
 ### UShortNumber
 
-![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 81%](http://b.repl.ca/v1/Documented-81%25-green.png "")
+![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 90%](http://b.repl.ca/v1/Documented-90%25-green.png "")
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Numbers/UShortNumber.cs#L)
 
 ###### Summary
 
@@ -22,13 +23,13 @@
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="UShortNumber_op_Implicit.md" alt="">op_Implicit</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Numbers/UShortNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public static <strong><a href="UShortNumber.md" alt="">UShortNumber</a></strong> <a href="UShortNumber_op_Implicit.md" alt="">op_Implicit</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> i);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="351"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 
@@ -36,19 +37,19 @@
 <thead><tr><td>Public Override Methods (6)</td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-5-blue.png" alt="Total Code Lines 5" /></td>
-<td><img src="http://b.repl.ca/v1/Total%20Documentation-83%25-green.png" alt="Total Documentation 83%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
 <tr><td><h4><strong><a href="UShortNumber_GetValuePrecision.md" alt="">GetValuePrecision</a></strong></h4></td>
 <td>   </td>
 <td><a href="../Numbers/UShortNumber.cs#L64" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
-<td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public override <strong><a href="Number.md" alt="">Number</a></strong> <a href="UShortNumber_GetValuePrecision.md" alt="">GetValuePrecision</a>();</h6>
 </td>
 </tr>
 <tr><td><h4><strong><a href="UShortNumber_Add-0.md" alt="">Add</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Numbers/UShortNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> <a href="UShortNumber_Add-0.md" alt="">Add</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> Number2);</h6>
@@ -56,7 +57,7 @@
 </tr>
 <tr><td><h4><strong><a href="UShortNumber_Subtract-0.md" alt="">Subtract</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Numbers/UShortNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> <a href="UShortNumber_Subtract-0.md" alt="">Subtract</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> Number2);</h6>
@@ -64,7 +65,7 @@
 </tr>
 <tr><td><h4><strong><a href="UShortNumber_Multiply-0.md" alt="">Multiply</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Numbers/UShortNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> <a href="UShortNumber_Multiply-0.md" alt="">Multiply</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> Number2);</h6>
@@ -72,7 +73,7 @@
 </tr>
 <tr><td><h4><strong><a href="UShortNumber_Divide-0.md" alt="">Divide</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Numbers/UShortNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="UShortNumber_Divide-0.md" alt="">Divide</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> Number2);</h6>
@@ -80,13 +81,13 @@
 </tr>
 <tr><td><h4><strong><a href="UShortNumber_New-0.md" alt="">New</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Numbers/UShortNumber.cs#L" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-0-red.png" alt="Lines of Code 0" /></a></td>
+<td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
 <tr><td colspan="5"><h6>public override <strong><a href="Number%601.md" alt="">Number</a></strong>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a>&gt; <a href="UShortNumber_New-0.md" alt="">New</a>(<a href="https://msdn.microsoft.com/en-us/library/system.uint16.aspx" alt="">UInt16</a> In);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="358"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

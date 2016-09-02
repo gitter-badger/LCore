@@ -8,6 +8,7 @@
 
 
 
+[View Source](../Naming/INamed.cs#L)
 
 ###### Summary
 
