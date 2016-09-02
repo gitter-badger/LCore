@@ -8,6 +8,7 @@
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
+[View Source](../Tools/CacheData.cs#L)
 
 ###### Summary
 
@@ -28,7 +29,7 @@
 <tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="CacheData_AddTime.md" alt="">AddTime</a>(<a href="https://msdn.microsoft.com/en-us/library/system.int64.aspx" alt="">Int64</a> Time);</h6>
 </td>
 </tr>
-<tr><td width="850px" colspan="357"></td></tr>
+<tr><td width="850px" colspan="5"></td></tr>
 </table>
 
 

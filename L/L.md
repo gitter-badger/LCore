@@ -30,6 +30,8 @@ LCore.Extensions
 
 #### [Char](docs/Char.md)
 
+#### [CodeLineInfo](docs/CodeLineInfo.md)
+
 #### [CodeMetaData](docs/CodeMetaData.md)
 
 #### [Comment](docs/Comment.md)

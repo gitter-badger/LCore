@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Interfaces;
+
 // ReSharper disable InconsistentNaming
 
 namespace LCore.Extensions
@@ -102,7 +103,7 @@ namespace LCore.Extensions
         /// 
         /// Optionally, include <paramref name="TrackCommentTags"/> to track additional comments.
         /// </summary>
-        public CodeMetaData([NotNull]MemberInfo Member, [CanBeNull]string[] TrackCommentTags = null)
+        public CodeMetaData([NotNull] MemberInfo Member, [CanBeNull] string[] TrackCommentTags = null)
             {
             this.Member = Member;
 
@@ -117,7 +118,9 @@ namespace LCore.Extensions
             this.CodeLineCount = Member.FindSourceCodeLineCount();
             this.CodeLineNumber = Member.FindSourceCodeLineNumber();
 
-            this.CodeFilePath = (Member is Type ? (Type)Member : Member.DeclaringType).FindClassFile();
+            this.CodeFilePath = (Member is Type
+                ? (Type) Member
+                : Member.DeclaringType).FindClassFile();
 
             this.Attributes = Member.GetAttributes<Attribute>(IncludeBaseTypes: true);
 
@@ -133,19 +136,21 @@ namespace LCore.Extensions
             {
             var Out = new List<CodeLineInfo>();
 
-            // Use file lines not local code lines for correct file line number
-            File.ReadAllLines(this.CodeFilePath).Each((i, Line) =>
+            if (!string.IsNullOrEmpty(this.CodeFilePath))
                 {
+                // Use file lines not local code lines for correct file line number
+                File.ReadAllLines(this.CodeFilePath).Each((i, Line) =>
+                    {
                     string TrimLine = Line.Trim();
                     if (TrimLine.StartsWith($"//{Tag}") || TrimLine.StartsWith($"// {Tag}"))
                         Out.Add(new CodeLineInfo()
                             {
                             LineText = Line,
-                            LineNumber = (uint)(i + 1), // Line numbers are 1-based
+                            LineNumber = (uint) (i + 1), // Line numbers are 1-based
                             FilePath = this.CodeFilePath
                             });
-
-                });
+                    });
+                }
 
             return Out;
             }
