@@ -260,6 +260,8 @@ namespace LCore.Extensions
         [CanBeNull]
         public static MemberDetails GetMemberDetails(this MemberInfo Member)
             {
+            // TODO migrate this into MemberDetails constructors
+
             if (Member is MethodInfo)
                 {
                 var Method = (MethodInfo)Member;
@@ -319,9 +321,55 @@ namespace LCore.Extensions
                             : MemberScope.Public
                     };
                 }
+            if (Member is PropertyInfo)
+                {
+                var Property = (PropertyInfo)Member;
+                var GetMethod = Property.GetMethod;
+                var SetMethod = Property.GetMethod;
+                var AnyMethod = GetMethod ?? SetMethod;
+                return new MemberDetails
+                    {
+                    Context = AnyMethod.IsStatic
+                        ? MemberContext.Static
+                        : MemberContext.Instance,
+                    Type = MemberType.Property,
+                    Inheritance =
+                        AnyMethod.IsAbstract && !AnyMethod.IsStatic
+                            ? MemberInheritance.Abstract
+                            : AnyMethod.IsSealed() && !AnyMethod.IsStatic
+                                ? MemberInheritance.Sealed
+                                : MemberInheritance.None,
+                    Scope = AnyMethod.IsInternal()
+                        ? MemberScope.Internal
+                        : AnyMethod.IsProtected()
+                            ? MemberScope.Protected
+                            : MemberScope.Public,
+                    PropertyScope = new PropertyScope
+                        {
+                        GetScope = GetMethod?.GetMemberDetails()?.Scope,
+                        SetScope = GetMethod?.GetMemberDetails()?.Scope
+                        }
+                    };
 
-            // TODO property types
-            // TODO field types
+                }
+            if (Member is FieldInfo)
+                {
+                var Field = (FieldInfo)Member;
+
+                return new MemberDetails
+                    {
+                    Context = Field.IsStatic
+                        ? MemberContext.Static
+                        : MemberContext.Instance,
+                    Type = MemberType.Property,
+                    Inheritance = MemberInheritance.None,
+                    Scope = Field.IsInternal()
+                        ? MemberScope.Internal
+                        : Field.IsProtected()
+                            ? MemberScope.Protected
+                            : MemberScope.Public
+                    };
+                }
             // TODO event types
 
             return null;

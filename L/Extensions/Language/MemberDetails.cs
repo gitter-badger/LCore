@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using JetBrains.Annotations;
 
 namespace LCore.Extensions
     {
@@ -28,6 +30,12 @@ namespace LCore.Extensions
         /// The member's inheritance 
         /// </summary>
         public MemberInheritance Inheritance { get; set; }
+
+        /// <summary>
+        /// The scope of the getter and setter methods, if the member is a <see cref="PropertyInfo"/>
+        /// </summary>
+        [CanBeNull]
+        public PropertyScope PropertyScope { get; set; }
 
         /// <summary>
         /// Returns a string representation of a <see cref="MemberDetails"/>

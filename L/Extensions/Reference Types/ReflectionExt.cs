@@ -1457,6 +1457,13 @@ namespace LCore.Extensions
             {
             return Method != null && Method.IsFamily;
             }
+        /// <summary>
+        /// Determines if a <paramref name="Field"/> is marked as protected.
+        /// </summary>
+        public static bool IsProtected([CanBeNull] this FieldInfo Field)
+            {
+            return Field != null && Field.IsFamily;
+            }
 
         /// <summary>
         /// Determines if a <paramref name="Type"/> is marked as protected.
@@ -1472,6 +1479,14 @@ namespace LCore.Extensions
         public static bool IsInternal([CanBeNull] this MethodInfo Method)
             {
             return Method != null && Method.IsAssembly;
+            }
+
+        /// <summary>
+        /// Determines if a <paramref name="Field"/> is marked as internal.
+        /// </summary>
+        public static bool IsInternal([CanBeNull] this FieldInfo Field)
+            {
+            return Field != null && Field.IsAssembly;
             }
 
         /// <summary>
