@@ -33,8 +33,8 @@ namespace LCore.Extensions
 
             return () =>
                 {
-                var ActionThread = new Thread(() => { In(); }) {Priority = ThreadPriority.Normal};
-                ActionThread.Start();
+                    var ActionThread = new Thread(() => { In(); }) { Priority = ThreadPriority.Normal };
+                    ActionThread.Start();
                 };
             }
 
@@ -67,8 +67,8 @@ namespace LCore.Extensions
 
             return () =>
                 {
-                var ActionThread = new Thread(() => { In(); }) {Priority = Priority};
-                ActionThread.Start();
+                    var ActionThread = new Thread(() => { In(); }) { Priority = Priority };
+                    ActionThread.Start();
                 };
             }
 
@@ -101,32 +101,32 @@ namespace LCore.Extensions
 
             return () =>
                 {
-                var ActionThread = new Thread(() => { In(); }) {Priority = Priority};
-                ActionThread.Start();
-                double TimeLimitMilliseconds = TimeLimit.TotalMilliseconds;
+                    var ActionThread = new Thread(() => { In(); }) { Priority = Priority };
+                    ActionThread.Start();
+                    double TimeLimitMilliseconds = TimeLimit.TotalMilliseconds;
 
-                if (TimeLimitMilliseconds > 0)
-                    {
-                    var WatcherThread = new Thread(() =>
+                    if (TimeLimitMilliseconds > 0)
                         {
-                        int? Wait = (TimeLimitMilliseconds/10).Round().ConvertTo<int>();
-                        while (Wait != null && Wait > 1)
+                        var WatcherThread = new Thread(() =>
                             {
-                            Thread.Sleep((int) Wait);
-                            TimeLimitMilliseconds -= (int) Wait;
-                            Wait = (int) TimeLimitMilliseconds/10;
-                            if (!ActionThread.IsAlive)
-                                return;
-                            }
-                        if (ActionThread.IsAlive)
-                            {
-                            ActionThread.Interrupt();
-                            ActionThread.Abort();
-                            }
-                        })
-                        {Priority = ThreadPriority.Highest};
-                    WatcherThread.Start();
-                    }
+                                int? Wait = (TimeLimitMilliseconds / 10).Round().ConvertTo<int>();
+                                while (Wait != null && Wait > 1)
+                                    {
+                                    Thread.Sleep((int)Wait);
+                                    TimeLimitMilliseconds -= (int)Wait;
+                                    Wait = (int)TimeLimitMilliseconds / 10;
+                                    if (!ActionThread.IsAlive)
+                                        return;
+                                    }
+                                if (ActionThread.IsAlive)
+                                    {
+                                    ActionThread.Interrupt();
+                                    ActionThread.Abort();
+                                    }
+                            })
+                            { Priority = ThreadPriority.Highest };
+                        WatcherThread.Start();
+                        }
                 };
             }
 
@@ -503,7 +503,7 @@ namespace LCore.Extensions
                 In();
                 Count++;
 
-                Elapsed = (DateTime.Now.Ticks - Start.Ticks)*L.Date.TicksToMilliseconds;
+                Elapsed = (DateTime.Now.Ticks - Start.Ticks) * L.Date.TicksToMilliseconds;
                 }
 
             return Count;
@@ -538,10 +538,10 @@ namespace LCore.Extensions
 
             L.A(() =>
                 {
-                var Start = DateTime.Now;
-                OutList.Add(In());
-                var End = DateTime.Now;
-                Out.Times.Add(new TimeSpan(End.Ticks - Start.Ticks));
+                    var Start = DateTime.Now;
+                    OutList.Add(In());
+                    var End = DateTime.Now;
+                    Out.Times.Add(new TimeSpan(End.Ticks - Start.Ticks));
                 }).Repeat(Repeat)();
 
             return Out;
@@ -593,17 +593,17 @@ namespace LCore.Extensions
 
             return () =>
                 {
-                MethodProfileData<U> Out = In.Profile();
+                    MethodProfileData<U> Out = In.Profile();
 
-                var Result = Out.Data.First();
+                    var Result = Out.Data.First();
 
-                Cache.Times.AddRange(Out.Times);
+                    Cache.Times.AddRange(Out.Times);
 
-                List<object> TempList = Cache.Data.List();
-                TempList.Add(Result);
-                Cache.Data = TempList;
+                    List<object> TempList = Cache.Data.List();
+                    TempList.Add(Result);
+                    Cache.Data = TempList;
 
-                return Result;
+                    return Result;
                 };
             }
 
@@ -678,22 +678,22 @@ namespace LCore.Extensions
 
             internal static readonly Func<Action, uint, TimeSpan> ProfileActionRepeat = (In, Repeat) =>
                 {
-                if (In == null)
-                    return new TimeSpan(ticks: 0);
+                    if (In == null)
+                        return new TimeSpan(ticks: 0);
 
-                var Start = DateTime.Now;
-                In.Repeat(Repeat)();
-                var End = DateTime.Now;
-                return End - Start;
+                    var Start = DateTime.Now;
+                    In.Repeat(Repeat)();
+                    var End = DateTime.Now;
+                    return End - Start;
                 };
 
             internal static readonly Func<Action, string, Action> ProfileAction = (In, ProfileName) =>
                 {
-                return () =>
-                    {
-                    _MethodProfileCache.SafeAdd(ProfileName, new MethodProfileData());
-                    _MethodProfileCache[ProfileName].Times.Add(In.Profile());
-                    };
+                    return () =>
+                        {
+                            _MethodProfileCache.SafeAdd(ProfileName, new MethodProfileData());
+                            _MethodProfileCache[ProfileName].Times.Add(In.Profile());
+                        };
                 };
 
             internal static Func<Action, TimeSpan> ProfileActionDefault = ProfileActionRepeat.Supply2(DefaultProfileRepeat);

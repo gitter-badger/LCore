@@ -1539,10 +1539,16 @@ namespace LCore.Extensions
                 // will work for root types
                 foreach (var Assembly in Assemblies)
                     {
-                    Out = Assembly.GetType(TypeName);
+                    try
+                        {
+                        Out = Assembly.GetType(TypeName);
 
-                    if (Out != null)
-                        return Out;
+                        if (Out != null)
+                            return Out;
+                        }
+                    catch
+                        {
+                        }
                     }
 
                 // for nested types
