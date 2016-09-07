@@ -1,14 +1,18 @@
-![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
-[Up](../L.md)
+![](Content/LCore-banner-small.png "")
+[&lt;img align=&quot;right&quot; src=&quot;Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../README.md)
+[Up](docs/L.md)
+
+###### namespace LCore.Tools
+
+###### public class ProgressUpdater
 
 ### ProgressUpdater
 
-![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 100%](http://b.repl.ca/v1/Documented-100%25-brightgreen.png "")
+ ![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 100%](http://b.repl.ca/v1/Documented-100%25-brightgreen.png "")
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
-[View Source](../Tools/ProgressUpdater.cs#L)
+[View Source](Tools/ProgressUpdater.cs#L)
 
 ###### Summary
 
@@ -18,49 +22,49 @@
             
 
 <table>
-<thead><tr><td>Public Methods (5)</td>
+<thead><tr><td><h4>Public Methods <strong>(5)</strong></h4></td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-27-blue.png" alt="Total Code Lines 27" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
-<tr><td><h4><strong><a href="ProgressUpdater_Status.md" alt="">Status</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/ProgressUpdater_Status.md" alt="">Status</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Tools/ProgressUpdater.cs#L35" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="Tools/ProgressUpdater.cs#L35" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="ProgressUpdater_Status.md" alt="">Status</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
+<tr><td align="Left" colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="" alt="">Status</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="ProgressUpdater_Log.md" alt="">Log</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/ProgressUpdater_Log.md" alt="">Log</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Tools/ProgressUpdater.cs#L43" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="Tools/ProgressUpdater.cs#L43" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="ProgressUpdater_Log.md" alt="">Log</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
+<tr><td align="Left" colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="" alt="">Log</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Message);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="ProgressUpdater_Progress.md" alt="">Progress</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/ProgressUpdater_Progress.md" alt="">Progress</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Tools/ProgressUpdater.cs#L51" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="Tools/ProgressUpdater.cs#L51" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="ProgressUpdater_Progress.md" alt="">Progress</a>(<a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Progress);</h6>
+<tr><td align="Left" colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="" alt="">Progress</a>(<a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Progress);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="ProgressUpdater_Maximum.md" alt="">Maximum</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/ProgressUpdater_Maximum.md" alt="">Maximum</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Tools/ProgressUpdater.cs#L59" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="Tools/ProgressUpdater.cs#L59" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="ProgressUpdater_Maximum.md" alt="">Maximum</a>(<a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Maximum);</h6>
+<tr><td align="Left" colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="" alt="">Maximum</a>(<a href="https://msdn.microsoft.com/en-us/library/system.int32.aspx" alt="">Int32</a> Maximum);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="ProgressUpdater_Clear.md" alt="">Clear</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/ProgressUpdater_Clear.md" alt="">Clear</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Tools/ProgressUpdater.cs#L67" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-7-blue.png" alt="Lines of Code 7" /></a></td>
+<td><a href="Tools/ProgressUpdater.cs#L67" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-7-blue.png" alt="Lines of Code 7" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="ProgressUpdater_Clear.md" alt="">Clear</a>();</h6>
+<tr><td align="Left" colspan="5"><h6>public <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="" alt="">Clear</a>();</h6>
 </td>
 </tr>
 <tr><td width="850px" colspan="5"></td></tr>
@@ -71,6 +75,6 @@
 
 ---
 
-Copyright 2016 &copy; [Home](../../README.md) [Table of Contents](../../TableOfContents.md)
+Copyright 2016 &copy; [](../README.md) [](../TableOfContents.md)
 
 This markdown was generated by [LDoc](https://github.com/CodeSingularity/LDoc), powered by [LUnit](https://github.com/CodeSingularity/LUnit), [LCore](https://github.com/CodeSingularity/LCore)

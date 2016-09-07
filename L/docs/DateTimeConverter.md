@@ -1,14 +1,18 @@
-![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
-[Up](../L.md)
+![](Content/LCore-banner-small.png "")
+[&lt;img align=&quot;right&quot; src=&quot;Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../README.md)
+[Up](docs/L.md)
+
+###### namespace LCore.Tools
+
+###### public static class DateTimeConverter
 
 ### DateTimeConverter
 
-![Type Static Class](http://b.repl.ca/v1/Type-Static%20Class-blue.png "") ![Documented 80%](http://b.repl.ca/v1/Documented-80%25-green.png "")
+ ![Type Static Class](http://b.repl.ca/v1/Type-Static%20Class-blue.png "") ![Documented 80%](http://b.repl.ca/v1/Documented-80%25-green.png "")
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
-[View Source](../Tools/DateTimeConverter.cs#L)
+[View Source](Tools/DateTimeConverter.cs#L)
 
 ###### Summary
 
@@ -16,33 +20,59 @@
             
 
 <table>
-<thead><tr><td>Public Static Methods (3)</td>
+<thead><tr><td><h4>Public Static Methods <strong>(3)</strong></h4></td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-23-blue.png" alt="Total Code Lines 23" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Documentation-66%25-yellowgreen.png" alt="Total Documentation 66%" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
-<tr><td><h4><strong><a href="DateTimeConverter_Parse.md" alt="">Parse</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/DateTimeConverter_Parse.md" alt="">Parse</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Tools/DateTimeConverter.cs#L111" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-10-blue.png" alt="Lines of Code 10" /></a></td>
+<td><a href="Tools/DateTimeConverter.cs#L111" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-10-blue.png" alt="Lines of Code 10" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.datetime.aspx" alt="">DateTime</a> <a href="DateTimeConverter_Parse.md" alt="">Parse</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str);</h6>
+<tr><td align="Left" colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.datetime.aspx" alt="">DateTime</a> <a href="" alt="">Parse</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="DateTimeConverter_ToString-0.md" alt="">ToString</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/DateTimeConverter_ToString-0.md" alt="">ToString</a></strong></h4></td>
 <td>   </td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="DateTimeConverter_ToString-0.md" alt="">ToString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.datetime.aspx" alt="">DateTime</a> UtcDateTime);</h6>
+<tr><td align="Left" colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="" alt="">ToString</a>(<a href="https://msdn.microsoft.com/en-us/library/system.datetime.aspx" alt="">DateTime</a> UtcDateTime);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="DateTimeConverter_TryParse.md" alt="">TryParse</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/DateTimeConverter_TryParse.md" alt="">TryParse</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Tools/DateTimeConverter.cs#L184" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png" alt="Lines of Code 13" /></a></td>
+<td><a href="Tools/DateTimeConverter.cs#L184" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png" alt="Lines of Code 13" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="DateTimeConverter_TryParse.md" alt="">TryParse</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str, ref <a href="https://msdn.microsoft.com/en-us/library/system.datetime.aspx" alt="">DateTime</a> Result);</h6>
+<tr><td align="Left" colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="" alt="">TryParse</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Str, ref <a href="https://msdn.microsoft.com/en-us/library/system.datetime.aspx" alt="">DateTime</a> Result);</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="5"></td></tr>
+</table>
+
+
+<table>
+<thead><tr><td><h4>Public Static Properties <strong>(2)</strong></h4></td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-41-blue.png" alt="Total Code Lines 41" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="docs/DateTimeConverter_Rfc3339DateTimeFormat.md" alt="">Rfc3339DateTimeFormat</a></strong></h4></td>
+<td>   </td>
+<td><a href="Tools/DateTimeConverter.cs#L48" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-13-blue.png" alt="Lines of Code 13" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td align="Left" colspan="5"><h6></h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="docs/DateTimeConverter_Rfc3339DateTimePatterns.md" alt="">Rfc3339DateTimePatterns</a></strong></h4></td>
+<td>   </td>
+<td><a href="Tools/DateTimeConverter.cs#L61" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-28-blue.png" alt="Lines of Code 28" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td align="Left" colspan="5"><h6></h6>
 </td>
 </tr>
 <tr><td width="850px" colspan="5"></td></tr>
@@ -53,6 +83,6 @@
 
 ---
 
-Copyright 2016 &copy; [Home](../../README.md) [Table of Contents](../../TableOfContents.md)
+Copyright 2016 &copy; [](../README.md) [](../TableOfContents.md)
 
 This markdown was generated by [LDoc](https://github.com/CodeSingularity/LDoc), powered by [LUnit](https://github.com/CodeSingularity/LUnit), [LCore](https://github.com/CodeSingularity/LCore)

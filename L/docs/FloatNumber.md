@@ -1,14 +1,18 @@
-![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
-[Up](../L.md)
+![](Content/LCore-banner-small.png "")
+[&lt;img align=&quot;right&quot; src=&quot;Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../README.md)
+[Up](docs/L.md)
+
+###### namespace LCore.Numbers
+
+###### public class FloatNumber
 
 ### FloatNumber
 
-![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 91%](http://b.repl.ca/v1/Documented-91%25-green.png "")
+ ![Type Object Class](http://b.repl.ca/v1/Type-Object%20Class-blue.png "") ![Documented 91%](http://b.repl.ca/v1/Documented-91%25-green.png "")
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
-[View Source](../Numbers/FloatNumber.cs#L)
+[View Source](Numbers/FloatNumber.cs#L)
 
 ###### Summary
 
@@ -16,17 +20,17 @@
             
 
 <table>
-<thead><tr><td>Public Static Methods (1)</td>
+<thead><tr><td><h4>Public Static Methods <strong>(1)</strong></h4></td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-0-red.png" alt="Total Code Lines 0" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Documentation-0%25-red.png" alt="Total Documentation 0%" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
-<tr><td><h4><strong><a href="FloatNumber_op_Implicit.md" alt="">op_Implicit</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/FloatNumber_op_Implicit.md" alt="">op_Implicit</a></strong></h4></td>
 <td>   </td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Documented-No-red.png" alt="Documented No" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public static <strong><a href="FloatNumber.md" alt="">FloatNumber</a></strong> <a href="FloatNumber_op_Implicit.md" alt="">op_Implicit</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> i);</h6>
+<tr><td align="Left" colspan="5"><h6>public static <strong><a href="docs/FloatNumber.md" alt="">FloatNumber</a></strong> <a href="" alt="">op_Implicit</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> i);</h6>
 </td>
 </tr>
 <tr><td width="850px" colspan="5"></td></tr>
@@ -34,65 +38,107 @@
 
 
 <table>
-<thead><tr><td>Public Override Methods (7)</td>
+<thead><tr><td><h4>Public Override Methods <strong>(7)</strong></h4></td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-25-blue.png" alt="Total Code Lines 25" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
-<tr><td><h4><strong><a href="FloatNumber_GetValuePrecision.md" alt="">GetValuePrecision</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/FloatNumber_GetValuePrecision.md" alt="">GetValuePrecision</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Numbers/FloatNumber.cs#L63" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="Numbers/FloatNumber.cs#L63" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public override <strong><a href="Number.md" alt="">Number</a></strong> <a href="FloatNumber_GetValuePrecision.md" alt="">GetValuePrecision</a>();</h6>
+<tr><td align="Left" colspan="5"><h6>public override <strong><a href="docs/Number.md" alt="">Number</a></strong> <a href="" alt="">GetValuePrecision</a>();</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="FloatNumber_Add-0.md" alt="">Add</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/FloatNumber_Add-0.md" alt="">Add</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Numbers/FloatNumber.cs#L72" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="Numbers/FloatNumber.cs#L72" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> <a href="FloatNumber_Add-0.md" alt="">Add</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number2);</h6>
+<tr><td align="Left" colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> <a href="" alt="">Add</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number2);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="FloatNumber_Subtract-0.md" alt="">Subtract</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/FloatNumber_Subtract-0.md" alt="">Subtract</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Numbers/FloatNumber.cs#L80" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="Numbers/FloatNumber.cs#L80" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> <a href="FloatNumber_Subtract-0.md" alt="">Subtract</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number2);</h6>
+<tr><td align="Left" colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> <a href="" alt="">Subtract</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number2);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="FloatNumber_Multiply-0.md" alt="">Multiply</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/FloatNumber_Multiply-0.md" alt="">Multiply</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Numbers/FloatNumber.cs#L88" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="Numbers/FloatNumber.cs#L88" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> <a href="FloatNumber_Multiply-0.md" alt="">Multiply</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number2);</h6>
+<tr><td align="Left" colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> <a href="" alt="">Multiply</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number2);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="FloatNumber_Divide-0.md" alt="">Divide</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/FloatNumber_Divide-0.md" alt="">Divide</a></strong></h4></td>
 <td>   </td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="FloatNumber_Divide-0.md" alt="">Divide</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number2);</h6>
+<tr><td align="Left" colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.object.aspx" alt="">Object</a> <a href="" alt="">Divide</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number1, <a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> Number2);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="FloatNumber_New-0.md" alt="">New</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/FloatNumber_New-0.md" alt="">New</a></strong></h4></td>
 <td>   </td>
-<td><a href="../Numbers/FloatNumber.cs#L105" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
+<td><a href="Numbers/FloatNumber.cs#L105" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-5-blue.png" alt="Lines of Code 5" /></a></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public override <strong><a href="Number%601.md" alt="">Number</a></strong>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a>&gt; <a href="FloatNumber_New-0.md" alt="">New</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> In);</h6>
+<tr><td align="Left" colspan="5"><h6>public override <strong><a href="docs/Number%601.md" alt="">Number</a></strong>&lt;<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a>&gt; <a href="" alt="">New</a>(<a href="https://msdn.microsoft.com/en-us/library/system.single.aspx" alt="">Single</a> In);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="FloatNumber_ToString.md" alt="">ToString</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/FloatNumber_ToString.md" alt="">ToString</a></strong></h4></td>
 <td>   </td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="FloatNumber_ToString.md" alt="">ToString</a>();</h6>
+<tr><td align="Left" colspan="5"><h6>public override <a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> <a href="" alt="">ToString</a>();</h6>
+</td>
+</tr>
+<tr><td width="850px" colspan="5"></td></tr>
+</table>
+
+
+<table>
+<thead><tr><td><h4>Public Properties <strong>(4)</strong></h4></td>
+<td></td>
+<td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-16-blue.png" alt="Total Code Lines 16" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
+<td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
+<tr><td><h4><strong><a href="docs/FloatNumber_TypePrecision.md" alt="">TypePrecision</a></strong></h4></td>
+<td>   </td>
+<td><a href="Numbers/FloatNumber.cs#L43" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td align="Left" colspan="5"><h6></h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="docs/FloatNumber_TypeMinValue.md" alt="">TypeMinValue</a></strong></h4></td>
+<td>   </td>
+<td><a href="Numbers/FloatNumber.cs#L48" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td align="Left" colspan="5"><h6></h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="docs/FloatNumber_TypeMaxValue.md" alt="">TypeMaxValue</a></strong></h4></td>
+<td>   </td>
+<td><a href="Numbers/FloatNumber.cs#L53" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td align="Left" colspan="5"><h6></h6>
+</td>
+</tr>
+<tr><td><h4><strong><a href="docs/FloatNumber_TypeDefaultValue.md" alt="">TypeDefaultValue</a></strong></h4></td>
+<td>   </td>
+<td><a href="Numbers/FloatNumber.cs#L58" alt=""><img src="http://b.repl.ca/v1/Lines%20of%20Code-4-blue.png" alt="Lines of Code 4" /></a></td>
+<td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
+<td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
+<tr><td align="Left" colspan="5"><h6></h6>
 </td>
 </tr>
 <tr><td width="850px" colspan="5"></td></tr>
@@ -103,6 +149,6 @@
 
 ---
 
-Copyright 2016 &copy; [Home](../../README.md) [Table of Contents](../../TableOfContents.md)
+Copyright 2016 &copy; [](../README.md) [](../TableOfContents.md)
 
 This markdown was generated by [LDoc](https://github.com/CodeSingularity/LDoc), powered by [LUnit](https://github.com/CodeSingularity/LUnit), [LCore](https://github.com/CodeSingularity/LCore)

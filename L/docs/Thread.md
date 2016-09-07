@@ -1,14 +1,18 @@
-![](../Content/LCore-banner-small.png "")
-[&lt;img align=&quot;right&quot; src=&quot;../Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../../README.md)
-[Up](../L.md)
+![](Content/LCore-banner-small.png "")
+[&lt;img align=&quot;right&quot; src=&quot;Content/LCore-logo-small.png&quot; alt=&quot;Logo&quot; /&gt;](../README.md)
+[Up](docs/L.md)
+
+###### namespace LCore.Extensions
+
+###### public static class Thread
 
 ### Thread
 
-![Type Static Class](http://b.repl.ca/v1/Type-Static%20Class-blue.png "") ![Documented 100%](http://b.repl.ca/v1/Documented-100%25-brightgreen.png "")
+ ![Type Static Class](http://b.repl.ca/v1/Type-Static%20Class-blue.png "") ![Documented 100%](http://b.repl.ca/v1/Documented-100%25-brightgreen.png "")
 
 ![Covered 0%](http://b.repl.ca/v1/Covered-0%25-red.png "")
 
-[View Source](../Extensions/Methods/L.cs#L)
+[View Source](Extensions/Methods/L.cs#L)
 
 ###### Summary
 
@@ -16,41 +20,41 @@
             
 
 <table>
-<thead><tr><td>Public Static Methods (4)</td>
+<thead><tr><td><h4>Public Static Methods <strong>(4)</strong></h4></td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Total%20Code%20Lines-0-red.png" alt="Total Code Lines 0" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Documentation-100%25-brightgreen.png" alt="Total Documentation 100%" /></td>
 <td><img src="http://b.repl.ca/v1/Total%20Coverage-0%25-red.png" alt="Total Coverage 0%" /></td></tr></thead>
-<tr><td><h4><strong><a href="Thread_MethodProfileData_Get.md" alt="">MethodProfileData_Get</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/Thread_MethodProfileData_Get.md" alt="">MethodProfileData_Get</a></strong></h4></td>
 <td>   </td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public static <strong><a href="MethodProfileData.md" alt="">MethodProfileData</a></strong> <a href="Thread_MethodProfileData_Get.md" alt="">MethodProfileData_Get</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Method);</h6>
+<tr><td align="Left" colspan="5"><h6>public static <strong><a href="docs/MethodProfileData.md" alt="">MethodProfileData</a></strong> <a href="" alt="">MethodProfileData_Get</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Method);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="Thread_MethodProfileData_Remove.md" alt="">MethodProfileData_Remove</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/Thread_MethodProfileData_Remove.md" alt="">MethodProfileData_Remove</a></strong></h4></td>
 <td>   </td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="Thread_MethodProfileData_Remove.md" alt="">MethodProfileData_Remove</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Method);</h6>
+<tr><td align="Left" colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="" alt="">MethodProfileData_Remove</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Method);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="Thread_MethodProfileData_Add.md" alt="">MethodProfileData_Add</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/Thread_MethodProfileData_Add.md" alt="">MethodProfileData_Add</a></strong></h4></td>
 <td>   </td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="Thread_MethodProfileData_Add.md" alt="">MethodProfileData_Add</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Method, <strong><a href="MethodProfileData.md" alt="">MethodProfileData</a></strong> Profile);</h6>
+<tr><td align="Left" colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.void.aspx" alt="">void</a> <a href="" alt="">MethodProfileData_Add</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Method, <strong><a href="docs/MethodProfileData.md" alt="">MethodProfileData</a></strong> Profile);</h6>
 </td>
 </tr>
-<tr><td><h4><strong><a href="Thread_MethodProfileData_Has.md" alt="">MethodProfileData_Has</a></strong></h4></td>
+<tr><td><h4><strong><a href="docs/Thread_MethodProfileData_Has.md" alt="">MethodProfileData_Has</a></strong></h4></td>
 <td>   </td>
 <td></td>
 <td><img src="http://b.repl.ca/v1/Documented-Yes-brightgreen.png" alt="Documented Yes" /></td>
 <td><img src="http://b.repl.ca/v1/Covered-No-red.png" alt="Covered No" /></td></tr>
-<tr><td colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="Thread_MethodProfileData_Has.md" alt="">MethodProfileData_Has</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Method);</h6>
+<tr><td align="Left" colspan="5"><h6>public static <a href="https://msdn.microsoft.com/en-us/library/system.boolean.aspx" alt="">Boolean</a> <a href="" alt="">MethodProfileData_Has</a>(<a href="https://msdn.microsoft.com/en-us/library/system.string.aspx" alt="">String</a> Method);</h6>
 </td>
 </tr>
 <tr><td width="850px" colspan="5"></td></tr>
@@ -61,6 +65,6 @@
 
 ---
 
-Copyright 2016 &copy; [Home](../../README.md) [Table of Contents](../../TableOfContents.md)
+Copyright 2016 &copy; [](../README.md) [](../TableOfContents.md)
 
 This markdown was generated by [LDoc](https://github.com/CodeSingularity/LDoc), powered by [LUnit](https://github.com/CodeSingularity/LUnit), [LCore](https://github.com/CodeSingularity/LCore)
