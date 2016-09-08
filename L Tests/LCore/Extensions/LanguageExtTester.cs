@@ -81,7 +81,7 @@ namespace L_Tests.LCore.Extensions
             typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCode(IncludeAttributes: true, IncludeComments: true).ShouldBe(CommentLine + AttributeLine + TestPropertyCode2);
 
             // Test class
-            int Expected = 1865;
+            int Expected = 2096;
             typeof(MemberDetails).FindSourceCode().Length.ShouldBe(Expected);
             typeof(MemberDetails).FindSourceCode(IncludeAttributes: true).Length.ShouldBe(Expected);
             typeof(MemberDetails).FindSourceCode(IncludeAttributes: false, IncludeComments: true).Length.ShouldBe(Expected + 90);
@@ -126,10 +126,10 @@ namespace L_Tests.LCore.Extensions
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(LanguageExt) + "." + nameof(LanguageExt.FindSourceCodeLineNumber) + "(MemberInfo) => Nullable<UInt32>")]
         public void FindSourceCodeLineNumber()
             {
-            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode_SelfTest)).FindSourceCodeLineNumber().ShouldBe(Expected: 48u);
-            typeof(LanguageExtTester).GetMethod(nameof(this.Dispose)).FindSourceCodeLineNumber().ShouldBe(Expected: 41u);
-            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty)).FindSourceCodeLineNumber().ShouldBe(Expected: 29u);
-            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCodeLineNumber().ShouldBe(Expected: 37u);
+            typeof(LanguageExtTester).GetMethod(nameof(this.FindSourceCode_SelfTest)).FindSourceCodeLineNumber().ShouldBe(Expected: 51u);
+            typeof(LanguageExtTester).GetMethod(nameof(this.Dispose)).FindSourceCodeLineNumber().ShouldBe(Expected: 44u);
+            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty)).FindSourceCodeLineNumber().ShouldBe(Expected: 32u);
+            typeof(LanguageExtTester).GetProperty(nameof(this.TestProperty2)).FindSourceCodeLineNumber().ShouldBe(Expected: 40u);
             }
 
         [Fact]
