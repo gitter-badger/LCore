@@ -361,46 +361,7 @@ namespace LCore.Extensions
             }
 
         #endregion
-
-        #region ConvertToBestMatch
-
-        /// <summary>
-        /// Converts <paramref name="Number"/> to the most restrictive number type possible
-        /// without losing any precision.
-        /// </summary>
-        [TestedIndirectly]
-        [CanBeNull]
-        public static Number ConvertToBestMatch([CanBeNull] this Number Number)
-            {
-            if (Number == null)
-                return null;
-
-            Number Out = null;
-            foreach (var Type in L.Num.NumberTypes.Values)
-                {
-                if (Out == null ||
-                    (Type.MinValue.IsLessThanOrEqual(Number) &&
-                     Type.MaxValue.IsGreaterThanOrEqual(Number) &&
-                     Type.Precision.IsLessThanOrEqual(Number.GetValuePrecision())))
-                    {
-                    int Better = 0;
-                    if (Out == null || Type.MinValue.IsGreaterThan(Out.MinValue))
-                        Better++;
-                    if (Out == null || Type.MaxValue.IsLessThan(Out.MaxValue))
-                        Better++;
-                    if (Out == null || Type.Precision.IsGreaterThan(Out.Precision))
-                        Better += 2;
-
-                    if (Better > 1)
-                        Out = Type;
-                    }
-                }
-
-            return Out?.New(Number) ?? Number;
-            }
-
-        #endregion
-
+        
         #region DecimalPlaces
 
         /// <summary>
@@ -1535,7 +1496,7 @@ namespace LCore.Extensions
         [DisableNullabilityTesting]
         public static Number Wrap([CanBeNull] this string Str)
             {
-            return Str.IsEmpty()
+            return string.IsNullOrEmpty(Str)
                 ? null
                 : L.Num.MostPreciseType.New(Str).ConvertToBestMatch();
             }

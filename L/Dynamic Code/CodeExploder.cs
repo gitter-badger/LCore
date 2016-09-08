@@ -452,7 +452,7 @@ namespace LCore.Dynamic
 
         public List<Type> ExplodeTypes => _ExplodeTypeFunc();
 
-        public CodeExploder(string CodeRootDir = "", string CodeExplodeDir = "")
+        public CodeExploder(string CodeRootDir = "", [CanBeNull] string CodeExplodeDir = "")
             {
             CodeRootLocation = CodeRootDir;
             CodeExplodeLocation = CodeExplodeDir;

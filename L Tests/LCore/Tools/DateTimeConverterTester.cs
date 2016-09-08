@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
 // ReSharper disable PartialTypeWithSinglePart
+// ReSharper disable AssignNullToNotNullAttribute
 
 namespace L_Tests.LCore.Tools
     {

@@ -79,6 +79,7 @@ namespace LCore.Extensions
         /// Reads a chunk of file <paramref name="F" /> using <paramref name="BlockSize" /> and <paramref name="BlockNum" /> as index.
         /// </summary>
         [ExcludeFromCodeCoverage]
+        [CanBeNull]
         internal static byte[] GetFileBlock([CanBeNull] FileStream F, int BlockSize, int BlockNum)
             {
             if (F == null)
@@ -140,13 +141,17 @@ namespace LCore.Extensions
                             if (L.File.LockFiles)
                                 F.Unlock(StartPos, BlockSize);
                             }
-                        catch {}
+                        catch
+                            {
+                            }
 
                         try
                             {
                             F.Close();
                             }
-                        catch {}
+                        catch
+                            {
+                            }
 
                         throw new Exception("", Ex);
                         }
@@ -159,7 +164,9 @@ namespace LCore.Extensions
                 {
                 F.Close();
                 }
-            catch {}
+            catch
+                {
+                }
 
             return Contents;
             }
@@ -193,6 +200,7 @@ namespace LCore.Extensions
         /// Returns the file's hash, determined by the file bytes and 
         /// L.HashAlgorithm (default to SHA256)
         /// </summary>
+        [CanBeNull]
         public static byte[] GetFileHash([CanBeNull] this string FullPath)
             {
             if (FullPath == null || !File.Exists(FullPath))
@@ -254,6 +262,7 @@ namespace LCore.Extensions
         /// Returns the string's hash, determined by the string bytes and 
         /// L.HashAlgorithm (default to SHA256)
         /// </summary>
+        [CanBeNull]
         public static byte[] GetStringHash([CanBeNull] this string In)
             {
             return GetStreamHash(In.ToStream());
@@ -283,9 +292,9 @@ namespace LCore.Extensions
 
             WildCard = WildCard.ReplaceAll(new Dictionary<string, string>
                 {
-                {"**", "*"},
-                {"*?", "*"},
-                {"?*", "*"}
+                    {"**", "*"},
+                    {"*?", "*"},
+                    {"?*", "*"}
                 });
 
             return MatchesWildCardLowerCase(In.ToLower(), WildCard.ToLower());
@@ -580,15 +589,13 @@ namespace LCore.Extensions
             /// <summary>
             /// A function that returns the bytes of a file from a string path.
             /// </summary>
+            [CanBeNull]
             public static byte[] GetFileContents([CanBeNull] string FileName)
                 {
-                if (FileName == null)
-                    return new byte[] {};
-
-                var Stream = FileName.GetFileStream();
+                var Stream = FileName?.GetFileStream();
 
                 return Stream == null
-                    ? new byte[] {}
+                    ? null
                     : FileExt.GetFileBlock(Stream, (int) Stream.Length, BlockNum: 0);
                 }
 

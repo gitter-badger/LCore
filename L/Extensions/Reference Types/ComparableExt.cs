@@ -134,6 +134,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the largest of <paramref name="In" /> and all items in <paramref name="Others" />
         /// </summary>
+        [CanBeNull]
         public static T Max<T>([CanBeNull] this T In, [CanBeNull] params T[] Others)
             where T : IComparable
             {
@@ -154,6 +155,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the Item which causes <paramref name="Comparer"/> to return the greatest IComparable value.
         /// </summary>
+        [CanBeNull]
         public static T Max<T>([CanBeNull] this IEnumerable<T> In, [CanBeNull] Func<T, IComparable> Comparer)
             {
             var Out = default(T);
@@ -186,6 +188,7 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the smallest of <paramref name="In" /> and all items in <paramref name="Others" />
         /// </summary>
+        [CanBeNull]
         public static T Min<T>([CanBeNull] this T In, [CanBeNull] params T[] Others)
             where T : IComparable
             {

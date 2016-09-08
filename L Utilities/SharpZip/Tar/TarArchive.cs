@@ -45,6 +45,7 @@ using System.Text;
 // ReSharper disable InconsistentNaming
 // ReSharper disable CommentTypo
 // ReSharper disable IdentifierTypo
+// ReSharper disable AssignNullToNotNullAttribute
 
 namespace ICSharpCode.SharpZipLib.Tar
     {

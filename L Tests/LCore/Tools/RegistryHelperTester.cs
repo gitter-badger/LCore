@@ -15,6 +15,7 @@ using Microsoft.Win32;
 using Xunit;
 using Xunit.Abstractions;
 // ReSharper disable RedundantCast
+// ReSharper disable AssignNullToNotNullAttribute
 
 namespace L_Tests.LCore.Tools
     {

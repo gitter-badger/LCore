@@ -11,6 +11,7 @@ using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
 using System.IO;
+// ReSharper disable PossibleNullReferenceException
 
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
 // ReSharper disable ArgumentsStyleLiteral

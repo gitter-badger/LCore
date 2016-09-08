@@ -48,17 +48,19 @@ namespace LCore.Tools
         /// <exception cref="IOException">The <see cref="T:Microsoft.Win32.RegistryKey" /> object represents a root-level node, and the operating system is Windows 2000, Windows XP, or Windows Server 2003.</exception>
         public void Save(string Name, object Obj)
             {
-            if (string.IsNullOrEmpty(Name)) throw new ArgumentException("Value cannot be null or empty.", nameof(Name));
-            if (Obj == null) throw new ArgumentNullException(nameof(Obj));
+            if (string.IsNullOrEmpty(Name))
+                throw new ArgumentException("Value cannot be null or empty.", nameof(Name));
+            if (Obj == null)
+                throw new ArgumentNullException(nameof(Obj));
 
             if (Obj is string)
-                this.Save(Name, (string)Obj);
+                this.Save(Name, (string) Obj);
             else if (Obj is IConvertible)
-                this.Save(Name, (IConvertible)Obj);
+                this.Save(Name, (IConvertible) Obj);
             else if (Obj is IEnumerable<object>)
-                this.Save(Name, (IEnumerable<object>)Obj);
+                this.Save(Name, (IEnumerable<object>) Obj);
             else if (Obj is byte[])
-                this.Save(Name, (byte[])Obj);
+                this.Save(Name, (byte[]) Obj);
             else
                 throw new ArgumentException($"Unknown type: {Obj.GetType().FullName}", nameof(Obj));
             }
@@ -80,7 +82,7 @@ namespace LCore.Tools
         /// <exception cref="IOException">The <see cref="T:Microsoft.Win32.RegistryKey" /> object represents a root-level node, and the operating system is Windows 2000, Windows XP, or Windows Server 2003.</exception>
         public void Save(string Name, IConvertible Obj)
             {
-            this.Key.SetValue(Name, Obj.ConvertToString());
+            this.Key.SetValue(Name, Obj.ConvertToString() ?? "");
             }
 
         /// <exception cref="ArgumentNullException"><paramref name="List" /> is null. </exception>
@@ -128,7 +130,7 @@ namespace LCore.Tools
         [CanBeNull]
         public string LoadString(string Name)
             {
-            return (string)this.Key.GetValue(Name);
+            return (string) this.Key.GetValue(Name);
             }
 
         /// <exception cref="SecurityException">The user does not have the permissions required to read from the registry key. </exception>
@@ -190,7 +192,7 @@ namespace LCore.Tools
         /// <exception cref="ObjectDisposedException">The <see cref="T:Microsoft.Win32.RegistryKey" /> that contains the specified value is closed (closed keys cannot be accessed). </exception>
         public byte[] LoadBinary(string Name)
             {
-            return (byte[])this.Key.GetValue(Name);
+            return (byte[]) this.Key.GetValue(Name);
             }
 
         /// <exception cref="SecurityException">The user does not have the permissions required to read from the registry key. </exception>
@@ -225,7 +227,7 @@ namespace LCore.Tools
 
             return Enumerable.ToList(
                 Enumerable.Select(Names,
-                T => new Set<string, object>(T, this.LoadObject(T))));
+                    T => new Set<string, object>(T, this.LoadObject(T))));
             }
 
         /// <summary>
@@ -264,15 +266,17 @@ namespace LCore.Tools
                 this.Key = RootKey.OpenSubKey(RegistrySubKey, writable: true);
                 }
             }
-        /*
-                internal class RegistryException : Exception
-                    {
-                    public RegistryException(Exception e)
-                        : base("A registry exception occurred", e)
-                        {
-                        }
-                    }*/
+
+/*
+                        internal class RegistryException : Exception
+                            {
+                            public RegistryException(Exception e)
+                                : base("A registry exception occurred", e)
+                                {
+                                }
+                            }*/
         }
+
     public interface IRegistry
         {
         void RegistrySave(RegistryHelper MyRegistry);

@@ -42,6 +42,7 @@ using System;
 // ReSharper disable FieldCanBeMadeReadOnly.Local
 // ReSharper disable InconsistentNaming
 // ReSharper disable CommentTypo
+// ReSharper disable AssignNullToNotNullAttribute
 
 namespace ICSharpCode.SharpZipLib.Core
     {

@@ -2226,7 +2226,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Do", new[] { "In" }, Comments.Do, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeExtensionMethod("Do", new[] {"In"}, Comments.Do, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("Do", Comments.Do)]
             public static Func<Func /*GF*/<U>, Action> L_Do /*MF*/<U>()
                 {
@@ -2245,60 +2245,61 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Cache", new[] { "In", "CacheID" }, Comments.Cache, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeExtensionMethod("Cache", new[] {"In", "CacheID"}, Comments.Cache, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("Cache", Comments.Cache)]
             public static Func<Func<U>, string, Func<U>> L_Cache /*MF*/<U>()
                 {
                 return (In, CacheID) =>
                     {
-                        Dictionary<string, CacheData> CacheDict;
-                        if (!ResultCacheData.ContainsKey(CacheID))
-                            {
-                            CacheDict = new Dictionary<string, CacheData>( /**/);
-                            ResultCacheData.Add(CacheID, CacheDict);
-                            }
-                        else
-                            {
-                            CacheDict = ResultCacheData[CacheID];
-                            }
+                    Dictionary<string, CacheData> CacheDict;
+                    if (!ResultCacheData.ContainsKey(CacheID))
+                        {
+                        CacheDict = new Dictionary<string, CacheData>( /**/);
+                        ResultCacheData.Add(CacheID, CacheDict);
+                        }
+                    else
+                        {
+                        CacheDict = ResultCacheData[CacheID];
+                        }
 
-                        return () =>
-                            {
-                                var Start = DateTime.Now;
+                    return () =>
+                        {
+                        var Start = DateTime.Now;
 
-                                string Key = Obj.Objects_ToString(Ary.Array<object>( /*A*/)());
-                                lock (CacheDict)
+                        string Key = Obj.Objects_ToString(Ary.Array<object>( /*A*/)());
+                        lock (CacheDict)
+                            {
+                            bool Exists = CacheDict.ContainsKey(Key);
+                            if (Exists)
+                                {
+                                var CachedResult = CacheDict[Key];
+
+                                if (CachedResult.Data is U)
                                     {
-                                    bool Exists = CacheDict.ContainsKey(Key);
-                                    if (Exists)
-                                        {
-                                        var CachedResult = CacheDict[Key];
+                                    var End = DateTime.Now;
 
-                                        if (CachedResult.Data is U)
-                                            {
-                                            var End = DateTime.Now;
+                                    CachedResult.AddTime(
+                                        (long)
+                                        (CachedResult.OriginalTimeMS - (End - Start).Ticks*Date.TicksToMilliseconds));
 
-                                            CachedResult.AddTime(
-                                            (long)
-                                                (CachedResult.OriginalTimeMS - (End - Start).Ticks * Date.TicksToMilliseconds));
-
-                                            return (U)CachedResult.Data;
-                                            }
-                                        }
-                                    var Out = In();
-                                    var End2 = DateTime.Now;
-                                    if (!Exists)
-                                        CacheDict.Add(Key,
-                                        new CacheData(Out, (long)((End2 - Start).Ticks * Date.TicksToMilliseconds)));
-                                    return Out;
+                                    return (U) CachedResult.Data;
                                     }
-                            };
+                                }
+                            var Out = In();
+                            var End2 = DateTime.Now;
+                            if (!Exists)
+                                CacheDict.Add(Key,
+                                    new CacheData(Out, (long) ((End2 - Start).Ticks*Date.TicksToMilliseconds)));
+                            return Out;
+                            }
+                        };
                     };
                 }
 
             /// <summary>
             /// Caches the results of In using a Unique CacheID, combined with the string representation of all parameters.
             /// </summary>
+            [CanBeNull]
             public static T Cache<T>(ref object CacheStore, [CanBeNull] Func<T> Default)
                 {
                 if (Default == null)
@@ -2306,12 +2307,13 @@ namespace LCore.Extensions
 
                 if (!(CacheStore is T))
                     CacheStore = Default();
-                return (T)CacheStore;
+                return (T) CacheStore;
                 }
 
             /// <summary>
             /// Caches the results of In using a Unique CacheID, combined with the string representation of all parameters.
             /// </summary>
+            [CanBeNull]
             public static T Cache<T>(ref T CacheStore, [CanBeNull] Func<T> Default)
                 {
                 if (Default == null)
@@ -2331,9 +2333,10 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns the set of CacheData for the L.Logic.ResultCacheData Key.
             /// </summary>
-            public static Dictionary<string, CacheData> GetCacheData(string Key)
+            [CanBeNull]
+            public static Dictionary<string, CacheData> GetCacheData([CanBeNull] string Key)
                 {
-                return ResultCacheData.ContainsKey(Key)
+                return Key != null && ResultCacheData.ContainsKey(Key)
                     ? ResultCacheData[Key]
                     : null;
                 }
@@ -2356,8 +2359,8 @@ namespace LCore.Extensions
             /// Returns a function that sets (overrides) the first parameter in Func with the result of In
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeGenericsReplaceArguments("Set", new[] { 0 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {0}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1>, Func<T1>, Action<T1>> L_SetFunc_A<T1>()
                 {
                 return (Func, In) => { return o1 => { Func(In()); }; };
@@ -2367,8 +2370,8 @@ namespace LCore.Extensions
             /// Returns a function that sets (overrides) the first parameter in Func with the result of In
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeGenericsReplaceArguments("Set", new[] { 0 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {0}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, U>, Func<T1>, Func<T1, U>> L_SetFunc_F /*MF*/<T1, U>()
                 {
                 return (Func, In) => { return o1 => Func(In()); };
@@ -2381,8 +2384,8 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the second parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenericsReplaceArguments("Set", new[] { 1 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {1}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1, T2>, Func<T2>, Action<T1, T2>> L_SetFunc_A2<T1, T2>()
                 {
                 return (Func, In) => { return (o1, o2) => { Func(o1, In()); }; };
@@ -2391,8 +2394,8 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the second parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenericsReplaceArguments("Set", new[] { 1 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {1}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, T2, U>, Func<T2>, Func<T1, T2, U>> L_SetFunc_F2 /*MF*/<T1, T2, U>()
                 {
                 return (Func, In) => { return (o1, o2) => Func(o1, In()); };
@@ -2405,8 +2408,8 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the third parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenericsReplaceArguments("Set", new[] { 2 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {2}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1, T2, T3>, Func<T3>, Action<T1, T2, T3>> L_SetFunc_A3<T1, T2, T3>()
                 {
                 return (Func, In) => { return (o1, o2, o3) => { Func(o1, o2, In()); }; };
@@ -2415,8 +2418,8 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the third parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenericsReplaceArguments("Set", new[] { 2 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {2}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, T2, T3, U>, Func<T3>, Func<T1, T2, T3, U>> L_SetFunc_F3 /*MF*/<T1, T2, T3, U>()
                 {
                 return (Func, In) => { return (o1, o2, o3) => Func(o1, o2, In()); };
@@ -2429,8 +2432,8 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fourth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenericsReplaceArguments("Set", new[] { 3 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {3}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1, T2, T3, T4>, Func<T4>, Action<T1, T2, T3, T4>> L_SetFunc_A4<T1, T2, T3, T4>()
                 {
                 return (Func, In) => { return (o1, o2, o3, o4) => Func(o1, o2, o3, In()); };
@@ -2439,8 +2442,8 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the fourth parameter in Func with the result of In
             /// </summary>
-            [CodeExplodeGenericsReplaceArguments("Set", new[] { 3 }, new[] { "In()" }, Comments.SetFunc)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "In" }, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {3}, new[] {"In()"}, Comments.SetFunc)]
+            [CodeExplodeExtensionMethod("Set", new[] {"Func", "In"}, Comments.SetFunc, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T4>, Func<T1, T2, T3, T4, U>> L_SetFunc_F4 /*MF*/
                 <T1, T2, T3, T4, U>()
                 {
@@ -2929,8 +2932,8 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            [CodeExplodeGenericsReplaceArguments("Set", new[] { 0 }, new[] { "Obj" }, Comments.Set)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "Obj" }, Comments.Set, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {0}, new[] {"Obj"}, Comments.Set)]
+            [CodeExplodeExtensionMethod("Set", new[] {"Func", "Obj"}, Comments.Set, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1>, T1, Action<T1>> L_Set_A<T1>()
                 {
                 return (Func, Obj) => { return o1 => { Func(Obj); }; };
@@ -2939,8 +2942,8 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that sets (overrides) the first parameter in Func with In
             /// </summary>
-            [CodeExplodeGenericsReplaceArguments("Set", new[] { 0 }, new[] { "Obj" }, Comments.Set)]
-            [CodeExplodeExtensionMethod("Set", new[] { "Func", "Obj" }, Comments.Set, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set", new[] {0}, new[] {"Obj"}, Comments.Set)]
+            [CodeExplodeExtensionMethod("Set", new[] {"Func", "Obj"}, Comments.Set, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, U>, T1, Func<T1, U>> L_Set_F /*MF*/<T1, U>()
                 {
                 return (Func, Obj) => { return o1 => Func(Obj); };
@@ -2956,8 +2959,8 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeGenericsReplaceArguments("Set2", new[] { 1 }, new[] { "Obj" }, Comments.Set2)]
-            [CodeExplodeExtensionMethod("Set2", new[] { "Func", "Obj" }, Comments.Set2, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set2", new[] {1}, new[] {"Obj"}, Comments.Set2)]
+            [CodeExplodeExtensionMethod("Set2", new[] {"Func", "Obj"}, Comments.Set2, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1, T2>, T2, Action<T1, T2>> L_Set2_A<T1, T2>()
                 {
                 return (Func, Obj) => { return (o1, o2) => { Func(o1, Obj); }; };
@@ -2967,8 +2970,8 @@ namespace LCore.Extensions
             /// Returns a function that sets (overrides) the second parameter in Func with In
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeGenericsReplaceArguments("Set2", new[] { 1 }, new[] { "Obj" }, Comments.Set2)]
-            [CodeExplodeExtensionMethod("Set2", new[] { "Func", "Obj" }, Comments.Set2, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set2", new[] {1}, new[] {"Obj"}, Comments.Set2)]
+            [CodeExplodeExtensionMethod("Set2", new[] {"Func", "Obj"}, Comments.Set2, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, T2, U>, T2, Func<T1, T2, U>> L_Set2_F /*MF*/<T1, T2, U>()
                 {
                 return (Func, Obj) => { return (o1, o2) => Func(o1, Obj); };
@@ -2985,8 +2988,8 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeGenericsReplaceArguments("Set3", new[] { 2 }, new[] { "Obj" }, Comments.Set3)]
-            [CodeExplodeExtensionMethod("Set3", new[] { "Func", "Obj" }, Comments.Set3, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set3", new[] {2}, new[] {"Obj"}, Comments.Set3)]
+            [CodeExplodeExtensionMethod("Set3", new[] {"Func", "Obj"}, Comments.Set3, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1, T2, T3>, T3, Action<T1, T2, T3>> L_Set3_A<T1, T2, T3>()
                 {
                 return (Func, Obj) => { return (o1, o2, o3) => { Func(o1, o2, Obj); }; };
@@ -3000,8 +3003,8 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeGenericsReplaceArguments("Set3", new[] { 2 }, new[] { "Obj" }, Comments.Set3)]
-            [CodeExplodeExtensionMethod("Set3", new[] { "Func", "Obj" }, Comments.Set3, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set3", new[] {2}, new[] {"Obj"}, Comments.Set3)]
+            [CodeExplodeExtensionMethod("Set3", new[] {"Func", "Obj"}, Comments.Set3, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, T2, T3, U>, T3, Func<T1, T2, T3, U>> L_Set3_F /*MF*/<T1, T2, T3, U>()
                 {
                 return (Func, Obj) => { return (o1, o2, o3) => Func(o1, o2, Obj); };
@@ -3019,8 +3022,8 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeGenericsReplaceArguments("Set4", new[] { 3 }, new[] { "Obj" }, Comments.Set4)]
-            [CodeExplodeExtensionMethod("Set4", new[] { "Func", "Obj" }, Comments.Set4, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set4", new[] {3}, new[] {"Obj"}, Comments.Set4)]
+            [CodeExplodeExtensionMethod("Set4", new[] {"Func", "Obj"}, Comments.Set4, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Action<T1, T2, T3, T4>, T4, Action<T1, T2, T3, T4>> L_Set4_A<T1, T2, T3, T4>()
                 {
                 return (Func, Obj) => { return (o1, o2, o3, o4) => { Func(o1, o2, o3, Obj); }; };
@@ -3035,8 +3038,8 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeGenericsReplaceArguments("Set4", new[] { 3 }, new[] { "Obj" }, Comments.Set4)]
-            [CodeExplodeExtensionMethod("Set4", new[] { "Func", "Obj" }, Comments.Set4, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeGenericsReplaceArguments("Set4", new[] {3}, new[] {"Obj"}, Comments.Set4)]
+            [CodeExplodeExtensionMethod("Set4", new[] {"Func", "Obj"}, Comments.Set4, ExecuteResult: false, ExtendExplosions: true)]
             public static Func<Func<T1, T2, T3, T4, U>, T4, Func<T1, T2, T3, T4, U>> L_Set4_F /*MF*/<T1, T2, T3, T4, U>()
                 {
                 return (Func, Obj) => { return (o1, o2, o3, o4) => Func(o1, o2, o3, Obj); };
@@ -3053,16 +3056,16 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
+            [CodeExplodeExtensionMethod("Return", new[] {"In", "Obj = default(U)"}, Comments.Return)]
             public static Func<Action, U, Func<U>> L_Return_A<U>()
                 {
                 return (In, Obj) =>
                     {
-                        return () =>
-                            {
-                                In();
-                                return Obj;
-                            };
+                    return () =>
+                        {
+                        In();
+                        return Obj;
+                        };
                     };
                 }
 
@@ -3072,16 +3075,16 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
+            [CodeExplodeExtensionMethod("Return", new[] {"In", "Obj = default(U)"}, Comments.Return)]
             public static Func<Action<T1>, U, Func<T1, U>> L_Return_A<T1, U>()
                 {
                 return (In, Obj) =>
                     {
-                        return o1 =>
-                            {
-                                In(o1);
-                                return Obj;
-                            };
+                    return o1 =>
+                        {
+                        In(o1);
+                        return Obj;
+                        };
                     };
                 }
 
@@ -3092,16 +3095,16 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
+            [CodeExplodeExtensionMethod("Return", new[] {"In", "Obj = default(U)"}, Comments.Return)]
             public static Func<Action<T1, T2>, U, Func<T1, T2, U>> L_Return_A<T1, T2, U>()
                 {
                 return (In, Obj) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                In(o1, o2);
-                                return Obj;
-                            };
+                    return (o1, o2) =>
+                        {
+                        In(o1, o2);
+                        return Obj;
+                        };
                     };
                 }
 
@@ -3113,16 +3116,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
+            [CodeExplodeExtensionMethod("Return", new[] {"In", "Obj = default(U)"}, Comments.Return)]
             public static Func<Action<T1, T2, T3>, U, Func<T1, T2, T3, U>> L_Return_A<T1, T2, T3, U>()
                 {
                 return (In, Obj) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                In(o1, o2, o3);
-                                return Obj;
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        In(o1, o2, o3);
+                        return Obj;
+                        };
                     };
                 }
 
@@ -3135,16 +3138,16 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
+            [CodeExplodeExtensionMethod("Return", new[] {"In", "Obj = default(U)"}, Comments.Return)]
             public static Func<Action<T1, T2, T3, T4>, U, Func<T1, T2, T3, T4, U>> L_Return_A<T1, T2, T3, T4, U>()
                 {
                 return (In, Obj) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2, o3, o4);
-                                return Obj;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2, o3, o4);
+                        return Obj;
+                        };
                     };
                 }
 
@@ -3153,16 +3156,16 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.ReturnFunc)]
+            [CodeExplodeExtensionMethod("Return", new[] {"In", "Obj = default(U)"}, Comments.ReturnFunc)]
             public static Func<Func<U>, U, Func<U>> L_Return_F<U>()
                 {
                 return (In, Obj) =>
                     {
-                        return () =>
-                            {
-                                In();
-                                return Obj;
-                            };
+                    return () =>
+                        {
+                        In();
+                        return Obj;
+                        };
                     };
                 }
 
@@ -3172,16 +3175,16 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
+            [CodeExplodeExtensionMethod("Return", new[] {"In", "Obj = default(U)"}, Comments.Return)]
             public static Func<Func<T1, U>, U, Func<T1, U>> L_Return_F<T1, U>()
                 {
                 return (In, Obj) =>
                     {
-                        return o1 =>
-                            {
-                                In(o1);
-                                return Obj;
-                            };
+                    return o1 =>
+                        {
+                        In(o1);
+                        return Obj;
+                        };
                     };
                 }
 
@@ -3192,16 +3195,16 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
+            [CodeExplodeExtensionMethod("Return", new[] {"In", "Obj = default(U)"}, Comments.Return)]
             public static Func<Func<T1, T2, U>, U, Func<T1, T2, U>> L_Return_F<T1, T2, U>()
                 {
                 return (In, Obj) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                In(o1, o2);
-                                return Obj;
-                            };
+                    return (o1, o2) =>
+                        {
+                        In(o1, o2);
+                        return Obj;
+                        };
                     };
                 }
 
@@ -3213,16 +3216,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
+            [CodeExplodeExtensionMethod("Return", new[] {"In", "Obj = default(U)"}, Comments.Return)]
             public static Func<Func<T1, T2, T3, U>, U, Func<T1, T2, T3, U>> L_Return_F<T1, T2, T3, U>()
                 {
                 return (In, Obj) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                In(o1, o2, o3);
-                                return Obj;
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        In(o1, o2, o3);
+                        return Obj;
+                        };
                     };
                 }
 
@@ -3235,16 +3238,16 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Return", new[] { "In", "Obj = default(U)" }, Comments.Return)]
+            [CodeExplodeExtensionMethod("Return", new[] {"In", "Obj = default(U)"}, Comments.Return)]
             public static Func<Func<T1, T2, T3, T4, U>, U, Func<T1, T2, T3, T4, U>> L_Return_F<T1, T2, T3, T4, U>()
                 {
                 return (In, Obj) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2, o3, o4);
-                                return Obj;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2, o3, o4);
+                        return Obj;
+                        };
                     };
                 }
 
@@ -3258,7 +3261,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Rotate", new[] { "In" }, Comments.Rotate)]
+            [CodeExplodeExtensionMethod("Rotate", new[] {"In"}, Comments.Rotate)]
             public static Func<Action<T1, T2>, Action<T2, T1>> L_Rotate_A<T1, T2>()
                 {
                 return In => { return (o1, o2) => { In(o2, o1); }; };
@@ -3271,7 +3274,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Rotate", new[] { "In" }, Comments.Rotate)]
+            [CodeExplodeExtensionMethod("Rotate", new[] {"In"}, Comments.Rotate)]
             public static Func<Action<T1, T2, T3>, Action<T3, T1, T2>> L_Rotate_A<T1, T2, T3>()
                 {
                 return In => { return (o3, o1, o2) => { In(o1, o2, o3); }; };
@@ -3285,7 +3288,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Rotate", new[] { "In" }, Comments.Rotate)]
+            [CodeExplodeExtensionMethod("Rotate", new[] {"In"}, Comments.Rotate)]
             public static Func<Action<T1, T2, T3, T4>, Action<T4, T1, T2, T3>> L_Rotate_A<T1, T2, T3, T4>()
                 {
                 return In => { return (o4, o1, o2, o3) => { In(o1, o2, o3, o4); }; };
@@ -3298,7 +3301,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Rotate", new[] { "In" }, Comments.Rotate)]
+            [CodeExplodeExtensionMethod("Rotate", new[] {"In"}, Comments.Rotate)]
             public static Func<Func<T1, T2, U>, Func<T2, T1, U>> L_Rotate_F<T1, T2, U>()
                 {
                 return In => { return (o2, o1) => In(o1, o2); };
@@ -3312,7 +3315,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Rotate", new[] { "In" }, Comments.Rotate)]
+            [CodeExplodeExtensionMethod("Rotate", new[] {"In"}, Comments.Rotate)]
             public static Func<Func<T1, T2, T3, U>, Func<T3, T1, T2, U>> L_Rotate_F<T1, T2, T3, U>()
                 {
                 return In => { return (o3, o1, o2) => In(o1, o2, o3); };
@@ -3327,7 +3330,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Rotate", new[] { "In" }, Comments.Rotate)]
+            [CodeExplodeExtensionMethod("Rotate", new[] {"In"}, Comments.Rotate)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T4, T1, T2, T3, U>> L_Rotate_F<T1, T2, T3, T4, U>()
                 {
                 return In => { return (o4, o1, o2, o3) => In(o1, o2, o3, o4); };
@@ -3343,7 +3346,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("RotateBack", new[] { "In" }, Comments.RotateBack)]
+            [CodeExplodeExtensionMethod("RotateBack", new[] {"In"}, Comments.RotateBack)]
             public static Func<Action<T1, T2>, Action<T2, T1>> L_RotateBack_A<T1, T2>()
                 {
                 return In => { return (o1, o2) => { In(o2, o1); }; };
@@ -3422,20 +3425,20 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
+            [CodeExplodeExtensionMethod("Default", new[] {"In", "Default"}, Comments.Default)]
             public static Func<Action<T1>, T1, Action<T1>> L_Default_A<T1>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        return o1 =>
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    return o1 =>
+                        {
+                        if (NullFunc(o1))
                             {
-                                if (NullFunc(o1))
-                                    {
-                                    o1 = Default;
-                                    }
-                                In(o1);
-                            };
+                            o1 = Default;
+                            }
+                        In(o1);
+                        };
                     };
                 }
 
@@ -3445,20 +3448,20 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
+            [CodeExplodeExtensionMethod("Default", new[] {"In", "Default"}, Comments.Default)]
             public static Func<Action<T1, T2>, T1, Action<T1, T2>> L_Default_A<T1, T2>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        return (o1, o2) =>
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    return (o1, o2) =>
+                        {
+                        if (NullFunc(o1))
                             {
-                                if (NullFunc(o1))
-                                    {
-                                    o1 = Default;
-                                    }
-                                In(o1, o2);
-                            };
+                            o1 = Default;
+                            }
+                        In(o1, o2);
+                        };
                     };
                 }
 
@@ -3468,20 +3471,20 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default2", new[] { "In", "Default" }, Comments.Default2)]
+            [CodeExplodeExtensionMethod("Default2", new[] {"In", "Default"}, Comments.Default2)]
             public static Func<Action<T1, T2>, T2, Action<T1, T2>> L_Default2_A<T1, T2>()
                 {
                 return (In, Default2) =>
                     {
-                        Func<T2, bool> NullFunc = Obj.IsNull<T2>();
-                        return (o1, o2) =>
+                    Func<T2, bool> NullFunc = Obj.IsNull<T2>();
+                    return (o1, o2) =>
+                        {
+                        if (NullFunc(o2))
                             {
-                                if (NullFunc(o2))
-                                    {
-                                    o2 = Default2;
-                                    }
-                                In(o1, o2);
-                            };
+                            o2 = Default2;
+                            }
+                        In(o1, o2);
+                        };
                     };
                 }
 
@@ -3492,20 +3495,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
+            [CodeExplodeExtensionMethod("Default", new[] {"In", "Default"}, Comments.Default)]
             public static Func<Action<T1, T2, T3>, T1, Action<T1, T2, T3>> L_Default_A<T1, T2, T3>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        return (o1, o2, o3) =>
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    return (o1, o2, o3) =>
+                        {
+                        if (NullFunc(o1))
                             {
-                                if (NullFunc(o1))
-                                    {
-                                    o1 = Default;
-                                    }
-                                In(o1, o2, o3);
-                            };
+                            o1 = Default;
+                            }
+                        In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -3516,20 +3519,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default2", new[] { "In", "Default2" }, Comments.Default2)]
+            [CodeExplodeExtensionMethod("Default2", new[] {"In", "Default2"}, Comments.Default2)]
             public static Func<Action<T1, T2, T3>, T2, Action<T1, T2, T3>> L_Default2_A<T1, T2, T3>()
                 {
                 return (In, Default2) =>
                     {
-                        Func<T2, bool> NullFunc = Obj.IsNull<T2>();
-                        return (o1, o2, o3) =>
+                    Func<T2, bool> NullFunc = Obj.IsNull<T2>();
+                    return (o1, o2, o3) =>
+                        {
+                        if (NullFunc(o2))
                             {
-                                if (NullFunc(o2))
-                                    {
-                                    o2 = Default2;
-                                    }
-                                In(o1, o2, o3);
-                            };
+                            o2 = Default2;
+                            }
+                        In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -3540,20 +3543,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default3", new[] { "In", "Default3" }, Comments.Default3)]
+            [CodeExplodeExtensionMethod("Default3", new[] {"In", "Default3"}, Comments.Default3)]
             public static Func<Action<T1, T2, T3>, T3, Action<T1, T2, T3>> L_Default3_A<T1, T2, T3>()
                 {
                 return (In, Default3) =>
                     {
-                        Func<T3, bool> NullFunc = Obj.IsNull<T3>();
-                        return (o1, o2, o3) =>
+                    Func<T3, bool> NullFunc = Obj.IsNull<T3>();
+                    return (o1, o2, o3) =>
+                        {
+                        if (NullFunc(o3))
                             {
-                                if (NullFunc(o3))
-                                    {
-                                    o3 = Default3;
-                                    }
-                                In(o1, o2, o3);
-                            };
+                            o3 = Default3;
+                            }
+                        In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -3565,20 +3568,20 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
+            [CodeExplodeExtensionMethod("Default", new[] {"In", "Default"}, Comments.Default)]
             public static Func<Action<T1, T2, T3, T4>, T1, Action<T1, T2, T3, T4>> L_Default_A<T1, T2, T3, T4>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        return (o1, o2, o3, o4) =>
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (NullFunc(o1))
                             {
-                                if (NullFunc(o1))
-                                    {
-                                    o1 = Default;
-                                    }
-                                In(o1, o2, o3, o4);
-                            };
+                            o1 = Default;
+                            }
+                        In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -3590,20 +3593,20 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default2", new[] { "In", "Default2" }, Comments.Default2)]
+            [CodeExplodeExtensionMethod("Default2", new[] {"In", "Default2"}, Comments.Default2)]
             public static Func<Action<T1, T2, T3, T4>, T2, Action<T1, T2, T3, T4>> L_Default2_A<T1, T2, T3, T4>()
                 {
                 return (In, Default2) =>
                     {
-                        Func<T2, bool> NullFunc = Obj.IsNull<T2>();
-                        return (o1, o2, o3, o4) =>
+                    Func<T2, bool> NullFunc = Obj.IsNull<T2>();
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (NullFunc(o2))
                             {
-                                if (NullFunc(o2))
-                                    {
-                                    o2 = Default2;
-                                    }
-                                In(o1, o2, o3, o4);
-                            };
+                            o2 = Default2;
+                            }
+                        In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -3615,20 +3618,20 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default3", new[] { "In", "Default3" }, Comments.Default3)]
+            [CodeExplodeExtensionMethod("Default3", new[] {"In", "Default3"}, Comments.Default3)]
             public static Func<Action<T1, T2, T3, T4>, T3, Action<T1, T2, T3, T4>> L_Default3_A<T1, T2, T3, T4>()
                 {
                 return (In, Default3) =>
                     {
-                        Func<T3, bool> NullFunc = Obj.IsNull<T3>();
-                        return (o1, o2, o3, o4) =>
+                    Func<T3, bool> NullFunc = Obj.IsNull<T3>();
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (NullFunc(o3))
                             {
-                                if (NullFunc(o3))
-                                    {
-                                    o3 = Default3;
-                                    }
-                                In(o1, o2, o3, o4);
-                            };
+                            o3 = Default3;
+                            }
+                        In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -3640,20 +3643,20 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default4", new[] { "In", "Default4" }, Comments.Default4)]
+            [CodeExplodeExtensionMethod("Default4", new[] {"In", "Default4"}, Comments.Default4)]
             public static Func<Action<T1, T2, T3, T4>, T4, Action<T1, T2, T3, T4>> L_Default4_A<T1, T2, T3, T4>()
                 {
                 return (In, Default4) =>
                     {
-                        Func<T4, bool> NullFunc = Obj.IsNull<T4>();
-                        return (o1, o2, o3, o4) =>
+                    Func<T4, bool> NullFunc = Obj.IsNull<T4>();
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (NullFunc(o4))
                             {
-                                if (NullFunc(o4))
-                                    {
-                                    o4 = Default4;
-                                    }
-                                In(o1, o2, o3, o4);
-                            };
+                            o4 = Default4;
+                            }
+                        In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -3663,20 +3666,20 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
+            [CodeExplodeExtensionMethod("Default", new[] {"In", "Default"}, Comments.Default)]
             public static Func<Func<T1, U>, T1, Func<T1, U>> L_Default_F<T1, U>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        return o1 =>
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    return o1 =>
+                        {
+                        if (NullFunc(o1))
                             {
-                                if (NullFunc(o1))
-                                    {
-                                    o1 = Default;
-                                    }
-                                return In(o1);
-                            };
+                            o1 = Default;
+                            }
+                        return In(o1);
+                        };
                     };
                 }
 
@@ -3687,20 +3690,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
+            [CodeExplodeExtensionMethod("Default", new[] {"In", "Default"}, Comments.Default)]
             public static Func<Func<T1, T2, U>, T1, Func<T1, T2, U>> L_Default_F<T1, T2, U>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        return (o1, o2) =>
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    return (o1, o2) =>
+                        {
+                        if (NullFunc(o1))
                             {
-                                if (NullFunc(o1))
-                                    {
-                                    o1 = Default;
-                                    }
-                                return In(o1, o2);
-                            };
+                            o1 = Default;
+                            }
+                        return In(o1, o2);
+                        };
                     };
                 }
 
@@ -3711,20 +3714,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default2", new[] { "In", "Default2" }, Comments.Default2)]
+            [CodeExplodeExtensionMethod("Default2", new[] {"In", "Default2"}, Comments.Default2)]
             public static Func<Func<T1, T2, U>, T2, Func<T1, T2, U>> L_Default2_F<T1, T2, U>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T2, bool> NullFunc = Obj.IsNull<T2>();
-                        return (o1, o2) =>
+                    Func<T2, bool> NullFunc = Obj.IsNull<T2>();
+                    return (o1, o2) =>
+                        {
+                        if (NullFunc(o2))
                             {
-                                if (NullFunc(o2))
-                                    {
-                                    o2 = Default;
-                                    }
-                                return In(o1, o2);
-                            };
+                            o2 = Default;
+                            }
+                        return In(o1, o2);
+                        };
                     };
                 }
 
@@ -3736,20 +3739,20 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
+            [CodeExplodeExtensionMethod("Default", new[] {"In", "Default"}, Comments.Default)]
             public static Func<Func<T1, T2, T3, U>, T1, Func<T1, T2, T3, U>> L_Default_F<T1, T2, T3, U>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        return (o1, o2, o3) =>
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    return (o1, o2, o3) =>
+                        {
+                        if (NullFunc(o1))
                             {
-                                if (NullFunc(o1))
-                                    {
-                                    o1 = Default;
-                                    }
-                                return In(o1, o2, o3);
-                            };
+                            o1 = Default;
+                            }
+                        return In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -3761,20 +3764,20 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default2", new[] { "In", "Default2" }, Comments.Default2)]
+            [CodeExplodeExtensionMethod("Default2", new[] {"In", "Default2"}, Comments.Default2)]
             public static Func<Func<T1, T2, T3, U>, T2, Func<T1, T2, T3, U>> L_Default2_F<T1, T2, T3, U>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T2, bool> NullFunc = Obj.IsNull<T2>();
-                        return (o1, o2, o3) =>
+                    Func<T2, bool> NullFunc = Obj.IsNull<T2>();
+                    return (o1, o2, o3) =>
+                        {
+                        if (NullFunc(o2))
                             {
-                                if (NullFunc(o2))
-                                    {
-                                    o2 = Default;
-                                    }
-                                return In(o1, o2, o3);
-                            };
+                            o2 = Default;
+                            }
+                        return In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -3786,20 +3789,20 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default3", new[] { "In", "Default3" }, Comments.Default3)]
+            [CodeExplodeExtensionMethod("Default3", new[] {"In", "Default3"}, Comments.Default3)]
             public static Func<Func<T1, T2, T3, U>, T3, Func<T1, T2, T3, U>> L_Default3_F<T1, T2, T3, U>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T3, bool> NullFunc = Obj.IsNull<T3>();
-                        return (o1, o2, o3) =>
+                    Func<T3, bool> NullFunc = Obj.IsNull<T3>();
+                    return (o1, o2, o3) =>
+                        {
+                        if (NullFunc(o3))
                             {
-                                if (NullFunc(o3))
-                                    {
-                                    o3 = Default;
-                                    }
-                                return In(o1, o2, o3);
-                            };
+                            o3 = Default;
+                            }
+                        return In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -3812,20 +3815,20 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default", new[] { "In", "Default" }, Comments.Default)]
+            [CodeExplodeExtensionMethod("Default", new[] {"In", "Default"}, Comments.Default)]
             public static Func<Func<T1, T2, T3, T4, U>, T1, Func<T1, T2, T3, T4, U>> L_Default_F<T1, T2, T3, T4, U>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        return (o1, o2, o3, o4) =>
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (NullFunc(o1))
                             {
-                                if (NullFunc(o1))
-                                    {
-                                    o1 = Default;
-                                    }
-                                return In(o1, o2, o3, o4);
-                            };
+                            o1 = Default;
+                            }
+                        return In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -3838,20 +3841,20 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default2", new[] { "In", "Default2" }, Comments.Default2)]
+            [CodeExplodeExtensionMethod("Default2", new[] {"In", "Default2"}, Comments.Default2)]
             public static Func<Func<T1, T2, T3, T4, U>, T2, Func<T1, T2, T3, T4, U>> L_Default2_F<T1, T2, T3, T4, U>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T2, bool> NullFunc = Obj.IsNull<T2>();
-                        return (o1, o2, o3, o4) =>
+                    Func<T2, bool> NullFunc = Obj.IsNull<T2>();
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (NullFunc(o2))
                             {
-                                if (NullFunc(o2))
-                                    {
-                                    o2 = Default;
-                                    }
-                                return In(o1, o2, o3, o4);
-                            };
+                            o2 = Default;
+                            }
+                        return In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -3864,20 +3867,20 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default3", new[] { "In", "Default3" }, Comments.Default3)]
+            [CodeExplodeExtensionMethod("Default3", new[] {"In", "Default3"}, Comments.Default3)]
             public static Func<Func<T1, T2, T3, T4, U>, T3, Func<T1, T2, T3, T4, U>> L_Default3_F<T1, T2, T3, T4, U>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T3, bool> NullFunc = Obj.IsNull<T3>();
-                        return (o1, o2, o3, o4) =>
+                    Func<T3, bool> NullFunc = Obj.IsNull<T3>();
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (NullFunc(o3))
                             {
-                                if (NullFunc(o3))
-                                    {
-                                    o3 = Default;
-                                    }
-                                return In(o1, o2, o3, o4);
-                            };
+                            o3 = Default;
+                            }
+                        return In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -3890,20 +3893,20 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Default4", new[] { "In", "Default4" }, Comments.Default4)]
+            [CodeExplodeExtensionMethod("Default4", new[] {"In", "Default4"}, Comments.Default4)]
             public static Func<Func<T1, T2, T3, T4, U>, T4, Func<T1, T2, T3, T4, U>> L_Default4_F<T1, T2, T3, T4, U>()
                 {
                 return (In, Default) =>
                     {
-                        Func<T4, bool> NullFunc = Obj.IsNull<T4>();
-                        return (o1, o2, o3, o4) =>
+                    Func<T4, bool> NullFunc = Obj.IsNull<T4>();
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (NullFunc(o4))
                             {
-                                if (NullFunc(o4))
-                                    {
-                                    o4 = Default;
-                                    }
-                                return In(o1, o2, o3, o4);
-                            };
+                            o4 = Default;
+                            }
+                        return In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -3917,21 +3920,21 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Defaults", new[] { "In", "Default", "Default2" }, Comments.Defaults)]
+            [CodeExplodeExtensionMethod("Defaults", new[] {"In", "Default", "Default2"}, Comments.Defaults)]
             public static Func<Action<T1, T2>, T1, T2, Action<T1, T2>> L_Defaults_A<T1, T2>()
                 {
                 return (In, Default, Default2) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        Func<T2, bool> NullFunc2 = Obj.IsNull<T2>();
-                        return (o1, o2) =>
-                            {
-                                if (NullFunc(o1))
-                                    o1 = Default;
-                                if (NullFunc2(o2))
-                                    o2 = Default2;
-                                In(o1, o2);
-                            };
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    Func<T2, bool> NullFunc2 = Obj.IsNull<T2>();
+                    return (o1, o2) =>
+                        {
+                        if (NullFunc(o1))
+                            o1 = Default;
+                        if (NullFunc2(o2))
+                            o2 = Default2;
+                        In(o1, o2);
+                        };
                     };
                 }
 
@@ -3942,24 +3945,24 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Defaults", new[] { "In", "Default", "Default2", "Default3" }, Comments.Defaults)]
+            [CodeExplodeExtensionMethod("Defaults", new[] {"In", "Default", "Default2", "Default3"}, Comments.Defaults)]
             public static Func<Action<T1, T2, T3>, T1, T2, T3, Action<T1, T2, T3>> L_Defaults_A<T1, T2, T3>()
                 {
                 return (In, Default, Default2, Default3) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        Func<T2, bool> NullFunc2 = Obj.IsNull<T2>();
-                        Func<T3, bool> NullFunc3 = Obj.IsNull<T3>();
-                        return (o1, o2, o3) =>
-                            {
-                                if (NullFunc(o1))
-                                    o1 = Default;
-                                if (NullFunc2(o2))
-                                    o2 = Default2;
-                                if (NullFunc3(o3))
-                                    o3 = Default3;
-                                In(o1, o2, o3);
-                            };
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    Func<T2, bool> NullFunc2 = Obj.IsNull<T2>();
+                    Func<T3, bool> NullFunc3 = Obj.IsNull<T3>();
+                    return (o1, o2, o3) =>
+                        {
+                        if (NullFunc(o1))
+                            o1 = Default;
+                        if (NullFunc2(o2))
+                            o2 = Default2;
+                        if (NullFunc3(o3))
+                            o3 = Default3;
+                        In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -3971,29 +3974,29 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Defaults", new[] { "In", "Default", "Default2", "Default3", "Default4" },
-                Comments.Defaults)]
+            [CodeExplodeExtensionMethod("Defaults", new[] {"In", "Default", "Default2", "Default3", "Default4"},
+                 Comments.Defaults)]
             public static Func<Action<T1, T2, T3, T4>, T1, T2, T3, T4, Action<T1, T2, T3, T4>> L_Defaults_A
                 <T1, T2, T3, T4>()
                 {
                 return (In, Default, Default2, Default3, Default4) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        Func<T2, bool> NullFunc2 = Obj.IsNull<T2>();
-                        Func<T3, bool> NullFunc3 = Obj.IsNull<T3>();
-                        Func<T4, bool> NullFunc4 = Obj.IsNull<T4>();
-                        return (o1, o2, o3, o4) =>
-                            {
-                                if (NullFunc(o1))
-                                    o1 = Default;
-                                if (NullFunc2(o2))
-                                    o2 = Default2;
-                                if (NullFunc3(o3))
-                                    o3 = Default3;
-                                if (NullFunc4(o4))
-                                    o4 = Default4;
-                                In(o1, o2, o3, o4);
-                            };
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    Func<T2, bool> NullFunc2 = Obj.IsNull<T2>();
+                    Func<T3, bool> NullFunc3 = Obj.IsNull<T3>();
+                    Func<T4, bool> NullFunc4 = Obj.IsNull<T4>();
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (NullFunc(o1))
+                            o1 = Default;
+                        if (NullFunc2(o2))
+                            o2 = Default2;
+                        if (NullFunc3(o3))
+                            o3 = Default3;
+                        if (NullFunc4(o4))
+                            o4 = Default4;
+                        In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -4004,21 +4007,21 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Defaults", new[] { "In", "Default", "Default2" }, Comments.Defaults)]
+            [CodeExplodeExtensionMethod("Defaults", new[] {"In", "Default", "Default2"}, Comments.Defaults)]
             public static Func<Func<T1, T2, U>, T1, T2, Func<T1, T2, U>> L_Defaults_F<T1, T2, U>()
                 {
                 return (In, Default, Default2) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        Func<T2, bool> NullFunc2 = Obj.IsNull<T2>();
-                        return (o1, o2) =>
-                            {
-                                if (NullFunc(o1))
-                                    o1 = Default;
-                                if (NullFunc2(o2))
-                                    o2 = Default2;
-                                return In(o1, o2);
-                            };
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    Func<T2, bool> NullFunc2 = Obj.IsNull<T2>();
+                    return (o1, o2) =>
+                        {
+                        if (NullFunc(o1))
+                            o1 = Default;
+                        if (NullFunc2(o2))
+                            o2 = Default2;
+                        return In(o1, o2);
+                        };
                     };
                 }
 
@@ -4030,24 +4033,24 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Defaults", new[] { "In", "Default", "Default2", "Default3" }, Comments.Defaults)]
+            [CodeExplodeExtensionMethod("Defaults", new[] {"In", "Default", "Default2", "Default3"}, Comments.Defaults)]
             public static Func<Func<T1, T2, T3, U>, T1, T2, T3, Func<T1, T2, T3, U>> L_Defaults_F<T1, T2, T3, U>()
                 {
                 return (In, Default, Default2, Default3) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        Func<T2, bool> NullFunc2 = Obj.IsNull<T2>();
-                        Func<T3, bool> NullFunc3 = Obj.IsNull<T3>();
-                        return (o1, o2, o3) =>
-                            {
-                                if (NullFunc(o1))
-                                    o1 = Default;
-                                if (NullFunc2(o2))
-                                    o2 = Default2;
-                                if (NullFunc3(o3))
-                                    o3 = Default3;
-                                return In(o1, o2, o3);
-                            };
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    Func<T2, bool> NullFunc2 = Obj.IsNull<T2>();
+                    Func<T3, bool> NullFunc3 = Obj.IsNull<T3>();
+                    return (o1, o2, o3) =>
+                        {
+                        if (NullFunc(o1))
+                            o1 = Default;
+                        if (NullFunc2(o2))
+                            o2 = Default2;
+                        if (NullFunc3(o3))
+                            o3 = Default3;
+                        return In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -4060,29 +4063,29 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Defaults", new[] { "In", "Default", "Default2", "Default3", "Default4" },
-                Comments.Defaults)]
+            [CodeExplodeExtensionMethod("Defaults", new[] {"In", "Default", "Default2", "Default3", "Default4"},
+                 Comments.Defaults)]
             public static Func<Func<T1, T2, T3, T4, U>, T1, T2, T3, T4, Func<T1, T2, T3, T4, U>> L_Defaults_F
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Default, Default2, Default3, Default4) =>
                     {
-                        Func<T1, bool> NullFunc = Obj.IsNull<T1>();
-                        Func<T2, bool> NullFunc2 = Obj.IsNull<T2>();
-                        Func<T3, bool> NullFunc3 = Obj.IsNull<T3>();
-                        Func<T4, bool> NullFunc4 = Obj.IsNull<T4>();
-                        return (o1, o2, o3, o4) =>
-                            {
-                                if (NullFunc(o1))
-                                    o1 = Default;
-                                if (NullFunc2(o2))
-                                    o2 = Default2;
-                                if (NullFunc3(o3))
-                                    o3 = Default3;
-                                if (NullFunc4(o4))
-                                    o4 = Default4;
-                                return In(o1, o2, o3, o4);
-                            };
+                    Func<T1, bool> NullFunc = Obj.IsNull<T1>();
+                    Func<T2, bool> NullFunc2 = Obj.IsNull<T2>();
+                    Func<T3, bool> NullFunc3 = Obj.IsNull<T3>();
+                    Func<T4, bool> NullFunc4 = Obj.IsNull<T4>();
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (NullFunc(o1))
+                            o1 = Default;
+                        if (NullFunc2(o2))
+                            o2 = Default2;
+                        if (NullFunc3(o3))
+                            o3 = Default3;
+                        if (NullFunc4(o4))
+                            o4 = Default4;
+                        return In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -4095,17 +4098,17 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
+            [CodeExplodeExtensionMethod("Require", new[] {"In", "ParameterName = null"}, Comments.Require)]
             public static Func<Action<T1>, string, Action<T1>> L_Require_A<T1>()
                 {
                 return (In, ParameterName) =>
                     {
-                        return o1 =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                In(o1);
-                            };
+                    return o1 =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        In(o1);
+                        };
                     };
                 }
 
@@ -4115,17 +4118,17 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
+            [CodeExplodeExtensionMethod("Require", new[] {"In", "ParameterName = null"}, Comments.Require)]
             public static Func<Action<T1, T2>, string, Action<T1, T2>> L_Require_A<T1, T2>()
                 {
                 return (In, ParameterName) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                In(o1, o2);
-                            };
+                    return (o1, o2) =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        In(o1, o2);
+                        };
                     };
                 }
 
@@ -4135,17 +4138,17 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require2", new[] { "In", "ParameterName2 = null" }, Comments.Require2)]
+            [CodeExplodeExtensionMethod("Require2", new[] {"In", "ParameterName2 = null"}, Comments.Require2)]
             public static Func<Action<T1, T2>, string, Action<T1, T2>> L_Require2_A<T1, T2>()
                 {
                 return (In, ParameterName2) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                if (o2 == null)
-                                    throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
-                                In(o1, o2);
-                            };
+                    return (o1, o2) =>
+                        {
+                        if (o2 == null)
+                            throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
+                        In(o1, o2);
+                        };
                     };
                 }
 
@@ -4156,17 +4159,17 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
+            [CodeExplodeExtensionMethod("Require", new[] {"In", "ParameterName = null"}, Comments.Require)]
             public static Func<Action<T1, T2, T3>, string, Action<T1, T2, T3>> L_Require_A<T1, T2, T3>()
                 {
                 return (In, ParameterName) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                In(o1, o2, o3);
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -4177,17 +4180,17 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require2", new[] { "In", "ParameterName2 = null" }, Comments.Require2)]
+            [CodeExplodeExtensionMethod("Require2", new[] {"In", "ParameterName2 = null"}, Comments.Require2)]
             public static Func<Action<T1, T2, T3>, string, Action<T1, T2, T3>> L_Require2_A<T1, T2, T3>()
                 {
                 return (In, ParameterName2) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                if (o2 == null)
-                                    throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
-                                In(o1, o2, o3);
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        if (o2 == null)
+                            throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
+                        In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -4198,17 +4201,17 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require3", new[] { "In", "ParameterName3 = null" }, Comments.Require3)]
+            [CodeExplodeExtensionMethod("Require3", new[] {"In", "ParameterName3 = null"}, Comments.Require3)]
             public static Func<Action<T1, T2, T3>, string, Action<T1, T2, T3>> L_Require3_A<T1, T2, T3>()
                 {
                 return (In, ParameterName3) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                if (o3 == null)
-                                    throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
-                                In(o1, o2, o3);
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        if (o3 == null)
+                            throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
+                        In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -4220,17 +4223,17 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
+            [CodeExplodeExtensionMethod("Require", new[] {"In", "ParameterName = null"}, Comments.Require)]
             public static Func<Action<T1, T2, T3, T4>, string, Action<T1, T2, T3, T4>> L_Require_A<T1, T2, T3, T4>()
                 {
                 return (In, ParameterName) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                In(o1, o2, o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -4242,17 +4245,17 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require2", new[] { "In", "ParameterName2 = null" }, Comments.Require2)]
+            [CodeExplodeExtensionMethod("Require2", new[] {"In", "ParameterName2 = null"}, Comments.Require2)]
             public static Func<Action<T1, T2, T3, T4>, string, Action<T1, T2, T3, T4>> L_Require2_A<T1, T2, T3, T4>()
                 {
                 return (In, ParameterName2) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                if (o2 == null)
-                                    throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
-                                In(o1, o2, o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (o2 == null)
+                            throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
+                        In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -4264,17 +4267,17 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require3", new[] { "In", "ParameterName3 = null" }, Comments.Require3)]
+            [CodeExplodeExtensionMethod("Require3", new[] {"In", "ParameterName3 = null"}, Comments.Require3)]
             public static Func<Action<T1, T2, T3, T4>, string, Action<T1, T2, T3, T4>> L_Require3_A<T1, T2, T3, T4>()
                 {
                 return (In, ParameterName3) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                if (o3 == null)
-                                    throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
-                                In(o1, o2, o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (o3 == null)
+                            throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
+                        In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -4286,17 +4289,17 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require4", new[] { "In", "ParameterName4 = null" }, Comments.Require4)]
+            [CodeExplodeExtensionMethod("Require4", new[] {"In", "ParameterName4 = null"}, Comments.Require4)]
             public static Func<Action<T1, T2, T3, T4>, string, Action<T1, T2, T3, T4>> L_Require4_A<T1, T2, T3, T4>()
                 {
                 return (In, ParameterName4) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                if (o4 == null)
-                                    throw new ArgumentNullException(ParameterName4 ?? $"Parameter 4 - {typeof(T4).Name}");
-                                In(o1, o2, o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (o4 == null)
+                            throw new ArgumentNullException(ParameterName4 ?? $"Parameter 4 - {typeof(T4).Name}");
+                        In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -4306,17 +4309,17 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
+            [CodeExplodeExtensionMethod("Require", new[] {"In", "ParameterName = null"}, Comments.Require)]
             public static Func<Func<T1, U>, string, Func<T1, U>> L_Require_F<T1, U>()
                 {
                 return (In, ParameterName) =>
                     {
-                        return o1 =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                return In(o1);
-                            };
+                    return o1 =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        return In(o1);
+                        };
                     };
                 }
 
@@ -4327,17 +4330,17 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
+            [CodeExplodeExtensionMethod("Require", new[] {"In", "ParameterName = null"}, Comments.Require)]
             public static Func<Func<T1, T2, U>, string, Func<T1, T2, U>> L_Require_F<T1, T2, U>()
                 {
                 return (In, ParameterName) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                return In(o1, o2);
-                            };
+                    return (o1, o2) =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        return In(o1, o2);
+                        };
                     };
                 }
 
@@ -4348,17 +4351,17 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require2", new[] { "In", "ParameterName2 = null" }, Comments.Require2)]
+            [CodeExplodeExtensionMethod("Require2", new[] {"In", "ParameterName2 = null"}, Comments.Require2)]
             public static Func<Func<T1, T2, U>, string, Func<T1, T2, U>> L_Require2_F<T1, T2, U>()
                 {
                 return (In, ParameterName2) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                if (o2 == null)
-                                    throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
-                                return In(o1, o2);
-                            };
+                    return (o1, o2) =>
+                        {
+                        if (o2 == null)
+                            throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
+                        return In(o1, o2);
+                        };
                     };
                 }
 
@@ -4370,17 +4373,17 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
+            [CodeExplodeExtensionMethod("Require", new[] {"In", "ParameterName = null"}, Comments.Require)]
             public static Func<Func<T1, T2, T3, U>, string, Func<T1, T2, T3, U>> L_Require_F<T1, T2, T3, U>()
                 {
                 return (In, ParameterName) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                return In(o1, o2, o3);
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        return In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -4392,17 +4395,17 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require2", new[] { "In", "ParameterName2 = null" }, Comments.Require2)]
+            [CodeExplodeExtensionMethod("Require2", new[] {"In", "ParameterName2 = null"}, Comments.Require2)]
             public static Func<Func<T1, T2, T3, U>, string, Func<T1, T2, T3, U>> L_Require2_F<T1, T2, T3, U>()
                 {
                 return (In, ParameterName2) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                if (o2 == null)
-                                    throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
-                                return In(o1, o2, o3);
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        if (o2 == null)
+                            throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
+                        return In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -4414,17 +4417,17 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require3", new[] { "In", "ParameterName3 = null" }, Comments.Require3)]
+            [CodeExplodeExtensionMethod("Require3", new[] {"In", "ParameterName3 = null"}, Comments.Require3)]
             public static Func<Func<T1, T2, T3, U>, string, Func<T1, T2, T3, U>> L_Require3_F<T1, T2, T3, U>()
                 {
                 return (In, ParameterName3) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                if (o3 == null)
-                                    throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
-                                return In(o1, o2, o3);
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        if (o3 == null)
+                            throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
+                        return In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -4437,17 +4440,17 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require", new[] { "In", "ParameterName = null" }, Comments.Require)]
+            [CodeExplodeExtensionMethod("Require", new[] {"In", "ParameterName = null"}, Comments.Require)]
             public static Func<Func<T1, T2, T3, T4, U>, string, Func<T1, T2, T3, T4, U>> L_Require_F<T1, T2, T3, T4, U>()
                 {
                 return (In, ParameterName) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                return In(o1, o2, o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        return In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -4460,18 +4463,18 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require2", new[] { "In", "ParameterName2 = null" }, Comments.Require2)]
+            [CodeExplodeExtensionMethod("Require2", new[] {"In", "ParameterName2 = null"}, Comments.Require2)]
             public static Func<Func<T1, T2, T3, T4, U>, string, Func<T1, T2, T3, T4, U>> L_Require2_F<T1, T2, T3, T4, U>
                 ()
                 {
                 return (In, ParameterName2) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                if (o2 == null)
-                                    throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
-                                return In(o1, o2, o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (o2 == null)
+                            throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
+                        return In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -4484,18 +4487,18 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require3", new[] { "In", "ParameterName3 = null" }, Comments.Require3)]
+            [CodeExplodeExtensionMethod("Require3", new[] {"In", "ParameterName3 = null"}, Comments.Require3)]
             public static Func<Func<T1, T2, T3, T4, U>, string, Func<T1, T2, T3, T4, U>> L_Require3_F<T1, T2, T3, T4, U>
                 ()
                 {
                 return (In, ParameterName3) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                if (o3 == null)
-                                    throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
-                                return In(o1, o2, o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (o3 == null)
+                            throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
+                        return In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -4508,18 +4511,18 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Require4", new[] { "In", "ParameterName4 = null" }, Comments.Require4)]
+            [CodeExplodeExtensionMethod("Require4", new[] {"In", "ParameterName4 = null"}, Comments.Require4)]
             public static Func<Func<T1, T2, T3, T4, U>, string, Func<T1, T2, T3, T4, U>> L_Require4_F<T1, T2, T3, T4, U>
                 ()
                 {
                 return (In, ParameterName4) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                if (o4 == null)
-                                    throw new ArgumentNullException(ParameterName4 ?? $"Parameter 4 - {typeof(T4).Name}");
-                                return In(o1, o2, o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (o4 == null)
+                            throw new ArgumentNullException(ParameterName4 ?? $"Parameter 4 - {typeof(T4).Name}");
+                        return In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -4533,20 +4536,20 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("RequireAll", new[] { "In", "ParameterName = null", "ParameterName2 = null" },
-                Comments.RequireAll)]
+            [CodeExplodeExtensionMethod("RequireAll", new[] {"In", "ParameterName = null", "ParameterName2 = null"},
+                 Comments.RequireAll)]
             public static Func<Action<T1, T2>, string, string, Action<T1, T2>> L_RequireAll_A<T1, T2>()
                 {
                 return (In, ParameterName, ParameterName2) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                if (o2 == null)
-                                    throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
-                                In(o1, o2);
-                            };
+                    return (o1, o2) =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        if (o2 == null)
+                            throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
+                        In(o1, o2);
+                        };
                     };
                 }
 
@@ -4558,23 +4561,23 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
             [CodeExplodeExtensionMethod("RequireAll",
-                new[] { "In", "ParameterName = null", "ParameterName2 = null", "ParameterName3 = null" },
-                Comments.RequireAll)]
+                 new[] {"In", "ParameterName = null", "ParameterName2 = null", "ParameterName3 = null"},
+                 Comments.RequireAll)]
             public static Func<Action<T1, T2, T3>, string, string, string, Action<T1, T2, T3>> L_RequireAll_A
                 <T1, T2, T3>()
                 {
                 return (In, ParameterName, ParameterName2, ParameterName3) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                if (o2 == null)
-                                    throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
-                                if (o3 == null)
-                                    throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
-                                In(o1, o2, o3);
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        if (o2 == null)
+                            throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
+                        if (o3 == null)
+                            throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
+                        In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -4587,28 +4590,28 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
             [CodeExplodeExtensionMethod("RequireAll",
-                new[]
-                    {
-                    "In", "ParameterName = null", "ParameterName2 = null", "ParameterName3 = null",
-                    "ParameterName4 = null"
-                    }, Comments.RequireAll)]
+                 new[]
+                     {
+                     "In", "ParameterName = null", "ParameterName2 = null", "ParameterName3 = null",
+                     "ParameterName4 = null"
+                     }, Comments.RequireAll)]
             public static Func<Action<T1, T2, T3, T4>, string, string, string, string, Action<T1, T2, T3, T4>>
                 L_RequireAll_A<T1, T2, T3, T4>()
                 {
                 return (In, ParameterName, ParameterName2, ParameterName3, ParameterName4) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                if (o2 == null)
-                                    throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
-                                if (o3 == null)
-                                    throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
-                                if (o4 == null)
-                                    throw new ArgumentNullException(ParameterName4 ?? $"Parameter 4 - {typeof(T4).Name}");
-                                In(o1, o2, o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        if (o2 == null)
+                            throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
+                        if (o3 == null)
+                            throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
+                        if (o4 == null)
+                            throw new ArgumentNullException(ParameterName4 ?? $"Parameter 4 - {typeof(T4).Name}");
+                        In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -4619,20 +4622,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("RequireAll", new[] { "In", "ParameterName = null", "ParameterName2 = null" },
-                Comments.RequireAll)]
+            [CodeExplodeExtensionMethod("RequireAll", new[] {"In", "ParameterName = null", "ParameterName2 = null"},
+                 Comments.RequireAll)]
             public static Func<Func<T1, T2, U>, string, string, Func<T1, T2, U>> L_RequireAll_F<T1, T2, U>()
                 {
                 return (In, ParameterName, ParameterName2) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                if (o2 == null)
-                                    throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
-                                return In(o1, o2);
-                            };
+                    return (o1, o2) =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        if (o2 == null)
+                            throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
+                        return In(o1, o2);
+                        };
                     };
                 }
 
@@ -4645,23 +4648,23 @@ namespace LCore.Extensions
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
             [CodeExplodeExtensionMethod("RequireAll",
-                new[] { "In", "ParameterName = null", "ParameterName2 = null", "ParameterName3 = null" },
-                Comments.RequireAll)]
+                 new[] {"In", "ParameterName = null", "ParameterName2 = null", "ParameterName3 = null"},
+                 Comments.RequireAll)]
             public static Func<Func<T1, T2, T3, U>, string, string, string, Func<T1, T2, T3, U>> L_RequireAll_F
                 <T1, T2, T3, U>()
                 {
                 return (In, ParameterName, ParameterName2, ParameterName3) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                if (o2 == null)
-                                    throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
-                                if (o3 == null)
-                                    throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
-                                return In(o1, o2, o3);
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        if (o2 == null)
+                            throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
+                        if (o3 == null)
+                            throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
+                        return In(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -4675,28 +4678,28 @@ namespace LCore.Extensions
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
             [CodeExplodeExtensionMethod("RequireAll",
-                new[]
-                    {
-                    "In", "ParameterName = null", "ParameterName2 = null", "ParameterName3 = null",
-                    "ParameterName4 = null"
-                    }, Comments.RequireAll)]
+                 new[]
+                     {
+                     "In", "ParameterName = null", "ParameterName2 = null", "ParameterName3 = null",
+                     "ParameterName4 = null"
+                     }, Comments.RequireAll)]
             public static Func<Func<T1, T2, T3, T4, U>, string, string, string, string, Func<T1, T2, T3, T4, U>>
                 L_RequireAll_F<T1, T2, T3, T4, U>()
                 {
                 return (In, ParameterName, ParameterName2, ParameterName3, ParameterName4) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                if (o1 == null)
-                                    throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
-                                if (o2 == null)
-                                    throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
-                                if (o3 == null)
-                                    throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
-                                if (o4 == null)
-                                    throw new ArgumentNullException(ParameterName4 ?? $"Parameter 4 - {typeof(T4).Name}");
-                                return In(o1, o2, o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        if (o1 == null)
+                            throw new ArgumentNullException(ParameterName ?? $"Parameter 1 - {typeof(T1).Name}");
+                        if (o2 == null)
+                            throw new ArgumentNullException(ParameterName2 ?? $"Parameter 2 - {typeof(T2).Name}");
+                        if (o3 == null)
+                            throw new ArgumentNullException(ParameterName3 ?? $"Parameter 3 - {typeof(T3).Name}");
+                        if (o4 == null)
+                            throw new ArgumentNullException(ParameterName4 ?? $"Parameter 4 - {typeof(T4).Name}");
+                        return In(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -4709,16 +4712,16 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
+            [CodeExplodeExtensionMethod("Yield", new[] {"In"}, Comments.Yield)]
             public static Func<Action<U>, Func<U, U>> L_Yield_A<U>()
                 {
                 return In =>
                     {
-                        return o =>
-                            {
-                                In(o);
-                                return o;
-                            };
+                    return o =>
+                        {
+                        In(o);
+                        return o;
+                        };
                     };
                 }
 
@@ -4728,16 +4731,16 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
+            [CodeExplodeExtensionMethod("Yield", new[] {"In"}, Comments.Yield)]
             public static Func<Action<U, T1>, Func<U, T1, U>> L_Yield_A<T1, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2) =>
-                            {
-                                In(o1, o2);
-                                return o1;
-                            };
+                    return (o1, o2) =>
+                        {
+                        In(o1, o2);
+                        return o1;
+                        };
                     };
                 }
 
@@ -4747,16 +4750,16 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield2", new[] { "In" }, Comments.Yield2)]
+            [CodeExplodeExtensionMethod("Yield2", new[] {"In"}, Comments.Yield2)]
             public static Func<Action<T1, U>, Func<T1, U, U>> L_Yield2_A<T1, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2) =>
-                            {
-                                In(o1, o2);
-                                return o2;
-                            };
+                    return (o1, o2) =>
+                        {
+                        In(o1, o2);
+                        return o2;
+                        };
                     };
                 }
 
@@ -4767,16 +4770,16 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
+            [CodeExplodeExtensionMethod("Yield", new[] {"In"}, Comments.Yield)]
             public static Func<Action<U, T1, T2>, Func<U, T1, T2, U>> L_Yield_A<T1, T2, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                In(o1, o2, o3);
-                                return o1;
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        In(o1, o2, o3);
+                        return o1;
+                        };
                     };
                 }
 
@@ -4787,16 +4790,16 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield2", new[] { "In" }, Comments.Yield2)]
+            [CodeExplodeExtensionMethod("Yield2", new[] {"In"}, Comments.Yield2)]
             public static Func<Action<T1, U, T2>, Func<T1, U, T2, U>> L_Yield2_A<T1, T2, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                In(o1, o2, o3);
-                                return o2;
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        In(o1, o2, o3);
+                        return o2;
+                        };
                     };
                 }
 
@@ -4807,16 +4810,16 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield3", new[] { "In" }, Comments.Yield3)]
+            [CodeExplodeExtensionMethod("Yield3", new[] {"In"}, Comments.Yield3)]
             public static Func<Action<T1, T2, U>, Func<T1, T2, U, U>> L_Yield3_A<T1, T2, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                In(o1, o2, o3);
-                                return o3;
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        In(o1, o2, o3);
+                        return o3;
+                        };
                     };
                 }
 
@@ -4828,16 +4831,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
+            [CodeExplodeExtensionMethod("Yield", new[] {"In"}, Comments.Yield)]
             public static Func<Action<U, T1, T2, T3>, Func<U, T1, T2, T3, U>> L_Yield_A<T1, T2, T3, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2, o3, o4);
-                                return o1;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2, o3, o4);
+                        return o1;
+                        };
                     };
                 }
 
@@ -4849,16 +4852,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield2", new[] { "In" }, Comments.Yield2)]
+            [CodeExplodeExtensionMethod("Yield2", new[] {"In"}, Comments.Yield2)]
             public static Func<Action<T1, U, T2, T3>, Func<T1, U, T2, T3, U>> L_Yield2_A<T1, T2, T3, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2, o3, o4);
-                                return o2;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2, o3, o4);
+                        return o2;
+                        };
                     };
                 }
 
@@ -4870,16 +4873,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield3", new[] { "In" }, Comments.Yield3)]
+            [CodeExplodeExtensionMethod("Yield3", new[] {"In"}, Comments.Yield3)]
             public static Func<Action<T1, T2, U, T3>, Func<T1, T2, U, T3, U>> L_Yield3_A<T1, T2, T3, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2, o3, o4);
-                                return o3;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2, o3, o4);
+                        return o3;
+                        };
                     };
                 }
 
@@ -4891,16 +4894,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield4", new[] { "In" }, Comments.Yield4)]
+            [CodeExplodeExtensionMethod("Yield4", new[] {"In"}, Comments.Yield4)]
             public static Func<Action<T1, T2, T3, U>, Func<T1, T2, T3, U, U>> L_Yield4_A<T1, T2, T3, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2, o3, o4);
-                                return o4;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2, o3, o4);
+                        return o4;
+                        };
                     };
                 }
 
@@ -4909,16 +4912,16 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
+            [CodeExplodeExtensionMethod("Yield", new[] {"In"}, Comments.Yield)]
             public static Func<Func<U, U>, Func<U, U>> L_Yield_F<U>()
                 {
                 return In =>
                     {
-                        return o =>
-                            {
-                                In(o);
-                                return o;
-                            };
+                    return o =>
+                        {
+                        In(o);
+                        return o;
+                        };
                     };
                 }
 
@@ -4928,16 +4931,16 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
+            [CodeExplodeExtensionMethod("Yield", new[] {"In"}, Comments.Yield)]
             public static Func<Func<U, T1, U>, Func<U, T1, U>> L_Yield_F<T1, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2) =>
-                            {
-                                In(o1, o2);
-                                return o1;
-                            };
+                    return (o1, o2) =>
+                        {
+                        In(o1, o2);
+                        return o1;
+                        };
                     };
                 }
 
@@ -4947,16 +4950,16 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield2", new[] { "In" }, Comments.Yield2)]
+            [CodeExplodeExtensionMethod("Yield2", new[] {"In"}, Comments.Yield2)]
             public static Func<Func<T1, U, U>, Func<T1, U, U>> L_Yield2_F<T1, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2) =>
-                            {
-                                In(o1, o2);
-                                return o2;
-                            };
+                    return (o1, o2) =>
+                        {
+                        In(o1, o2);
+                        return o2;
+                        };
                     };
                 }
 
@@ -4967,16 +4970,16 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
+            [CodeExplodeExtensionMethod("Yield", new[] {"In"}, Comments.Yield)]
             public static Func<Func<U, T1, T2, U>, Func<U, T1, T2, U>> L_Yield_F<T1, T2, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                In(o1, o2, o3);
-                                return o1;
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        In(o1, o2, o3);
+                        return o1;
+                        };
                     };
                 }
 
@@ -4987,16 +4990,16 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield2", new[] { "In" }, Comments.Yield2)]
+            [CodeExplodeExtensionMethod("Yield2", new[] {"In"}, Comments.Yield2)]
             public static Func<Func<T1, U, T2, U>, Func<T1, U, T2, U>> L_Yield2_F<T1, T2, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                In(o1, o2, o3);
-                                return o2;
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        In(o1, o2, o3);
+                        return o2;
+                        };
                     };
                 }
 
@@ -5007,16 +5010,16 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield3", new[] { "In" }, Comments.Yield3)]
+            [CodeExplodeExtensionMethod("Yield3", new[] {"In"}, Comments.Yield3)]
             public static Func<Func<T1, T2, U, U>, Func<T1, T2, U, U>> L_Yield3_F<T1, T2, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                In(o1, o2, o3);
-                                return o3;
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        In(o1, o2, o3);
+                        return o3;
+                        };
                     };
                 }
 
@@ -5028,16 +5031,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield", new[] { "In" }, Comments.Yield)]
+            [CodeExplodeExtensionMethod("Yield", new[] {"In"}, Comments.Yield)]
             public static Func<Func<U, T1, T2, T3, U>, Func<U, T1, T2, T3, U>> L_Yield_F<T1, T2, T3, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2, o3, o4);
-                                return o1;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2, o3, o4);
+                        return o1;
+                        };
                     };
                 }
 
@@ -5049,16 +5052,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield2", new[] { "In" }, Comments.Yield2)]
+            [CodeExplodeExtensionMethod("Yield2", new[] {"In"}, Comments.Yield2)]
             public static Func<Func<T1, U, T2, T3, U>, Func<T1, U, T2, T3, U>> L_Yield2_F<T1, T2, T3, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2, o3, o4);
-                                return o2;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2, o3, o4);
+                        return o2;
+                        };
                     };
                 }
 
@@ -5070,16 +5073,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield3", new[] { "In" }, Comments.Yield3)]
+            [CodeExplodeExtensionMethod("Yield3", new[] {"In"}, Comments.Yield3)]
             public static Func<Func<T1, T2, U, T3, U>, Func<T1, T2, U, T3, U>> L_Yield3_F<T1, T2, T3, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2, o3, o4);
-                                return o3;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2, o3, o4);
+                        return o3;
+                        };
                     };
                 }
 
@@ -5091,16 +5094,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Yield4", new[] { "In" }, Comments.Yield4)]
+            [CodeExplodeExtensionMethod("Yield4", new[] {"In"}, Comments.Yield4)]
             public static Func<Func<T1, T2, T3, U, U>, Func<T1, T2, T3, U, U>> L_Yield4_F<T1, T2, T3, U>()
                 {
                 return In =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2, o3, o4);
-                                return o4;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2, o3, o4);
+                        return o4;
+                        };
                     };
                 }
 
@@ -5112,7 +5115,7 @@ namespace LCore.Extensions
             /// For a method Act that returns a method, Returns a method that executes the Method passed and its result.
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
+            [CodeExplodeExtensionMethod("Execute", new[] {"Act"}, Comments.Execute)]
             public static Func<Func<Action>, Action> L_Execute_A()
                 {
                 return Act => { return () => { Act()(); }; };
@@ -5123,7 +5126,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
+            [CodeExplodeExtensionMethod("Execute", new[] {"Act"}, Comments.Execute)]
             public static Func<Func<Action<T1>>, Action<T1>> L_Execute_A<T1>()
                 {
                 return Act => { return o1 => { Act()(o1); }; };
@@ -5135,7 +5138,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
+            [CodeExplodeExtensionMethod("Execute", new[] {"Act"}, Comments.Execute)]
             public static Func<Func<Action<T1, T2>>, Action<T1, T2>> L_Execute_A<T1, T2>()
                 {
                 return Act => { return (o1, o2) => { Act()(o1, o2); }; };
@@ -5148,7 +5151,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
+            [CodeExplodeExtensionMethod("Execute", new[] {"Act"}, Comments.Execute)]
             public static Func<Func<Action<T1, T2, T3>>, Action<T1, T2, T3>> L_Execute_A<T1, T2, T3>()
                 {
                 return Act => { return (o1, o2, o3) => { Act()(o1, o2, o3); }; };
@@ -5162,7 +5165,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
+            [CodeExplodeExtensionMethod("Execute", new[] {"Act"}, Comments.Execute)]
             public static Func<Func<Action<T1, T2, T3, T4>>, Action<T1, T2, T3, T4>> L_Execute_A<T1, T2, T3, T4>()
                 {
                 return Act => { return (o1, o2, o3, o4) => { Act()(o1, o2, o3, o4); }; };
@@ -5173,7 +5176,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
+            [CodeExplodeExtensionMethod("Execute", new[] {"Act"}, Comments.Execute)]
             public static Func<Func<Func<U>>, Func<U>> L_Execute_F<U>()
                 {
                 return Act => { return () => Act()(); };
@@ -5185,7 +5188,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
+            [CodeExplodeExtensionMethod("Execute", new[] {"Act"}, Comments.Execute)]
             public static Func<Func<Func<T1, U>>, Func<T1, U>> L_Execute_F<T1, U>()
                 {
                 return Act => { return o1 => Act()(o1); };
@@ -5198,7 +5201,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
+            [CodeExplodeExtensionMethod("Execute", new[] {"Act"}, Comments.Execute)]
             public static Func<Func<Func<T1, T2, U>>, Func<T1, T2, U>> L_Execute_F<T1, T2, U>()
                 {
                 return Act => { return (o1, o2) => Act()(o1, o2); };
@@ -5212,7 +5215,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
+            [CodeExplodeExtensionMethod("Execute", new[] {"Act"}, Comments.Execute)]
             public static Func<Func<Func<T1, T2, T3, U>>, Func<T1, T2, T3, U>> L_Execute_F<T1, T2, T3, U>()
                 {
                 return Act => { return (o1, o2, o3) => Act()(o1, o2, o3); };
@@ -5227,7 +5230,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Execute", new[] { "Act" }, Comments.Execute)]
+            [CodeExplodeExtensionMethod("Execute", new[] {"Act"}, Comments.Execute)]
             public static Func<Func<Func<T1, T2, T3, T4, U>>, Func<T1, T2, T3, T4, U>> L_Execute_F<T1, T2, T3, T4, U>()
                 {
                 return Act => { return (o1, o2, o3, o4) => Act()(o1, o2, o3, o4); };
@@ -5312,7 +5315,7 @@ namespace LCore.Extensions
             /// <returns></returns>
             public static Func<Func<U1>, Func<U2>> L_Cast_F<U1, U2>()
                 {
-                return In => { return () => (U2)(object)In(); };
+                return In => { return () => (U2) (object) In(); };
                 }
 
             /// <summary>
@@ -5327,7 +5330,7 @@ namespace LCore.Extensions
                 where T2 : T1
                 where U2 : U1
                 {
-                return In => { return o1 => (U2)In(o1); };
+                return In => { return o1 => (U2) In(o1); };
                 }
 
             /// <summary>
@@ -5345,7 +5348,7 @@ namespace LCore.Extensions
                 where T4 : T2
                 where U2 : U1
                 {
-                return In => { return (o1, o2) => (U2)In(o1, o2); };
+                return In => { return (o1, o2) => (U2) In(o1, o2); };
                 }
 
             /// <summary>
@@ -5366,7 +5369,7 @@ namespace LCore.Extensions
                 where T6 : T3
                 where U2 : U1
                 {
-                return In => { return (o1, o2, o3) => (U2)In(o1, o2, o3); };
+                return In => { return (o1, o2, o3) => (U2) In(o1, o2, o3); };
                 }
 
             /// <summary>
@@ -5391,7 +5394,7 @@ namespace LCore.Extensions
                 where T8 : T4
                 where U2 : U1
                 {
-                return In => { return (o1, o2, o3, o4) => (U2)In(o1, o2, o3, o4); };
+                return In => { return (o1, o2, o3, o4) => (U2) In(o1, o2, o3, o4); };
                 }
 
             #endregion
@@ -5401,27 +5404,26 @@ namespace LCore.Extensions
             /// <summary>
             /// Joins two methods together, performing one then another.
             /// </summary>
-            [CodeExplodeExtensionMethod("Then", new[] { "Action1", "Action2" }, Comments.Then)]
-            public static readonly Func<Action, Action, Action> Then = (Action1, Action2) =>
-{
-    return () =>
-                            {
-                                Action1();
-                                Action2();
-                            };
-};
+            [CodeExplodeExtensionMethod("Then", new[] {"Action1", "Action2"}, Comments.Then)] public static readonly Func<Action, Action, Action> Then = (Action1, Action2) =>
+                {
+                return () =>
+                    {
+                    Action1();
+                    Action2();
+                    };
+                };
 
             /// <summary>
             /// Joins multiple actions together, performing them in order.
             /// </summary>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Action, Action[], Action> Then_A()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action => { In = Then(In, Action); });
-                        return In;
+                    Acts.Each(Action => { In = Then(In, Action); });
+                    return In;
                     };
                 }
 
@@ -5430,20 +5432,20 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Action<T1>, Action<T1>[], Action<T1>> Then_A<T1>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = o =>
                             {
-                                In = o =>
-                                {
-                                    In(o);
-                                    Action(o);
-                                };
-                            });
-                        return In;
+                            In(o);
+                            Action(o);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5453,20 +5455,20 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Action<T1, T2>, Action<T1, T2>[], Action<T1, T2>> Then_A<T1, T2>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2) =>
                             {
-                                In = (o1, o2) =>
-                                {
-                                    In(o1, o2);
-                                    Action(o1, o2);
-                                };
-                            });
-                        return In;
+                            In(o1, o2);
+                            Action(o1, o2);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5477,20 +5479,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Action<T1, T2, T3>, Action<T1, T2, T3>[], Action<T1, T2, T3>> Then_A<T1, T2, T3>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3) =>
                             {
-                                In = (o1, o2, o3) =>
-                                {
-                                    In(o1, o2, o3);
-                                    Action(o1, o2, o3);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3);
+                            Action(o1, o2, o3);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5502,21 +5504,21 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>[], Action<T1, T2, T3, T4>> Then_A
                 <T1, T2, T3, T4>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    Action(o1, o2, o3, o4);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3, o4);
+                            Action(o1, o2, o3, o4);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5525,7 +5527,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Action, Func<U>[], Func<U>> Then_A_F<U>()
                 {
                 return (In, Acts) => In.Return<U>().Then(Acts);
@@ -5537,7 +5539,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Action<T1>, Func<T1, U>[], Func<T1, U>> Then_A_F<T1, U>()
                 {
                 return (In, Acts) => In.Return<T1, U>().Then(Acts);
@@ -5550,7 +5552,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Action<T1, T2>, Func<T1, T2, U>[], Func<T1, T2, U>> Then_A_F<T1, T2, U>()
                 {
                 return (In, Acts) => In.Return<T1, T2, U>().Then(Acts);
@@ -5564,7 +5566,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Action<T1, T2, T3>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, U>> Then_A_F<T1, T2, T3, U>
                 ()
                 {
@@ -5580,7 +5582,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Action<T1, T2, T3, T4>, Func<T1, T2, T3, T4, U>[], Func<T1, T2, T3, T4, U>> Then_A_F
                 <T1, T2, T3, T4, U>()
                 {
@@ -5592,21 +5594,21 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<U>, Action[], Func<U>> Then_F<U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = () =>
                             {
-                                In = () =>
-                                {
-                                    var Out = In();
-                                    Action();
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In();
+                            Action();
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5616,21 +5618,21 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<T1, U>, Action<T1>[], Func<T1, U>> Then_F<T1, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = o1 =>
                             {
-                                In = o1 =>
-                                {
-                                    var Out = In(o1);
-                                    Action(o1);
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1);
+                            Action(o1);
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5641,21 +5643,21 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, U>, Action<T1, T2>[], Func<T1, T2, U>> Then_F<T1, T2, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2) =>
                             {
-                                In = (o1, o2) =>
-                                {
-                                    var Out = In(o1, o2);
-                                    Action(o1, o2);
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1, o2);
+                            Action(o1, o2);
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5667,21 +5669,21 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, T3, U>, Action<T1, T2, T3>[], Func<T1, T2, T3, U>> Then_F<T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3) =>
                             {
-                                In = (o1, o2, o3) =>
-                                {
-                                    var Out = In(o1, o2, o3);
-                                    Action(o1, o2, o3);
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1, o2, o3);
+                            Action(o1, o2, o3);
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5694,22 +5696,22 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, T3, T4, U>, Action<T1, T2, T3, T4>[], Func<T1, T2, T3, T4, U>> Then_F
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    var Out = In(o1, o2, o3, o4);
-                                    Action(o1, o2, o3, o4);
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1, o2, o3, o4);
+                            Action(o1, o2, o3, o4);
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5718,20 +5720,20 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<U>, Func<U>[], Func<U>> L_Then_F_F<U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = () =>
                             {
-                                In = () =>
-                                {
-                                    In();
-                                    return Action();
-                                };
-                            });
-                        return In;
+                            In();
+                            return Action();
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5741,21 +5743,21 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<T1, U>, Func<T1, U>[], Func<T1, U>> L_Then_F_F<T1, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Func<T1, U> Out = In;
-                        Acts.Each(Action =>
+                    Func<T1, U> Out = In;
+                    Acts.Each(Action =>
+                        {
+                        Out = o1 =>
                             {
-                                Out = o1 =>
-                                {
-                                    Out(o1);
-                                    return Action(o1);
-                                };
-                            });
-                        return In;
+                            Out(o1);
+                            return Action(o1);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5766,20 +5768,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, U>, Func<T1, T2, U>[], Func<T1, T2, U>> L_Then_F_F<T1, T2, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2) =>
                             {
-                                In = (o1, o2) =>
-                                {
-                                    In(o1, o2);
-                                    return Action(o1, o2);
-                                };
-                            });
-                        return In;
+                            In(o1, o2);
+                            return Action(o1, o2);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5791,20 +5793,20 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, T3, U>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, U>> L_Then_F_F<T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3) =>
                             {
-                                In = (o1, o2, o3) =>
-                                {
-                                    In(o1, o2, o3);
-                                    return Action(o1, o2, o3);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3);
+                            return Action(o1, o2, o3);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5817,21 +5819,21 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMultiple)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMultiple)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T1, T2, T3, T4, U>[], Func<T1, T2, T3, T4, U>> L_Then_F_F
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    return Action(o1, o2, o3, o4);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3, o4);
+                            return Action(o1, o2, o3, o4);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5846,20 +5848,20 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1>, Action[], Action<T1>> L_ThenMissing_A<T1>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = o =>
                             {
-                                In = o =>
-                                {
-                                    In(o);
-                                    Action();
-                                };
-                            });
-                        return In;
+                            In(o);
+                            Action();
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5869,20 +5871,20 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2>, Action<T1>[], Action<T1, T2>> L_ThenMissing_A<T1, T2>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2) =>
                             {
-                                In = (o1, o2) =>
-                                {
-                                    In(o1, o2);
-                                    Action(o1);
-                                };
-                            });
-                        return In;
+                            In(o1, o2);
+                            Action(o1);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5892,20 +5894,20 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2>, Action[], Action<T1, T2>> L_ThenMissing_A2<T1, T2>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2) =>
                             {
-                                In = (o1, o2) =>
-                                {
-                                    In(o1, o2);
-                                    Action();
-                                };
-                            });
-                        return In;
+                            In(o1, o2);
+                            Action();
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5916,20 +5918,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3>, Action<T1, T2>[], Action<T1, T2, T3>> L_ThenMissing_A<T1, T2, T3>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3) =>
                             {
-                                In = (o1, o2, o3) =>
-                                {
-                                    In(o1, o2, o3);
-                                    Action(o1, o2);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3);
+                            Action(o1, o2);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5940,20 +5942,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3>, Action<T1>[], Action<T1, T2, T3>> L_ThenMissing_A2<T1, T2, T3>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3) =>
                             {
-                                In = (o1, o2, o3) =>
-                                {
-                                    In(o1, o2, o3);
-                                    Action(o1);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3);
+                            Action(o1);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5964,20 +5966,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3>, Action[], Action<T1, T2, T3>> L_ThenMissing_A3<T1, T2, T3>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3) =>
                             {
-                                In = (o1, o2, o3) =>
-                                {
-                                    In(o1, o2, o3);
-                                    Action();
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3);
+                            Action();
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -5989,21 +5991,21 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3, T4>, Action<T1, T2, T3>[], Action<T1, T2, T3, T4>> L_ThenMissing_A
                 <T1, T2, T3, T4>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    Action(o1, o2, o3);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3, o4);
+                            Action(o1, o2, o3);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6015,21 +6017,21 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3, T4>, Action<T1, T2>[], Action<T1, T2, T3, T4>> L_ThenMissing_A2
                 <T1, T2, T3, T4>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    Action(o1, o2);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3, o4);
+                            Action(o1, o2);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6041,21 +6043,21 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3, T4>, Action<T1>[], Action<T1, T2, T3, T4>> L_ThenMissing_A3
                 <T1, T2, T3, T4>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    Action(o1);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3, o4);
+                            Action(o1);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6067,21 +6069,21 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Action<T1, T2, T3, T4>, Action[], Action<T1, T2, T3, T4>> L_ThenMissing_A4
                 <T1, T2, T3, T4>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    Action();
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3, o4);
+                            Action();
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6095,21 +6097,21 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1>, Func<U>[], Func<T1, U>> L_ThenMissing_A_F<T1, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Func<T1, U> Out = In.Return<T1, U>();
-                        Acts.Each(Action =>
+                    Func<T1, U> Out = In.Return<T1, U>();
+                    Acts.Each(Action =>
+                        {
+                        Out = o1 =>
                             {
-                                Out = o1 =>
-                                {
-                                    In(o1);
-                                    return Action();
-                                };
-                            });
-                        return Out;
+                            In(o1);
+                            return Action();
+                            };
+                        });
+                    return Out;
                     };
                 }
 
@@ -6120,21 +6122,21 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2>, Func<T1, U>[], Func<T1, T2, U>> L_ThenMissing_A_F<T1, T2, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Func<T1, T2, U> Out = In.Return<T1, T2, U>();
-                        Acts.Each(Action =>
+                    Func<T1, T2, U> Out = In.Return<T1, T2, U>();
+                    Acts.Each(Action =>
+                        {
+                        Out = (o1, o2) =>
                             {
-                                Out = (o1, o2) =>
-                                {
-                                    In(o1, o2);
-                                    return Action(o1);
-                                };
-                            });
-                        return Out;
+                            In(o1, o2);
+                            return Action(o1);
+                            };
+                        });
+                    return Out;
                     };
                 }
 
@@ -6146,22 +6148,22 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3>, Func<T1, T2, U>[], Func<T1, T2, T3, U>> L_ThenMissing_A_F
                 <T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Func<T1, T2, T3, U> Out = In.Return<T1, T2, T3, U>();
-                        Acts.Each(Action =>
+                    Func<T1, T2, T3, U> Out = In.Return<T1, T2, T3, U>();
+                    Acts.Each(Action =>
+                        {
+                        Out = (o1, o2, o3) =>
                             {
-                                Out = (o1, o2, o3) =>
-                                {
-                                    In(o1, o2, o3);
-                                    return Action(o1, o2);
-                                };
-                            });
-                        return Out;
+                            In(o1, o2, o3);
+                            return Action(o1, o2);
+                            };
+                        });
+                    return Out;
                     };
                 }
 
@@ -6172,21 +6174,21 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2>, Func<U>[], Func<T1, T2, U>> L_ThenMissing_A_F2<T1, T2, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Func<T1, T2, U> Out = In.Return<T1, T2, U>();
-                        Acts.Each(Action =>
+                    Func<T1, T2, U> Out = In.Return<T1, T2, U>();
+                    Acts.Each(Action =>
+                        {
+                        Out = (o1, o2) =>
                             {
-                                Out = (o1, o2) =>
-                                {
-                                    In(o1, o2);
-                                    return Action();
-                                };
-                            });
-                        return Out;
+                            In(o1, o2);
+                            return Action();
+                            };
+                        });
+                    return Out;
                     };
                 }
 
@@ -6198,21 +6200,21 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3>, Func<U>[], Func<T1, T2, T3, U>> L_ThenMissing_A_F3<T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Func<T1, T2, T3, U> Out = In.Return<T1, T2, T3, U>();
-                        Acts.Each(Action =>
+                    Func<T1, T2, T3, U> Out = In.Return<T1, T2, T3, U>();
+                    Acts.Each(Action =>
+                        {
+                        Out = (o1, o2, o3) =>
                             {
-                                Out = (o1, o2, o3) =>
-                                {
-                                    In(o1, o2, o3);
-                                    return Action();
-                                };
-                            });
-                        return Out;
+                            In(o1, o2, o3);
+                            return Action();
+                            };
+                        });
+                    return Out;
                     };
                 }
 
@@ -6224,22 +6226,22 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3>, Func<T1, U>[], Func<T1, T2, T3, U>> L_ThenMissing_A_F2<T1, T2, T3, U>
                 ()
                 {
                 return (In, Acts) =>
                     {
-                        Func<T1, T2, T3, U> Out = In.Return<T1, T2, T3, U>();
-                        Acts.Each(Action =>
+                    Func<T1, T2, T3, U> Out = In.Return<T1, T2, T3, U>();
+                    Acts.Each(Action =>
+                        {
+                        Out = (o1, o2, o3) =>
                             {
-                                Out = (o1, o2, o3) =>
-                                {
-                                    In(o1, o2, o3);
-                                    return Action(o1);
-                                };
-                            });
-                        return Out;
+                            In(o1, o2, o3);
+                            return Action(o1);
+                            };
+                        });
+                    return Out;
                     };
                 }
 
@@ -6252,22 +6254,22 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3, T4>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_A_F
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Func<T1, T2, T3, T4, U> Out = In.Return<T1, T2, T3, T4, U>();
-                        Acts.Each(Action =>
+                    Func<T1, T2, T3, T4, U> Out = In.Return<T1, T2, T3, T4, U>();
+                    Acts.Each(Action =>
+                        {
+                        Out = (o1, o2, o3, o4) =>
                             {
-                                Out = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    return Action(o1, o2, o3);
-                                };
-                            });
-                        return Out;
+                            In(o1, o2, o3, o4);
+                            return Action(o1, o2, o3);
+                            };
+                        });
+                    return Out;
                     };
                 }
 
@@ -6280,22 +6282,22 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3, T4>, Func<T1, T2, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_A_F2
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Func<T1, T2, T3, T4, U> Out = In.Return<T1, T2, T3, T4, U>();
-                        Acts.Each(Action =>
+                    Func<T1, T2, T3, T4, U> Out = In.Return<T1, T2, T3, T4, U>();
+                    Acts.Each(Action =>
+                        {
+                        Out = (o1, o2, o3, o4) =>
                             {
-                                Out = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    return Action(o1, o2);
-                                };
-                            });
-                        return Out;
+                            In(o1, o2, o3, o4);
+                            return Action(o1, o2);
+                            };
+                        });
+                    return Out;
                     };
                 }
 
@@ -6308,22 +6310,22 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3, T4>, Func<T1, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_A_F3
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Func<T1, T2, T3, T4, U> Out = In.Return<T1, T2, T3, T4, U>();
-                        Acts.Each(Action =>
+                    Func<T1, T2, T3, T4, U> Out = In.Return<T1, T2, T3, T4, U>();
+                    Acts.Each(Action =>
+                        {
+                        Out = (o1, o2, o3, o4) =>
                             {
-                                Out = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    return Action(o1);
-                                };
-                            });
-                        return Out;
+                            In(o1, o2, o3, o4);
+                            return Action(o1);
+                            };
+                        });
+                    return Out;
                     };
                 }
 
@@ -6336,22 +6338,22 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Action<T1, T2, T3, T4>, Func<U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_A_F4
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Func<T1, T2, T3, T4, U> Out = In.Return<T1, T2, T3, T4, U>();
-                        Acts.Each(Action =>
+                    Func<T1, T2, T3, T4, U> Out = In.Return<T1, T2, T3, T4, U>();
+                    Acts.Each(Action =>
+                        {
+                        Out = (o1, o2, o3, o4) =>
                             {
-                                Out = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    return Action();
-                                };
-                            });
-                        return Out;
+                            In(o1, o2, o3, o4);
+                            return Action();
+                            };
+                        });
+                    return Out;
                     };
                 }
 
@@ -6365,21 +6367,21 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, U>, Action[], Func<T1, U>> L_ThenMissing_F_A<T1, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = o =>
                             {
-                                In = o =>
-                                {
-                                    var Out = In(o);
-                                    Action();
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o);
+                            Action();
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6390,21 +6392,21 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, U>, Action<T1>[], Func<T1, T2, U>> L_ThenMissing_F_A<T1, T2, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2) =>
                             {
-                                In = (o1, o2) =>
-                                {
-                                    var Out = In(o1, o2);
-                                    Action(o1);
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1, o2);
+                            Action(o1);
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6415,21 +6417,21 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, U>, Action[], Func<T1, T2, U>> L_ThenMissing_F_A2<T1, T2, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2) =>
                             {
-                                In = (o1, o2) =>
-                                {
-                                    var Out = In(o1, o2);
-                                    Action();
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1, o2);
+                            Action();
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6441,22 +6443,22 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, U>, Action<T1, T2>[], Func<T1, T2, T3, U>> L_ThenMissing_F_A
                 <T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3) =>
                             {
-                                In = (o1, o2, o3) =>
-                                {
-                                    var Out = In(o1, o2, o3);
-                                    Action(o1, o2);
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1, o2, o3);
+                            Action(o1, o2);
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6468,22 +6470,22 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, U>, Action<T1>[], Func<T1, T2, T3, U>> L_ThenMissing_F_A2<T1, T2, T3, U>
                 ()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3) =>
                             {
-                                In = (o1, o2, o3) =>
-                                {
-                                    var Out = In(o1, o2, o3);
-                                    Action(o1);
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1, o2, o3);
+                            Action(o1);
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6495,21 +6497,21 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, U>, Action[], Func<T1, T2, T3, U>> L_ThenMissing_F_A3<T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3) =>
                             {
-                                In = (o1, o2, o3) =>
-                                {
-                                    var Out = In(o1, o2, o3);
-                                    Action();
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1, o2, o3);
+                            Action();
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6522,22 +6524,22 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, T4, U>, Action<T1, T2, T3>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_A
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    var Out = In(o1, o2, o3, o4);
-                                    Action(o1, o2, o3);
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1, o2, o3, o4);
+                            Action(o1, o2, o3);
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6550,22 +6552,22 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, T4, U>, Action<T1, T2>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_A2
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    var Out = In(o1, o2, o3, o4);
-                                    Action(o1, o2);
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1, o2, o3, o4);
+                            Action(o1, o2);
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6578,22 +6580,22 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, T4, U>, Action<T1>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_A3
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    var Out = In(o1, o2, o3, o4);
-                                    Action(o1);
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1, o2, o3, o4);
+                            Action(o1);
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6606,22 +6608,22 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissing)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissing)]
             public static Func<Func<T1, T2, T3, T4, U>, Action[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_A4
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    var Out = In(o1, o2, o3, o4);
-                                    Action();
-                                    return Out;
-                                };
-                            });
-                        return In;
+                            var Out = In(o1, o2, o3, o4);
+                            Action();
+                            return Out;
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6635,20 +6637,20 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, U>, Func<U>[], Func<T1, U>> L_ThenMissing_F_F<T1, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = o =>
                             {
-                                In = o =>
-                                {
-                                    In(o);
-                                    return Action();
-                                };
-                            });
-                        return In;
+                            In(o);
+                            return Action();
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6659,20 +6661,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, U>, Func<T1, U>[], Func<T1, T2, U>> L_ThenMissing_F_F<T1, T2, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2) =>
                             {
-                                In = (o1, o2) =>
-                                {
-                                    In(o1, o2);
-                                    return Action(o1);
-                                };
-                            });
-                        return In;
+                            In(o1, o2);
+                            return Action(o1);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6683,20 +6685,20 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, U>, Func<U>[], Func<T1, T2, U>> L_ThenMissing_F_F2<T1, T2, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2) =>
                             {
-                                In = (o1, o2) =>
-                                {
-                                    In(o1, o2);
-                                    return Action();
-                                };
-                            });
-                        return In;
+                            In(o1, o2);
+                            return Action();
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6708,21 +6710,21 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, U>, Func<T1, U>[], Func<T1, T2, T3, U>> L_ThenMissing_F_F2
                 <T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3) =>
                             {
-                                In = (o1, o2, o3) =>
-                                {
-                                    In(o1, o2, o3);
-                                    return Action(o1);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3);
+                            return Action(o1);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6734,20 +6736,20 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, U>, Func<U>[], Func<T1, T2, T3, U>> L_ThenMissing_F_F3<T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3) =>
                             {
-                                In = (o1, o2, o3) =>
-                                {
-                                    In(o1, o2, o3);
-                                    return Action();
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3);
+                            return Action();
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6759,21 +6761,21 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, U>, Func<T1, T2, U>[], Func<T1, T2, T3, U>> L_ThenMissing_F_F
                 <T1, T2, T3, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3) =>
                             {
-                                In = (o1, o2, o3) =>
-                                {
-                                    In(o1, o2, o3);
-                                    return Action(o1, o2);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3);
+                            return Action(o1, o2);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6786,21 +6788,21 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T1, T2, T3, U>[], Func<T1, T2, T3, T4, U>>
                 L_ThenMissing_F_F<T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    return Action(o1, o2, o3);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3, o4);
+                            return Action(o1, o2, o3);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6813,21 +6815,21 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T1, T2, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_F2
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    return Action(o1, o2);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3, o4);
+                            return Action(o1, o2);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6840,21 +6842,21 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<T1, U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_F3
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    return Action(o1);
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3, o4);
+                            return Action(o1);
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6867,21 +6869,21 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Then", new[] { "In", "params Acts" }, Comments.ThenMissingFunc)]
+            [CodeExplodeExtensionMethod("Then", new[] {"In", "params Acts"}, Comments.ThenMissingFunc)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<U>[], Func<T1, T2, T3, T4, U>> L_ThenMissing_F_F4
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Acts) =>
                     {
-                        Acts.Each(Action =>
+                    Acts.Each(Action =>
+                        {
+                        In = (o1, o2, o3, o4) =>
                             {
-                                In = (o1, o2, o3, o4) =>
-                                {
-                                    In(o1, o2, o3, o4);
-                                    return Action();
-                                };
-                            });
-                        return In;
+                            In(o1, o2, o3, o4);
+                            return Action();
+                            };
+                        });
+                    return In;
                     };
                 }
 
@@ -6894,17 +6896,17 @@ namespace LCore.Extensions
             /// <summary>
             /// Returns a function that Performs In, then Merge. Parameter lists are merged.
             /// </summary>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("Merge", Comments.Merge)]
             public static Func<Action /*X2GA*/, Action /*GA*/ /*X2-TI*/, Action> L_Merge /*MA*/()
                 {
                 return (In, Merge) =>
                     {
-                        return () =>
-                            {
-                                In( /*X2A*/);
-                                Merge( /*A*/ /*X2-OI*/);
-                            };
+                    return () =>
+                        {
+                        In( /*X2A*/);
+                        Merge( /*A*/ /*X2-OI*/);
+                        };
                     };
                 }
 
@@ -6913,17 +6915,17 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge, ExecuteResult: false, ExtendExplosions: true)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge, ExecuteResult: false, ExtendExplosions: true)]
             [CodeExplodeGenerics("Merge", Comments.Merge)]
             public static Func<Action /*X2GA*/, Func /*GF*/<U> /*X2-TI*/, Func<U>> L_Merge_A_F /*MF*/<U>()
                 {
                 return (In, Merge) =>
                     {
-                        return () =>
-                            {
-                                In( /*X2A*/);
-                                return Merge( /*A*/ /*X2-OI*/);
-                            };
+                    return () =>
+                        {
+                        In( /*X2A*/);
+                        return Merge( /*A*/ /*X2-OI*/);
+                        };
                     };
                 }
 
@@ -6932,17 +6934,17 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<U>, Action, Func<U>> L_Merge_F_A<U>()
                 {
                 return (In, Merge) =>
                     {
-                        return () =>
-                            {
-                                var Out = In();
-                                Merge();
-                                return Out;
-                            };
+                    return () =>
+                        {
+                        var Out = In();
+                        Merge();
+                        return Out;
+                        };
                     };
                 }
 
@@ -6952,17 +6954,17 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<U>, Action<T1>, Func<T1, U>> L_Merge_F_A1<T1, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return o =>
-                            {
-                                var Out = In();
-                                Merge(o);
-                                return Out;
-                            };
+                    return o =>
+                        {
+                        var Out = In();
+                        Merge(o);
+                        return Out;
+                        };
                     };
                 }
 
@@ -6973,17 +6975,17 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<U>, Action<T1, T2>, Func<T1, T2, U>> L_Merge_F_A2<T1, T2, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                var Out = In();
-                                Merge(o1, o2);
-                                return Out;
-                            };
+                    return (o1, o2) =>
+                        {
+                        var Out = In();
+                        Merge(o1, o2);
+                        return Out;
+                        };
                     };
                 }
 
@@ -6995,17 +6997,17 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<U>, Action<T1, T2, T3>, Func<T1, T2, T3, U>> L_Merge_F_A3<T1, T2, T3, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                var Out = In();
-                                Merge(o1, o2, o3);
-                                return Out;
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        var Out = In();
+                        Merge(o1, o2, o3);
+                        return Out;
+                        };
                     };
                 }
 
@@ -7018,18 +7020,18 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<U>, Action<T1, T2, T3, T4>, Func<T1, T2, T3, T4, U>> L_Merge_F_A4<T1, T2, T3, T4, U>
                 ()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                var Out = In();
-                                Merge(o1, o2, o3, o4);
-                                return Out;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        var Out = In();
+                        Merge(o1, o2, o3, o4);
+                        return Out;
+                        };
                     };
                 }
 
@@ -7039,17 +7041,17 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, U>, Action, Func<T1, U>> L_Merge_F1_A<T1, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return o1 =>
-                            {
-                                var Out = In(o1);
-                                Merge();
-                                return Out;
-                            };
+                    return o1 =>
+                        {
+                        var Out = In(o1);
+                        Merge();
+                        return Out;
+                        };
                     };
                 }
 
@@ -7060,17 +7062,17 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, U>, Action<T2>, Func<T1, T2, U>> L_Merge_F1_A1<T1, T2, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                var Out = In(o1);
-                                Merge(o2);
-                                return Out;
-                            };
+                    return (o1, o2) =>
+                        {
+                        var Out = In(o1);
+                        Merge(o2);
+                        return Out;
+                        };
                     };
                 }
 
@@ -7082,17 +7084,17 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, U>, Action<T2, T3>, Func<T1, T2, T3, U>> L_Merge_F1_A2<T1, T2, T3, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                var Out = In(o1);
-                                Merge(o2, o3);
-                                return Out;
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        var Out = In(o1);
+                        Merge(o2, o3);
+                        return Out;
+                        };
                     };
                 }
 
@@ -7105,18 +7107,18 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, U>, Action<T2, T3, T4>, Func<T1, T2, T3, T4, U>> L_Merge_F1_A3
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                var Out = In(o1);
-                                Merge(o2, o3, o4);
-                                return Out;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        var Out = In(o1);
+                        Merge(o2, o3, o4);
+                        return Out;
+                        };
                     };
                 }
 
@@ -7127,17 +7129,17 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, T2, U>, Action, Func<T1, T2, U>> L_Merge_F2_A<T1, T2, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                var Out = In(o1, o2);
-                                Merge();
-                                return Out;
-                            };
+                    return (o1, o2) =>
+                        {
+                        var Out = In(o1, o2);
+                        Merge();
+                        return Out;
+                        };
                     };
                 }
 
@@ -7149,17 +7151,17 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, T2, U>, Action<T3>, Func<T1, T2, T3, U>> L_Merge_F2_A1<T1, T2, T3, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                var Out = In(o1, o2);
-                                Merge(o3);
-                                return Out;
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        var Out = In(o1, o2);
+                        Merge(o3);
+                        return Out;
+                        };
                     };
                 }
 
@@ -7172,18 +7174,18 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, T2, U>, Action<T3, T4>, Func<T1, T2, T3, T4, U>> L_Merge_F2_A2
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                var Out = In(o1, o2);
-                                Merge(o3, o4);
-                                return Out;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        var Out = In(o1, o2);
+                        Merge(o3, o4);
+                        return Out;
+                        };
                     };
                 }
 
@@ -7195,17 +7197,17 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, T2, T3, U>, Action, Func<T1, T2, T3, U>> L_Merge_F3_A<T1, T2, T3, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                var Out = In(o1, o2, o3);
-                                Merge();
-                                return Out;
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        var Out = In(o1, o2, o3);
+                        Merge();
+                        return Out;
+                        };
                     };
                 }
 
@@ -7218,18 +7220,18 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, T2, T3, U>, Action<T4>, Func<T1, T2, T3, T4, U>> L_Merge_F3_A1
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                var Out = In(o1, o2, o3);
-                                Merge(o4);
-                                return Out;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        var Out = In(o1, o2, o3);
+                        Merge(o4);
+                        return Out;
+                        };
                     };
                 }
 
@@ -7242,18 +7244,18 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, T2, T3, T4, U>, Action, Func<T1, T2, T3, T4, U>> L_Merge_F3_A<T1, T2, T3, T4, U>
                 ()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                var Out = In(o1, o2, o3, o4);
-                                Merge();
-                                return Out;
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        var Out = In(o1, o2, o3, o4);
+                        Merge();
+                        return Out;
+                        };
                     };
                 }
 
@@ -7262,16 +7264,16 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<U>, Func<U>, Func<U>> L_Merge_F_F<U>()
                 {
                 return (In, Merge) =>
                     {
-                        return () =>
-                            {
-                                In();
-                                return Merge();
-                            };
+                    return () =>
+                        {
+                        In();
+                        return Merge();
+                        };
                     };
                 }
 
@@ -7281,16 +7283,16 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<U>, Func<T1, U>, Func<T1, U>> L_Merge_F_F1<T1, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return o1 =>
-                            {
-                                In();
-                                return Merge(o1);
-                            };
+                    return o1 =>
+                        {
+                        In();
+                        return Merge(o1);
+                        };
                     };
                 }
 
@@ -7301,16 +7303,16 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<U>, Func<T1, T2, U>, Func<T1, T2, U>> L_Merge_F_F2<T1, T2, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                In();
-                                return Merge(o1, o2);
-                            };
+                    return (o1, o2) =>
+                        {
+                        In();
+                        return Merge(o1, o2);
+                        };
                     };
                 }
 
@@ -7322,16 +7324,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<U>, Func<T1, T2, T3, U>, Func<T1, T2, T3, U>> L_Merge_F_F3<T1, T2, T3, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                In();
-                                return Merge(o1, o2, o3);
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        In();
+                        return Merge(o1, o2, o3);
+                        };
                     };
                 }
 
@@ -7344,17 +7346,17 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<U>, Func<T1, T2, T3, T4, U>, Func<T1, T2, T3, T4, U>> L_Merge_F_F4
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In();
-                                return Merge(o1, o2, o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In();
+                        return Merge(o1, o2, o3, o4);
+                        };
                     };
                 }
 
@@ -7364,16 +7366,16 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, U>, Func<U>, Func<T1, U>> L_Merge_F1_F<T1, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return o1 =>
-                            {
-                                In(o1);
-                                return Merge();
-                            };
+                    return o1 =>
+                        {
+                        In(o1);
+                        return Merge();
+                        };
                     };
                 }
 
@@ -7384,16 +7386,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, U>, Func<T3, U>, Func<T1, T3, U>> L_Merge_F1_F1<T1, T3, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                In(o1);
-                                return Merge(o2);
-                            };
+                    return (o1, o2) =>
+                        {
+                        In(o1);
+                        return Merge(o2);
+                        };
                     };
                 }
 
@@ -7405,16 +7407,16 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, U>, Func<T3, T4, U>, Func<T1, T3, T4, U>> L_Merge_F1_F2<T1, T3, T4, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                In(o1);
-                                return Merge(o2, o3);
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        In(o1);
+                        return Merge(o2, o3);
+                        };
                     };
                 }
 
@@ -7427,17 +7429,17 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, U>, Func<T2, T3, T4, U>, Func<T1, T2, T3, T4, U>> L_Merge_F1_F3
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1);
-                                return Merge(o2, o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1);
+                        return Merge(o2, o3, o4);
+                        };
                     };
                 }
 
@@ -7448,16 +7450,16 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, T2, U>, Func<U>, Func<T1, T2, U>> L_Merge_F2_F<T1, T2, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2) =>
-                            {
-                                In(o1, o2);
-                                return Merge();
-                            };
+                    return (o1, o2) =>
+                        {
+                        In(o1, o2);
+                        return Merge();
+                        };
                     };
                 }
 
@@ -7469,16 +7471,16 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, T2, U>, Func<T4, U>, Func<T1, T2, T4, U>> L_Merge_F2_F1<T1, T2, T4, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                In(o1, o2);
-                                return Merge(o3);
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        In(o1, o2);
+                        return Merge(o3);
+                        };
                     };
                 }
 
@@ -7491,17 +7493,17 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, T2, U>, Func<T3, T4, U>, Func<T1, T2, T3, T4, U>> L_Merge_F2_F2
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2);
-                                return Merge(o3, o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2);
+                        return Merge(o3, o4);
+                        };
                     };
                 }
 
@@ -7513,16 +7515,16 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, T2, T3, U>, Func<U>, Func<T1, T2, T3, U>> L_Merge_F3_F<T1, T2, T3, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3) =>
-                            {
-                                In(o1, o2, o3);
-                                return Merge();
-                            };
+                    return (o1, o2, o3) =>
+                        {
+                        In(o1, o2, o3);
+                        return Merge();
+                        };
                     };
                 }
 
@@ -7535,17 +7537,17 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, T2, T3, U>, Func<T4, U>, Func<T1, T2, T3, T4, U>> L_Merge_F3_F1
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2, o3);
-                                return Merge(o4);
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2, o3);
+                        return Merge(o4);
+                        };
                     };
                 }
 
@@ -7558,17 +7560,17 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Merge", new[] { "In", "Merge" }, Comments.Merge)]
+            [CodeExplodeExtensionMethod("Merge", new[] {"In", "Merge"}, Comments.Merge)]
             public static Func<Func<T1, T2, T3, T4, U>, Func<U>, Func<T1, T2, T3, T4, U>> L_Merge_F4_F
                 <T1, T2, T3, T4, U>()
                 {
                 return (In, Merge) =>
                     {
-                        return (o1, o2, o3, o4) =>
-                            {
-                                In(o1, o2, o3, o4);
-                                return Merge();
-                            };
+                    return (o1, o2, o3, o4) =>
+                        {
+                        In(o1, o2, o3, o4);
+                        return Merge();
+                        };
                     };
                 }
 
@@ -7581,7 +7583,7 @@ namespace LCore.Extensions
             /// </summary>
             /// <typeparam name="T1"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
+            [CodeExplodeExtensionMethod("Supply", new[] {"In", "Obj"}, Comments.Supply)]
             public static Func<Action<T1>, T1, Action> L_Supply_A<T1>()
                 {
                 return (In, Obj) => { return () => { In(Obj); }; };
@@ -7593,7 +7595,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
+            [CodeExplodeExtensionMethod("Supply", new[] {"In", "Obj"}, Comments.Supply)]
             public static Func<Action<T1, T2>, T1, Action<T2>> L_Supply_A<T1, T2>()
                 {
                 return (In, Obj) => { return o => { In(Obj, o); }; };
@@ -7605,7 +7607,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="T2"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply2", new[] { "In", "Obj" }, Comments.Supply_2)]
+            [CodeExplodeExtensionMethod("Supply2", new[] {"In", "Obj"}, Comments.Supply_2)]
             public static Func<Action<T1, T2>, T2, Action<T1>> L_Supply_A2<T1, T2>()
                 {
                 return (In, Obj) => { return o => { In(o, Obj); }; };
@@ -7618,7 +7620,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
+            [CodeExplodeExtensionMethod("Supply", new[] {"In", "Obj"}, Comments.Supply)]
             public static Func<Action<T1, T2, T3>, T1, Action<T2, T3>> L_Supply_A<T1, T2, T3>()
                 {
                 return (In, Obj) => { return (o1, o2) => { In(Obj, o1, o2); }; };
@@ -7631,7 +7633,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply2", new[] { "In", "Obj" }, Comments.Supply_2)]
+            [CodeExplodeExtensionMethod("Supply2", new[] {"In", "Obj"}, Comments.Supply_2)]
             public static Func<Action<T1, T2, T3>, T2, Action<T1, T3>> L_Supply_A2<T1, T2, T3>()
                 {
                 return (In, Obj) => { return (o1, o2) => { In(o1, Obj, o2); }; };
@@ -7644,7 +7646,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="T3"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply3", new[] { "In", "Obj" }, Comments.Supply_3)]
+            [CodeExplodeExtensionMethod("Supply3", new[] {"In", "Obj"}, Comments.Supply_3)]
             public static Func<Action<T1, T2, T3>, T3, Action<T1, T2>> L_Supply_A3<T1, T2, T3>()
                 {
                 return (In, Obj) => { return (o1, o2) => { In(o1, o2, Obj); }; };
@@ -7658,7 +7660,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
+            [CodeExplodeExtensionMethod("Supply", new[] {"In", "Obj"}, Comments.Supply)]
             public static Func<Action<T1, T2, T3, T4>, T1, Action<T2, T3, T4>> L_Supply_A<T1, T2, T3, T4>()
                 {
                 return (In, Obj) => { return (o1, o2, o3) => { In(Obj, o1, o2, o3); }; };
@@ -7672,7 +7674,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply2", new[] { "In", "Obj" }, Comments.Supply_2)]
+            [CodeExplodeExtensionMethod("Supply2", new[] {"In", "Obj"}, Comments.Supply_2)]
             public static Func<Action<T1, T2, T3, T4>, T2, Action<T1, T3, T4>> L_Supply_A2<T1, T2, T3, T4>()
                 {
                 return (In, Obj) => { return (o1, o2, o3) => { In(o1, Obj, o2, o3); }; };
@@ -7686,7 +7688,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply3", new[] { "In", "Obj" }, Comments.Supply_3)]
+            [CodeExplodeExtensionMethod("Supply3", new[] {"In", "Obj"}, Comments.Supply_3)]
             public static Func<Action<T1, T2, T3, T4>, T3, Action<T1, T2, T4>> L_Supply_A3<T1, T2, T3, T4>()
                 {
                 return (In, Obj) => { return (o1, o2, o3) => { In(o1, o2, Obj, o3); }; };
@@ -7700,7 +7702,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="T4"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply4", new[] { "In", "Obj" }, Comments.Supply_4)]
+            [CodeExplodeExtensionMethod("Supply4", new[] {"In", "Obj"}, Comments.Supply_4)]
             public static Func<Action<T1, T2, T3, T4>, T4, Action<T1, T2, T3>> L_Supply_A4<T1, T2, T3, T4>()
                 {
                 return (In, Obj) => { return (o1, o2, o3) => { In(o1, o2, o3, Obj); }; };
@@ -7712,7 +7714,7 @@ namespace LCore.Extensions
             /// <typeparam name="T1"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
+            [CodeExplodeExtensionMethod("Supply", new[] {"In", "Obj"}, Comments.Supply)]
             public static Func<Func<T1, U>, T1, Func<U>> L_Supply_F<T1, U>()
                 {
                 return (In, Obj) => { return () => In(Obj); };
@@ -7725,7 +7727,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
+            [CodeExplodeExtensionMethod("Supply", new[] {"In", "Obj"}, Comments.Supply)]
             public static Func<Func<T1, T2, U>, T1, Func<T2, U>> L_Supply_F<T1, T2, U>()
                 {
                 return (In, Obj) => { return o => In(Obj, o); };
@@ -7738,7 +7740,7 @@ namespace LCore.Extensions
             /// <typeparam name="T2"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply2", new[] { "In", "Obj" }, Comments.Supply_2)]
+            [CodeExplodeExtensionMethod("Supply2", new[] {"In", "Obj"}, Comments.Supply_2)]
             public static Func<Func<T1, T2, U>, T2, Func<T1, U>> L_Supply_F2<T1, T2, U>()
                 {
                 return (In, Obj) => { return o => In(o, Obj); };
@@ -7752,7 +7754,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
+            [CodeExplodeExtensionMethod("Supply", new[] {"In", "Obj"}, Comments.Supply)]
             public static Func<Func<T1, T2, T3, U>, T1, Func<T2, T3, U>> L_Supply_F<T1, T2, T3, U>()
                 {
                 return (In, Obj) => { return (o1, o2) => In(Obj, o1, o2); };
@@ -7766,7 +7768,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply2", new[] { "In", "Obj" }, Comments.Supply_2)]
+            [CodeExplodeExtensionMethod("Supply2", new[] {"In", "Obj"}, Comments.Supply_2)]
             public static Func<Func<T1, T2, T3, U>, T2, Func<T1, T3, U>> L_Supply_F2<T1, T2, T3, U>()
                 {
                 return (In, Obj) => { return (o1, o2) => In(o1, Obj, o2); };
@@ -7780,7 +7782,7 @@ namespace LCore.Extensions
             /// <typeparam name="T3"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply3", new[] { "In", "Obj" }, Comments.Supply_3)]
+            [CodeExplodeExtensionMethod("Supply3", new[] {"In", "Obj"}, Comments.Supply_3)]
             public static Func<Func<T1, T2, T3, U>, T3, Func<T1, T2, U>> L_Supply_F3<T1, T2, T3, U>()
                 {
                 return (In, Obj) => { return (o1, o2) => In(o1, o2, Obj); };
@@ -7795,7 +7797,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply", new[] { "In", "Obj" }, Comments.Supply)]
+            [CodeExplodeExtensionMethod("Supply", new[] {"In", "Obj"}, Comments.Supply)]
             public static Func<Func<T1, T2, T3, T4, U>, T1, Func<T2, T3, T4, U>> L_Supply_F<T1, T2, T3, T4, U>()
                 {
                 return (In, Obj) => { return (o1, o2, o3) => In(Obj, o1, o2, o3); };
@@ -7810,7 +7812,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply2", new[] { "In", "Obj" }, Comments.Supply_2)]
+            [CodeExplodeExtensionMethod("Supply2", new[] {"In", "Obj"}, Comments.Supply_2)]
             public static Func<Func<T1, T2, T3, T4, U>, T2, Func<T1, T3, T4, U>> L_Supply_F2<T1, T2, T3, T4, U>()
                 {
                 return (In, Obj) => { return (o1, o2, o3) => In(o1, Obj, o2, o3); };
@@ -7825,7 +7827,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply3", new[] { "In", "Obj" }, Comments.Supply_3)]
+            [CodeExplodeExtensionMethod("Supply3", new[] {"In", "Obj"}, Comments.Supply_3)]
             public static Func<Func<T1, T2, T3, T4, U>, T3, Func<T1, T2, T4, U>> L_Supply_F3<T1, T2, T3, T4, U>()
                 {
                 return (In, Obj) => { return (o1, o2, o3) => In(o1, o2, Obj, o3); };
@@ -7840,7 +7842,7 @@ namespace LCore.Extensions
             /// <typeparam name="T4"></typeparam>
             /// <typeparam name="U"></typeparam>
             /// <returns></returns>
-            [CodeExplodeExtensionMethod("Supply4", new[] { "In", "Obj" }, Comments.Supply_4)]
+            [CodeExplodeExtensionMethod("Supply4", new[] {"In", "Obj"}, Comments.Supply_4)]
             public static Func<Func<T1, T2, T3, T4, U>, T4, Func<T1, T2, T3, U>> L_Supply_F4<T1, T2, T3, T4, U>()
                 {
                 return (In, Obj) => { return (o1, o2, o3) => In(o1, o2, o3, Obj); };
@@ -8295,7 +8297,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Action
                 <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(
-                Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
+                    Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> In)
                 {
                 return In;
                 }
@@ -8305,7 +8307,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Action
                 <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(
-                Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
+                    Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> In)
                 {
                 return In;
                 }
@@ -8315,7 +8317,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Action
                 <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(
-                Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
+                    Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> In)
                 {
                 return In;
                 }
@@ -8325,7 +8327,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Action
                 <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
-                Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
+                    Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> In)
                 {
                 return In;
                 }
@@ -8335,7 +8337,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Action
                 <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
-                Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
+                    Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> In)
                 {
                 return In;
                 }
@@ -8444,7 +8446,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> Function
                 <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U>(
-                Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
+                    Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, U> In)
                 {
                 return In;
                 }
@@ -8454,7 +8456,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> Function
                 <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U>(
-                Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
+                    Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, U> In)
                 {
                 return In;
                 }
@@ -8464,7 +8466,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> Function
                 <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U>(
-                Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
+                    Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, U> In)
                 {
                 return In;
                 }
@@ -8474,7 +8476,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> Function
                 <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U>(
-                Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
+                    Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, U> In)
                 {
                 return In;
                 }
@@ -8484,7 +8486,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> Function
                 <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U>(
-                Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
+                    Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, U> In)
                 {
                 return In;
                 }
@@ -8494,7 +8496,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> Function
                 <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U>(
-                Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
+                    Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, U> In)
                 {
                 return In;
                 }
@@ -8517,7 +8519,7 @@ namespace LCore.Extensions
             /// <typeparam name="U"></typeparam>
             /// <param name="In"></param>
             /// <returns></returns>
-            public static Func<U> Return<U>(U In)
+            public static Func<U> Return<U>([CanBeNull]U In)
                 {
                 return () => In;
                 }
@@ -8547,7 +8549,7 @@ namespace LCore.Extensions
             public static Func<U> New<U>(params object[] In)
                 {
                 var Const = typeof(U).GetConstructor(In.GetTypes());
-                return () => (U)Const?.Invoke(In);
+                return () => (U) Const?.Invoke(In);
                 }
 
             /// <summary>
@@ -8555,7 +8557,7 @@ namespace LCore.Extensions
             /// </summary>
             public static Func<U> New<U>()
                 {
-                return () => (U)typeof(U).GetConstructor(Ary.Array<Type>()())?.Invoke(Ary.Array<object>()());
+                return () => (U) typeof(U).GetConstructor(Ary.Array<Type>()())?.Invoke(Ary.Array<object>()());
                 }
 
             /// <summary>
@@ -8563,8 +8565,8 @@ namespace LCore.Extensions
             /// </summary>
             public static Func<T1, U> New<T1, U>()
                 {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1) });
-                return o1 => (U)Const?.Invoke(new object[] { o1 });
+                var Const = typeof(U).GetConstructor(new[] {typeof(T1)});
+                return o1 => (U) Const?.Invoke(new object[] {o1});
                 }
 
             /// <summary>
@@ -8572,8 +8574,8 @@ namespace LCore.Extensions
             /// </summary>
             public static Func<T1, T2, U> New<T1, T2, U>()
                 {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2) });
-                return (o1, o2) => (U)Const?.Invoke(new object[] { o1, o2 });
+                var Const = typeof(U).GetConstructor(new[] {typeof(T1), typeof(T2)});
+                return (o1, o2) => (U) Const?.Invoke(new object[] {o1, o2});
                 }
 
             /// <summary>
@@ -8581,8 +8583,8 @@ namespace LCore.Extensions
             /// </summary>
             public static Func<T1, T2, T3, U> New<T1, T2, T3, U>()
                 {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3) });
-                return (o1, o2, o3) => (U)Const?.Invoke(new object[] { o1, o2, o3 });
+                var Const = typeof(U).GetConstructor(new[] {typeof(T1), typeof(T2), typeof(T3)});
+                return (o1, o2, o3) => (U) Const?.Invoke(new object[] {o1, o2, o3});
                 }
 
             /// <summary>
@@ -8590,8 +8592,8 @@ namespace LCore.Extensions
             /// </summary>
             public static Func<T1, T2, T3, T4, U> New<T1, T2, T3, T4, U>()
                 {
-                var Const = typeof(U).GetConstructor(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) });
-                return (o1, o2, o3, o4) => (U)Const?.Invoke(new object[] { o1, o2, o3, o4 });
+                var Const = typeof(U).GetConstructor(new[] {typeof(T1), typeof(T2), typeof(T3), typeof(T4)});
+                return (o1, o2, o3, o4) => (U) Const?.Invoke(new object[] {o1, o2, o3, o4});
                 }
 
             /*

@@ -10,6 +10,7 @@ using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
 // ReSharper disable PossibleNullReferenceException
+// ReSharper disable AssignNullToNotNullAttribute
 
 // ReSharper disable ObjectCreationAsStatement
 

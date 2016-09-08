@@ -53,6 +53,7 @@ using ICSharpCode.SharpZipLib.Checksums;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using JetBrains.Annotations;
+// ReSharper disable AssignNullToNotNullAttribute
 
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnusedMethodReturnValue.Global

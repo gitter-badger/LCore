@@ -37,6 +37,7 @@ using System;
 using System.IO;
 using System.Text;
 using JetBrains.Annotations;
+// ReSharper disable AssignNullToNotNullAttribute
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global

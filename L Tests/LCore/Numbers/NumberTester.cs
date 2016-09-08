@@ -6,6 +6,7 @@ using LCore.LUnit;
 using LCore.LUnit.Fluent;
 using LCore.Numbers;
 using Xunit;
+// ReSharper disable PossibleNullReferenceException
 
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable RedundantCast

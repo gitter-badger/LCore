@@ -44,6 +44,9 @@ using System;
 using System.Security.Cryptography;
 using ICSharpCode.SharpZipLib.Checksums;
 using JetBrains.Annotations;
+// ReSharper disable AssignNullToNotNullAttribute
+// ReSharper disable PossibleNullReferenceException
+// ReSharper disable ImplicitNotNullResultOverridesUnknownExternalMember
 
 namespace ICSharpCode.SharpZipLib.Encryption
     {
@@ -192,7 +195,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
         /// <param name="inputOffset">The offset into the byte array from which to begin using data.</param>
         /// <param name="inputCount">The number of bytes in the byte array to use as data.</param>
         /// <returns>The computed transform.</returns>
-        public byte[] TransformFinalBlock([CanBeNull]byte[] inputBuffer, int inputOffset, int inputCount)
+        public byte[] TransformFinalBlock([CanBeNull] byte[] inputBuffer, int inputOffset, int inputCount)
             {
             var result = new byte[inputCount];
             this.TransformBlock(inputBuffer, inputOffset, inputCount, result, outputOffset: 0);
@@ -209,7 +212,7 @@ namespace ICSharpCode.SharpZipLib.Encryption
         /// <param name="outputBuffer">The output to which to write the transform.</param>
         /// <param name="outputOffset">The offset into the output byte array from which to begin writing data.</param>
         /// <returns>The number of bytes written.</returns>
-        public int TransformBlock([NotNull]byte[] inputBuffer, int inputOffset, int inputCount, [NotNull]byte[] outputBuffer, int outputOffset)
+        public int TransformBlock([CanBeNull]byte[] inputBuffer, int inputOffset, int inputCount, [NotNull]byte[] outputBuffer, int outputOffset)
             {
             for (int i = inputOffset; i < inputOffset + inputCount; ++i)
                 {

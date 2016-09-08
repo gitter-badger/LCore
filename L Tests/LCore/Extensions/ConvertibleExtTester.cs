@@ -7,6 +7,9 @@ using LCore.LUnit.Fluent;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
+// ReSharper disable ImplicitNotNullResultOverridesUnknownExternalMember
+
+// ReSharper disable AssignNullToNotNullAttribute
 
 // ReSharper disable PartialTypeWithSinglePart
 
@@ -19,14 +22,18 @@ namespace L_Tests.LCore.Extensions
     {
     public partial class ConvertibleExtTester : XUnitOutputTester, IDisposable
         {
-        public ConvertibleExtTester([NotNull] ITestOutputHelper Output) : base(Output) {}
+        public ConvertibleExtTester([NotNull] ITestOutputHelper Output) : base(Output)
+            {
+            }
 
-        public void Dispose() {}
+        public void Dispose()
+            {
+            }
 
         [Fact]
         [Trait(Traits.TargetMember,
-            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
-            nameof(ConvertibleExt.ConvertTo) + "(IConvertible, Type) => Object")]
+             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
+             nameof(ConvertibleExt.ConvertTo) + "(IConvertible, Type) => Object")]
         public void ConvertTo()
             {
             const string Test = "-5.5555";
@@ -69,8 +76,8 @@ namespace L_Tests.LCore.Extensions
 
         [Fact]
         [Trait(Traits.TargetMember,
-            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
-            nameof(ConvertibleExt.ConvertTo) + "(IConvertible) => Nullable<T>")]
+             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
+             nameof(ConvertibleExt.ConvertTo) + "(IConvertible) => Nullable<T>")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." + nameof(ConvertibleExt.ConvertToString) + "(IConvertible) => String")]
         public void ConvertTo_T()
             {
@@ -114,8 +121,8 @@ namespace L_Tests.LCore.Extensions
 
         [Fact]
         [Trait(Traits.TargetMember,
-            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
-            nameof(ConvertibleExt.CanConvertTo) + "(IConvertible) => Boolean")]
+             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
+             nameof(ConvertibleExt.CanConvertTo) + "(IConvertible) => Boolean")]
         public void CanConvertTo()
             {
             IConvertible Test = "5";
@@ -280,8 +287,8 @@ namespace L_Tests.LCore.Extensions
 
         [Fact]
         [Trait(Traits.TargetMember,
-            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
-            nameof(ConvertibleExt.CanConvertTo) + "(IConvertible, Type) => Boolean")]
+             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
+             nameof(ConvertibleExt.CanConvertTo) + "(IConvertible, Type) => Boolean")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." + nameof(ConvertibleExt.CanConvertToString) + "(IConvertible) => Boolean")]
         public void CanConvertTo_Type()
             {
@@ -447,8 +454,8 @@ namespace L_Tests.LCore.Extensions
 
         [Fact]
         [Trait(Traits.TargetMember,
-            nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
-            nameof(ConvertibleExt.TryConvertTo) + "(IConvertible) => IConvertible")]
+             nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." +
+             nameof(ConvertibleExt.TryConvertTo) + "(IConvertible) => IConvertible")]
         [Trait(Traits.TargetMember, nameof(LCore) + "." + nameof(global::LCore.Extensions) + "." + nameof(ConvertibleExt) + "." + nameof(ConvertibleExt.TryConvertToString) + "(IConvertible) => IConvertible")]
         public void TryConvertTo()
             {

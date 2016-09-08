@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using JetBrains.Annotations;
 using LCore.Extensions;
 using LCore.LDoc.Markdown;
 using LCore.Tools;
@@ -18,11 +19,11 @@ namespace LCore.Tests
         /// </summary>
         public override Assembly[] DocumentAssemblies => new[] {Assembly.GetAssembly(typeof(L))};
 
-        public override void Home_Intro(GeneratedDocument MD)
+        public override void Home_Intro([NotNull] GeneratedDocument MD)
             {
             }
 
-        public override void HowToInstall(GeneratedDocument MD)
+        public override void HowToInstall([NotNull] GeneratedDocument MD)
             {
             MD.Line($"Add {nameof(LCore)} as a nuget package:");
             MD.Code(new[] {$"Install-Package {nameof(LCore)}"});

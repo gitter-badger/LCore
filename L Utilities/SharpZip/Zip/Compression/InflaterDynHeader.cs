@@ -41,6 +41,7 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 // ReSharper disable CommentTypo
 // ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
+// ReSharper disable AssignNullToNotNullAttribute
 
 namespace ICSharpCode.SharpZipLib.Zip.Compression
     {

@@ -9,6 +9,7 @@ using LCore.LUnit.Fluent;
 using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
+// ReSharper disable PossibleNullReferenceException
 
 namespace L_Tests.LCore.Tools
     {

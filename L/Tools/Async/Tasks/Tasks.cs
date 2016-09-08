@@ -5,6 +5,8 @@ using System.Threading;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
+// ReSharper disable AssignNullToNotNullAttribute
+
 #pragma warning disable 1591
 
 namespace LCore.Tasks
@@ -222,7 +224,9 @@ namespace LCore.Tasks
 					}
 				 */
                 }
-            catch {}
+            catch
+                {
+                }
             }
         }
     }

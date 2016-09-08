@@ -7,6 +7,7 @@ using LCore.Numbers;
 using Xunit;
 using Xunit.Abstractions;
 using LCore.LUnit.Fluent;
+// ReSharper disable PossibleNullReferenceException
 
 // ReSharper disable PossibleInvalidOperationException
 // ReSharper disable ArgumentsStyleLiteral

@@ -8,16 +8,22 @@ using LCore.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
+
 // ReSharper disable ObjectCreationAsStatement
 // ReSharper disable PartialTypeWithSinglePart
+// ReSharper disable AssignNullToNotNullAttribute
 
 namespace L_Tests.LCore.Tools
     {
     public partial class Lists_2Tester : XUnitOutputTester, IDisposable
         {
-        public Lists_2Tester([NotNull] ITestOutputHelper Output) : base(Output) { }
+        public Lists_2Tester([NotNull] ITestOutputHelper Output) : base(Output)
+            {
+            }
 
-        public void Dispose() { }
+        public void Dispose()
+            {
+            }
 
         /// <exception cref="MemberAccessException">The caller does not have access to the method represented by the delegate (for example, if the method is private). </exception>
         /// <exception cref="InternalTestFailureException">The test fails</exception>
@@ -26,7 +32,7 @@ namespace L_Tests.LCore.Tools
             {
             L.A(() => new Lists<string, int>(List1: null, List2: new List<int>())).ShouldFail();
             L.A(() => new Lists<string, int>(new List<string>(), List2: null)).ShouldFail();
-            L.A(() => new Lists<string, int>(new List<string> { "a" }, new List<int>())).ShouldFail();
+            L.A(() => new Lists<string, int>(new List<string> {"a"}, new List<int>())).ShouldFail();
             }
 
 
@@ -92,6 +98,5 @@ namespace L_Tests.LCore.Tools
 
             Test.GetAt(Index: 0).ShouldBe(new Set<string, int>("c", Obj2: 3));
             }
-
         }
     }

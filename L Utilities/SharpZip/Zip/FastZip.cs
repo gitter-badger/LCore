@@ -45,6 +45,7 @@ using ICSharpCode.SharpZipLib.Core;
 // ReSharper disable SuggestBaseTypeForParameter
 // ReSharper disable InconsistentNaming
 // ReSharper disable CommentTypo
+// ReSharper disable AssignNullToNotNullAttribute
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global

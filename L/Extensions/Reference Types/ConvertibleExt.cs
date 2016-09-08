@@ -15,12 +15,12 @@ namespace LCore.Extensions
         #region Extensions +
 
         #region CanConvertTo
+
         /// <summary>
         /// Returns whether or not an IConvertible object <paramref name="In" /> can be, safely and without 
         /// any data loss, converted to type <typeparamref name="T" />
         /// </summary>
-        
-        public static bool CanConvertTo<T>([CanBeNull]this IConvertible In)
+        public static bool CanConvertTo<T>([CanBeNull] this IConvertible In)
             where T : struct, IConvertible
             {
             if (In == null)
@@ -29,10 +29,10 @@ namespace LCore.Extensions
             // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
             // otherwise equality test will fail.
             while (In is string &&
-                ((string)In).Length > 1 &&
-                ((string)In).Contains(".") &&
-                (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
-                In = ((string)In).Sub(Start: 0, Length: ((string)In).Length - 1);
+                   ((string) In).Length > 1 &&
+                   ((string) In).Contains(".") &&
+                   (((string) In).EndsWith("0") || ((string) In).EndsWith(".")))
+                In = ((string) In).Sub(Start: 0, Length: ((string) In).Length - 1);
 
             T? Out = In.ConvertTo<T>();
 
@@ -40,12 +40,12 @@ namespace LCore.Extensions
 
             return Equals(Verify, In);
             }
+
         /// <summary>
         /// Returns whether or not an IConvertible object <paramref name="In" /> can be, safely and without 
         /// any data loss, converted to type <paramref name="Type"/>
         /// </summary>
-        
-        public static bool CanConvertTo([CanBeNull]this IConvertible In, [CanBeNull]Type Type)
+        public static bool CanConvertTo([CanBeNull] this IConvertible In, [CanBeNull] Type Type)
             {
             if (In == null || Type == null)
                 return false;
@@ -53,17 +53,18 @@ namespace LCore.Extensions
             // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
             // otherwise equality test will fail.
             while (In is string &&
-                ((string)In).Length > 1 &&
-                ((string)In).Contains(".") &&
-                (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
-                In = ((string)In).Sub(Start: 0, Length: ((string)In).Length - 1);
+                   ((string) In).Length > 1 &&
+                   ((string) In).Contains(".") &&
+                   (((string) In).EndsWith("0") || ((string) In).EndsWith(".")))
+                In = ((string) In).Sub(Start: 0, Length: ((string) In).Length - 1);
 
-            var Out = (IConvertible)In.ConvertTo(Type);
+            var Out = (IConvertible) In.ConvertTo(Type);
 
             var Verify = Out.ConvertTo(In.GetType());
 
             return Equals(Verify, In);
             }
+
         #endregion
 
         #region CanConvertToString
@@ -72,8 +73,7 @@ namespace LCore.Extensions
         /// Returns whether or not an IConvertible object <paramref name="In" /> can be, safely and without 
         /// any data loss, converted to a string.
         /// </summary>
-        
-        public static bool CanConvertToString([CanBeNull]this IConvertible In)
+        public static bool CanConvertToString([CanBeNull] this IConvertible In)
             {
             if (In == null)
                 return false;
@@ -92,28 +92,32 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts an IConvertible to type <paramref name="Type"/>, if it is capable.
         /// </summary>
-        
         [CanBeNull]
-        public static object ConvertTo([CanBeNull]this IConvertible In, [CanBeNull]Type Type)
+        public static object ConvertTo([CanBeNull] this IConvertible In, [CanBeNull] Type Type)
             {
+            if (Type == null)
+                return null;
+
             if (In is double)
-                In = ((DoubleNumber)(double)In).ToString();
+                In = ((DoubleNumber) (double) In).ToString();
             if (In is float)
-                In = ((FloatNumber)(float)In).ToString();
+                In = ((FloatNumber) (float) In).ToString();
             if (In is decimal)
-                In = ((DecimalNumber)(decimal)In).ToString();
+                In = ((DecimalNumber) (decimal) In).ToString();
 
             // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
             // otherwise equality test will fail.
             while (In is string &&
-                ((string)In).Length > 1 &&
-                ((string)In).Contains(".") &&
-                (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
-                In = ((string)In).Sub(Start: 0, Length: ((string)In).Length - 1);
+                   ((string) In).Length > 1 &&
+                   ((string) In).Contains(".") &&
+                   (((string) In).EndsWith("0") || ((string) In).EndsWith(".")))
+                In = ((string) In).Sub(Start: 0, Length: ((string) In).Length - 1);
 
             try
                 {
-                return In == null ? null : Convert.ChangeType(In, Type);
+                return In == null
+                    ? null
+                    : Convert.ChangeType(In, Type);
                 }
             catch (Exception)
                 {
@@ -125,37 +129,41 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts an IConvertible to type <typeparamref name="T" />, if it is capable.
         /// </summary>
-        
         [CanBeNull]
-        public static T? ConvertTo<T>([CanBeNull]this IConvertible In)
+        public static T? ConvertTo<T>([CanBeNull] this IConvertible In)
             where T : struct, IConvertible
             {
             if (In == null)
                 return default(T);
 
             if (In is double)
-                In = ((DoubleNumber)(double)In).ToString();
+                In = ((DoubleNumber) (double) In).ToString();
             if (In is float)
-                In = ((FloatNumber)(float)In).ToString();
+                In = ((FloatNumber) (float) In).ToString();
             if (In is decimal)
-                In = ((DecimalNumber)(decimal)In).ToString();
+                In = ((DecimalNumber) (decimal) In).ToString();
 
             // If [In] is a string, then we need to make sure to trim off unneeded 0's and decimal point, 
             // otherwise equality test will fail.
             while (In is string &&
-                ((string)In).Length > 1 &&
-                ((string)In).Contains(".") &&
-                (((string)In).EndsWith("0") || ((string)In).EndsWith(".")))
-                In = ((string)In).Sub(Start: 0, Length: ((string)In).Length - 1);
+                   ((string) In).Length > 1 &&
+                   ((string) In).Contains(".") &&
+                   (((string) In).EndsWith("0") || ((string) In).EndsWith(".")))
+                In = ((string) In).Sub(Start: 0, Length: ((string) In).Length - 1);
 
             try
                 {
-                return In.IsNull() ? (T?)null : (T)Convert.ChangeType(In, typeof(T));
+                return In.IsNull()
+                    ? (T?) null
+                    : (T) Convert.ChangeType(In, typeof(T));
                 }
-            catch (Exception) { }
+            catch (Exception)
+                {
+                }
 
             return null;
             }
+
         #endregion
 
         #region ConvertToString
@@ -163,18 +171,19 @@ namespace LCore.Extensions
         /// <summary>
         /// Converts an IConvertible to a string, if it is capable.
         /// </summary>
-        
         [CanBeNull]
-        public static string ConvertToString([CanBeNull]this IConvertible In)
+        public static string ConvertToString([CanBeNull] this IConvertible In)
             {
             if (In == null)
                 return null;
 
             try
                 {
-                return (string)Convert.ChangeType(In, typeof(string));
+                return (string) Convert.ChangeType(In, typeof(string));
                 }
-            catch { }
+            catch
+                {
+                }
 
             return null;
             }
@@ -187,16 +196,18 @@ namespace LCore.Extensions
         /// Converts an IConvertible to type <typeparamref name="T" />, if it is capable.
         /// If <paramref name="In" /> cannot be converted, the source will be returned.
         /// </summary>
-        
         [CanBeNull]
-        public static IConvertible TryConvertTo<T>([CanBeNull]this IConvertible In)
+        public static IConvertible TryConvertTo<T>([CanBeNull] this IConvertible In)
             where T : struct, IConvertible
             {
             if (In == null)
                 return null;
 
-            return In.CanConvertTo<T>() ? In.ConvertTo<T>() : In;
+            return In.CanConvertTo<T>()
+                ? In.ConvertTo<T>()
+                : In;
             }
+
         #endregion
 
         #region TryConvertToString
@@ -205,9 +216,8 @@ namespace LCore.Extensions
         /// Converts an IConvertible to a string, if it is capable.
         /// If <paramref name="In" /> cannot be converted, the source will be returned.
         /// </summary>
-        
         [CanBeNull]
-        public static IConvertible TryConvertToString([CanBeNull]this IConvertible In)
+        public static IConvertible TryConvertToString([CanBeNull] this IConvertible In)
             {
             if (In == null)
                 return null;

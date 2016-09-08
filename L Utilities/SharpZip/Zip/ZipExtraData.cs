@@ -37,6 +37,7 @@
 using System;
 using System.IO;
 using JetBrains.Annotations;
+// ReSharper disable AssignNullToNotNullAttribute
 
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnusedMethodReturnValue.Global

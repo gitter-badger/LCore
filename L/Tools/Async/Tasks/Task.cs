@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+// ReSharper disable AssignNullToNotNullAttribute
 
 #pragma warning disable 1591
 

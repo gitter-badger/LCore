@@ -37,6 +37,7 @@ using System;
 using System.IO;
 using System.Security;
 using JetBrains.Annotations;
+// ReSharper disable AssignNullToNotNullAttribute
 
 // ReSharper disable CommentTypo
 
@@ -55,6 +56,7 @@ namespace ICSharpCode.SharpZipLib.Core
     public class PathFilter : IScanFilter
         {
         #region Constructors
+
         /// <summary>
         /// Initialise a new instance of <see cref="PathFilter"></see>.
         /// </summary>
@@ -63,6 +65,7 @@ namespace ICSharpCode.SharpZipLib.Core
             {
             this.nameFilter_ = new NameFilter(filter);
             }
+
         #endregion
 
         #region IScanFilter Members
@@ -94,22 +97,26 @@ namespace ICSharpCode.SharpZipLib.Core
         ///     contains a colon (":") that is not part of a volume identifier (for example, "c:\"). </exception>
         /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters. </exception>
         /// <exception cref="SecurityException">The caller does not have the required permissions. </exception>
-        public virtual bool IsMatch([CanBeNull]string name)
+        public virtual bool IsMatch([CanBeNull] string name)
             {
             bool result = false;
 
             if (name != null)
                 {
-                string cooked = name.Length > 0 ? Path.GetFullPath(name) : "";
+                string cooked = name.Length > 0
+                    ? Path.GetFullPath(name)
+                    : "";
                 result = this.nameFilter_.IsMatch(cooked);
                 }
             return result;
             }
+
         #endregion
 
         #region Instance Fields
 
         private NameFilter nameFilter_;
+
         #endregion
         }
 
@@ -120,6 +127,7 @@ namespace ICSharpCode.SharpZipLib.Core
     public class ExtendedPathFilter : PathFilter
         {
         #region Constructors
+
         /// <summary>
         /// Initialise a new instance of ExtendedPathFilter.
         /// </summary>
@@ -166,6 +174,7 @@ namespace ICSharpCode.SharpZipLib.Core
             this.MinDate = minDate;
             this.MaxDate = maxDate;
             }
+
         #endregion
 
         #region IScanFilter Members
@@ -199,7 +208,7 @@ namespace ICSharpCode.SharpZipLib.Core
         ///         <name>TResult</name>
         ///     </paramref>
         ///     .</exception>
-        public override bool IsMatch(string name)
+        public override bool IsMatch([CanBeNull] string name)
             {
             bool result = base.IsMatch(name);
 
@@ -215,9 +224,11 @@ namespace ICSharpCode.SharpZipLib.Core
                 }
             return result;
             }
+
         #endregion
 
         #region Properties
+
         /// <summary>
         /// Get/set the minimum size/length for a file that will match this filter.
         /// </summary>
@@ -263,10 +274,7 @@ namespace ICSharpCode.SharpZipLib.Core
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
         public DateTime MinDate
             {
-            get
-                {
-                return this.minDate_;
-                }
+            get { return this.minDate_; }
 
             set
                 {
@@ -290,10 +298,7 @@ namespace ICSharpCode.SharpZipLib.Core
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
         public DateTime MaxDate
             {
-            get
-                {
-                return this.maxDate_;
-                }
+            get { return this.maxDate_; }
 
             set
                 {
@@ -309,6 +314,7 @@ namespace ICSharpCode.SharpZipLib.Core
                 this.maxDate_ = value;
                 }
             }
+
         #endregion
 
         #region Instance Fields
@@ -317,6 +323,7 @@ namespace ICSharpCode.SharpZipLib.Core
         private long maxSize_ = long.MaxValue;
         private DateTime minDate_ = DateTime.MinValue;
         private DateTime maxDate_ = DateTime.MaxValue;
+
         #endregion
         }
 
@@ -327,7 +334,6 @@ namespace ICSharpCode.SharpZipLib.Core
     [Obsolete("Use ExtendedPathFilter instead")]
     public class NameAndSizeFilter : PathFilter
         {
-
         /// <summary>
         /// Initialise a new instance of NameAndSizeFilter.
         /// </summary>
@@ -370,7 +376,7 @@ namespace ICSharpCode.SharpZipLib.Core
         ///         <name>TResult</name>
         ///     </paramref>
         ///     .</exception>
-        public override bool IsMatch(string name)
+        public override bool IsMatch([CanBeNull] string name)
             {
             bool result = base.IsMatch(name);
 
@@ -425,6 +431,7 @@ namespace ICSharpCode.SharpZipLib.Core
 
         private long minSize_;
         private long maxSize_ = long.MaxValue;
+
         #endregion
         }
     }

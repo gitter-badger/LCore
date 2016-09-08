@@ -19,101 +19,101 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<bool> Try([CanBeNull]this Action In)
+        public static Func<bool> Try([CanBeNull] this Action In)
             {
             In = In ?? (() => { });
 
             return () =>
                 {
-                    try
-                        {
-                        In();
-                        return true;
-                        }
-                    catch
-                        {
-                        return false;
-                        }
+                try
+                    {
+                    In();
+                    return true;
+                    }
+                catch
+                    {
+                    return false;
+                    }
                 };
             }
 
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, bool> Try<T1>([CanBeNull]this Action<T1> In)
+        public static Func<T1, bool> Try<T1>([CanBeNull] this Action<T1> In)
             {
             In = In ?? (o => { });
             return o =>
                 {
-                    try
-                        {
-                        In(o);
-                        return true;
-                        }
-                    catch
-                        {
-                        return false;
-                        }
+                try
+                    {
+                    In(o);
+                    return true;
+                    }
+                catch
+                    {
+                    return false;
+                    }
                 };
             }
 
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, T2, bool> Try<T1, T2>([CanBeNull]this Action<T1, T2> In)
+        public static Func<T1, T2, bool> Try<T1, T2>([CanBeNull] this Action<T1, T2> In)
             {
             In = In ?? ((o1, o2) => { });
             return (o1, o2) =>
                 {
-                    try
-                        {
-                        In(o1, o2);
-                        return true;
-                        }
-                    catch
-                        {
-                        return false;
-                        }
+                try
+                    {
+                    In(o1, o2);
+                    return true;
+                    }
+                catch
+                    {
+                    return false;
+                    }
                 };
             }
 
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, T2, T3, bool> Try<T1, T2, T3>([CanBeNull]this Action<T1, T2, T3> In)
+        public static Func<T1, T2, T3, bool> Try<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In)
             {
             In = In ?? ((o1, o2, o3) => { });
             return (o1, o2, o3) =>
                 {
-                    try
-                        {
-                        In(o1, o2, o3);
-                        return true;
-                        }
-                    catch
-                        {
-                        return false;
-                        }
+                try
+                    {
+                    In(o1, o2, o3);
+                    return true;
+                    }
+                catch
+                    {
+                    return false;
+                    }
                 };
             }
 
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, T2, T3, T4, bool> Try<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In)
+        public static Func<T1, T2, T3, T4, bool> Try<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3, T4> In)
             {
             In = In ?? ((o1, o2, o3, o4) => { });
             return (o1, o2, o3, o4) =>
                 {
-                    try
-                        {
-                        In(o1, o2, o3, o4);
-                        return true;
-                        }
-                    catch
-                        {
-                        return false;
-                        }
+                try
+                    {
+                    In(o1, o2, o3, o4);
+                    return true;
+                    }
+                catch
+                    {
+                    return false;
+                    }
                 };
             }
 
@@ -217,95 +217,95 @@ namespace LCore.Extensions
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<U> Try<U>([CanBeNull]this Func<U> In)
+        public static Func<U> Try<U>([CanBeNull] this Func<U> In)
             {
             In = In ?? (() => default(U));
             return () =>
                 {
-                    try
-                        {
-                        return In();
-                        }
-                    catch
-                        {
-                        return default(U);
-                        }
+                try
+                    {
+                    return In();
+                    }
+                catch
+                    {
+                    return default(U);
+                    }
                 };
             }
 
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, U> Try<T1, U>([CanBeNull]this Func<T1, U> In)
+        public static Func<T1, U> Try<T1, U>([CanBeNull] this Func<T1, U> In)
             {
             In = In ?? (o1 => default(U));
             return o1 =>
                 {
-                    try
-                        {
-                        return In(o1);
-                        }
-                    catch
-                        {
-                        return default(U);
-                        }
+                try
+                    {
+                    return In(o1);
+                    }
+                catch
+                    {
+                    return default(U);
+                    }
                 };
             }
 
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, T2, U> Try<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In)
+        public static Func<T1, T2, U> Try<T1, T2, U>([CanBeNull] this Func<T1, T2, U> In)
             {
-            In = In ?? ((o1,o2) => default(U));
+            In = In ?? ((o1, o2) => default(U));
             return (o1, o2) =>
                 {
-                    try
-                        {
-                        return In(o1, o2);
-                        }
-                    catch
-                        {
-                        return default(U);
-                        }
+                try
+                    {
+                    return In(o1, o2);
+                    }
+                catch
+                    {
+                    return default(U);
+                    }
                 };
             }
 
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, T2, T3, U> Try<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In)
+        public static Func<T1, T2, T3, U> Try<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, T3, U> In)
             {
             In = In ?? ((o1, o2, o3) => default(U));
             return (o1, o2, o3) =>
                 {
-                    try
-                        {
-                        return In(o1, o2, o3);
-                        }
-                    catch
-                        {
-                        return default(U);
-                        }
+                try
+                    {
+                    return In(o1, o2, o3);
+                    }
+                catch
+                    {
+                    return default(U);
+                    }
                 };
             }
 
         /// <summary>
         /// Surrounds a method in a try, ignoring exceptions. If an action is used, the result is a Boolean of whether or not the method succeeded.
         /// </summary>
-        public static Func<T1, T2, T3, T4, U> Try<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In)
+        public static Func<T1, T2, T3, T4, U> Try<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In)
             {
             In = In ?? ((o1, o2, o3, o4) => default(U));
             return (o1, o2, o3, o4) =>
                 {
-                    try
-                        {
-                        return In(o1, o2, o3, o4);
-                        }
-                    catch
-                        {
-                        return default(U);
-                        }
+                try
+                    {
+                    return In(o1, o2, o3, o4);
+                    }
+                catch
+                    {
+                    return default(U);
+                    }
                 };
             }
 
@@ -655,54 +655,63 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Action Catch<E>(this Action In, Action<E> Catch) where E : Exception
+        public static Action Catch<E>([CanBeNull] this Action In, [CanBeNull] Action<E> Catch) where E : Exception
             {
+            In = In ?? (() => { });
+            Catch = Catch ?? (Ex => { });
+
             return () =>
                 {
-                    try
-                        {
-                        In();
-                        }
-                    catch (E Ex)
-                        {
-                        Catch(Ex);
-                        }
+                try
+                    {
+                    In();
+                    }
+                catch (E Ex)
+                    {
+                    Catch(Ex);
+                    }
                 };
             }
 
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Action<T1> Catch<T1, E>(this Action<T1> In, Action<E> Catch) where E : Exception
+        public static Action<T1> Catch<T1, E>([CanBeNull] this Action<T1> In, [CanBeNull] Action<E> Catch) where E : Exception
             {
+            In = In ?? (o => { });
+            Catch = Catch ?? (Ex => { });
+
             return o =>
                 {
-                    try
-                        {
-                        In(o);
-                        }
-                    catch (E Ex)
-                        {
-                        Catch(Ex);
-                        }
+                try
+                    {
+                    In(o);
+                    }
+                catch (E Ex)
+                    {
+                    Catch(Ex);
+                    }
                 };
             }
 
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Action<T1, T2> Catch<T1, T2, E>(this Action<T1, T2> In, Action<E> Catch) where E : Exception
+        public static Action<T1, T2> Catch<T1, T2, E>([CanBeNull] this Action<T1, T2> In, [CanBeNull] Action<E> Catch) where E : Exception
             {
+            In = In ?? ((o1, o2) => { });
+            Catch = Catch ?? (Ex => { });
+
             return (o1, o2) =>
                 {
-                    try
-                        {
-                        In(o1, o2);
-                        }
-                    catch (E Ex)
-                        {
-                        Catch(Ex);
-                        }
+                try
+                    {
+                    In(o1, o2);
+                    }
+                catch (E Ex)
+                    {
+                    Catch(Ex);
+                    }
                 };
             }
 
@@ -712,36 +721,40 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Action<T1, T2, T3> Catch<T1, T2, T3, E>(this Action<T1, T2, T3> In, Action<E> Catch) where E : Exception
+        public static Action<T1, T2, T3> Catch<T1, T2, T3, E>([CanBeNull] this Action<T1, T2, T3> In, [CanBeNull] Action<E> Catch) where E : Exception
             {
+            In = In ?? ((o1, o2, o3) => { });
+            Catch = Catch ?? (Ex => { });
             return (o1, o2, o3) =>
                 {
-                    try
-                        {
-                        In(o1, o2, o3);
-                        }
-                    catch (E Ex)
-                        {
-                        Catch(Ex);
-                        }
+                try
+                    {
+                    In(o1, o2, o3);
+                    }
+                catch (E Ex)
+                    {
+                    Catch(Ex);
+                    }
                 };
             }
 
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Action<T1, T2, T3, T4> Catch<T1, T2, T3, T4, E>(this Action<T1, T2, T3, T4> In, Action<E> Catch) where E : Exception
+        public static Action<T1, T2, T3, T4> Catch<T1, T2, T3, T4, E>([CanBeNull] this Action<T1, T2, T3, T4> In, [CanBeNull] Action<E> Catch) where E : Exception
             {
+            In = In ?? ((o1, o2, o3, o4) => { });
+            Catch = Catch ?? (Ex => { });
             return (o1, o2, o3, o4) =>
                 {
-                    try
-                        {
-                        In(o1, o2, o3, o4);
-                        }
-                    catch (E Ex)
-                        {
-                        Catch(Ex);
-                        }
+                try
+                    {
+                    In(o1, o2, o3, o4);
+                    }
+                catch (E Ex)
+                    {
+                    Catch(Ex);
+                    }
                 };
             }
 
@@ -833,96 +846,107 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Func<U> Catch<U, E>(this Func<U> In, Action<E> Catch) where E : Exception
+        public static Func<U> Catch<U, E>([CanBeNull] this Func<U> In, [CanBeNull] Action<E> Catch) where E : Exception
             {
+            In = In ?? (() => default(U));
+            Catch = Catch ?? (Ex => { });
             return () =>
                 {
-                    try
-                        {
-                        return In();
-                        }
-                    catch (E Ex)
-                        {
-                        Catch(Ex);
-                        return default(U);
-                        }
+                try
+                    {
+                    return In();
+                    }
+                catch (E Ex)
+                    {
+                    Catch(Ex);
+                    return default(U);
+                    }
                 };
             }
 
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Func<T1, U> Catch<T1, U, E>(this Func<T1, U> In, Action<E> Catch) where E : Exception
+        public static Func<T1, U> Catch<T1, U, E>([CanBeNull] this Func<T1, U> In, [CanBeNull] Action<E> Catch) where E : Exception
             {
+            In = In ?? (o => default(U));
+            Catch = Catch ?? (Ex => { });
             return o =>
                 {
-                    try
-                        {
-                        return In(o);
-                        }
-                    catch (E Ex)
-                        {
-                        Catch(Ex);
-                        return default(U);
-                        }
+                try
+                    {
+                    return In(o);
+                    }
+                catch (E Ex)
+                    {
+                    Catch(Ex);
+                    return default(U);
+                    }
                 };
             }
 
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Func<T1, T2, U> Catch<T1, T2, U, E>(this Func<T1, T2, U> In, Action<E> Catch) where E : Exception
+        public static Func<T1, T2, U> Catch<T1, T2, U, E>([CanBeNull] this Func<T1, T2, U> In, [CanBeNull] Action<E> Catch) where E : Exception
             {
+            In = In ?? ((o1, o2) => default(U));
+            Catch = Catch ?? (Ex => { });
             return (o1, o2) =>
                 {
-                    try
-                        {
-                        return In(o1, o2);
-                        }
-                    catch (E Ex)
-                        {
-                        Catch(Ex);
-                        return default(U);
-                        }
+                try
+                    {
+                    return In(o1, o2);
+                    }
+                catch (E Ex)
+                    {
+                    Catch(Ex);
+                    return default(U);
+                    }
                 };
             }
 
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Func<T1, T2, T3, U> Catch<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> In, Action<E> Catch) where E : Exception
+        public static Func<T1, T2, T3, U> Catch<T1, T2, T3, U, E>([CanBeNull] this Func<T1, T2, T3, U> In, [CanBeNull] Action<E> Catch) where E : Exception
             {
+            In = In ?? ((o1, o2, o3) => default(U));
+            Catch = Catch ?? (Ex => { });
             return (o1, o2, o3) =>
                 {
-                    try
-                        {
-                        return In(o1, o2, o3);
-                        }
-                    catch (E Ex)
-                        {
-                        Catch(Ex);
-                        return default(U);
-                        }
+                try
+                    {
+                    return In(o1, o2, o3);
+                    }
+                catch (E Ex)
+                    {
+                    Catch(Ex);
+                    return default(U);
+                    }
                 };
             }
 
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Func<T1, T2, T3, T4, U> Catch<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> In, Action<E> Catch)
+        public static Func<T1, T2, T3, T4, U> Catch<T1, T2, T3, T4, U, E>([CanBeNull] this Func<T1, T2, T3, T4, U> In, [CanBeNull] Action<E> Catch)
             where E : Exception
             {
+            In = In ?? ((o1, o2, o3, o4) => default(U));
+            Catch = Catch ?? (Ex => { });
+
             return (o1, o2, o3, o4) =>
                 {
-                    try
-                        {
-                        return In(o1, o2, o3, o4);
-                        }
-                    catch (E Ex)
-                        {
-                        Catch(Ex);
-                        return default(U);
-                        }
+                try
+                    {
+                    return In(o1, o2, o3, o4);
+                    }
+                catch (E Ex)
+                    {
+                    Catch(Ex);
+                    return default(U);
+                    }
                 };
             }
 
@@ -1014,91 +1038,101 @@ namespace LCore.Extensions
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Func<U> Catch<U, E>(this Func<U> In, Func<E, U> Catch) where E : Exception
-            {
+        public static Func<U> Catch<U, E>([CanBeNull] this Func<U> In, [CanBeNull] Func<E, U> Catch) where E : Exception
+        {
+            In = In ?? (() => default(U));
+            Catch = Catch ?? (Ex => default(U));
             return () =>
                 {
-                    try
-                        {
-                        return In();
-                        }
-                    catch (E Ex)
-                        {
-                        return Catch(Ex);
-                        }
+                try
+                    {
+                    return In();
+                    }
+                catch (E Ex)
+                    {
+                    return Catch(Ex);
+                    }
                 };
             }
 
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Func<T1, U> Catch<T1, U, E>(this Func<T1, U> In, Func<E, U> Catch) where E : Exception
-            {
+        public static Func<T1, U> Catch<T1, U, E>([CanBeNull] this Func<T1, U> In, [CanBeNull] Func<E, U> Catch) where E : Exception
+        {
+            In = In ?? (o => default(U));
+            Catch = Catch ?? (Ex => default(U));
             return o =>
                 {
-                    try
-                        {
-                        return In(o);
-                        }
-                    catch (E Ex)
-                        {
-                        return Catch(Ex);
-                        }
+                try
+                    {
+                    return In(o);
+                    }
+                catch (E Ex)
+                    {
+                    return Catch(Ex);
+                    }
                 };
             }
 
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Func<T1, T2, U> Catch<T1, T2, U, E>(this Func<T1, T2, U> In, Func<E, U> Catch) where E : Exception
-            {
+        public static Func<T1, T2, U> Catch<T1, T2, U, E>([CanBeNull] this Func<T1, T2, U> In, [CanBeNull] Func<E, U> Catch) where E : Exception
+        {
+            In = In ?? ((o1, o2) => default(U));
+            Catch = Catch ?? (Ex => default(U));
             return (o1, o2) =>
                 {
-                    try
-                        {
-                        return In(o1, o2);
-                        }
-                    catch (E Ex)
-                        {
-                        return Catch(Ex);
-                        }
+                try
+                    {
+                    return In(o1, o2);
+                    }
+                catch (E Ex)
+                    {
+                    return Catch(Ex);
+                    }
                 };
             }
 
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Func<T1, T2, T3, U> Catch<T1, T2, T3, U, E>(this Func<T1, T2, T3, U> In, Func<E, U> Catch) where E : Exception
-            {
+        public static Func<T1, T2, T3, U> Catch<T1, T2, T3, U, E>([CanBeNull] this Func<T1, T2, T3, U> In, [CanBeNull] Func<E, U> Catch) where E : Exception
+        {
+            In = In ?? ((o1,o2 ,o3) => default(U));
+            Catch = Catch ?? (Ex => default(U));
             return (o1, o2, o3) =>
                 {
-                    try
-                        {
-                        return In(o1, o2, o3);
-                        }
-                    catch (E Ex)
-                        {
-                        return Catch(Ex);
-                        }
+                try
+                    {
+                    return In(o1, o2, o3);
+                    }
+                catch (E Ex)
+                    {
+                    return Catch(Ex);
+                    }
                 };
             }
 
         /// <summary>
         /// Catches exceptions of any type. Takes the error handler as an parameter.
         /// </summary>
-        public static Func<T1, T2, T3, T4, U> Catch<T1, T2, T3, T4, U, E>(this Func<T1, T2, T3, T4, U> In, Func<E, U> Catch)
+        public static Func<T1, T2, T3, T4, U> Catch<T1, T2, T3, T4, U, E>([CanBeNull] this Func<T1, T2, T3, T4, U> In, [CanBeNull] Func<E, U> Catch)
             where E : Exception
-            {
+        {
+            In = In ?? ((o1, o2, o3, o4) => default(U));
+            Catch = Catch ?? (Ex => default(U));
             return (o1, o2, o3, o4) =>
                 {
-                    try
-                        {
-                        return In(o1, o2, o3, o4);
-                        }
-                    catch (E Ex)
-                        {
-                        return Catch(Ex);
-                        }
+                try
+                    {
+                    return In(o1, o2, o3, o4);
+                    }
+                catch (E Ex)
+                    {
+                    return Catch(Ex);
+                    }
                 };
             }
 
@@ -1461,23 +1495,23 @@ namespace LCore.Extensions
 
             return () =>
                 {
-                    while (true)
+                while (true)
+                    {
+                    try
                         {
-                        try
-                            {
-                            In();
-                            return;
-                            }
-                        catch (Exception)
-                            {
-                            if (Tries > 0)
-                                {
-                                Tries--;
-                                continue;
-                                }
-                            throw;
-                            }
+                        In();
+                        return;
                         }
+                    catch (Exception)
+                        {
+                        if (Tries > 0)
+                            {
+                            Tries--;
+                            continue;
+                            }
+                        throw;
+                        }
+                    }
                 };
             }
 
@@ -1489,7 +1523,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Action<T> Retry<T>([CanBeNull] this Action<T> In,
-            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)] int Tries = 1)
             {
             In = In ?? (o1 => { });
             if (Tries <= 0)
@@ -1497,23 +1531,23 @@ namespace LCore.Extensions
 
             return o =>
                 {
-                    while (true)
+                while (true)
+                    {
+                    try
                         {
-                        try
-                            {
-                            In(o);
-                            return;
-                            }
-                        catch (Exception)
-                            {
-                            if (Tries > 0)
-                                {
-                                Tries--;
-                                continue;
-                                }
-                            throw;
-                            }
+                        In(o);
+                        return;
                         }
+                    catch (Exception)
+                        {
+                        if (Tries > 0)
+                            {
+                            Tries--;
+                            continue;
+                            }
+                        throw;
+                        }
+                    }
                 };
             }
 
@@ -1525,7 +1559,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Action<T1, T2> Retry<T1, T2>([CanBeNull] this Action<T1, T2> In,
-            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)] int Tries = 1)
             {
             In = In ?? ((o1, o2) => { });
             if (Tries <= 0)
@@ -1533,23 +1567,23 @@ namespace LCore.Extensions
 
             return (o1, o2) =>
                 {
-                    while (true)
+                while (true)
+                    {
+                    try
                         {
-                        try
-                            {
-                            In(o1, o2);
-                            return;
-                            }
-                        catch (Exception)
-                            {
-                            if (Tries > 0)
-                                {
-                                Tries--;
-                                continue;
-                                }
-                            throw;
-                            }
+                        In(o1, o2);
+                        return;
                         }
+                    catch (Exception)
+                        {
+                        if (Tries > 0)
+                            {
+                            Tries--;
+                            continue;
+                            }
+                        throw;
+                        }
+                    }
                 };
             }
 
@@ -1561,7 +1595,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Action<T1, T2, T3> Retry<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In,
-            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)] int Tries = 1)
             {
             In = In ?? ((o1, o2, o3) => { });
             if (Tries <= 0)
@@ -1569,23 +1603,23 @@ namespace LCore.Extensions
 
             return (o1, o2, o3) =>
                 {
-                    while (true)
+                while (true)
+                    {
+                    try
                         {
-                        try
-                            {
-                            In(o1, o2, o3);
-                            return;
-                            }
-                        catch (Exception)
-                            {
-                            if (Tries > 0)
-                                {
-                                Tries--;
-                                continue;
-                                }
-                            throw;
-                            }
+                        In(o1, o2, o3);
+                        return;
                         }
+                    catch (Exception)
+                        {
+                        if (Tries > 0)
+                            {
+                            Tries--;
+                            continue;
+                            }
+                        throw;
+                        }
+                    }
                 };
             }
 
@@ -1597,7 +1631,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Action<T1, T2, T3, T4> Retry<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3, T4> In,
-            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)] int Tries = 1)
             {
             In = In ?? ((o1, o2, o3, o4) => { });
             if (Tries <= 0)
@@ -1605,23 +1639,23 @@ namespace LCore.Extensions
 
             return (o1, o2, o3, o4) =>
                 {
-                    while (true)
+                while (true)
+                    {
+                    try
                         {
-                        try
-                            {
-                            In(o1, o2, o3, o4);
-                            return;
-                            }
-                        catch (Exception)
-                            {
-                            if (Tries > 0)
-                                {
-                                Tries--;
-                                continue;
-                                }
-                            throw;
-                            }
+                        In(o1, o2, o3, o4);
+                        return;
                         }
+                    catch (Exception)
+                        {
+                        if (Tries > 0)
+                            {
+                            Tries--;
+                            continue;
+                            }
+                        throw;
+                        }
+                    }
                 };
             }
 
@@ -1633,7 +1667,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Func<U> Retry<U>([CanBeNull] this Func<U> In,
-            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)] int Tries = 1)
             {
             In = In ?? (() => default(U));
             if (Tries <= 0)
@@ -1641,22 +1675,22 @@ namespace LCore.Extensions
 
             return () =>
                 {
-                    while (true)
+                while (true)
+                    {
+                    try
                         {
-                        try
-                            {
-                            return In();
-                            }
-                        catch (Exception)
-                            {
-                            if (Tries > 0)
-                                {
-                                Tries--;
-                                continue;
-                                }
-                            throw;
-                            }
+                        return In();
                         }
+                    catch (Exception)
+                        {
+                        if (Tries > 0)
+                            {
+                            Tries--;
+                            continue;
+                            }
+                        throw;
+                        }
+                    }
                 };
             }
 
@@ -1668,7 +1702,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Func<T1, U> Retry<T1, U>([CanBeNull] this Func<T1, U> In,
-            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)] int Tries = 1)
             {
             In = In ?? (o1 => default(U));
             if (Tries <= 0)
@@ -1676,22 +1710,22 @@ namespace LCore.Extensions
 
             return o =>
                 {
-                    while (true)
+                while (true)
+                    {
+                    try
                         {
-                        try
-                            {
-                            return In(o);
-                            }
-                        catch (Exception)
-                            {
-                            if (Tries > 0)
-                                {
-                                Tries--;
-                                continue;
-                                }
-                            throw;
-                            }
+                        return In(o);
                         }
+                    catch (Exception)
+                        {
+                        if (Tries > 0)
+                            {
+                            Tries--;
+                            continue;
+                            }
+                        throw;
+                        }
+                    }
                 };
             }
 
@@ -1703,7 +1737,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"> <paramref name="Tries" /> is less than 1.</exception>
         public static Func<T1, T2, U> Retry<T1, T2, U>([CanBeNull] this Func<T1, T2, U> In,
-            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)] int Tries = 1)
             {
             In = In ?? ((o1, o2) => default(U));
 
@@ -1712,22 +1746,22 @@ namespace LCore.Extensions
 
             return (o1, o2) =>
                 {
-                    while (true)
+                while (true)
+                    {
+                    try
                         {
-                        try
-                            {
-                            return In(o1, o2);
-                            }
-                        catch (Exception)
-                            {
-                            if (Tries > 0)
-                                {
-                                Tries--;
-                                continue;
-                                }
-                            throw;
-                            }
+                        return In(o1, o2);
                         }
+                    catch (Exception)
+                        {
+                        if (Tries > 0)
+                            {
+                            Tries--;
+                            continue;
+                            }
+                        throw;
+                        }
+                    }
                 };
             }
 
@@ -1739,7 +1773,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Tries" /> is less than 1.</exception>
         public static Func<T1, T2, T3, U> Retry<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, T3, U> In,
-            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)] int Tries = 1)
             {
             In = In ?? ((o1, o2, o3) => default(U));
 
@@ -1748,22 +1782,22 @@ namespace LCore.Extensions
 
             return (o1, o2, o3) =>
                 {
-                    while (true)
+                while (true)
+                    {
+                    try
                         {
-                        try
-                            {
-                            return In(o1, o2, o3);
-                            }
-                        catch (Exception)
-                            {
-                            if (Tries > 0)
-                                {
-                                Tries--;
-                                continue;
-                                }
-                            throw;
-                            }
+                        return In(o1, o2, o3);
                         }
+                    catch (Exception)
+                        {
+                        if (Tries > 0)
+                            {
+                            Tries--;
+                            continue;
+                            }
+                        throw;
+                        }
+                    }
                 };
             }
 
@@ -1775,7 +1809,7 @@ namespace LCore.Extensions
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="Tries" /> is less than 1.</exception>
         public static Func<T1, T2, T3, T4, U> Retry<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In,
-            [TestBound(Minimum: 1, Maximum: 100)]int Tries = 1)
+            [TestBound(Minimum: 1, Maximum: 100)] int Tries = 1)
             {
             In = In ?? ((o1, o2, o3, o4) => default(U));
             if (Tries <= 0)
@@ -1783,22 +1817,22 @@ namespace LCore.Extensions
 
             return (o1, o2, o3, o4) =>
                 {
-                    while (true)
+                while (true)
+                    {
+                    try
                         {
-                        try
-                            {
-                            return In(o1, o2, o3, o4);
-                            }
-                        catch (Exception)
-                            {
-                            if (Tries > 0)
-                                {
-                                Tries--;
-                                continue;
-                                }
-                            throw;
-                            }
+                        return In(o1, o2, o3, o4);
                         }
+                    catch (Exception)
+                        {
+                        if (Tries > 0)
+                            {
+                            Tries--;
+                            continue;
+                            }
+                        throw;
+                        }
+                    }
                 };
             }
 
@@ -1811,7 +1845,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Action<T1> Debug<T1>([CanBeNull] this Action<T1> In)
             {
-            return o1 => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1 })))(o1); };
+            return o1 => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1})))(o1); };
             }
 
         /// <summary>
@@ -1819,7 +1853,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Action<T1, T2> Debug<T1, T2>([CanBeNull] this Action<T1, T2> In)
             {
-            return (o1, o2) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2 })))(o1, o2); };
+            return (o1, o2) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2})))(o1, o2); };
             }
 
         /// <summary>
@@ -1827,7 +1861,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Action<T1, T2, T3> Debug<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In)
             {
-            return (o1, o2, o3) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3 })))(o1, o2, o3); };
+            return (o1, o2, o3) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3})))(o1, o2, o3); };
             }
 
         /// <summary>
@@ -1836,7 +1870,7 @@ namespace LCore.Extensions
         public static Action<T1, T2, T3, T4> Debug<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3, T4> In)
             {
             return
-                (o1, o2, o3, o4) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3, o4 })))(o1, o2, o3, o4); };
+                (o1, o2, o3, o4) => { In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3, o4})))(o1, o2, o3, o4); };
             }
 
         /// <summary>
@@ -1844,7 +1878,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, U> Debug<T1, U>([CanBeNull] this Func<T1, U> In)
             {
-            return o1 => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1 })))(o1);
+            return o1 => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1})))(o1);
             }
 
         /// <summary>
@@ -1852,7 +1886,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, T2, U> Debug<T1, T2, U>([CanBeNull] this Func<T1, T2, U> In)
             {
-            return (o1, o2) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2 })))(o1, o2);
+            return (o1, o2) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2})))(o1, o2);
             }
 
         /// <summary>
@@ -1860,7 +1894,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, T2, T3, U> Debug<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, T3, U> In)
             {
-            return (o1, o2, o3) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3 })))(o1, o2, o3);
+            return (o1, o2, o3) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3})))(o1, o2, o3);
             }
 
         /// <summary>
@@ -1868,7 +1902,7 @@ namespace LCore.Extensions
         /// </summary>
         public static Func<T1, T2, T3, T4, U> Debug<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In)
             {
-            return (o1, o2, o3, o4) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] { o1, o2, o3, o4 })))(o1, o2, o3, o4);
+            return (o1, o2, o3, o4) => In.Catch(L.Exc.Report.Supply(L.Obj.Objects_ToString(new object[] {o1, o2, o3, o4})))(o1, o2, o3, o4);
             }
 
         #endregion
@@ -2237,7 +2271,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Action Handle([CanBeNull]this Action In)
+        public static Action Handle([CanBeNull] this Action In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2246,7 +2280,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Action<T1> Handle<T1>([CanBeNull]this Action<T1> In)
+        public static Action<T1> Handle<T1>([CanBeNull] this Action<T1> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2255,7 +2289,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Action<T1, T2> Handle<T1, T2>([CanBeNull]this Action<T1, T2> In)
+        public static Action<T1, T2> Handle<T1, T2>([CanBeNull] this Action<T1, T2> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2264,7 +2298,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Action<T1, T2, T3> Handle<T1, T2, T3>([CanBeNull]this Action<T1, T2, T3> In)
+        public static Action<T1, T2, T3> Handle<T1, T2, T3>([CanBeNull] this Action<T1, T2, T3> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2273,7 +2307,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Action<T1, T2, T3, T4> Handle<T1, T2, T3, T4>([CanBeNull]this Action<T1, T2, T3, T4> In)
+        public static Action<T1, T2, T3, T4> Handle<T1, T2, T3, T4>([CanBeNull] this Action<T1, T2, T3, T4> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2282,7 +2316,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Func<U> Handle<U>([CanBeNull]this Func<U> In)
+        public static Func<U> Handle<U>([CanBeNull] this Func<U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2291,7 +2325,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Func<T1, U> Handle<T1, U>([CanBeNull]this Func<T1, U> In)
+        public static Func<T1, U> Handle<T1, U>([CanBeNull] this Func<T1, U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2300,7 +2334,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Func<T1, T2, U> Handle<T1, T2, U>([CanBeNull]this Func<T1, T2, U> In)
+        public static Func<T1, T2, U> Handle<T1, T2, U>([CanBeNull] this Func<T1, T2, U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2309,7 +2343,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Func<T1, T2, T3, U> Handle<T1, T2, T3, U>([CanBeNull]this Func<T1, T2, T3, U> In)
+        public static Func<T1, T2, T3, U> Handle<T1, T2, T3, U>([CanBeNull] this Func<T1, T2, T3, U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }
@@ -2318,7 +2352,7 @@ namespace LCore.Extensions
         /// Handle catches all exceptions, directing them to the Default Exception Handler, which you should customize.
         /// Customize the default handler by setting: L.DefaultExceptionHandler = e => { ... };
         /// </summary>
-        public static Func<T1, T2, T3, T4, U> Handle<T1, T2, T3, T4, U>([CanBeNull]this Func<T1, T2, T3, T4, U> In)
+        public static Func<T1, T2, T3, T4, U> Handle<T1, T2, T3, T4, U>([CanBeNull] this Func<T1, T2, T3, T4, U> In)
             {
             return In.Catch(L.Exc.DefaultExceptionHandler);
             }

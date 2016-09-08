@@ -19,6 +19,7 @@ using Xunit;
 using Xunit.Abstractions;
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable PossibleNullReferenceException
+// ReSharper disable AssignNullToNotNullAttribute
 
 // ReSharper disable ArgumentsStyleLiteral
 

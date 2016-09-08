@@ -42,6 +42,7 @@ using JetBrains.Annotations;
 #if !NETCF_1_0
 using System.Security.Cryptography;
 using ICSharpCode.SharpZipLib.Encryption;
+// ReSharper disable ImplicitNotNullResultOverridesUnknownExternalMember
 #endif
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnusedMethodReturnValue.Global

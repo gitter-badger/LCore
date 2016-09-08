@@ -288,7 +288,7 @@ namespace LCore.Extensions
                 }
             }
 
-        private static string GetCommentName(string Code, string Namespace, string TypeName, string MemberName,
+        private static string GetCommentName(string Code, [CanBeNull]string Namespace, [CanBeNull]string TypeName, [CanBeNull]string MemberName,
             int Types)
             {
             string Out = $"{Code}:{Namespace}.{TypeName}";

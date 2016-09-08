@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using LCore.Extensions;
 
@@ -13,14 +14,13 @@ namespace LCore.Numbers
     /// </summary>
     /// <typeparam name="T">The Type of the number object</typeparam>
     /// <typeparam name="U"></typeparam>
-
     public abstract class Number<T, U> : Number<T>
         where T : struct,
-            IComparable,
-            IComparable<T>,
-            IConvertible,
-            IEquatable<T>,
-            IFormattable
+        IComparable,
+        IComparable<T>,
+        IConvertible,
+        IEquatable<T>,
+        IFormattable
         where U : Number<T, U>, new()
         {
         /// <summary>
@@ -31,35 +31,36 @@ namespace LCore.Numbers
             {
             return i.Value;
             }
+
 /*
-        /// <summary>
-        /// Performs the division operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
-        /// </summary>
-        public static Number operator /(Number<T, U> Number1, U Number2)
-            {
-            return Number1.Divide(Number2);
-            }
-        /// <summary>
-        /// Performs the multiplication operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
-        /// </summary>
-        public static Number operator *(Number<T, U> Number1, U Number2)
-            {
-            return Number1.Multiply(Number2);
-            }
-        /// <summary>
-        /// Performs the subtraction operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
-        /// </summary>
-        public static Number operator -(Number<T, U> Number1, U Number2)
-            {
-            return Number1.Subtract(Number2);
-            }
-        /// <summary>
-        /// Performs the addition operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
-        /// </summary>
-        public static Number operator +(Number<T, U> Number1, U Number2)
-            {
-            return Number1.Add(Number2);
-            }*/
+                                        /// <summary>
+                                        /// Performs the division operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
+                                        /// </summary>
+                                        public static Number operator /(Number<T, U> Number1, U Number2)
+                                            {
+                                            return Number1.Divide(Number2);
+                                            }
+                                        /// <summary>
+                                        /// Performs the multiplication operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
+                                        /// </summary>
+                                        public static Number operator *(Number<T, U> Number1, U Number2)
+                                            {
+                                            return Number1.Multiply(Number2);
+                                            }
+                                        /// <summary>
+                                        /// Performs the subtraction operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
+                                        /// </summary>
+                                        public static Number operator -(Number<T, U> Number1, U Number2)
+                                            {
+                                            return Number1.Subtract(Number2);
+                                            }
+                                        /// <summary>
+                                        /// Performs the addition operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
+                                        /// </summary>
+                                        public static Number operator +(Number<T, U> Number1, U Number2)
+                                            {
+                                            return Number1.Add(Number2);
+                                            }*/
 
         /// <summary>
         /// Create a new Number wrapper for a native number type
@@ -75,19 +76,19 @@ namespace LCore.Numbers
         protected Number(T Value) : base(Value)
             {
             }
-
         }
+
     /// <summary>
     /// Base class to extend for native (and potentially non-native) number types
     /// </summary>
     /// <typeparam name="T">The Type of the number object</typeparam>
     public abstract class Number<T> : Number, INumber<T>
         where T : struct,
-            IComparable,
-            IComparable<T>,
-            IConvertible,
-            IEquatable<T>,
-            IFormattable
+        IComparable,
+        IComparable<T>,
+        IConvertible,
+        IEquatable<T>,
+        IFormattable
         {
         /// <summary>
         /// Applies the division operation and returns the result as a Number.
@@ -97,6 +98,7 @@ namespace LCore.Numbers
             {
             return Number1.Divide(Number2);
             }
+
         /// <summary>
         /// Applies the multiplication operation and returns the result as a Number.
         /// </summary>
@@ -104,6 +106,7 @@ namespace LCore.Numbers
             {
             return Number1.Multiply(Number2);
             }
+
         /// <summary>
         /// Applies the subtraction operation and returns the result as a Number.
         /// </summary>
@@ -111,6 +114,7 @@ namespace LCore.Numbers
             {
             return Number1.Subtract(Number2);
             }
+
         /// <summary>
         /// Applies the addition operation and returns the result as a Number.
         /// </summary>
@@ -164,24 +168,24 @@ namespace LCore.Numbers
             {
             if (Number1.GetType().Name == Number2.GetType().Name && Number1 is Number<T>)
                 {
-                var ValueNumber1 = ((Number<T>)Number1).Value;
-                var ValueNumber2 = ((Number<T>)Number2).Value;
+                var ValueNumber1 = ((Number<T>) Number1).Value;
+                var ValueNumber2 = ((Number<T>) Number2).Value;
 
                 object Result = default(T);
                 switch (Op)
                     {
-                    case L.Num.Operation.Add:
-                        Result = this.Add(ValueNumber1, ValueNumber2);
-                        break;
-                    case L.Num.Operation.Subtract:
-                        Result = this.Subtract(ValueNumber1, ValueNumber2);
-                        break;
-                    case L.Num.Operation.Multiply:
-                        Result = this.Multiply(ValueNumber1, ValueNumber2);
-                        break;
-                    case L.Num.Operation.Divide:
-                        Result = this.Divide(ValueNumber1, ValueNumber2);
-                        break;
+                        case L.Num.Operation.Add:
+                            Result = this.Add(ValueNumber1, ValueNumber2);
+                            break;
+                        case L.Num.Operation.Subtract:
+                            Result = this.Subtract(ValueNumber1, ValueNumber2);
+                            break;
+                        case L.Num.Operation.Multiply:
+                            Result = this.Multiply(ValueNumber1, ValueNumber2);
+                            break;
+                        case L.Num.Operation.Divide:
+                            Result = this.Divide(ValueNumber1, ValueNumber2);
+                            break;
                     }
 
                 return L.Num.MostPreciseType.New(Result).ConvertToBestMatch();
@@ -194,19 +198,21 @@ namespace LCore.Numbers
                 Number Result = null;
                 switch (Op)
                     {
-                    case L.Num.Operation.Add:
-                        Result = Number1Boxed.Add(Number2Boxed);
-                        break;
-                    case L.Num.Operation.Subtract:
-                        Result = Number1Boxed.Subtract(Number2Boxed);
-                        break;
-                    case L.Num.Operation.Multiply:
-                        Result = Number1Boxed.Multiply(Number2Boxed);
-                        break;
-                    case L.Num.Operation.Divide:
-                        Result = Number1Boxed.Divide(Number2Boxed);
-                        break;
+                        case L.Num.Operation.Add:
+                            Result = Number1Boxed.Add(Number2Boxed);
+                            break;
+                        case L.Num.Operation.Subtract:
+                            Result = Number1Boxed.Subtract(Number2Boxed);
+                            break;
+                        case L.Num.Operation.Multiply:
+                            Result = Number1Boxed.Multiply(Number2Boxed);
+                            break;
+                        case L.Num.Operation.Divide:
+                            Result = Number1Boxed.Divide(Number2Boxed);
+                            break;
                     }
+
+                Debug.Assert(Result != null, "Result != null");
 
                 var BestMatch = Result.ConvertToBestMatch();
 
@@ -261,19 +267,19 @@ namespace LCore.Numbers
         public abstract Number<T> New(T In);
 
         /// <exception cref="ArgumentException">The object In is not of the correct type, and cannot be converted to it</exception>
-        public override Number New([CanBeNull]object In)
+        public override Number New([CanBeNull] object In)
             {
             if (In is T)
-                return this.New((T)In);
+                return this.New((T) In);
 
-            if (In is string && ((string)In).HasMatch(L.Num.RegexScientificNotation))
-                return this.New(L.Num.ScientificNotationToNumber((string)In));
+            if (In is string && ((string) In).HasMatch(L.Num.RegexScientificNotation))
+                return this.New(L.Num.ScientificNotationToNumber((string) In));
 
-            if (In is IConvertible && ((IConvertible)In).CanConvertTo<T>())
-                return this.New(((IConvertible)In).ConvertTo<T>());
+            if (In is IConvertible && ((IConvertible) In).CanConvertTo<T>())
+                return this.New(((IConvertible) In).ConvertTo<T>());
 
             if (In is INumber)
-                return this.New(((INumber)In).GetValue());
+                return this.New(((INumber) In).GetValue());
 
             throw new ArgumentException($"Could not create {typeof(T).Name} from {In?.GetType().Name} {In}", nameof(In));
             }
@@ -325,19 +331,21 @@ namespace LCore.Numbers
             }
 
 
-
         /// <summary>
         /// Applies the addition operation and returns the result as a [T].
         /// </summary>
         public abstract T Add(T Number1, T Number2);
+
         /// <summary>
         /// Applies the subtraction operation and returns the result as a [T].
         /// </summary>
         public abstract T Subtract(T Number1, T Number2);
+
         /// <summary>
         /// Applies the multiplication operation and returns the result as a [T].
         /// </summary>
         public abstract T Multiply(T Number1, T Number2);
+
         /// <summary>
         /// Applies the division operation and returns the result as a Number.
         /// </summary>
@@ -364,7 +372,7 @@ namespace LCore.Numbers
         protected Number()
             {
             // ReSharper disable once VirtualMemberCallInConstructor
-            this.Value = ((INumber<T>)this.DefaultValue).Value;
+            this.Value = ((INumber<T>) this.DefaultValue).Value;
             }
 
         /// <summary>
@@ -387,28 +395,28 @@ namespace LCore.Numbers
         /// <exception cref="T:System.ArgumentException">
         /// <paramref name="Obj" /> is not the same type as this instance. </exception>
         /// <filterpriority>2</filterpriority>
-        public override int CompareTo(object Obj)
+        public override int CompareTo([CanBeNull] object Obj)
             {
             if (Obj is INumber)
                 {
                 string Str1 = this.ToString();
-                string Str2 = ((INumber)Obj).ToString();
+                string Str2 = ((INumber) Obj).ToString();
 
                 return L.Str.CompareNumberString(Str1, Str2);
                 }
             if (Obj is IComparable && Obj.GetType() == typeof(T))
                 {
-                return this.Value.CompareTo((IComparable)Obj);
+                return this.Value.CompareTo((IComparable) Obj);
                 }
             // ReSharper disable once UseNullPropagation
             if (Obj is IConvertible)
                 {
-                var Result = ((IConvertible)Obj).ConvertTo(typeof(T));
+                var Result = ((IConvertible) Obj).ConvertTo(typeof(T));
 
                 if (Result != null)
                     return this.Value.CompareTo(Result);
                 }
-            
+
 
             throw new ArgumentException(nameof(Obj));
             }
@@ -423,14 +431,16 @@ namespace LCore.Numbers
         /// The type of number stored in the wrapper.
         /// </summary>
         public abstract Type NumberType { get; }
-        
+
         /// <summary>
         /// Returns whether this Number is equal to <paramref name="Obj"/>
         /// </summary>
         public override bool Equals([CanBeNull] object Obj)
             {
-            if (ReferenceEquals(objA: null, objB: Obj)) return false;
-            if (ReferenceEquals(this, Obj)) return true;
+            if (ReferenceEquals(objA: null, objB: Obj))
+                return false;
+            if (ReferenceEquals(this, Obj))
+                return true;
 
             var Comparable = Obj as IComparable;
             if (Comparable != null)
@@ -458,6 +468,7 @@ namespace LCore.Numbers
             {
             return Number1.IsGreaterThan(Number2);
             }
+
         /// <summary>
         /// Returns whether <paramref name="Number1"/> is less than <paramref name="Number2"/>
         /// </summary>
@@ -465,6 +476,7 @@ namespace LCore.Numbers
             {
             return Number1.IsLessThan(Number2);
             }
+
         /// <summary>
         /// Returns whether <paramref name="Number1"/> is greater than or equal to <paramref name="Number2"/>
         /// </summary>
@@ -472,17 +484,19 @@ namespace LCore.Numbers
             {
             return Number1.IsGreaterThanOrEqual(Number2);
             }
+
         /// <summary>
         /// Returns whether <paramref name="Number1"/> is less than or equal to <paramref name="Number2"/>
         /// </summary>
-        public static bool operator <=([CanBeNull]Number Number1, [CanBeNull]IComparable Number2)
+        public static bool operator <=([CanBeNull] Number Number1, [CanBeNull] IComparable Number2)
             {
             return Number1.IsLessThanOrEqual(Number2);
             }
+
         /// <summary>
         /// Returns whether <paramref name="Number1"/> is equal to <paramref name="Number2"/>
         /// </summary>
-        public static bool operator ==([CanBeNull]Number Number1, [CanBeNull]IComparable Number2)
+        public static bool operator ==([CanBeNull] Number Number1, [CanBeNull] IComparable Number2)
             {
             if (ReferenceEquals(Number1, objB: null) && !ReferenceEquals(Number2, objB: null))
                 return false;
@@ -494,10 +508,11 @@ namespace LCore.Numbers
 
             return Number1.IsEqualTo(Number2);
             }
+
         /// <summary>
         /// Returns whether <paramref name="Number1"/> is not equal to <paramref name="Number2"/>
         /// </summary>
-        public static bool operator !=([CanBeNull]Number Number1, [CanBeNull]IComparable Number2)
+        public static bool operator !=([CanBeNull] Number Number1, [CanBeNull] IComparable Number2)
             {
             if (ReferenceEquals(Number1, objB: null) && !ReferenceEquals(Number2, objB: null))
                 return true;
@@ -532,7 +547,7 @@ namespace LCore.Numbers
         /// <summary>
         /// Performs the division operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator /([CanBeNull]Number Number1, [CanBeNull]Number Number2)
+        public static Number operator /([CanBeNull] Number Number1, [CanBeNull] Number Number2)
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
@@ -546,7 +561,7 @@ namespace LCore.Numbers
         /// <summary>
         /// Performs the multiplication operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator *([CanBeNull]Number Number1, [CanBeNull]IConvertible Number2)
+        public static Number operator *([CanBeNull] Number Number1, [CanBeNull] IConvertible Number2)
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
@@ -556,10 +571,11 @@ namespace LCore.Numbers
 
             return Number1.Multiply(Number2);
             }
+
         /// <summary>
         /// Performs the multiplication operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator *([CanBeNull]Number Number1, [CanBeNull]Number Number2)
+        public static Number operator *([CanBeNull] Number Number1, [CanBeNull] Number Number2)
             {
             if (Number1 == null)
                 return new ByteNumber();
@@ -573,7 +589,7 @@ namespace LCore.Numbers
         /// <summary>
         /// Performs the subtraction operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator -([CanBeNull]Number Number1, [CanBeNull]IConvertible Number2)
+        public static Number operator -([CanBeNull] Number Number1, [CanBeNull] IConvertible Number2)
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
@@ -583,10 +599,11 @@ namespace LCore.Numbers
 
             return Number1.Subtract(Number2);
             }
+
         /// <summary>
         /// Performs the subtraction operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator -([CanBeNull]Number Number1, [CanBeNull]Number Number2)
+        public static Number operator -([CanBeNull] Number Number1, [CanBeNull] Number Number2)
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
@@ -600,7 +617,7 @@ namespace LCore.Numbers
         /// <summary>
         /// Performs the addition operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator +([CanBeNull]Number Number1, [CanBeNull]IConvertible Number2)
+        public static Number operator +([CanBeNull] Number Number1, [CanBeNull] IConvertible Number2)
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
@@ -610,10 +627,11 @@ namespace LCore.Numbers
 
             return Number1.Add(Number2);
             }
+
         /// <summary>
         /// Performs the addition operation on <paramref name="Number1"/> and <paramref name="Number2"/>.
         /// </summary>
-        public static Number operator +([CanBeNull]Number Number1, [CanBeNull]Number Number2)
+        public static Number operator +([CanBeNull] Number Number1, [CanBeNull] Number Number2)
             {
             if (Number1 == null)
                 Number1 = new ByteNumber();
@@ -716,5 +734,35 @@ namespace LCore.Numbers
         /// Gets the underlying value
         /// </summary>
         public abstract object GetValue();
+
+        /// <summary>
+        /// Converts to a <see cref="Number"/> type using the most restrictive number storage format available, 
+        /// without losing any precision.
+        /// </summary>
+        public Number ConvertToBestMatch()
+            {
+            Number Out = null;
+            foreach (var Type in L.Num.NumberTypes.Values)
+                {
+                if (Out == null ||
+                    (Type.MinValue.IsLessThanOrEqual(this) &&
+                     Type.MaxValue.IsGreaterThanOrEqual(this) &&
+                     Type.Precision.IsLessThanOrEqual(this.GetValuePrecision())))
+                    {
+                    int Better = 0;
+                    if (Out == null || Type.MinValue.IsGreaterThan(Out.MinValue))
+                        Better++;
+                    if (Out == null || Type.MaxValue.IsLessThan(Out.MaxValue))
+                        Better++;
+                    if (Out == null || Type.Precision.IsGreaterThan(Out.Precision))
+                        Better += 2;
+
+                    if (Better > 1)
+                        Out = Type;
+                    }
+                }
+
+            return Out?.New(this) ?? this;
+            }
         }
     }

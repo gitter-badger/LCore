@@ -6,6 +6,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using LCore.Interfaces;
 using LCore.LUnit;
+using LCore.Tools;
 
 
 namespace LCore.Extensions
@@ -37,12 +38,12 @@ namespace LCore.Extensions
         /// Returns whether a given object has a property with a specific name
         /// </summary>
         /// <returns>Whether a given object has a property with a specific name</returns>
-        [TestResult(new object[] { null, null }, ExpectedResult: false)]
-        [TestResult(new object[] { null, "" }, ExpectedResult: false)]
-        [TestResult(new object[] { "", null }, ExpectedResult: false)]
-        [TestResult(new object[] { "", "" }, ExpectedResult: false)]
-        [TestResult(new object[] { "", "nope" }, ExpectedResult: false)]
-        [TestResult(new object[] { "", nameof(string.Length) }, ExpectedResult: true)]
+        [TestResult(new object[] {null, null}, ExpectedResult: false)]
+        [TestResult(new object[] {null, ""}, ExpectedResult: false)]
+        [TestResult(new object[] {"", null}, ExpectedResult: false)]
+        [TestResult(new object[] {"", ""}, ExpectedResult: false)]
+        [TestResult(new object[] {"", "nope"}, ExpectedResult: false)]
+        [TestResult(new object[] {"", nameof(string.Length)}, ExpectedResult: true)]
         public static bool HasProperty([CanBeNull] this object In, [CanBeNull] string PropertyName)
             {
             return L.Obj.HasProperty()(In, PropertyName);
@@ -66,34 +67,34 @@ namespace LCore.Extensions
 
             Properties.Each(Prop =>
                 {
-                    var Member = typeof(T).GetMember(Prop).First();
+                var Member = typeof(T).GetMember(Prop).First();
 
-                    if (In == null)
+                if (In == null)
+                    {
+                    Out.Add(Prop, value: null);
+                    }
+                else if (Member is PropertyInfo && ((PropertyInfo) Member).CanRead)
+                    {
+                    try
                         {
-                        Out.Add(Prop, value: null);
+                        Out.Add(Prop, ((PropertyInfo) Member).GetValue(In));
                         }
-                    else if (Member is PropertyInfo && ((PropertyInfo)Member).CanRead)
+                    catch (Exception Ex)
                         {
-                        try
-                            {
-                            Out.Add(Prop, ((PropertyInfo)Member).GetValue(In));
-                            }
-                        catch (Exception Ex)
-                            {
-                            Out.Add(Prop, Ex);
-                            }
+                        Out.Add(Prop, Ex);
                         }
-                    else if (Member is FieldInfo)
+                    }
+                else if (Member is FieldInfo)
+                    {
+                    try
                         {
-                        try
-                            {
-                            Out.Add(Prop, ((FieldInfo)Member).GetValue(In));
-                            }
-                        catch (Exception Ex)
-                            {
-                            Out.Add(Prop, Ex);
-                            }
+                        Out.Add(Prop, ((FieldInfo) Member).GetValue(In));
                         }
+                    catch (Exception Ex)
+                        {
+                        Out.Add(Prop, Ex);
+                        }
+                    }
                 });
 
 
@@ -146,8 +147,8 @@ namespace LCore.Extensions
         /// <summary>
         /// Returns the type of an object.
         /// </summary>
-        [TestResult(new object[] { 0 }, typeof(int), GenericTypes = new[] { typeof(int) })]
-        [TestResult(new object[] { "" }, typeof(string), GenericTypes = new[] { typeof(string) })]
+        [TestResult(new object[] {0}, typeof(int), GenericTypes = new[] {typeof(int)})]
+        [TestResult(new object[] {""}, typeof(string), GenericTypes = new[] {typeof(string)})]
         // ReSharper disable once UnusedParameter.Global
         public static Type Type<T>(this T In)
             {
@@ -228,7 +229,7 @@ namespace LCore.Extensions
                 var Enumerable = o1 as IEnumerable;
                 if (Enumerable != null && o2 is IEnumerable)
                     {
-                    return Enumerable.Equivalent((IEnumerable)o2);
+                    return Enumerable.Equivalent((IEnumerable) o2);
                     }
 
                 return o1.Equals(o2);
@@ -243,11 +244,11 @@ namespace LCore.Extensions
             /// </summary>
             public static readonly Func<object[], string> Objects_ToString = In =>
                 {
-                    return In.IsEmpty()
-                        ? ""
-                        : In.Convert(o => o == null
-                            ? "NULL"
-                            : $"{o.GetType()}:{o.ToString()}").Combine(", ");
+                return In.IsEmpty()
+                    ? ""
+                    : In.Convert(o => o == null
+                        ? "NULL"
+                        : $"{o.GetType()}:{o.ToString()}").Combine(", ");
                 };
 
             #endregion
@@ -257,6 +258,7 @@ namespace LCore.Extensions
             /// <summary>
             /// Retrieves a new <typeparamref name="T" />, passing <paramref name="Parameters" /> to the constructor.
             /// </summary>
+            [CanBeNull]
             public static T New<T>(params object[] Parameters)
                 {
                 return typeof(T).New<T>(Parameters);
@@ -272,7 +274,7 @@ namespace LCore.Extensions
             public static T NewRandom<T>(T? Minimum = null, T? Maximum = null)
                 where T : struct
                 {
-                var Out = (T?)NewRandom(typeof(T), Minimum, Maximum);
+                var Out = (T?) NewRandom(typeof(T), Minimum, Maximum);
 
                 return Out ?? default(T);
                 }
@@ -281,23 +283,23 @@ namespace LCore.Extensions
 
             internal static readonly Dictionary<Type, Func<Type, object[], object>> NewRandom_ArrayTypes = new Dictionary
                 <Type, Func<Type, object[], object>>
-                {
-                [typeof(Array)] = (ItemType, Items) =>
                     {
-                        var Out = (Array)ItemType.MakeArrayType().New(new object[] { Items.Length });
+                    [typeof(Array)] = (ItemType, Items) =>
+                        {
+                        var Out = (Array) ItemType.MakeArrayType().New(new object[] {Items.Length});
                         object Out2 = Out.Collect((i, Item) => Items[i]).Array();
 
                         return Out2;
-                    },
-                [typeof(List)] = (ItemType, Items) =>
-                    {
-                        object Out = (IList)typeof(List<>).MakeGenericType(ItemType).New();
+                        },
+                    [typeof(List)] = (ItemType, Items) =>
+                        {
+                        object Out = (IList) typeof(List<>).MakeGenericType(ItemType).New();
 
-                        Items.List().Each(Item => ((IList)Out)?.Add(Item));
+                        Items.List().Each(Item => ((IList) Out)?.Add(Item));
 
                         return Out;
-                    }
-                };
+                        }
+                    };
 
             #endregion
 
@@ -308,47 +310,47 @@ namespace LCore.Extensions
                     {
                     [typeof(IEnumerable)] = (Type, Min, Max) =>
                         {
-                            Func<Type, object[], object> ArrayType = NewRandom_ArrayTypes.Values.Random();
-                            var SelectedType = NewRandom_TypeCreators.Keys.Random();
+                        Func<Type, object[], object> ArrayType = NewRandom_ArrayTypes.Values.Random();
+                        var SelectedType = NewRandom_TypeCreators.Keys.Random();
+
+                        var RandomItems = new List<object>();
+
+                        // ReSharper disable once PossibleNullReferenceException
+                        int RandomCount = (int) NewRandom(typeof(int), Minimum: 1, Maximum: 50);
+
+                        A(() => { RandomItems.Add(NewRandom(SelectedType, Min, Max)); }).Repeat(RandomCount)();
+
+                        // ReSharper disable once ConvertIfStatementToReturnStatement
+                        // ReSharper disable once UseNullPropagation
+                        if (ArrayType != null)
+                            return ArrayType(SelectedType, RandomItems.Array());
+
+                        return null;
+                        },
+                    [typeof(IEnumerable<>)] = (Type, Min, Max) =>
+                        {
+                        if (Type.GetGenericArguments().Length == 1)
+                            {
+                            var EnumerableType = !Type.IsGenericTypeDefinition
+                                ? Type.GetGenericArguments()[0] ?? Type
+                                : NewRandom_TypeCreators.Keys.Random();
+
+                            Func<Type, object[], object> ArrayTypeCreator = NewRandom_ArrayTypes.Values.Random();
 
                             var RandomItems = new List<object>();
 
                             // ReSharper disable once PossibleNullReferenceException
-                            int RandomCount = (int)NewRandom(typeof(int), Minimum: 1, Maximum: 50);
+                            int RandomCount = (int) NewRandom(typeof(int), Minimum: 1, Maximum: 50);
 
-                            A(() => { RandomItems.Add(NewRandom(SelectedType, Min, Max)); }).Repeat(RandomCount)();
+                            A(() => { RandomItems.Add(NewRandom(EnumerableType, Min, Max)); }).Repeat(RandomCount)();
 
                             // ReSharper disable once ConvertIfStatementToReturnStatement
                             // ReSharper disable once UseNullPropagation
-                            if (ArrayType != null)
-                                return ArrayType(SelectedType, RandomItems.Array());
+                            if (ArrayTypeCreator != null)
+                                return ArrayTypeCreator(EnumerableType, RandomItems.Array());
+                            }
 
-                            return null;
-                        },
-                    [typeof(IEnumerable<>)] = (Type, Min, Max) =>
-                        {
-                            if (Type.GetGenericArguments().Length == 1)
-                                {
-                                var EnumerableType = !Type.IsGenericTypeDefinition
-                                    ? Type.GetGenericArguments()[0] ?? Type
-                                    : NewRandom_TypeCreators.Keys.Random();
-
-                                Func<Type, object[], object> ArrayTypeCreator = NewRandom_ArrayTypes.Values.Random();
-
-                                var RandomItems = new List<object>();
-
-                                // ReSharper disable once PossibleNullReferenceException
-                                int RandomCount = (int)NewRandom(typeof(int), Minimum: 1, Maximum: 50);
-
-                                A(() => { RandomItems.Add(NewRandom(EnumerableType, Min, Max)); }).Repeat(RandomCount)();
-
-                                // ReSharper disable once ConvertIfStatementToReturnStatement
-                                // ReSharper disable once UseNullPropagation
-                                if (ArrayTypeCreator != null)
-                                    return ArrayTypeCreator(EnumerableType, RandomItems.Array());
-                                }
-
-                            return null;
+                        return null;
                         }
                     };
 
@@ -368,68 +370,68 @@ namespace LCore.Extensions
                     [typeof(string)] = (Min, Max) => new Guid().ToString(),
                     [typeof(double)] = (Min, Max) =>
                         {
-                            double Minimum = (double?)Min ?? (double)int.MinValue;
-                            double Maximum = (double?)Max ?? (double)int.MaxValue;
+                        double Minimum = (double?) Min ?? (double) int.MinValue;
+                        double Maximum = (double?) Max ?? (double) int.MaxValue;
 
-                            return new Random().NextDouble() * Minimum - Maximum;
+                        return new Random().NextDouble()*Minimum - Maximum;
                         },
                     [typeof(char)] = (Min, Max) =>
                         {
-                            char Minimum = (char?)Min ?? char.MinValue;
-                            char Maximum = (char?)Max ?? char.MaxValue;
+                        char Minimum = (char?) Min ?? char.MinValue;
+                        char Maximum = (char?) Max ?? char.MaxValue;
 
-                            return (char)new Random().Next(Minimum, Maximum);
+                        return (char) new Random().Next(Minimum, Maximum);
                         },
                     [typeof(byte)] = (Min, Max) =>
                         {
-                            byte Minimum = (byte?)Min ?? byte.MinValue;
-                            byte Maximum = (byte?)Max ?? byte.MaxValue;
+                        byte Minimum = (byte?) Min ?? byte.MinValue;
+                        byte Maximum = (byte?) Max ?? byte.MaxValue;
 
-                            return (byte)new Random().Next(Minimum, Maximum);
+                        return (byte) new Random().Next(Minimum, Maximum);
                         },
                     [typeof(sbyte)] = (Min, Max) =>
                         {
-                            sbyte Minimum = (sbyte?)Min ?? sbyte.MinValue;
-                            sbyte Maximum = (sbyte?)Max ?? sbyte.MaxValue;
+                        sbyte Minimum = (sbyte?) Min ?? sbyte.MinValue;
+                        sbyte Maximum = (sbyte?) Max ?? sbyte.MaxValue;
 
-                            return (sbyte)new Random().Next(Minimum, Maximum);
+                        return (sbyte) new Random().Next(Minimum, Maximum);
                         },
                     [typeof(short)] = (Min, Max) =>
                         {
-                            short Minimum = (short?)Min ?? short.MinValue;
-                            short Maximum = (short?)Max ?? short.MaxValue;
+                        short Minimum = (short?) Min ?? short.MinValue;
+                        short Maximum = (short?) Max ?? short.MaxValue;
 
-                            return (short)new Random().Next(Minimum, Maximum);
+                        return (short) new Random().Next(Minimum, Maximum);
                         },
                     [typeof(ushort)] = (Min, Max) =>
                         {
-                            ushort Minimum = (ushort?)Min ?? ushort.MinValue;
-                            ushort Maximum = (ushort?)Max ?? ushort.MaxValue;
+                        ushort Minimum = (ushort?) Min ?? ushort.MinValue;
+                        ushort Maximum = (ushort?) Max ?? ushort.MaxValue;
 
-                            return (ushort)new Random().Next(Minimum, Maximum);
+                        return (ushort) new Random().Next(Minimum, Maximum);
                         },
                     [typeof(long)] = (Min, Max) =>
                         {
-                            long Minimum = (long?)Min ?? int.MinValue;
-                            long Maximum = (long?)Max ?? int.MaxValue;
-                            int MinimumInt = Minimum.ConvertTo<int>() ?? int.MinValue;
-                            int MaximumInt = Maximum.ConvertTo<int>() ?? int.MaxValue;
+                        long Minimum = (long?) Min ?? int.MinValue;
+                        long Maximum = (long?) Max ?? int.MaxValue;
+                        int MinimumInt = Minimum.ConvertTo<int>() ?? int.MinValue;
+                        int MaximumInt = Maximum.ConvertTo<int>() ?? int.MaxValue;
 
-                            return (long)new Random().Next(MinimumInt, MaximumInt);
+                        return (long) new Random().Next(MinimumInt, MaximumInt);
                         },
                     [typeof(int)] = (Min, Max) =>
                         {
-                            int Minimum = (int?)Min ?? int.MinValue;
-                            int Maximum = (int?)Max ?? int.MaxValue;
+                        int Minimum = (int?) Min ?? int.MinValue;
+                        int Maximum = (int?) Max ?? int.MaxValue;
 
-                            return new Random().Next(Minimum, Maximum);
+                        return new Random().Next(Minimum, Maximum);
                         },
                     [typeof(uint)] = (Min, Max) =>
                         {
-                            int Minimum = (int)((uint?)Min ?? uint.MinValue);
-                            int Maximum = (int)((uint?)Max ?? (uint)int.MaxValue);
+                        int Minimum = (int) ((uint?) Min ?? uint.MinValue);
+                        int Maximum = (int) ((uint?) Max ?? (uint) int.MaxValue);
 
-                            return (uint)new Random().Next(Minimum, Maximum);
+                        return (uint) new Random().Next(Minimum, Maximum);
                         }
                     };
 
@@ -449,10 +451,10 @@ namespace LCore.Extensions
                 if (Minimum != null || Maximum != null)
                     {
                     if (Minimum is IConvertible)
-                        Minimum = ((IConvertible)Minimum).ConvertTo(Type) ?? Minimum;
+                        Minimum = ((IConvertible) Minimum).ConvertTo(Type) ?? Minimum;
 
                     if (Maximum is IConvertible)
-                        Maximum = ((IConvertible)Maximum).ConvertTo(Type) ?? Maximum;
+                        Maximum = ((IConvertible) Maximum).ConvertTo(Type) ?? Maximum;
                     /*
                                         if (Minimum.IsType(Type) && Maximum.IsType(Type))
                                             if (Minimum is IConvertible && ((IConvertible)Minimum).CanConvertTo(typeof(int)) &&
@@ -492,7 +494,7 @@ namespace LCore.Extensions
                 if (Type.HasInterface<IConvertible>())
                     {
                     var Result =
-                        Rand.Next(((IConvertible)Minimum).ConvertTo<int>() ?? byte.MinValue, ((IConvertible)Maximum).ConvertTo<int>() ?? sbyte.MaxValue).ConvertTo(Type);
+                        Rand.Next(((IConvertible) Minimum).ConvertTo<int>() ?? byte.MinValue, ((IConvertible) Maximum).ConvertTo<int>() ?? sbyte.MaxValue).ConvertTo(Type);
 
                     if (Result.IsType(Type) || Result != null)
                         return Result;
@@ -541,7 +543,7 @@ namespace LCore.Extensions
             /// </summary>
             private static Action<U> Method<U>(string MethodName, [CanBeNull] params object[] Params)
                 {
-                Params = Params ?? new object[] { };
+                Params = Params ?? new object[] {};
 
                 var Method = typeof(U).GetMethod(MethodName, Params.GetTypes());
                 if (Method != null)
@@ -560,14 +562,14 @@ namespace LCore.Extensions
                 {
                 return (In, PropertyName) =>
                     {
-                        if (In == null)
-                            return false;
-                        PropertyName = PropertyName ?? "";
-                        var Member = In.GetType().GetMember(PropertyName).First();
+                    if (In == null)
+                        return false;
+                    PropertyName = PropertyName ?? "";
+                    var Member = In.GetType().GetMember(PropertyName).First();
 
-                        if (Member is PropertyInfo)
-                            return true;
-                        return Member is FieldInfo;
+                    if (Member is PropertyInfo)
+                        return true;
+                    return Member is FieldInfo;
                     };
                 }
 
@@ -578,25 +580,25 @@ namespace LCore.Extensions
                 {
                 return (In, PropertyName) =>
                     {
-                        if (In == null || PropertyName == null)
-                            return null;
-
-                        var Member = In.GetType().GetMember(PropertyName).First();
-
-                        if (Member is PropertyInfo)
-                            {
-                            var M2 = (PropertyInfo)Member;
-                            return M2.GetValue(In);
-                            }
-
-                        // ReSharper disable once UseNullPropagation
-                        if (Member is FieldInfo)
-                            {
-                            var M3 = (FieldInfo)Member;
-                            return M3.GetValue(In);
-                            }
-
+                    if (In == null || PropertyName == null)
                         return null;
+
+                    var Member = In.GetType().GetMember(PropertyName).First();
+
+                    if (Member is PropertyInfo)
+                        {
+                        var M2 = (PropertyInfo) Member;
+                        return M2.GetValue(In);
+                        }
+
+                    // ReSharper disable once UseNullPropagation
+                    if (Member is FieldInfo)
+                        {
+                        var M3 = (FieldInfo) Member;
+                        return M3.GetValue(In);
+                        }
+
+                    return null;
                     };
                 }
 
@@ -607,24 +609,24 @@ namespace LCore.Extensions
                 {
                 return (In, PropertyName, PropertyValue) =>
                     {
-                        if (In == null || string.IsNullOrEmpty(PropertyName))
-                            return;
+                    if (In == null || string.IsNullOrEmpty(PropertyName))
+                        return;
 
-                        var Member = In.GetType().GetMember(PropertyName).First();
+                    var Member = In.GetType().GetMember(PropertyName).First();
 
-                        var PropertyInfo = Member as PropertyInfo;
-                        if (PropertyInfo != null)
-                            {
-                            var M2 = PropertyInfo;
-                            M2.SetValue(In, PropertyValue);
-                            }
-                        else if (Member is FieldInfo)
-                            {
-                            var M3 = (FieldInfo)Member;
-                            M3.SetValue(In, PropertyValue);
-                            }
-                        else
-                            throw new ArgumentException($"{In.GetType().FullName} {PropertyName}");
+                    var PropertyInfo = Member as PropertyInfo;
+                    if (PropertyInfo != null)
+                        {
+                        var M2 = PropertyInfo;
+                        M2.SetValue(In, PropertyValue);
+                        }
+                    else if (Member is FieldInfo)
+                        {
+                        var M3 = (FieldInfo) Member;
+                        M3.SetValue(In, PropertyValue);
+                        }
+                    else
+                        throw new ArgumentException($"{In.GetType().FullName} {PropertyName}");
                     };
                 }
 
@@ -678,7 +680,7 @@ namespace LCore.Extensions.Optional
         public static void CopyFieldsTo<T>([CanBeNull] this T In, [CanBeNull] object Obj, [CanBeNull] Dictionary<string, string> CustomMapper = null)
             {
             In.CopyFieldsTo(Obj, CustomMapper == null
-                ? (Func<string, string>)(FieldName => FieldName)
+                ? (Func<string, string>) (FieldName => FieldName)
                 : (FieldName => CustomMapper.ContainsKey(FieldName)
                     ? CustomMapper[FieldName]
                     : FieldName));
@@ -720,7 +722,7 @@ namespace LCore.Extensions.Optional
 
                     var Member2 = Obj.GetType().GetMember(Name).First();
 
-                    if ((Member2 is PropertyInfo && ((PropertyInfo)Member2).CanWrite) ||
+                    if ((Member2 is PropertyInfo && ((PropertyInfo) Member2).CanWrite) ||
                         Member2 is FieldInfo)
                         Obj.SetProperty(Name, In.GetProperty(Member.Name));
                     }
@@ -745,32 +747,32 @@ namespace LCore.Extensions.Optional
 
             Out += typeof(T).GetMembers().CollectStr((i, Member) =>
                 {
-                    if (!(Member is PropertyInfo || Member is FieldInfo))
+                if (!(Member is PropertyInfo || Member is FieldInfo))
+                    return "";
+
+                string Out2 = Member.Name;
+
+                try
+                    {
+                    var FieldInfo = Member as FieldInfo;
+                    if (FieldInfo != null)
+                        {
+                        Out2 += $": {FieldInfo.GetValue(In)}\r\n";
+                        }
+                    var PropertyInfo = Member as PropertyInfo;
+                    if (PropertyInfo != null)
+                        {
+                        Out2 += $": {PropertyInfo.GetValue(In)}\r\n";
+                        }
+                    }
+                catch (Exception Ex)
+                    {
+                    if (!ShowErrorFields)
                         return "";
 
-                    string Out2 = Member.Name;
-
-                    try
-                        {
-                        var FieldInfo = Member as FieldInfo;
-                        if (FieldInfo != null)
-                            {
-                            Out2 += $": {FieldInfo.GetValue(In)}\r\n";
-                            }
-                        var PropertyInfo = Member as PropertyInfo;
-                        if (PropertyInfo != null)
-                            {
-                            Out2 += $": {PropertyInfo.GetValue(In)}\r\n";
-                            }
-                        }
-                    catch (Exception Ex)
-                        {
-                        if (!ShowErrorFields)
-                            return "";
-
-                        Out2 += $": {Ex.Message}\r\n";
-                        }
-                    return Out2;
+                    Out2 += $": {Ex.Message}\r\n";
+                    }
+                return Out2;
                 });
 
             Out += "}";
@@ -787,7 +789,7 @@ namespace LCore.Extensions.Optional
         /// </summary>
         public static Func<T[]> FN_CreateArray<T>(this T In)
             {
-            return () => new[] { In };
+            return () => new[] {In};
             }
 
         /// <summary>
@@ -801,9 +803,9 @@ namespace LCore.Extensions.Optional
 
             return () =>
                 {
-                    var Out = new T[Count];
-                    Out = Out.Fill(In);
-                    return Out;
+                var Out = new T[Count];
+                Out = Out.Fill(In);
+                return Out;
                 };
             }
 
@@ -821,8 +823,8 @@ namespace LCore.Extensions.Optional
             {
             return () =>
                 {
-                    var Out = new List<T> { In };
-                    return Out;
+                var Out = new List<T> {In};
+                return Out;
                 };
             }
 
@@ -838,11 +840,11 @@ namespace LCore.Extensions.Optional
 
             return () =>
                 {
-                    var Out = new List<T>();
-                    if (Count == 0)
-                        return Out;
-                    new Action(() => Out.Add(In)).Repeat((uint)Count - 1)();
+                var Out = new List<T>();
+                if (Count == 0)
                     return Out;
+                new Action(() => Out.Add(In)).Repeat((uint) Count - 1)();
+                return Out;
                 };
             }
 
@@ -856,7 +858,7 @@ namespace LCore.Extensions.Optional
         /// <typeparam name="T"></typeparam>
         /// <param name="In">The parameter will be returned by the function</param>
         /// <returns>A function that returns the input parameter <paramref name="In" /></returns>
-        public static Func<T> FN_Func<T>(this T In)
+        public static Func<T> FN_Func<T>([CanBeNull] this T In)
             {
             return L.Logic.Return(In);
             }
@@ -871,7 +873,7 @@ namespace LCore.Extensions.Optional
         /// <typeparam name="T"></typeparam>
         /// <param name="In"></param>
         /// <returns>A function that returns true if the object supplied is equal to the Input parameter</returns>
-        public static Func<T, bool> FN_If<T>(this T In)
+        public static Func<T, bool> FN_If<T>([CanBeNull] this T In)
             {
             return Obj => L.Obj.SafeEquals(In, Obj);
             }
@@ -931,8 +933,8 @@ namespace LCore.Extensions.Optional
         /// <typeparam name="T"></typeparam>
         /// <param name="In"></param>
         /// <returns></returns>
-        [TestResult(new object[] { null }, ExpectedResult: true)]
-        [TestResult(new object[] { "" }, ExpectedResult: false)]
+        [TestResult(new object[] {null}, ExpectedResult: true)]
+        [TestResult(new object[] {""}, ExpectedResult: false)]
         [TestMethodGenerics(typeof(string))]
         public static bool IsNull<T>(this T In)
             {
@@ -948,11 +950,11 @@ namespace LCore.Extensions.Optional
         /// </summary>
         /// <param name="In">The set of objects</param>
         /// <returns></returns>
-        [TestResult(new object[] { null }, "")]
-        [TestResult(new object[] { new object[] { } }, "")]
-        [TestResult(new object[] { new object[] { null } }, "NULL")]
-        [TestResult(new object[] { new object[] { "" } }, "System.String:")]
-        [TestResult(new object[] { new object[] { "a", 1, 2, 3.6f } }, "System.String:a, System.Int32:1, System.Int32:2, System.Single:3.6")]
+        [TestResult(new object[] {null}, "")]
+        [TestResult(new object[] {new object[] {}}, "")]
+        [TestResult(new object[] {new object[] {null}}, "NULL")]
+        [TestResult(new object[] {new object[] {""}}, "System.String:")]
+        [TestResult(new object[] {new object[] {"a", 1, 2, 3.6f}}, "System.String:a, System.Int32:1, System.Int32:2, System.Single:3.6")]
         public static string Objects_ToString([CanBeNull] this IEnumerable<object> In)
             {
             return L.Obj.Objects_ToString(In.Array());
@@ -968,7 +970,7 @@ namespace LCore.Extensions.Optional
         /// <param name="In"></param>
         /// <param name="Obj"></param>
         /// <returns>True if the objects are equal otherwise false</returns>
-        public static bool SafeEquals(this object In, object Obj)
+        public static bool SafeEquals([CanBeNull] this object In, [CanBeNull] object Obj)
             {
             return L.Obj.SafeEquals(In, Obj);
             }

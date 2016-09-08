@@ -11,6 +11,7 @@ using Xunit;
 using Xunit.Abstractions;
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable PartialTypeWithSinglePart
+// ReSharper disable AssignNullToNotNullAttribute
 
 namespace L_Tests.LCore.Extensions
     {

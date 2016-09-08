@@ -7,6 +7,7 @@ using LCore.LUnit.Fluent;
 using Xunit;
 using Xunit.Abstractions;
 // ReSharper disable PartialTypeWithSinglePart
+// ReSharper disable AssignNullToNotNullAttribute
 
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Global

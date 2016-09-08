@@ -47,6 +47,7 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 #if !NETCF_1_0
 using ICSharpCode.SharpZipLib.Encryption;
 // ReSharper disable MemberCanBeMadeStatic.Local
+// ReSharper disable AssignNullToNotNullAttribute
 #endif
 // ReSharper disable UnusedParameter.Global
 // ReSharper disable UnusedMethodReturnValue.Global

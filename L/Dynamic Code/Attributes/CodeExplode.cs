@@ -40,6 +40,7 @@ namespace LCore.Dynamic
         public string ClassName => this.CodeFileName;
 
         protected CodeExplode(Type T)
+            // ReSharper disable once AssignNullToNotNullAttribute
             : this(T.FullName, T.Name, T.Namespace)
             {
             }

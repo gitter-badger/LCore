@@ -8,6 +8,7 @@ using LCore.Tools;
 using Xunit;
 using Xunit.Abstractions;
 
+// ReSharper disable AssignNullToNotNullAttribute
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable PossibleUnintendedReferenceComparison
 // ReSharper disable RedundantCast
@@ -17,9 +18,14 @@ namespace L_Tests.LCore.Tools
     {
     public partial class Set_2Tester : XUnitOutputTester, IDisposable
         {
-        public Set_2Tester([NotNull] ITestOutputHelper Output) : base(Output) {}
+        public Set_2Tester([NotNull] ITestOutputHelper Output) : base(Output)
+            {
+            }
 
-        public void Dispose() {}
+        public void Dispose()
+            {
+            }
+
         private readonly Set<int, string> _Test = new Set<int, string>(Obj1: 5, Obj2: "4");
         private readonly Set<int, string> _Test2 = new Set<int, string>(Obj1: 5, Obj2: "4");
         private readonly Set<int?, string> _Test3 = new Set<int?, string>(Obj1: null, Obj2: null);
@@ -82,7 +88,7 @@ namespace L_Tests.LCore.Tools
 
             (Set == this._Test).ShouldBeTrue();
             }
-        
+
         [Fact]
         public void TestSets()
             {

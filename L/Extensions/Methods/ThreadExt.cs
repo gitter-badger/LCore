@@ -5,6 +5,10 @@ using JetBrains.Annotations;
 using LCore.Interfaces;
 using LCore.LUnit;
 using LCore.Tools;
+#if DEBUG
+using System.Diagnostics;
+
+#endif
 // ReSharper disable PossibleNullReferenceException
 
 namespace LCore.Extensions
@@ -589,9 +593,7 @@ namespace LCore.Extensions
                 L.Thread.MethodProfileData_Add(ProfileName, Cache);
                 }
 #if DEBUG
-
             Debug.Assert(Cache != null, "Cache != null");
-            
 #endif
             return () =>
                 {
@@ -671,7 +673,7 @@ namespace LCore.Extensions
             /// </summary>
             public static bool MethodProfileData_Has([CanBeNull] string Method)
                 {
-                return _MethodProfileCache.ContainsKey(Method);
+                return Method != null && _MethodProfileCache.ContainsKey(Method);
                 }
 
             #endregion
