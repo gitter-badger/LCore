@@ -373,7 +373,11 @@ namespace LCore.Extensions
                         double Minimum = (double?) Min ?? (double) int.MinValue;
                         double Maximum = (double?) Max ?? (double) int.MaxValue;
 
-                        return new Random().NextDouble()*Minimum - Maximum;
+                        // return new Random().NextDouble()*Minimum - Maximum;
+
+                            var Range = Maximum - Minimum;
+                        
+                            return new Random().NextDouble() * Range + Minimum;
                         },
                     [typeof(char)] = (Min, Max) =>
                         {
