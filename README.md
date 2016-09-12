@@ -3,6 +3,8 @@
 
 ## Home
 
+[![Join the chat at https://gitter.im/CodeSingularity/LCore](https://badges.gitter.im/CodeSingularity/LCore.svg)](https://gitter.im/CodeSingularity/LCore?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### Installation Instructions
 Add LCore as a nuget package:
 ```cs
